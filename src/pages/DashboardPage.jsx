@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthenticationContext';
 
-function Dashboard() {
+function DashboardPage() {
   const navigate = useNavigate()
   const { user } = useAuth();
 
@@ -58,4 +58,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default DashboardPage;

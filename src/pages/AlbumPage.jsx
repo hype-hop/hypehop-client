@@ -1,7 +1,7 @@
 //import React, { useState, useEffect } from 'react';
 
 
-function Album() {
+function AlbumPage() {
 /*
     const [data, setData] = useState(null);
 
@@ -37,4 +37,4 @@ function Album() {
   );
 }
 
-export default Album;
+export default AlbumPage;

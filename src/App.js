@@ -3,11 +3,11 @@ import './App.css';
 import {BrowserRouter,Route, Routes} from 'react-router-dom';
 
 //import Header from './components/Header';
-import Login from './pages/LoginPage';
-import Join from './pages/JoinPage';
-import Dashboard from './pages/DashboardPage';
-import Reviews from './pages/ReviewsPage';
-import Album from './pages/AlbumPage';
+import LoginPage from './pages/LoginPage';
+import JoinPage from './pages/JoinPage';
+import DashboardPage from './pages/DashboardPage';
+import ReviewsPage from './pages/ReviewsPage';
+import AlbumPage from './pages/AlbumPage';
 
 
 function App() {
@@ -19,12 +19,12 @@ function App() {
 
        
 <Routes>
-<Route path="/" element={<Login/>} />
-<Route path="/login" element={<Login/>} />
-<Route path="/join" element={<Join/>} />
-<Route path="/dashboard" element={<Dashboard/>} />
-<Route path="/album" element={<Album/>} />
-<Route path="/album/review" element={<Reviews/>} />
+<Route path="/" element={<LoginPage/>} />
+<Route path="/login" element={<LoginPage/>} />
+<Route path="/join" element={<JoinPage/>} />
+<Route path="/dashboard" element={<DashboardPage/>} />
+<Route path="/album" element={<AlbumPage/>} />
+<Route path="/album/review" element={<ReviewsPage/>} />
 </Routes>
 
 

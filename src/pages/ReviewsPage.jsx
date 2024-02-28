@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-function Reviews() {
+function ReviewsPage() {
 
     const [data, setData] = useState(null);
 
@@ -45,4 +45,4 @@ function Reviews() {
   );
 }
 
-export default Reviews;
+export default ReviewsPage;
