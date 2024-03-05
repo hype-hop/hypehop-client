@@ -6,11 +6,14 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css'
 
 
-const EditorBox = ({onContentChange}) => {
+const EditorBox = ({onContentChange,value}) => {
  
 
   const editorRef=useRef()
   const [content, setContent]=useState('')
+  //const [body, setBody]=useState('')
+
+
 
   const handleChange = () => {
     const data = editorRef.current.getInstance().getHTML();
@@ -18,13 +21,21 @@ const EditorBox = ({onContentChange}) => {
     onContentChange(data)
    
   };
-
+  useEffect(() => {
+    if (value) {
+      setContent(value);
+      
+    }
+  }, [value]);
 
 useEffect(() => {
   const editorContainer = editorRef.current.getInstance().options.el;
   editorContainer.style.textAlign = 'left';
   
 }, []); 
+
+
+
 
   const customToolbar=[
     ['heading', 'bold','italic','strike'],
@@ -34,9 +45,12 @@ useEffect(() => {
   ]
 
   return (
+   
     <div>
       <Editor
         initialValue={' '}
+        //initialValue={value? value :' ' }
+       // initialValue={content}
         previewStyle="vertical"
         height="500px"
         initialEditType="wysiwyg"
@@ -49,6 +63,7 @@ useEffect(() => {
         
       />
    
+
     </div>
   );
 };

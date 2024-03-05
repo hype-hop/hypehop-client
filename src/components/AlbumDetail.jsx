@@ -60,6 +60,11 @@ console.log(data)
   <p>앨범 평점: 평점이 없습니다.</p>
 )}
 
+<div>장르: {data?.spotify_artist_genre.map(
+  genre=>(
+    <div>{genre} </div>
+  )
+)}</div>
             
 
             <p>Release Date: {data?.albumData.release_date}</p>

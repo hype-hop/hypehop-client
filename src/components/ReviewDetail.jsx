@@ -19,7 +19,7 @@ function ReviewDetail({data}) {
         <img 
         style={{ width: '50px', height: '50px' }}
         src={data?.review.user.image} alt="user-image" />
-        <a style={{ color: 'black' }} href={`/stories/user/${data?.review.user._id}`}>
+        <a style={{ color: 'black' }} href={`/user/${data?.review.user._id}`}>
           {data?.review.user.name ? <>{data?.review.user.name}</> : <>{data?.review.user.displayName}</>}
         </a>
       </div>

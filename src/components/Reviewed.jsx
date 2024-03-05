@@ -19,7 +19,7 @@ function Reviewed({data}) {
         <img 
         style={{ width: '50px', height: '50px' }}
         src={review.user.image} alt="user-image" />
-        <a style={{ color: 'black' }} href={`/stories/user/${review.user._id}`}>
+        <a style={{ color: 'black' }} href={`/user/${review.user._id}`}>
           {review.user.name ? <>{review.user.name}</> : <>{review.user.displayName}</>}
         </a>
       </div>

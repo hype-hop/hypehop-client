@@ -2,9 +2,9 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState,useEffect } from 'react';
-import EditorBox from '../components/EditorBox';
+import EditorBox from './EditorBox';
 
-function WriteReview({data}) {
+function EditReview({data,id}) {
 
 
   const [reviewContent, setReviewContent] = useState('');
@@ -15,7 +15,7 @@ function WriteReview({data}) {
   const tracksByDisc = {};
   const tracks=[]
 
-
+console.log(data)
 
 const [trackRating, setTrackRating] = useState([]);
   
@@ -25,23 +25,13 @@ const [trackRating, setTrackRating] = useState([]);
     status: 'public',
     albumRating:0,
     body:'',
-    albumTitle: data?.pageTitle,
-    albumId: data?.albumData.id,
-    thumbnail:data?.albumData.images[1].url,
-    user:data?.loggedInUser,
-    albumReleaseDate: data?.albumData.release_date,
-    trackTitle:[],
-    artistGenre:[]
-  
-    
-    
-    
-    
+
+ 
   });
 
 
 
-
+{/*
   data?.albumData.tracks.items.forEach((track,index) => {
       const discNumber = track.disc_number || 1; 
       if (!tracksByDisc[discNumber]) {
@@ -50,25 +40,25 @@ const [trackRating, setTrackRating] = useState([]);
       tracksByDisc[discNumber].push(track);
       tracks.push(`disc${discNumber-1}-${index + 1}.${track.name}`)
     });
-
+  */}
 
 
   useEffect(() => {
     if (data) {
       setFormData({
         ...formData,
-        albumId: data.albumData.id,
-        albumTitle: data?.pageTitle,
-        thumbnail: data.albumData.images[1].url,
-        albumReleaseDate: data.albumData.release_date,
-        user:data?.loggedInUser,
-        trackTitle:tracks,
-        artistGenre:data?.spotify_artist_genre
+        title: data?.review.title,
+        status: data?.review.status,
+        albumRating:data?.review.albumRating,
+        body:data?.review.body,
+     
      
       });
+      
+      {/*
       const trackRatingArray = Array(data?.albumData.tracks.items.length || 0).fill(null);
       setTrackRating(trackRatingArray);
-
+    */}
     }
   }, [data]);
 
@@ -83,7 +73,7 @@ const [trackRating, setTrackRating] = useState([]);
 
 
   const handleSubmit = (e) => {
-    console.log(trackRating)
+
 
 if(formData.albumRating !== 0 && formData.title!==''){
  
@@ -95,7 +85,7 @@ if(formData.albumRating !== 0 && formData.title!==''){
   };
 
 
-  fetch('/album/api/review/create', {
+  fetch(`/album/api/review/${id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -125,7 +115,7 @@ else if(formData.title==''){
 
   
 
-
+/*
     const renderTracks = Object.keys(tracksByDisc).map(discNumber => (
       <div key={discNumber}>
         <h3>Disc {discNumber}</h3>
@@ -158,10 +148,10 @@ else if(formData.title==''){
       </div>
     ));
 
-
+*/
 
   return (
-    <div className="Write-review">
+    <div className="Edit-review">
 
 <h3>작성페이지</h3>
 
@@ -188,8 +178,9 @@ else if(formData.title==''){
 
     <h5>트랙별 평점:</h5>
 
+   {/*
     {renderTracks}
-
+  */}
 
 
 
@@ -222,6 +213,7 @@ else if(formData.title==''){
 
           <EditorBox 
           onContentChange={handleContentChange}
+          value={formData.body}
           
           />
 
@@ -231,9 +223,9 @@ else if(formData.title==''){
 
 
 
-
+{/*
 <button onClick={handleSubmit}>Save</button>
-
+*/}
 
 
 
@@ -248,4 +240,4 @@ else if(formData.title==''){
   );
 }
 
-export default WriteReview;
+export default EditReview;

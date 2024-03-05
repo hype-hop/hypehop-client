@@ -85,7 +85,7 @@ function Comment({comments, reviewId}) {
         <img 
         style={{ width: '50px', height: '50px' }}
         src={comment.user.image} alt="user-image" />
-        <a style={{ color: 'black' }} href={`/stories/user/${comment.user._id}`}>
+        <a style={{ color: 'black' }} href={`/user/${comment.user._id}`}>
           {comment.user.name ? <>{comment.user.name}</> : <>{comment.user.displayName}</>}
         </a>
       </div>
