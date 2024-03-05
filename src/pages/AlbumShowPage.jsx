@@ -12,7 +12,7 @@ function AlbumShowPage() {
 
   const [data, setData] = useState(null);
 
-  const { user } = useAuth();
+
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(true)
 
@@ -29,7 +29,7 @@ function AlbumShowPage() {
         const result = await response.json();
         setData(result);
 
-        
+        console.log(result.spotify_artist_genre)
       
        
   
@@ -51,6 +51,8 @@ function AlbumShowPage() {
   
   return (
     <div className="Album-show">
+
+<h3>AlbumShowPage.jsx</h3>
 
 <AlbumDetail data={data}/>
 <Reviewed data={data}/>

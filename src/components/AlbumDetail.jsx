@@ -4,7 +4,7 @@ import WriteReview from "./WriteReview";
 
 function AlbumDetail({data}) {
 
-console.log(data)
+
 
     const tracksByDisc = {};
 
