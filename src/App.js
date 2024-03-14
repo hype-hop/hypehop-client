@@ -8,6 +8,10 @@ import JoinPage from './pages/JoinPage';
 import DashboardPage from './pages/DashboardPage';
 import ReviewsPage from './pages/ReviewsPage';
 import AlbumPage from './pages/AlbumPage';
+import AlbumShowPage from './pages/AlbumShowPage';
+import ReviewShowPage from './pages/ReviewShowPage';
+import UserPage from './pages/UserPage';
+import EditPage from './pages/EditPage';
 
 
 function App() {
@@ -24,7 +28,11 @@ function App() {
 <Route path="/join" element={<JoinPage/>} />
 <Route path="/dashboard" element={<DashboardPage/>} />
 <Route path="/album" element={<AlbumPage/>} />
+<Route path="/album/:id" element={<AlbumShowPage/>} />
 <Route path="/album/review" element={<ReviewsPage/>} />
+<Route path="/album/review/:id" element={<ReviewShowPage/>} />
+<Route path="/album/review/edit/:id" element={<EditPage/>} />
+<Route path="/user/:userId" element={<UserPage/>} />
 </Routes>
 
 
