@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 import theme from '../theme';
 import {Typography} from '@mui/material';
 
-function ReviewsPage() {
+function ReviewMain() {
 
     const [data, setData] = useState(null);
 
@@ -30,17 +30,17 @@ function ReviewsPage() {
  
   
   return (
-    <div className="Reviews">
+    <div className="ReviewsMain">
 
 
-<h1>ReviewsPage.jsx</h1>
+<h1>최근리뷰</h1>
 
 
-<PopularReview/>
+
 
 
 {Array.isArray(data?.reviews)
-          ? data.reviews.map(review => <div>
+          ? data.reviews.slice(0,6).map(review => <div>
 
 
 <div id={review._id} class="card-content ">
@@ -111,4 +111,4 @@ function ReviewsPage() {
   );
 }
 
-export default ReviewsPage;
+export default ReviewMain;

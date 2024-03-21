@@ -1,9 +1,28 @@
 
 import { Link } from 'react-router-dom';
+import { useState,useEffect } from 'react';
 
-function RecentlyReviewed({data}) {
+function RecentlyReviewed() {
 
+  const [data, setData] = useState(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/album/api');
+        const result = await response.json();
+        setData(result);
+       
+     //console.log(result)
+       
+      } catch (error) {
+        console.error('Error fetching data:', error);
+   
+      }
+    };
+
+    fetchData();
+  }, []);
 
 
 
