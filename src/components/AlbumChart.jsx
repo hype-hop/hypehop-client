@@ -1,9 +1,28 @@
 
 import { Link } from 'react-router-dom';
+import { useState,useEffect } from 'react';
 
-function AlbumChart({data}) {
+function AlbumChart() {
 
+  const [data, setData] = useState(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/album/api');
+        const result = await response.json();
+        setData(result);
+       
+     //console.log(result)
+       
+      } catch (error) {
+        console.error('Error fetching data:', error);
+   
+      }
+    };
+
+    fetchData();
+  }, []);
    
 
 
@@ -20,7 +39,7 @@ function AlbumChart({data}) {
 
 
 <div class="title">
-		<h1>Top chart</h1>
+		<h1>인기 리뷰 앨범</h1>
 		<p>하입합 유저들의 평가를 반영한 차트입니다.<br/>앨범의 평균 평점과 평가 수를 반영합니다.</p>
 	</div>
 
