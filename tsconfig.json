@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "ESNext",
+    "target": "ES2022",
+    "module": "NodeNext",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "noImplicitAny": true,
-    "jsx": "react-jsx"
+    "noImplicitAny": false,
+    "jsx": "react-jsx",
+    "moduleResolution": "NodeNext"
   }
 }
