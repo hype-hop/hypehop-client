@@ -26,21 +26,33 @@ export default function MenuAppBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1}}>
+    <Box sx={{ flexGrow: 1, height:60}}>
   
      
-      <AppBar position="static" elevation={0} sx={{ height: 60, backgroundColor:'rgb(25,25,25)' ,
-    borderBottom:'1px solid rgb(47,47,47)' }} >
+      <AppBar 
+      position="static" 
+      elevation={0} 
+      sx={{ 
+        height: 60,
+        backgroundColor:'rgb(25,25,25)' ,
+        borderBottom:'1px solid rgb(47,47,47)',
+        padding:{lg:'0% 7% 0% 7%'},
+        justifyContent:{md:'space-between',},
+      
+        
+
+             }} >
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="primary"
             aria-label="menu"
-            sx={{ mr: 2}}
+          
+           
           
           >
-            <MenuIcon sx={{width:22.13, height:14.62}}/>
+            <MenuIcon sx={{width:30, height:30,}}/>
           </IconButton>
           <Typography variant="h1" color='primary' component="div" sx={{ flexGrow: 1 }}>
             LOGO
