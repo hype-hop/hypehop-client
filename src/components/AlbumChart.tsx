@@ -38,7 +38,7 @@ function AlbumChart() {
       </div>
 
       {Array.isArray(data?.top5Albums) ? (
-        data.top5Albums.map((item) => (
+        data?.top5Albums.map((item) => (
           <Link to={`${item.albumId}`} key={item.albumId}>
             <div className="box">
               <div className="number"></div>
