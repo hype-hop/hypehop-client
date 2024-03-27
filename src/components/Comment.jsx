@@ -96,7 +96,7 @@ function Comment({comments, reviewId}) {
 
 
     {comment.user._id === user?._id && (
-            <form action={`/api/comments/delete/${comment._id}`} method="POST" id="delete-form">
+            <form action={`/api/comments/${reviewId}/delete/${comment._id}`} method="POST" id="delete-form">
               <input type="hidden" name="_method" value="DELETE" />
               <button type="submit">
                 삭제

@@ -15,6 +15,7 @@ function ReviewShowPage() {
         const response = await fetch(`/album/api/review/${id}`);
         const result = await response.json();
         setData(result);
+        console.log(result)
 
        
       } catch (error) {

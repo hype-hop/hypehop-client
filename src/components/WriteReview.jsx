@@ -220,11 +220,12 @@ else if(formData.title==''){
                 <h5>리뷰 작성하기:</h5>
 
 
+{/*
           <EditorBox 
           onContentChange={handleContentChange}
           
           />
-
+  */}
        
         </div>
 
