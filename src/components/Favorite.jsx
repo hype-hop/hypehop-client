@@ -3,8 +3,9 @@ import { useAuth } from "../AuthenticationContext";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-function Favorite({reviewId}) {
+import { Typography,Box } from '@mui/material';
+import { DisplaySettings } from '@mui/icons-material';
+function Favorite({reviewId,numberOfFavorite}) {
 
   const { user } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
@@ -85,14 +86,24 @@ function Favorite({reviewId}) {
     <div className="Favorite">
 
 
-
+<Box sx={{display:'flex'}}>
 <FontAwesomeIcon
       icon={heartIcon}
       className="hover:cursor-pointer hover:text-red-200"
+      size='1x'
       onClick={addToFavorite}
     />
 
 
+<Typography sx={{
+  color:'rgb(168,168,168)',
+  fontSize: '12px',
+  FontAwesomeIcon: '300',
+  margin:'0px 8px'
+}}
+>좋아요 {numberOfFavorite}개 </Typography>
+
+</Box>
 
 
     </div>

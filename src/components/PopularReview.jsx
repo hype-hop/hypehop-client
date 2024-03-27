@@ -27,7 +27,7 @@ function PopularReview() {
   return (
     <div className="Popular-review">
 
-<h1>PopularReview</h1>
+<h1>인기 하입합퍼</h1>
 
 <div class="popular card">
    

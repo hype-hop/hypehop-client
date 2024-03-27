@@ -2,7 +2,7 @@
 import './App.css';
 import {BrowserRouter,Route, Routes} from 'react-router-dom';
 
-//import Header from './components/Header';
+import Header from './components/Header';
 import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
 import DashboardPage from './pages/DashboardPage';
@@ -12,7 +12,7 @@ import AlbumShowPage from './pages/AlbumShowPage';
 import ReviewShowPage from './pages/ReviewShowPage';
 import UserPage from './pages/UserPage';
 import EditPage from './pages/EditPage';
-
+import MainPage from './pages/MainPage';
 
 function App() {
   
@@ -21,9 +21,9 @@ function App() {
     <BrowserRouter>
     <div className="App">
 
-       
+    <Header/>   
 <Routes>
-<Route path="/" element={<LoginPage/>} />
+<Route path="/" element={<MainPage/>} />
 <Route path="/login" element={<LoginPage/>} />
 <Route path="/join" element={<JoinPage/>} />
 <Route path="/dashboard" element={<DashboardPage/>} />

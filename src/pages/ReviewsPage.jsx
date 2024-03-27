@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Favorite from '../components/Favorite';
 import PopularReview from '../components/PopularReview';
+import { Button } from '@mui/material';
+import theme from '../theme';
+import {Typography} from '@mui/material';
 
 function ReviewsPage() {
 
@@ -44,22 +47,26 @@ function ReviewsPage() {
 
 
 
-<div className="chip-chip">
-        <img 
+<div>
+    <img 
         style={{ width: '50px', height: '50px' }}
         src={review.user.image} alt="user-image" />
-        <a style={{ color: 'black' }} href={`/user/${review.user._id}`}>
-          {review.user.name ? <>{review.user.name}</> : <>{review.user.displayName}</>}
-        </a>
-       
-      </div>
+    <Typography 
+        //variant='body1'
+        color="primary" 
+        component="a" 
+        href={`/user/${review.user._id}`}
+    >
+        {review.user.name ? <>{review.user.name}</> : <>{review.user.displayName}</>}
+    </Typography>
+</div>
 
 
 
 <div className='reviewedAblum'>
 <Link to={`/album/${review.albumId}`}>
             <img className='thumbnail' src={review.thumbnail} alt="album-cover" />
-            {review.albumTitle}
+         <p>   {review.albumTitle} </p>
             <p>{review.albumRating}</p>
 </Link>
 </div>
@@ -80,10 +87,10 @@ function ReviewsPage() {
 <Favorite reviewId={review._id}/>
 
 <Link to={`/album/review/${review._id}`}>
-    <button class="comment">   
+    <Button variant='outlined' color='primary'>   
           댓글    
 
-    </button>
+    </Button>
   </Link>
 
 
