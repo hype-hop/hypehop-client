@@ -9,24 +9,37 @@ const theme= createTheme({
         fontSize: '14px', 
         lineHeight: '-1px', 
         letterSpacing: '-4%',
-       /* 
+       
         h1: {
             color: 'rgb(255, 255, 255)',
             fontFamily: 'Pretendard',
-            fontSize: '30px',
             fontWeight: '700',
             lineHeight: -1,
             letterSpacing: 0,
             textAlign: 'left',
         },
         
-        h2: {
-            fontSize: '2rem', 
-        },
         body1: {
-            fontSize: '1rem', 
+            textAlign:'left', 
+            mt:'13px', 
         },
-        */
+        body2: {
+            fontSize: '12px',
+            fontWeight: '300',
+            lineHeight: '15px',
+            letterSpacing: '-4%',
+            color: 'rgb(215, 215, 215)',
+        },
+        timeSincePost:{
+            color:'rgb(86,87,87)',
+            fontSize:'12px',
+            fontWeight:'400',
+            lineHeight: '-1px',
+            letterSpacing: '-4%',
+            textAlign: 'left',
+            alignContent:'center'
+        }
+        
     },
     palette:{
         background:{
@@ -42,9 +55,7 @@ const theme= createTheme({
         secondary:{
             main:'rgb(215,215,215)',
         },
-        customLabels:{
-            label1:blue[500]
-        }
+    
 
     },
     components:{

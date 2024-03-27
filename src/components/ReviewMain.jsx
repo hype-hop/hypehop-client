@@ -29,16 +29,7 @@ function ReviewMain() {
     <Container //maxWidth="md" 
     sx={{marginTop:'105px'}} >
 <Box sx={{display:'flex',justifyContent: 'space-between', alignItems: 'center'  }}>
-      <Typography variant="h1" sx={{
-        color: 'rgb(255, 255, 255)',
-        fontFamily: 'Pretendard',
-        fontSize: '30px',
-        fontWeight: '700',
-        lineHeight: '-1px',
-        letterSpacing: '0%',
-        textAlign: 'left',
-        
-      }}
+      <Typography variant="h1"
        >최근리뷰  </Typography>
        <Button variant='outlined' sx={{mb:0}}>
         <Link to={'/album/review'} style={{ textDecoration: 'none', color: 'inherit' }} >더보기</Link>
@@ -89,7 +80,7 @@ function ReviewMain() {
                       style={{ width: '28px', height: '28px', borderRadius: '50%', }}
                       src={review.user.image} alt="user" 
                     />
-                    <Typography variant="text.primary" color="primary" sx={{
+                    <Typography variant="body1" color="primary" sx={{
                       alignContent:'center', 
                       ml:1,
                       maxWidth:'100px',
@@ -103,20 +94,10 @@ function ReviewMain() {
                       </Link>
                     </Typography>
                     
-                    <Typography sx={{
-                    
-                      color:'rgb(86,87,87)',
-                      fontSize:'12px',
-                      fontWeight:'400',
-                      lineHeight: '-1px',
-                      letterSpacing: '-4%',
-                      textAlign: 'left',
-                      ml:'4px',
-                      alignContent:'center'
-                      
-
-                    }}
-                    ><TimeSincePost createdAt={review.createdAt}/> </Typography>
+                    <Typography variant='timeSincePost' sx={{
+                      ml:'4px'
+                    }}> 
+                    <TimeSincePost createdAt={review.createdAt} /> </Typography>
 
                       
                       <Box sx={{
@@ -153,23 +134,17 @@ function ReviewMain() {
                 
                   <Link to={`/album/review/${review._id}`} style={{color:'inherit', textDecoration:'none'}}>
                     <Box sx={{width:'234px', height:'74px'}}>
-                  <Typography  variant="h5" component="div" sx={{
-                    textAlign:'left', 
-                    mt:'13px',
+                  <Typography  variant="body1" component="div" sx={{
                     whiteSpace:'nowrap',
                     overflow:'hidden',
                     textOverflow:'ellipsis',
                     }}>
                     {review.title}
                   </Typography>
-                  <Typography component="div" color="text.secondary" sx={{
+                  <Typography variant='body2' component="div" color="text.secondary" sx={{
                     textAlign:'left',
                     mt:'6px',
-                    color: 'rgb(215, 215, 215)',
-                    fontSize: '12px',
-                    fontWeight: '300',
-                    lineHeight: '15px',
-                    letterSpacing: '-4%',
+                    
                     height:'45px',              
                     overflow:'hidden',
                     textOverflow:'ellipsis',
