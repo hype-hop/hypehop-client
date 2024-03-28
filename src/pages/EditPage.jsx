@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAuth } from '../AuthenticationContext';
 import { useNavigate } from 'react-router-dom';
 import EditReview from '../components/EditReview';
+import BASE_URL from '../config';
 
 
 function EditPage() {
@@ -18,7 +19,7 @@ function EditPage() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`/album/api/review/edit/${id}`);
+        const response = await fetch(`${BASE_URL}/album/api/review/edit/${id}`);
         const result = await response.json();
         setData(result);
 

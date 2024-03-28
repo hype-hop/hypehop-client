@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import BASE_URL from '../config';
 
 
 function PopularReview() {
@@ -9,7 +10,7 @@ function PopularReview() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/album/api/review/`);
+        const response = await fetch(`${BASE_URL}/album/api/review/`);
         const result = await response.json();
         setData(result);
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthenticationContext';
 import { Link } from 'react-router-dom';
+import BASE_URL from '../config';
 
 function DashboardPage() {
   const navigate = useNavigate()
@@ -16,7 +17,7 @@ function DashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/dashboard');
+        const response = await fetch(`${BASE_URL}/api/dashboard`);
         const result = await response.json();
         setData(result);
        

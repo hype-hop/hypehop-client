@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { useState,useEffect } from 'react';
+import BASE_URL from '../config';
 
 function RecentlyReviewed() {
 
@@ -9,7 +10,7 @@ function RecentlyReviewed() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/album/api');
+        const response = await fetch(`${BASE_URL}/album/api`);
         const result = await response.json();
         setData(result);
        

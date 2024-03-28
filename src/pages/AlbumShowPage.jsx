@@ -4,6 +4,7 @@ import AlbumDetail from '../components/AlbumDetail';
 import Reviewed from '../components/Reviewed';
 import { useAuth } from '../AuthenticationContext';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../config';
 
 
 function AlbumShowPage() {
@@ -25,7 +26,7 @@ function AlbumShowPage() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`/album/api/${id}`);
+        const response = await fetch(`${BASE_URL}/album/api/${id}`);
         const result = await response.json();
         setData(result);
 

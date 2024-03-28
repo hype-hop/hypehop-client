@@ -5,6 +5,7 @@ import PopularReview from '../components/PopularReview';
 import { Button } from '@mui/material';
 import theme from '../theme';
 import {Typography} from '@mui/material';
+import BASE_URL from '../config';
 
 function ReviewsPage() {
 
@@ -14,7 +15,7 @@ function ReviewsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/review');
+        const response = await fetch(`${BASE_URL}/api/review`);
         const result = await response.json();
         setData(result);
      

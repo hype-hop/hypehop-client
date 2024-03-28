@@ -4,6 +4,8 @@ import { useAuth } from "../AuthenticationContext";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import BASE_URL from '../config';
+
 
 function Comment({comments, reviewId}) {
 
@@ -18,7 +20,7 @@ function Comment({comments, reviewId}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/comments/review/${reviewId}`);
+        const response = await fetch(`${BASE_URL}/api/comments/review/${reviewId}`);
         const result = await response.json();
         setComment(result.comments);
 
@@ -46,7 +48,7 @@ function Comment({comments, reviewId}) {
     const addComment = async (e) => {
         try {
           e.preventDefault();
-          const response = await fetch(`/api/comments/review/${reviewId}`, {
+          const response = await fetch(`${BASE_URL}/api/comments/review/${reviewId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

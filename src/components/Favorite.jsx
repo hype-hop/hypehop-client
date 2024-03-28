@@ -5,6 +5,7 @@ import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Typography,Box } from '@mui/material';
 import { DisplaySettings } from '@mui/icons-material';
+import BASE_URL from '../config';
 function Favorite({reviewId,numberOfFavorite}) {
 
   const { user } = useAuth();
@@ -24,7 +25,7 @@ function Favorite({reviewId,numberOfFavorite}) {
 
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/user');
+        const response = await fetch(`${BASE_URL}/api/user`);
         const result = await response.json();
         const favoritedReview = Object.keys(result.user.favoritesReview)
         setData(favoritedReview);
@@ -58,7 +59,7 @@ function Favorite({reviewId,numberOfFavorite}) {
     setIsFavorite(!isFavorite);
 
     try {
-      const response = await fetch(`/api/favorite/review/${reviewId}`, {
+      const response = await fetch(`${BASE_URL}/api/favorite/review/${reviewId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
