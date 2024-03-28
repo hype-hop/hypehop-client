@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import BASE_URL from '../config';
 
 function AlbumSearch() {
 
@@ -17,7 +18,7 @@ function AlbumSearch() {
     const handleSearch = async (e) => {
       try {
         e.preventDefault();
-        const response = await fetch('/album/api/search', {
+        const response = await fetch(`${BASE_URL}/album/api/search`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

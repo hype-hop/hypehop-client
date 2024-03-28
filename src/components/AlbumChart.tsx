@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AlbumCharts } from "../types/albumChart";
+import BASE_URL from '../config';
 
 function AlbumChart() {
   const [data, setData] = useState<AlbumCharts | null>(null);
@@ -8,7 +9,7 @@ function AlbumChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/album/api");
+        const response = await fetch(`${BASE_URL}/album/api`);
         const result = await response.json();
         setData(result);
 

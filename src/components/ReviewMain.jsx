@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Favorite from '../components/Favorite';
-import PopularReview from '../components/PopularReview';
 import { Button, Card, CardContent, CardMedia, Typography, Container, Box, CardActions } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import TimeSincePost from './TimeSincePost';
+import BASE_URL from '../config';
 
 function ReviewMain() {
   const [data, setData] = useState(null);
@@ -13,7 +13,7 @@ function ReviewMain() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/review');
+        const response = await fetch(`${BASE_URL}/api/review`)
         const result = await response.json();
         setData(result);
         console.log(result);

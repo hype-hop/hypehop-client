@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthenticationContext';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import BASE_URL from '../config';
 
 function UserPage() {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ function UserPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/user/${userId}`);
+        const response = await fetch(`${BASE_URL}/api/user/${userId}`);
         const result = await response.json();
         setData(result);
        

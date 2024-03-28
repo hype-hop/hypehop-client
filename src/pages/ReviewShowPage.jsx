@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ReviewDetail from '../components/ReviewDetail';
 import Favorite from '../components/Favorite';
 import Comment from '../components/Comment';
+import BASE_URL from '../config';
 
 function ReviewShowPage() {
 
@@ -12,7 +13,7 @@ function ReviewShowPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/album/api/review/${id}`);
+        const response = await fetch(`${BASE_URL}/album/api/review/${id}`);
         const result = await response.json();
         setData(result);
         console.log(result)
