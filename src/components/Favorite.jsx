@@ -93,12 +93,15 @@ function Favorite({reviewId,numberOfFavorite}) {
       className="hover:cursor-pointer hover:text-red-200"
       size='1x'
       onClick={addToFavorite}
+      style={{color:'white.main'}}
     />
 
 
-<Typography sx={{
-  color:'rgb(168,168,168)',
-  fontSize: '12px',
+<Typography 
+ color='grey.main'
+ fontSize='fontSizeSm'
+sx={{
+
   FontAwesomeIcon: '300',
   margin:'0px 8px'
 }}
