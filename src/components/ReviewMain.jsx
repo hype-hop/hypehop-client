@@ -80,7 +80,10 @@ function ReviewMain() {
                       style={{ width: '28px', height: '28px', borderRadius: '50%', }}
                       src={review.user.image} alt="user" 
                     />
-                    <Typography variant="body1" color="primary" sx={{
+                    <Typography //variant="body1" 
+                      color="white.main" 
+                      fontWeight='fontWeightLighter'
+                      sx={{
                       alignContent:'center', 
                       ml:1,
                       maxWidth:'100px',
@@ -94,8 +97,15 @@ function ReviewMain() {
                       </Link>
                     </Typography>
                     
-                    <Typography variant='timeSincePost' sx={{
-                      ml:'4px'
+                    <Typography 
+                    color='grey.dark' 
+                    fontSize='fontSizeSm' 
+                    fontWeight='fontWeightLight'
+                    lineHeight='lineHeightSm'
+                    sx={{
+                      ml:'4px',
+                      textAlign: 'left',
+                      alignContent:'center'
                     }}> 
                     <TimeSincePost createdAt={review.createdAt} /> </Typography>
 
@@ -114,16 +124,14 @@ function ReviewMain() {
                      
 
                     }}> 
-                    <StarIcon />
-                    <Typography sx={{
+                    <StarIcon color='primary.main' />
+                    <Typography 
+                    color='white.main'
+                    fontSize='fontSizeSm'
+                    fontWeight='fontWeightLight'
+                    sx={{
                       width:'15.33px',
                       alignContent:'end',                 
-                      fontSize: '11px',
-                      fontWeight: '400',
-                      
-                     
-                      
-
                       }}> {review.albumRating % 1 === 0 ? `${review.albumRating}.0` : review.albumRating}</Typography> 
                   
                     </Box>

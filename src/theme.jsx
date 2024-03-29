@@ -5,10 +5,17 @@ import { blue } from "@mui/material/colors";
 const theme= createTheme({
     typography:{
         fontFamily: 'Pretendard',
-        fontWeight: 500, 
-        fontSize: '14px', 
-        lineHeight: '-1px', 
-        letterSpacing: '-4%',
+        fontSizeXs:'11px',
+        fontSizeSm:'12px',
+        fontSizeMd:'14px',
+        fontSizeLg:'30px',
+        fontWeightLighter:300,
+        fontWeightLight:400,
+        fontWeightRegular:500,
+        fontWeightBold:700,
+        lineHeightSm:'-1px',
+        lineHeightMd:1.24,
+        letterSpacing:'-4%',
        
         h1: {
             color: 'rgb(255, 255, 255)',
@@ -19,42 +26,23 @@ const theme= createTheme({
             textAlign: 'left',
         },
         
-        body1: {
-            textAlign:'left', 
-            mt:'13px', 
-        },
-        body2: {
-            fontSize: '12px',
-            fontWeight: '300',
-            lineHeight: '15px',
-            letterSpacing: '-4%',
-            color: 'rgb(215, 215, 215)',
-        },
-        timeSincePost:{
-            color:'rgb(86,87,87)',
-            fontSize:'12px',
-            fontWeight:'400',
-            lineHeight: '-1px',
-            letterSpacing: '-4%',
-            textAlign: 'left',
-            alignContent:'center'
-        }
-        
     },
     palette:{
         background:{
             default:'rgb(25,25,25)'
         },
-        text:{
-            primary:'rgb(255,255,255)',
-            secondary:'rgb(215,215,215)'
-        },
         primary:{
-            main: 'rgb(255,255,255)',
+                main: 'rgb(255,255,255)', 
         },
-        secondary:{
-            main:'rgb(215,215,215)',
+        white:{
+            main: 'rgb(255,255,255)',   
         },
+        grey:{
+            main: 'rgb(168,168,168)',
+            light:'rgb(215,215,215)',
+            dark:'rgb(86,87,87)',
+        },
+       
     
 
     },
