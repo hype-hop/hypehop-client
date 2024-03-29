@@ -20,7 +20,8 @@ const theme= createTheme({
         h1: {
             color: 'rgb(255, 255, 255)',
             fontFamily: 'Pretendard',
-            fontWeight: '700',
+            fontWeight: 700,
+            fontSize:'30px',
             lineHeight: -1,
             letterSpacing: 0,
             textAlign: 'left',
@@ -31,8 +32,12 @@ const theme= createTheme({
         background:{
             default:'rgb(25,25,25)'
         },
+        text:{
+            primary:'rgb(255,255,255)',
+           
+        },
         primary:{
-                main: 'rgb(255,255,255)', 
+                main:'rgb(255,255,255)', 
         },
         white:{
             main: 'rgb(255,255,255)',   

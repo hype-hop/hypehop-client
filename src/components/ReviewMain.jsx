@@ -82,7 +82,8 @@ function ReviewMain() {
                     />
                     <Typography //variant="body1" 
                       color="white.main" 
-                      fontWeight='fontWeightLighter'
+                      fontWeight='fontWeightLight'
+                      fontSize='fontSizeMd'
                       sx={{
                       alignContent:'center', 
                       ml:1,
@@ -124,14 +125,16 @@ function ReviewMain() {
                      
 
                     }}> 
-                    <StarIcon color='primary.main' />
+                    <StarIcon sx={{color:'white.main', fontSize:'fontSizeMd' ,mt:'1px'}} />
                     <Typography 
                     color='white.main'
                     fontSize='fontSizeSm'
                     fontWeight='fontWeightLight'
                     sx={{
                       width:'15.33px',
-                      alignContent:'end',                 
+                      alignContent:'end',
+                    
+                                
                       }}> {review.albumRating % 1 === 0 ? `${review.albumRating}.0` : review.albumRating}</Typography> 
                   
                     </Box>
@@ -142,20 +145,31 @@ function ReviewMain() {
                 
                   <Link to={`/album/review/${review._id}`} style={{color:'inherit', textDecoration:'none'}}>
                     <Box sx={{width:'234px', height:'74px'}}>
-                  <Typography  variant="body1" component="div" sx={{
+                  <Typography  
+                    color='white.main'
+                    fontWeight='fontWeightRegular'
+                    fontSize='fontSizeMd'
+                    component="div" sx={{
+                    textAlign:'left', 
+                    mt:'13px', 
                     whiteSpace:'nowrap',
                     overflow:'hidden',
                     textOverflow:'ellipsis',
                     }}>
                     {review.title}
                   </Typography>
-                  <Typography variant='body2' component="div" color="text.secondary" sx={{
+                  <Typography 
+                  color='grey.light'
+                  fontSize='fontSizeSm'
+                  fontWeight='fontWeightLighter'
+                   component="div" sx={{
                     textAlign:'left',
                     mt:'6px',
-                    
                     height:'45px',              
                     overflow:'hidden',
                     textOverflow:'ellipsis',
+                    lineHeight: '15px',
+                    letterSpacing: '-4%',
 
                     }}>
                     {review.body.replace(/<[^>]+>/g, '')}
@@ -174,8 +188,11 @@ function ReviewMain() {
                
                     <Box sx={{display:'flex'}}>
                   <Link to={`/album/review/${review._id}`} style={{  display:'inline-flex',textDecoration: 'none',color:'inherit' }} >
-                    <ChatBubbleOutlineIcon />
-                    <Typography sx={{color:'rgb(168,168,168)',fontSize: '12px',margin:'0px 8px'}}
+                    <ChatBubbleOutlineIcon sx={{color:'white.main', fontSize:'1em'}}/>
+                    <Typography 
+                    color='grey.main'
+                    fontSize='fontSizeSm'
+                    sx={{margin:'0px 8px'}}
                       >댓글 {review.comments.length}개</Typography>
                   </Link>
                   </Box>
