@@ -1,6 +1,5 @@
-
 import './App.css';
-import {BrowserRouter,Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Header from './components/Header';
 import LoginPage from './pages/LoginPage';
@@ -15,29 +14,23 @@ import EditPage from './pages/EditPage';
 import MainPage from './pages/MainPage';
 
 function App() {
-  
   return (
-   
     <BrowserRouter>
-    <div className="App">
-
-    <Header/>   
-<Routes>
-<Route path="/" element={<MainPage/>} />
-<Route path="/login" element={<LoginPage/>} />
-<Route path="/join" element={<JoinPage/>} />
-<Route path="/dashboard" element={<DashboardPage/>} />
-<Route path="/album" element={<AlbumPage/>} />
-<Route path="/album/:id" element={<AlbumShowPage/>} />
-<Route path="/album/review" element={<ReviewsPage/>} />
-<Route path="/album/review/:id" element={<ReviewShowPage/>} />
-<Route path="/album/review/edit/:id" element={<EditPage/>} />
-<Route path="/user/:userId" element={<UserPage/>} />
-</Routes>
-
-
-    </div>
-
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/join" element={<JoinPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/album" element={<AlbumPage />} />
+          <Route path="/album/:id" element={<AlbumShowPage />} />
+          <Route path="/album/review" element={<ReviewsPage />} />
+          <Route path="/album/review/:id" element={<ReviewShowPage />} />
+          <Route path="/album/review/edit/:id" element={<EditPage />} />
+          <Route path="/user/:userId" element={<UserPage />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

@@ -1,10 +1,8 @@
-
 import { Link } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import BASE_URL from '../config';
 
 function RecentlyReviewed() {
-
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -13,53 +11,38 @@ function RecentlyReviewed() {
         const response = await fetch(`${BASE_URL}/album/api`);
         const result = await response.json();
         setData(result);
-       
-     //console.log(result)
-       
+
+        // console.log(result)
       } catch (error) {
         console.error('Error fetching data:', error);
-   
       }
     };
 
     fetchData();
   }, []);
 
-
-
-
-  
   return (
     <div className="recent-review">
+      <h1>최근 리뷰된 앨범</h1>
 
-<h1>최근 리뷰된 앨범</h1>
-
-{Array.isArray(data?.uniqueAlbumsArray)
-          ? data.uniqueAlbumsArray.map(item => <div>
-         
-         <Link to={`${item.albumId}`}>
-
-<div class="album-card">
-
-   <div class="album-card-content">
-     <h3 class="card-title-recently">{item.albumTitle}</h3>
-     <div class="separator"></div>
-     <p class="card-text">평점: {item.albumRating}</p>
-     
-  
-    
-   </div>
- </div>
-
-</Link>
-
-
-            </div>)
-          : <p>Empty</p>}
-
-
+      {Array.isArray(data?.uniqueAlbumsArray) ? (
+        data.uniqueAlbumsArray.map((item) => (
+          <div>
+            <Link to={`${item.albumId}`}>
+              <div className="album-card">
+                <div className="album-card-content">
+                  <h3 className="card-title-recently">{item.albumTitle}</h3>
+                  <div className="separator" />
+                  <p className="card-text">평점: {item.albumRating}</p>
+                </div>
+              </div>
+            </Link>
+          </div>
+        ))
+      ) : (
+        <p>Empty</p>
+      )}
     </div>
-
   );
 }
 

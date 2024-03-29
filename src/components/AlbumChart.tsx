@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { AlbumCharts } from "../types/albumChart";
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { AlbumCharts } from '../types/albumChart';
 import BASE_URL from '../config';
 
 function AlbumChart() {
@@ -15,7 +15,7 @@ function AlbumChart() {
 
         console.log(result);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
@@ -26,8 +26,8 @@ function AlbumChart() {
     <div className="album-chart">
       <h1>앨범 차트</h1>
 
-      <a href={"/album?sort=alltime"}>All Time</a>
-      <a href={"/album?sort=yearly"}>1 year</a>
+      <a href="/album?sort=alltime">All Time</a>
+      <a href="/album?sort=yearly">1 year</a>
 
       <div className="title">
         <h1>인기 리뷰 앨범</h1>
@@ -42,8 +42,6 @@ function AlbumChart() {
         data?.top5Albums.map((item) => (
           <Link to={`${item.albumId}`} key={item.albumId}>
             <div className="box">
-              <div className="number"></div>
-
               <div className="cover">
                 <img src={item.thumbnail} alt="cover" />
               </div>
