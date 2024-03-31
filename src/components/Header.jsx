@@ -10,12 +10,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
 export default function MenuAppBar() {
-  const [auth, setAuth] = React.useState(false);
+  // const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  // const handleChange = (event) => {
+  //   setAuth(event.target.checked);
+  // };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -26,71 +26,60 @@ export default function MenuAppBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, height:60}}>
-  
-     
-      <AppBar 
-      position="static" 
-      elevation={0} 
-      sx={{ 
-        height: 60,
-        backgroundColor:'rgb(25,25,25)' ,
-        borderBottom:'1px solid rgb(47,47,47)',
-        padding:{lg:'0% 7% 0% 7%'},
-        justifyContent:{md:'space-between',},
-      
-        
-
-             }} >
+    <Box sx={{ flexGrow: 1, height: 60 }}>
+      <AppBar
+        position="static"
+        elevation={0}
+        sx={{
+          height: 60,
+          backgroundColor: 'rgb(25,25,25)',
+          borderBottom: '1px solid rgb(47,47,47)',
+          padding: { lg: '0% 7% 0% 7%' },
+          justifyContent: { md: 'space-between' },
+        }}
+      >
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="primary"
-            aria-label="menu"
-          
-           
-          
-          >
-            <MenuIcon sx={{width:30, height:30,}}/>
+          <IconButton size="large" edge="start" color="primary" aria-label="menu">
+            <MenuIcon sx={{ width: 30, height: 30 }} />
           </IconButton>
-          <Typography variant="h1" color='primary' component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h1" color="primary" component="div" sx={{ flexGrow: 1 }}>
             LOGO
           </Typography>
-      
-            <div>
-              <IconButton
-            
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="primary"
-              >
-                <AccountCircle sx={{ height: 30, width:30 }} />
-              </IconButton>
-              <Menu
-              
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem sx={{color:'rgb(25,25,25)'}}  onClick={handleClose}>Profile</MenuItem>
-                <MenuItem sx={{color:'rgb(25,25,25)'}}  onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
-      
+
+          <div>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="primary"
+            >
+              <AccountCircle sx={{ height: 30, width: 30 }} />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem sx={{ color: 'rgb(25,25,25)' }} onClick={handleClose}>
+                Profile
+              </MenuItem>
+              <MenuItem sx={{ color: 'rgb(25,25,25)' }} onClick={handleClose}>
+                My account
+              </MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
