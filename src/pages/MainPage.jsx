@@ -1,28 +1,16 @@
-
-
-import AlbumChart from '../components/AlbumChart'
+import AlbumChart from '../components/AlbumChart';
 import PopularReview from '../components/PopularReview';
 import ReviewMain from '../components/ReviewMain';
 
 function MainPage() {
-
-  
-
   return (
     <div className="Main">
+      <ReviewMain />
 
-<ReviewMain/>
+      <AlbumChart />
 
-<AlbumChart/>
-
-<PopularReview/>
-
-
-
-
-
+      <PopularReview />
     </div>
-
   );
 }
 
