@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Favorite from '../components/Favorite';
 import { Card, CardContent, CardMedia, Typography, Container, Box, CardActions } from '@mui/material';
-import BASE_URL from '../config';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import TimeSincePost from '../components/TimeSincePost';
 import StarIcon from '@mui/icons-material/Star';
-
-
+import TimeSincePost from '../components/TimeSincePost';
+import Favorite from '../components/Favorite';
+import BASE_URL from '../config';
 import { Review } from '../types/review';
-
 
 interface InitialData {
   totalPage: number;
@@ -25,12 +22,11 @@ function ReviewsPage() {
 
   function debounce(this: any, func: (...args: any[]) => void, delay: number): (...args: any[]) => void {
     let timer: NodeJS.Timeout;
-    return function(this: any, ...args: any[]) {
+    return function (this: any, ...args: any[]) {
       clearTimeout(timer);
       timer = setTimeout(() => func.apply(this, args), delay);
     };
   }
-  
 
   const fetchData = async (page: number): Promise<InitialData | null> => {
     try {
@@ -94,185 +90,180 @@ function ReviewsPage() {
   }, [page, totalPage, isLoading, allDataLoaded]);
 
   return (
-    <Container //maxWidth="md" 
-    sx={{marginTop:'105px'}} >
-<Box sx={{display:'flex',justifyContent: 'space-between', alignItems: 'center'  }}>
-      <Typography variant="h1"
-       >리뷰  </Typography>
-      
-   </Box>
+    <Container sx={{ marginTop: '105px' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h1">리뷰 </Typography>
+      </Box>
 
-      <Box sx={{ 
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
-        gap: 2,
-        mt:2,
-        
-        }}>
-        {Array.isArray(data?.reviews)
-          ? data?.reviews.map((review) => (
-              <Card key={review._id} sx={{
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gap: 2,
+          mt: 2,
+        }}
+      >
+        {Array.isArray(data?.reviews) ? (
+          data?.reviews.map((review) => (
+            <Card
+              key={review._id}
+              sx={{
                 display: 'flex',
                 flexDirection: 'column',
-               
-                width:'266px',
-                height:'423px', 
-                padding:'16px',
-                bgcolor:'background.default',
-                border:'1px solid', 
-                borderColor:'rgb(52,52,52)', 
-                borderRadius:'0px 16px 16px 16px' 
-                }}>
 
-                  <Link to={`/album/review/${review._id}`}>
-                <CardMedia
-                
-                  component="img"
-                  width='234px'
-                  height="234px"
-                  image={review.thumbnail}
-                  alt="album cover"
-                />
-                </Link>
+                width: '266px',
+                height: '423px',
+                padding: '16px',
+                bgcolor: 'background.default',
+                border: '1px solid',
+                borderColor: 'rgb(52,52,52)',
+                borderRadius: '0px 16px 16px 16px',
+              }}
+            >
+              <Link to={`/album/review/${review._id}`}>
+                <CardMedia component="img" width="234px" height="234px" image={review.thumbnail} alt="album cover" />
+              </Link>
 
-                <CardContent sx={{padding:'0'}}>      
-                  <Box sx={{
-                    display: 'flex',   
-                    mt:'13px',
-                    whiteSpace:'nowrap',
-                    overflow:'hidden',
-                    textOverflow:'ellipsis',}}>
-                    <img 
-                      style={{ width: '28px', height: '28px', borderRadius: '50%', }}
-                      src={review.user.image} alt="user" 
-                    />
-                    <Typography 
-                      color="white.main" 
-                      fontWeight='fontWeightLight'
-                      fontSize='fontSizeMd'
-                      sx={{
-                      alignContent:'center', 
-                      ml:1,
-                      maxWidth:'100px',
-                      overflow:'hidden',
-                      textOverflow:'ellipsis',
-                      whiteSpace:'nowrap'
-
-                      }} >
-                      <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        {review.user.name || review.user.displayName}
-                      </Link>
-                    </Typography>
-                    
-                    <Typography 
-                    color='grey.dark' 
-                    fontSize='fontSizeSm' 
-                    fontWeight='fontWeightLight'
-                    lineHeight='lineHeightSm'
+              <CardContent sx={{ padding: '0' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    mt: '13px',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  <img
+                    style={{ width: '28px', height: '28px', borderRadius: '50%' }}
+                    src={review.user.image}
+                    alt="user"
+                  />
+                  <Typography
+                    color="white.main"
+                    fontWeight="fontWeightLight"
+                    fontSize="fontSizeMd"
                     sx={{
-                      ml:'4px',
+                      alignContent: 'center',
+                      ml: 1,
+                      maxWidth: '100px',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      {review.user.name || review.user.displayName}
+                    </Link>
+                  </Typography>
+
+                  <Typography
+                    color="grey.dark"
+                    fontSize="fontSizeSm"
+                    fontWeight="fontWeightLight"
+                    lineHeight="lineHeightSm"
+                    sx={{
+                      ml: '4px',
                       textAlign: 'left',
-                      alignContent:'center'
-                    }}> 
-                    <TimeSincePost createdAt={review.createdAt} /> </Typography>
+                      alignContent: 'center',
+                    }}
+                  >
+                    <TimeSincePost createdAt={review.createdAt} />{' '}
+                  </Typography>
 
-                      
-                      <Box sx={{
-                      display:'flex',
-                      alignContent:'center',
-                      justifyContent:'center',
-                      ml:'auto',
-                      width:'46px',
-                      height:'20px',
-                      border:'1px solid rgb(86, 87, 87) ',
-                      borderRadius:'67px',
-                      
-                      
-                     
-
-                    }}> 
-                    <StarIcon sx={{color:'white.main', fontSize:'fontSizeMd' ,mt:'1px'}} />
-                    <Typography 
-                    color='white.main'
-                    fontSize='fontSizeSm'
-                    fontWeight='fontWeightLight'
+                  <Box
                     sx={{
-                      width:'15.33px',
-                      alignContent:'end',
-                    
-                                
-                      }}> {review.albumRating % 1 === 0 ? `${review.albumRating}.0` : review.albumRating}</Typography> 
-                  
-                    </Box>
-                       
-
+                      display: 'flex',
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                      ml: 'auto',
+                      width: '46px',
+                      height: '20px',
+                      border: '1px solid rgb(86, 87, 87) ',
+                      borderRadius: '67px',
+                    }}
+                  >
+                    <StarIcon sx={{ color: 'white.main', fontSize: 'fontSizeMd', mt: '1px' }} />
+                    <Typography
+                      color="white.main"
+                      fontSize="fontSizeSm"
+                      fontWeight="fontWeightLight"
+                      sx={{
+                        width: '15.33px',
+                        alignContent: 'end',
+                      }}
+                    >
+                      {' '}
+                      {review.albumRating % 1 === 0 ? `${review.albumRating}.0` : review.albumRating}
+                    </Typography>
                   </Box>
+                </Box>
 
-                
-                  <Link to={`/album/review/${review._id}`} style={{color:'inherit', textDecoration:'none'}}>
-                    <Box sx={{width:'234px', height:'74px'}}>
-                  <Typography  
-                    color='white.main'
-                    fontWeight='fontWeightRegular'
-                    fontSize='fontSizeMd'
-                    component="div" sx={{
-                    textAlign:'left', 
-                    mt:'13px', 
-                    whiteSpace:'nowrap',
-                    overflow:'hidden',
-                    textOverflow:'ellipsis',
-                    }}>
-                    {review.title}
-                  </Typography>
-                  <Typography 
-                  color='grey.light'
-                  fontSize='fontSizeSm'
-                  fontWeight='fontWeightLighter'
-                   component="div" sx={{
-                    textAlign:'left',
-                    mt:'6px',
-                    height:'45px',              
-                    overflow:'hidden',
-                    textOverflow:'ellipsis',
-                    lineHeight: '15px',
-                    letterSpacing: '-4%',
-
-                    }}>
-                    {review.body.replace(/<[^>]+>/g, '')}
-                  </Typography>
+                <Link to={`/album/review/${review._id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                  <Box sx={{ width: '234px', height: '74px' }}>
+                    <Typography
+                      color="white.main"
+                      fontWeight="fontWeightRegular"
+                      fontSize="fontSizeMd"
+                      component="div"
+                      sx={{
+                        textAlign: 'left',
+                        mt: '13px',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    >
+                      {review.title}
+                    </Typography>
+                    <Typography
+                      color="grey.light"
+                      fontSize="fontSizeSm"
+                      fontWeight="fontWeightLighter"
+                      component="div"
+                      sx={{
+                        textAlign: 'left',
+                        mt: '6px',
+                        height: '45px',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        lineHeight: '15px',
+                        letterSpacing: '-4%',
+                      }}
+                    >
+                      {review.body.replace(/<[^>]+>/g, '')}
+                    </Typography>
                   </Box>
-                  </Link>
-
-                </CardContent>
-                <CardActions disableSpacing sx={{ mt: 'auto' }}>
-
-                    <Box sx={{
-                      display:'flex'
-                    }}>
+                </Link>
+              </CardContent>
+              <CardActions disableSpacing sx={{ mt: 'auto' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                  }}
+                >
                   <Favorite reviewId={review._id} numberOfFavorite={review.isFavorite.length} />
-                  
-               
-                    <Box sx={{display:'flex'}}>
-                  <Link to={`/album/review/${review._id}`} style={{  display:'inline-flex',textDecoration: 'none',color:'inherit' }} >
-                    <ChatBubbleOutlineIcon sx={{color:'white.main', fontSize:'1em'}}/>
-                    <Typography 
-                    color='grey.main'
-                    fontSize='fontSizeSm'
-                    sx={{margin:'0px 8px'}}
-                      >댓글 {review.comments.length}개</Typography>
-                  </Link>
-                  </Box>
 
+                  <Box sx={{ display: 'flex' }}>
+                    <Link
+                      to={`/album/review/${review._id}`}
+                      style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <ChatBubbleOutlineIcon sx={{ color: 'white.main', fontSize: '1em' }} />
+                      <Typography color="grey.main" fontSize="fontSizeSm" sx={{ margin: '0px 8px' }}>
+                        댓글 {review.comments.length}개
+                      </Typography>
+                    </Link>
                   </Box>
-
-                </CardActions>
-              </Card>
-            ))
-          : <Typography>Nothing to display</Typography>
-        }
+                </Box>
+              </CardActions>
+            </Card>
+          ))
+        ) : (
+          <Typography>Nothing to display</Typography>
+        )}
       </Box>
     </Container>
-
   );
 }
 

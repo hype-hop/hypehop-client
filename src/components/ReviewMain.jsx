@@ -4,6 +4,7 @@ import { Button, Card, CardContent, CardMedia, Typography, Container, Box, CardA
 import StarIcon from '@mui/icons-material/Star';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Favorite from './Favorite';
+
 import TimeSincePost from './TimeSincePost';
 import BASE_URL from '../config';
 
@@ -16,18 +17,15 @@ function ReviewMain() {
         const response = await fetch(`${BASE_URL}/api/review`);
         const result = await response.json();
         setData(result);
-      
-        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  },[]);
+  }, []);
 
   return (
-
     <Container // maxWidth="md"
       sx={{ marginTop: '105px' }}
     >
@@ -37,7 +35,6 @@ function ReviewMain() {
           <Link to="/album/review" style={{ textDecoration: 'none', color: 'inherit' }}>
             더보기
           </Link>
-
         </Button>
       </Box>
 
@@ -103,12 +100,17 @@ function ReviewMain() {
                   </Typography>
 
                   <Typography
-                    variant="timeSincePost"
+                    color="grey.dark"
+                    fontSize="fontSizeSm"
+                    fontWeight="fontWeightLight"
+                    lineHeight="lineHeightSm"
                     sx={{
                       ml: '4px',
+                      textAlign: 'left',
+                      alignContent: 'center',
                     }}
                   >
-                    <TimeSincePost createdAt={review.createdAt} />{' '}
+                    <TimeSincePost />{' '}
                   </Typography>
 
                   <Box
@@ -123,7 +125,7 @@ function ReviewMain() {
                       borderRadius: '67px',
                     }}
                   >
-                    <StarIcon />
+                    <StarIcon sx={{ color: 'white.main', fontSize: 'fontSizeMd', mt: '1px' }} />
                     <Typography
                       sx={{
                         width: '15.33px',
