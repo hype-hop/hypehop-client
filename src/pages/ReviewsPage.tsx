@@ -1,41 +1,98 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, CardContent, CardMedia, Typography, Container, Box, CardActions } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
+import { Card, CardContent, CardMedia, Typography, Container, Box, CardActions } from '@mui/material';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import Favorite from './Favorite';
-
-import TimeSincePost from './TimeSincePost';
+import StarIcon from '@mui/icons-material/Star';
+import TimeSincePost from '../components/TimeSincePost';
+import Favorite from '../components/Favorite';
 import BASE_URL from '../config';
+import { Review } from '../types/review';
 
-function ReviewMain() {
-  const [data, setData] = useState(null);
+interface InitialData {
+  totalPage: number;
+  reviews: Review[];
+}
+
+function ReviewsPage() {
+  const [data, setData] = useState<InitialData | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [allDataLoaded, setAllDataLoaded] = useState<boolean>(false);
+
+  function debounce(this: any, func: (...args: any[]) => void, delay: number): (...args: any[]) => void {
+    let timer: NodeJS.Timeout;
+    return function (this: any, ...args: any[]) {
+      clearTimeout(timer);
+      timer = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
+  const fetchData = async (page: number): Promise<InitialData | null> => {
+    try {
+      const response = await fetch(`${BASE_URL}/album/api/review/scroll?page=${page}`);
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}/api/review`);
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+    const loadData = async () => {
+      const initialData = await fetchData(1);
+      if (initialData) {
+        setData(initialData);
+        setTotalPage(initialData.totalPage);
       }
     };
 
-    fetchData();
+    loadData();
   }, []);
 
+  useEffect(() => {
+    const loadMoreData = async () => {
+      if (isLoading || allDataLoaded) return;
+      setIsLoading(true);
+
+      const newData = await fetchData(page + 1);
+
+      if (newData && newData.reviews.length > 0) {
+        setData((prevData) => ({
+          ...prevData!,
+          reviews: [...prevData!.reviews, ...newData.reviews],
+        }));
+
+        setPage((prevPage) => Math.min(prevPage + 1, newData.totalPage));
+
+        if (page + 1 >= totalPage) {
+          setAllDataLoaded(true);
+        }
+      }
+
+      setIsLoading(false);
+    };
+
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+        loadMoreData();
+      }
+    };
+
+    const debouncedScrollHandler = debounce(handleScroll, 500);
+
+    window.addEventListener('scroll', debouncedScrollHandler);
+
+    return () => {
+      window.removeEventListener('scroll', debouncedScrollHandler);
+    };
+  }, [page, totalPage, isLoading, allDataLoaded]);
+
   return (
-    <Container // maxWidth="md"
-      sx={{ marginTop: '105px' }}
-    >
+    <Container sx={{ marginTop: '105px' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h1">최근리뷰 </Typography>
-        <Button variant="outlined" sx={{ mb: 0 }}>
-          <Link to="/album/review" style={{ textDecoration: 'none', color: 'inherit' }}>
-            더보기
-          </Link>
-        </Button>
+        <Typography variant="h1">리뷰 </Typography>
       </Box>
 
       <Box
@@ -47,7 +104,7 @@ function ReviewMain() {
         }}
       >
         {Array.isArray(data?.reviews) ? (
-          data.reviews.slice(0, 6).map((review) => (
+          data?.reviews.map((review) => (
             <Card
               key={review._id}
               sx={{
@@ -83,8 +140,9 @@ function ReviewMain() {
                     alt="user"
                   />
                   <Typography
-                    variant="body1"
-                    color="primary"
+                    color="white.main"
+                    fontWeight="fontWeightLight"
+                    fontSize="fontSizeMd"
                     sx={{
                       alignContent: 'center',
                       ml: 1,
@@ -110,7 +168,7 @@ function ReviewMain() {
                       alignContent: 'center',
                     }}
                   >
-                    <TimeSincePost />{' '}
+                    <TimeSincePost createdAt={review.createdAt} />{' '}
                   </Typography>
 
                   <Box
@@ -127,11 +185,12 @@ function ReviewMain() {
                   >
                     <StarIcon sx={{ color: 'white.main', fontSize: 'fontSizeMd', mt: '1px' }} />
                     <Typography
+                      color="white.main"
+                      fontSize="fontSizeSm"
+                      fontWeight="fontWeightLight"
                       sx={{
                         width: '15.33px',
                         alignContent: 'end',
-                        fontSize: '11px',
-                        fontWeight: '400',
                       }}
                     >
                       {' '}
@@ -139,6 +198,7 @@ function ReviewMain() {
                     </Typography>
                   </Box>
                 </Box>
+
                 <Link to={`/album/review/${review._id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                   <Box sx={{ width: '234px', height: '74px' }}>
                     <Typography
@@ -189,8 +249,8 @@ function ReviewMain() {
                       to={`/album/review/${review._id}`}
                       style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
                     >
-                      <ChatBubbleOutlineIcon />
-                      <Typography sx={{ color: 'rgb(168,168,168)', fontSize: '12px', margin: '0px 8px' }}>
+                      <ChatBubbleOutlineIcon sx={{ color: 'white.main', fontSize: '1em' }} />
+                      <Typography color="grey.main" fontSize="fontSizeSm" sx={{ margin: '0px 8px' }}>
                         댓글 {review.comments.length}개
                       </Typography>
                     </Link>
@@ -207,4 +267,4 @@ function ReviewMain() {
   );
 }
 
-export default ReviewMain;
+export default ReviewsPage;
