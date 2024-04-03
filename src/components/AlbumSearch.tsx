@@ -15,7 +15,7 @@ function AlbumSearch() {
 
   useEffect(() => {
     (async () => {
-      if (debouncedValue === '') {
+      if (debouncedValue === '' || debouncedValue === null) {
         setSearchResult(null);
         return;
       }
