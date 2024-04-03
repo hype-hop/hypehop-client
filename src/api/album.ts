@@ -3,7 +3,7 @@ import { AlbumSearchResult } from '../types/albumSearch';
 import { Result } from '../types/commonApi';
 import ensureError from '../utils/error';
 
-async function postSearchAlbum(keyword: string): Promise<Result<AlbumSearchResult>> {
+async function postSearchAlbum(keyword: string): Promise<Result<AlbumSearchResult[]>> {
   try {
     const response = await fetch(`${BASE_URL}/album/api/search`, {
       method: 'POST',
