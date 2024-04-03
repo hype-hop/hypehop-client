@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { Input, InputAdornment } from '@mui/material';
+import { Container, Input, InputAdornment } from '@mui/material';
 import { AlbumSearchResult } from '../types/albumSearch';
 import postSearchAlbum from '../api/album';
 import useDebounce from '../utils/useDebounce';
@@ -10,12 +10,13 @@ function AlbumSearch() {
   const [keyword, setKeyword] = useState<string | null>(null);
   const [searchResult, setSearchResult] = useState<AlbumSearchResult[] | null>(null);
 
-  const { debouncedValue, isTyping } = useDebounce(keyword!, 650);
+  const { debouncedValue } = useDebounce(keyword!, 200);
+  const isSearchCompleted = debouncedValue && searchResult;
 
   useEffect(() => {
     (async () => {
       if (debouncedValue === '') {
-        setSearchResult([]);
+        setSearchResult(null);
         return;
       }
 
@@ -25,8 +26,9 @@ function AlbumSearch() {
   }, [debouncedValue]);
 
   return (
-    <>
+    <Container>
       <Input
+        fullWidth
         startAdornment={
           <InputAdornment position="start">
             <SearchIcon />
@@ -39,10 +41,11 @@ function AlbumSearch() {
         }}
         autoComplete="off"
         required
+        sx={isSearchCompleted ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}}
       />
 
-      {searchResult && !isTyping && <Result data={searchResult} />}
-    </>
+      {isSearchCompleted && <Result data={searchResult} />}
+    </Container>
   );
 }
 
