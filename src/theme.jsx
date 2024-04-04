@@ -73,6 +73,26 @@ const theme = createTheme({
         },
       },
     },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          border: '0px',
+          borderRadius: '16px',
+          outline: 'none',
+          background: 'rgb(52,52,52)',
+          color: 'white',
+          padding: '15px',
+          '&::before': {
+            content: 'none',
+          },
+          '&::after': {
+            content: 'none',
+          },
+          fontSize: '14px',
+        },
+        input: { padding: '0px', lineHeight: '1', '&::placeholder': { color: 'white' } },
+      },
+    },
   },
 });
 
