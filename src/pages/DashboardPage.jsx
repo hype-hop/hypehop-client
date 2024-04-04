@@ -13,11 +13,13 @@ function DashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/api/dashboard`);
+        const response = await fetch(`${BASE_URL}/api/dashboard`, {
+          method: 'GET',
+          credentials: 'include',
+        });
         const result = await response.json();
-        setData(result);
 
-        console.log(result);
+        setData(result);
       } catch (error) {
         console.error('Error fetching data:', error);
         setIsAuthenticated(false);
@@ -28,7 +30,7 @@ function DashboardPage() {
   }, []);
 
   if (!isAuthenticated) {
-    navigate('/login');
+    navigate(`/login`);
   }
 
   return (
@@ -55,7 +57,7 @@ function DashboardPage() {
                 <td className="icons">
                   <Link to={`/album/review/edit/${review._id}`}>EDIT</Link>
 
-                  <form action={`/album/api/review/delete/${review._id}`} method="POST" id="delete-form">
+                  <form action={`${BASE_URL}/album/api/review/delete/${review._id}`} method="POST" id="delete-form">
                     <input type="hidden" name="_method" value="DELETE" />
                     <button type="submit">Delete</button>
                   </form>
@@ -105,7 +107,7 @@ function DashboardPage() {
       )}
 
       <div>
-        <a href="/api/logout">Logout</a>
+        <a href={`${BASE_URL}/api/logout`}>Logout</a>
       </div>
     </div>
   );

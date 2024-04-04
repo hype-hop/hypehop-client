@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, CardContent, CardMedia, Typography, Container, Box, CardActions } from '@mui/material';
+import { Button, Card, CardContent, CardMedia, Typography, Container, Box, CardActions, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Favorite from './Favorite';
@@ -77,7 +77,7 @@ function ReviewMain() {
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  <img
+                  <Avatar
                     style={{ width: '28px', height: '28px', borderRadius: '50%' }}
                     src={review.user.image}
                     alt="user"
@@ -110,7 +110,7 @@ function ReviewMain() {
                       alignContent: 'center',
                     }}
                   >
-                    <TimeSincePost />{' '}
+                    <TimeSincePost createdAt={review.createdAt} />{' '}
                   </Typography>
 
                   <Box
@@ -189,7 +189,7 @@ function ReviewMain() {
                       to={`/album/review/${review._id}`}
                       style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
                     >
-                      <ChatBubbleOutlineIcon />
+                      <ChatBubbleOutlineIcon sx={{ color: 'white.main', fontSize: '1em' }} />
                       <Typography sx={{ color: 'rgb(168,168,168)', fontSize: '12px', margin: '0px 8px' }}>
                         댓글 {review.comments.length}개
                       </Typography>

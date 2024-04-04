@@ -20,9 +20,12 @@ function ReviewsPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [allDataLoaded, setAllDataLoaded] = useState<boolean>(false);
 
-  function debounce(this: any, func: (...args: any[]) => void, delay: number): (...args: any[]) => void {
+  // eslint-disable-next-line no-unused-vars
+  function debounce(this: unknown, func: (...args: unknown[]) => void, delay: number): (...args: unknown[]) => void {
+    // eslint-disable-next-line no-undef
     let timer: NodeJS.Timeout;
-    return function (this: any, ...args: any[]) {
+    // eslint-disable-next-line func-names
+    return function (this: unknown, ...args: unknown[]) {
       clearTimeout(timer);
       timer = setTimeout(() => func.apply(this, args), delay);
     };
@@ -94,6 +97,8 @@ function ReviewsPage() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h1">리뷰 </Typography>
       </Box>
+
+      <Box />
 
       <Box
         sx={{
