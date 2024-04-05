@@ -1,5 +1,12 @@
 import { User } from './user';
 
+export interface CommentType {
+  _id: string;
+  content: string;
+  createdAt: string;
+  user: User;
+}
+
 export interface Review {
   _id: string;
   title: string;
@@ -11,11 +18,4 @@ export interface Review {
   // eslint-disable-next-line no-use-before-define
   comments: Array<Comment>;
   albumRating: number;
-}
-
-export interface Comment {
-  _id: string;
-  text: string;
-  createdAt: string;
-  user: User;
 }

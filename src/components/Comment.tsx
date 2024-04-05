@@ -5,7 +5,16 @@ import { Link } from 'react-router-dom';
 import BASE_URL from '../config';
 import TimeSincePost from './TimeSincePost';
 
-function Comment({ comments, reviewId, user }) {
+import { CommentType } from '../types/review';
+import { User } from '../types/user';
+
+interface Props {
+  comments: CommentType[];
+  reviewId: string;
+  user: User | null;
+}
+
+function Comment({ comments, reviewId, user }: Props) {
   // const { user } = useAuth();
   const [content, setContent] = useState('');
   const [, setComment] = useState(null);
@@ -68,7 +77,7 @@ function Comment({ comments, reviewId, user }) {
           textOverflow: 'ellipsis',
         }}
       >
-        <Avatar sx={{ width: '28px', height: '28px', borderRadius: '50%' }} src={user?.user?.image} alt="user" />
+        <Avatar sx={{ width: '28px', height: '28px', borderRadius: '50%' }} src={user?.image} alt="user" />
         <div className="commentForm" style={{ flex: 1 }}>
           <form id="commentForm">
             <Box
@@ -177,20 +186,21 @@ function Comment({ comments, reviewId, user }) {
               }}
             >
               {' '}
-              <Typography fontSize="fontSizeMd" fontWeight="fontWeightLight" textAlign="left">
-                {comment.content}
-              </Typography>{' '}
+              <Box display="flex">
+                <Typography fontSize="fontSizeMd" fontWeight="fontWeightLight" textAlign="left">
+                  {comment.content}
+                </Typography>{' '}
+                {comment.user._id === user?._id && (
+                  <form action={`/api/comments/${reviewId}/delete/${comment._id}`} method="POST" id="delete-form">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <Button variant="outlined" size="small" type="submit" sx={{ ml: '10px' }}>
+                      <Typography fontSize="fontSizeXs">삭제</Typography>
+                    </Button>
+                  </form>
+                )}
+              </Box>
             </Box>
           </Box>
-
-          <div>
-            {comment.user._id === user?._id && (
-              <form action={`/api/comments/${reviewId}/delete/${comment._id}`} method="POST" id="delete-form">
-                <input type="hidden" name="_method" value="DELETE" />
-                <button type="submit">삭제</button>
-              </form>
-            )}
-          </div>
         </div>
       ))}
     </div>

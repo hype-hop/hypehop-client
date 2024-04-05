@@ -52,7 +52,7 @@ function ReviewShowPage() {
               댓글 {data?.comments.length}개
             </Typography>
           </Box>
-          <Comment comments={data?.comments} reviewId={id} user={user} />
+          <Comment comments={data?.comments} reviewId={id} user={user?.user} />
         </div>
       ) : (
         <p>삭제되었거나 잘못된 경로입니다.</p>
