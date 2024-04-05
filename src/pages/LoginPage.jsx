@@ -1,20 +1,22 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthenticationContext';
+import { Link } from 'react-router-dom';
+// import { useAuth } from '../AuthenticationContext';
+import BASE_URL from '../config';
 
 function LoginPage() {
-  const { user } = useAuth();
-  const navigate = useNavigate();
+  // const { user } = useAuth();
+  // const navigate = useNavigate();
 
+  /*
   if (user) {
-    navigate('/dashboard');
-    return null;
+    navigate('/');
   }
+*/
 
   return (
     <div className="Login">
       <h1>Login</h1>
 
-      <form className="form" action="/api/login" method="POST">
+      <form className="form" action={`${BASE_URL}/api/login`} method="POST">
         <div className="flex-column">
           <label className="labels" htmlFor="email">
             Email

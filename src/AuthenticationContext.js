@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import BASE_URL from './config';
 
 const AuthenticationContext = createContext();
 
@@ -11,10 +12,14 @@ export function AuthProvider({ children }) {
   const memoizedUser = useMemo(() => [user, setUser], [user]);
 
   useEffect(() => {
-    fetch('/api/user')
+    fetch(`${BASE_URL}/api/user`, {
+      method: 'GET',
+      credentials: 'include',
+    })
       .then((response) => response.json())
       .then((data) => {
         setUser(data.user || null);
+        console.log(data);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);

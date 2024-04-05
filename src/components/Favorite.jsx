@@ -3,27 +3,29 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography, Box } from '@mui/material';
-import { useAuth } from '../AuthenticationContext';
+// import { useAuth } from '../AuthenticationContext';
 import BASE_URL from '../config';
 
 function Favorite({ reviewId, numberOfFavorite }) {
-  const { user } = useAuth();
-  const [isFavorite, setIsFavorite] = useState(false);
+  // const { user } = useAuth();
 
-  const [, setData] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [user, setUser] = useState(null);
+
+  // const [data, setData] = useState(null);
 
   useEffect(() => {
-    if (!user) {
-      return;
-    }
-
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/api/user`);
+        const response = await fetch(`${BASE_URL}/api/user`, {
+          method: 'GET',
+          credentials: 'include',
+        });
         const result = await response.json();
         const favoritedReview = Object.keys(result.user.favoritesReview);
-        setData(favoritedReview);
 
+        // setData(favoritedReview);
+        setUser(result);
         setIsFavorite(favoritedReview.includes(reviewId));
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -31,7 +33,7 @@ function Favorite({ reviewId, numberOfFavorite }) {
     };
 
     fetchData();
-  }, [user, reviewId]);
+  }, [reviewId]);
 
   const addToFavorite = async (e) => {
     e.stopPropagation();
@@ -41,10 +43,12 @@ function Favorite({ reviewId, numberOfFavorite }) {
     }
 
     setIsFavorite(!isFavorite);
+    // console.log(isFavorite);
 
     try {
       const response = await fetch(`${BASE_URL}/api/favorite/review/${reviewId}`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -54,7 +58,6 @@ function Favorite({ reviewId, numberOfFavorite }) {
       });
 
       if (!response.ok) {
-        // Handle error
         console.error('Failed to update favorite status');
       }
     } catch (error) {
@@ -65,14 +68,14 @@ function Favorite({ reviewId, numberOfFavorite }) {
   const heartIcon = isFavorite ? faHeart : faHeartRegular;
 
   return (
-    <div className="Favorite">
+    <div>
       <Box sx={{ display: 'flex' }}>
         <FontAwesomeIcon
           icon={heartIcon}
           className="hover:cursor-pointer hover:text-red-200"
-          size="1x"
+          size={1}
           onClick={addToFavorite}
-          style={{ color: 'white.main' }}
+          style={{ color: 'white' }}
         />
 
         <Typography

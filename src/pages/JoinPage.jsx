@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import BASE_URL from '../config';
 
 function JoinPage() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function JoinPage() {
     e.preventDefault();
 
     // Send the POST request here using fetch or axios
-    fetch('/api/join', {
+    fetch(`${BASE_URL}/api/join`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
