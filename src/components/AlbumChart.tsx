@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Box, Typography, Button, Container, Card, CardMedia, CardContent, Rating } from '@mui/material';
+// import { useTheme } from '@mui/material/styles';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import StarIcon from '@mui/icons-material/Star';
@@ -9,6 +10,8 @@ import { AlbumCharts } from '../types/albumChart';
 import BASE_URL from '../config';
 
 function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: number) {
+  // const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -19,7 +22,7 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
     >
       {Array.isArray(data?.top5Albums) ? (
         data?.top5Albums.slice(startIndex, endIndex).map((item, index) => (
-          <Link to={`${item.albumId}`} key={item.albumId} style={{ textDecorationLine: 'none' }}>
+          <Link to={`/album/${item.albumId}`} key={item.albumId} style={{ textDecorationLine: 'none' }}>
             <Card
               sx={{
                 bgcolor: 'background.default',
@@ -54,10 +57,10 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                 }}
               />
               <CardContent sx={{ marginTop: '8px' }}>
-                <Typography align="left" sx={{ fontSize: '14px' }}>
+                <Typography align="left" fontSize="fontSizeMd">
                   {item.albumTitle.split('-', 2)[1]}
                 </Typography>
-                <Typography align="left" sx={{ fontSize: '11px', marginTop: '4px', marginBottom: '4px' }}>
+                <Typography align="left" fontSize="fontSizeXs" sx={{ marginTop: '4px', marginBottom: '4px' }}>
                   {item.albumTitle.split('-', 2)[0]}
                 </Typography>
                 <Box sx={{ display: 'flex' }}>
@@ -72,7 +75,7 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                           marginBottom: '0.5px',
                           width: '15px',
                           height: '15px',
-                          color: '#FFC403',
+                          color: 'star.main',
                         }}
                       />
                     }
@@ -83,14 +86,14 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                           marginBottom: '0.5px',
                           width: '15px',
                           height: '15px',
-                          color: '#FFC403',
+                          color: 'star.main',
                         }}
                       />
                     }
                     sx={{ marginRight: '4px' }}
                     readOnly
                   />
-                  <Typography sx={{ fontSize: '11px' }}>{item.averageRating.toFixed(1)}</Typography>
+                  <Typography fontSize="fontSizeXs">{item.averageRating.toFixed(1)}</Typography>
                 </Box>
               </CardContent>
             </Card>

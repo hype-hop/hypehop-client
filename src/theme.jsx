@@ -43,6 +43,9 @@ const theme = createTheme({
       light: 'rgb(215,215,215)',
       dark: 'rgb(86,87,87)',
     },
+    star: {
+      main: 'rgb(255, 196, 3)',
+    },
 
     body1: {
       textAlign: 'left',
