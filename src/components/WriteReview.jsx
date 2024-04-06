@@ -1,12 +1,16 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect, useMemo } from 'react';
+import { Input, Container } from '@mui/material';
+
+import EditorBox from './EditorBox';
 
 function WriteReview({ data }) {
-  const [reviewContent /* setReviewContent */] = useState('');
-  // const handleContentChange = (newContent) => {
-  //   setReviewContent(newContent);
-  // };
+  const [reviewContent, setReviewContent] = useState('');
+
+  const handleContentChange = (newContent) => {
+    setReviewContent(newContent);
+  };
 
   const tracksByDisc = {};
   const tracks = useMemo(() => [], []);
@@ -53,12 +57,16 @@ function WriteReview({ data }) {
     }
   }, [data, formData, tracks]);
 
+  const handleSubmitDummy = () => {
+    console.log(reviewContent);
+  };
+
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
-    console.log(trackRating);
+    // console.log(trackRating);
 
     if (formData.albumRating !== 0 && formData.title !== '') {
       const combinedData = {
@@ -116,8 +124,10 @@ function WriteReview({ data }) {
   ));
 
   return (
-    <div className="Write-review">
-      <h3>작성페이지</h3>
+    <Container className="Write-review">
+      <button type="button" onClick={handleSubmitDummy}>
+        DummySave
+      </button>
 
       <form>
         <h5>앨범 평점:</h5>
@@ -132,13 +142,6 @@ function WriteReview({ data }) {
 
         <div className="row">
           <div className="input-field">
-            <input type="text" id="title" name="title" onChange={handleFormData} value={formData.title} required />
-            <label htmlFor="title">한줄평</label>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="input-field">
             <select id="status" name="status" value={formData.status} onChange={handleFormData}>
               <option value="public" selected>
                 공개
@@ -149,24 +152,30 @@ function WriteReview({ data }) {
           </div>
         </div>
 
-        <h5>리뷰 작성</h5>
-
-        <div style={{ margin: '50px' }} className="row">
-          <h5>리뷰 작성하기:</h5>
-
-          {/*
-          <EditorBox 
-          onContentChange={handleContentChange}
-          
-          />
-  */}
+        <div className="row">
+          <div className="input-field">
+            <Input
+              fullWidth
+              type="text"
+              id="title"
+              name="title"
+              onChange={handleFormData}
+              value={formData.title}
+              placeholder="제목을 입력하세요"
+              required
+            />
+            <label htmlFor="title" />
+          </div>
+        </div>
+        <div>
+          <EditorBox onContentChange={handleContentChange} /* value={reviewContent} */ />
         </div>
 
         <button type="submit" onClick={handleSubmit}>
           Save
         </button>
       </form>
-    </div>
+    </Container>
   );
 }
 

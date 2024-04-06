@@ -1,7 +1,7 @@
 import React from 'react';
 import AlbumSearch from '../components/AlbumSearch';
 import RecentlyReviewed from '../components/RecentlyReviewed';
-import AlbumChart from '../components/AlbumChart';
+import WriteReview from '../components/WriteReview';
 
 function AlbumPage() {
   return (
@@ -9,8 +9,8 @@ function AlbumPage() {
       <h1>AlbumPage.jsx</h1>
 
       <AlbumSearch />
+      <WriteReview />
       <RecentlyReviewed />
-      <AlbumChart />
     </div>
   );
 }

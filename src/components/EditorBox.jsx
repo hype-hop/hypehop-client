@@ -1,15 +1,37 @@
-import React, { useState, useRef, useEffect } from 'react';
+// Import necessary hooks and effects from React
+import React, { useEffect, useRef, useState } from 'react';
+import { Box } from '@mui/material';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import EditorJS from '@editorjs/editorjs';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Paragraph from '@editorjs/paragraph';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Header from '@editorjs/header';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import List from '@editorjs/list';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Embed from '@editorjs/embed';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Underline from '@editorjs/underline';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Strikethrough from '@sotaproject/strikethrough';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Checklist from '@editorjs/checklist';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import SimpleImage from '@editorjs/simple-image';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Marker from '@editorjs/marker';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import ColorPlugin from 'editorjs-text-color-plugin';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import AlignmentBlockTune from 'editorjs-text-alignment-blocktune';
 
-function EditorBox({ /* onContentChange, */ value }) {
-  const editorRef = useRef();
-  const [, setContent] = useState('');
-  // const [body, setBody]=useState('')
+// eslint-disable-next-line import/no-extraneous-dependencies
 
-  // const handleChange = () => {
-  //   const data = editorRef.current.getInstance().getHTML();
-  //   setContent(data);
-  //   onContentChange(data);
-  // };
+function EditorBox({ onContentChange, value }) {
+  const editorRef = useRef(null);
+  const [content, setContent] = useState([]);
+
   useEffect(() => {
     if (value) {
       setContent(value);
@@ -17,31 +39,198 @@ function EditorBox({ /* onContentChange, */ value }) {
   }, [value]);
 
   useEffect(() => {
-    const editorContainer = editorRef.current.getInstance().options.el;
-    editorContainer.style.textAlign = 'left';
+    if (!editorRef.current) {
+      editorRef.current = true;
+      const editor = new EditorJS({
+        holder: 'editorjs',
+        tools: {
+          textAlignment: {
+            class: AlignmentBlockTune,
+            config: {
+              default: 'left',
+              blocks: {
+                header: 'center',
+              },
+            },
+          },
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true,
+            tunes: ['textAlignment'],
+          },
+          header: {
+            class: Header,
+            inlineToolbar: true,
+            tunes: ['textAlignment'],
+            config: {
+              placeholder: 'Enter a Header',
+              levels: [1, 2, 3, 4, 5],
+              defaultLevel: 2,
+              textAlignment: 'left',
+            },
+          },
+          list: List,
+          embed: {
+            class: Embed,
+            config: {
+              services: {
+                youtube: true,
+              },
+            },
+          },
+          underline: Underline,
+          strikethrough: Strikethrough,
+          checklist: Checklist,
+          image: SimpleImage,
+          marker: {
+            class: Marker,
+          },
+          Color: {
+            class: ColorPlugin,
+            config: {
+              colorCollections: [
+                '#EC7878',
+                '#9C27B0',
+                '#673AB7',
+                '#3F51B5',
+                '#0070FF',
+                '#03A9F4',
+                '#00BCD4',
+                '#4CAF50',
+                '#8BC34A',
+                '#CDDC39',
+                '#FFF',
+              ],
+              defaultColor: '#FF1300',
+              type: 'text',
+              customPicker: true,
+            },
+          },
+        },
+        onReady: () => {
+          const inlineToolbar = document.querySelector('.ce-inline-toolbar');
+
+          if (inlineToolbar) {
+            inlineToolbar.style.color = 'black';
+          }
+        },
+        onChange: async () => {
+          const data = await editorRef.current.save();
+
+          setContent(data.blocks);
+          // eslint-disable-next-line react/destructuring-assignment
+          onContentChange(data);
+        },
+      });
+      editorRef.current = editor;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const customToolbar = [
-  //   ['heading', 'bold', 'italic', 'strike'],
-  //   ['hr', 'quote'],
-  //   ['ul', 'ol', 'indent', 'outdent'],
-  //   ['scrollSync'],
-  // ];
+  /*
+const initEditorCalled = useRef(false);
+  const initEditor = () => {
+    if (!editorRef.current) {
+      editorRef.current = true;
+      const editor = new EditorJS({
+        holder: 'editorjs',
+        tools: {
+          textAlignment: {
+            class: AlignmentBlockTune,
+            config: {
+              default: 'left',
+              blocks: {
+                header: 'center',
+              },
+            },
+          },
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true,
+            tunes: ['textAlignment'],
+          },
+          header: {
+            class: Header,
+            inlineToolbar: true,
+            tunes: ['textAlignment'],
+            config: {
+              placeholder: 'Enter a Header',
+              levels: [1, 2, 3, 4, 5],
+              defaultLevel: 2,
+              textAlignment: 'left',
+            },
+          },
+          list: List,
+          embed: {
+            class: Embed,
+            config: {
+              services: {
+                youtube: true,
+              },
+            },
+          },
+          underline: Underline,
+          strikethrough: Strikethrough,
+          checklist: Checklist,
+          image: SimpleImage,
+          marker: {
+            class: Marker,
+          },
+          Color: {
+            class: ColorPlugin,
+            config: {
+              colorCollections: [
+                '#EC7878',
+                '#9C2780',
+                ' #673AB7',
+                '#3F51B5',
+                '#0070FF',
+                '#03A9F4',
+                '#00BCD4',
+                '#4CAFA50',
+                '#8BC34A',
+                '#CDDC39',
+                '#FFF',
+              ],
+              customPicker: true,
+            },
+          },
+        },
+        onReady: () => {
+          const inlineToolbar = document.querySelector('.ce-inline-toolbar');
 
+          if (inlineToolbar) {
+            inlineToolbar.style.color = 'black';
+          }
+        },
+        onChange: async () => {
+          const data = await editorRef.current.save();
+
+          setContent(data.blocks);
+          // eslint-disable-next-line react/destructuring-assignment
+          onContentChange(data);
+        },
+      });
+      editorRef.current = editor;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+  if (!initEditorCalled.current) {
+    initEditor();
+  }
+  */
   return (
-    <div>
-      {/* <Editor
-        initialValue={" "}
-        //initialValue={value? value :' ' }
-        // initialValue={content}
-        previewStyle="vertical"
-        height="500px"
-        initialEditType="wysiwyg"
-        onChange={handleChange}
-        ref={editorRef}
-        toolbarItems={customToolbar}
-      /> */}
-    </div>
+    <Box
+      id="editorjs"
+      value={content}
+      sx={{
+        mt: '16px',
+        background: 'rgb(52,52,52)',
+        borderRadius: '16px',
+        height: '310px',
+        overflow: 'scroll',
+      }}
+    />
   );
 }
 
