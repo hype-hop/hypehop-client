@@ -6,7 +6,7 @@ import WriteReview from '../components/WriteReview';
 function AlbumPage() {
   return (
     <div className="Album">
-      <h1>AlbumPage.jsx</h1>
+      <h1>AlbumPage.jsx - 작성페이지 </h1>
 
       <AlbumSearch />
       <WriteReview />

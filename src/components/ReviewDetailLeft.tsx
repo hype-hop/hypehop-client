@@ -182,7 +182,7 @@ function ReviewDetailLeft({ data, albumData }) {
           {data?.review.title}
         </Typography>
         <Typography textAlign="left" fontSize="fontSizeMd" fontWeight="fontWeightLight">
-          {data?.review.body}
+          <div dangerouslySetInnerHTML={{ __html: data?.review.body }} />
         </Typography>
       </Box>
 

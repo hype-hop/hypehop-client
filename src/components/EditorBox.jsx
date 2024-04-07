@@ -57,6 +57,9 @@ function EditorBox({ onContentChange, value }) {
             class: Paragraph,
             inlineToolbar: true,
             tunes: ['textAlignment'],
+            config: {
+              preserveBlank: true,
+            },
           },
           header: {
             class: Header,
@@ -116,10 +119,14 @@ function EditorBox({ onContentChange, value }) {
         },
         onChange: async () => {
           const data = await editorRef.current.save();
+          // const reviewBody = data.blocks.map((block) => block.data.text).join('\n');
+          const reviewBody = data.blocks.map((block) => `<p>${block.data.text}</p>`).join('');
+          // const reviewBody = data.blocks.map((block) => block.data.text);
 
-          setContent(data.blocks);
+          // setContent(data.blocks);
+          // setContent(reviewBody);
           // eslint-disable-next-line react/destructuring-assignment
-          onContentChange(data);
+          onContentChange(reviewBody);
         },
       });
       editorRef.current = editor;
@@ -127,98 +134,6 @@ function EditorBox({ onContentChange, value }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /*
-const initEditorCalled = useRef(false);
-  const initEditor = () => {
-    if (!editorRef.current) {
-      editorRef.current = true;
-      const editor = new EditorJS({
-        holder: 'editorjs',
-        tools: {
-          textAlignment: {
-            class: AlignmentBlockTune,
-            config: {
-              default: 'left',
-              blocks: {
-                header: 'center',
-              },
-            },
-          },
-          paragraph: {
-            class: Paragraph,
-            inlineToolbar: true,
-            tunes: ['textAlignment'],
-          },
-          header: {
-            class: Header,
-            inlineToolbar: true,
-            tunes: ['textAlignment'],
-            config: {
-              placeholder: 'Enter a Header',
-              levels: [1, 2, 3, 4, 5],
-              defaultLevel: 2,
-              textAlignment: 'left',
-            },
-          },
-          list: List,
-          embed: {
-            class: Embed,
-            config: {
-              services: {
-                youtube: true,
-              },
-            },
-          },
-          underline: Underline,
-          strikethrough: Strikethrough,
-          checklist: Checklist,
-          image: SimpleImage,
-          marker: {
-            class: Marker,
-          },
-          Color: {
-            class: ColorPlugin,
-            config: {
-              colorCollections: [
-                '#EC7878',
-                '#9C2780',
-                ' #673AB7',
-                '#3F51B5',
-                '#0070FF',
-                '#03A9F4',
-                '#00BCD4',
-                '#4CAFA50',
-                '#8BC34A',
-                '#CDDC39',
-                '#FFF',
-              ],
-              customPicker: true,
-            },
-          },
-        },
-        onReady: () => {
-          const inlineToolbar = document.querySelector('.ce-inline-toolbar');
-
-          if (inlineToolbar) {
-            inlineToolbar.style.color = 'black';
-          }
-        },
-        onChange: async () => {
-          const data = await editorRef.current.save();
-
-          setContent(data.blocks);
-          // eslint-disable-next-line react/destructuring-assignment
-          onContentChange(data);
-        },
-      });
-      editorRef.current = editor;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  };
-  if (!initEditorCalled.current) {
-    initEditor();
-  }
-  */
   return (
     <Box
       id="editorjs"

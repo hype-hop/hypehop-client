@@ -8,6 +8,7 @@ function AlbumShowPage() {
   const { id } = useParams();
 
   const [data, setData] = useState(null);
+  const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -18,8 +19,12 @@ function AlbumShowPage() {
         const response = await fetch(`${BASE_URL}/album/api/${id}`);
         const result = await response.json();
         setData(result);
-
-        console.log(result.spotify_artist_genre);
+        const response2 = await fetch(`${BASE_URL}/api/user`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const result2 = await response2.json();
+        setUser(result2);
       } catch (error) {
         console.error('Error fetching data:', error);
         setIsAuthenticated(false);
@@ -35,9 +40,9 @@ function AlbumShowPage() {
 
   return (
     <div className="Album-show">
-      <h3>AlbumShowPage.jsx</h3>
+      <h3>AlbumShowPage.jsx </h3>
 
-      <AlbumDetail data={data} />
+      <AlbumDetail data={data} userData={user?.user} />
       <Reviewed data={data} />
     </div>
   );

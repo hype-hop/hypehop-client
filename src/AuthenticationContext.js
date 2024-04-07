@@ -19,7 +19,6 @@ export function AuthProvider({ children }) {
       .then((response) => response.json())
       .then((data) => {
         setUser(data.user || null);
-        console.log(data);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
