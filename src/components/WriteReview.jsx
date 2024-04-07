@@ -60,7 +60,7 @@ function WriteReview({ data, userData }) {
   }, [data]);
 
   const handleSubmitDummy = () => {
-    // console.log(reviewContent);
+    console.log(reviewContent);
     const combinedData2 = {
       ...formData,
       trackRating,

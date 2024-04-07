@@ -3,6 +3,7 @@ import { Card, List, ListItem, ListItemText, Box, Typography } from '@mui/materi
 import StarIcon from '@mui/icons-material/Star';
 
 function TrackRatingCard({ data }) {
+  console.log(data);
   return (
     <Card
       variant="outlined"
@@ -71,8 +72,8 @@ function TrackRatingCard({ data }) {
                           >
                             {' '}
                             {/* eslint-disable-next-line no-unsafe-optional-chaining */}
-                            {data?.review.trackRating && data?.review.trackRating[index]
-                              ? data?.review.trackRating[index][trackIndex]
+                            {data?.review.tracks[index].trackRating && data?.review.tracks[index].trackRating[index]
+                              ? Number(data?.review.tracks[index].trackRating[trackIndex]).toFixed(1)
                               : '--'}
                           </Typography>
                         </Box>

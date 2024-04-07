@@ -30,7 +30,7 @@ import AlignmentBlockTune from 'editorjs-text-alignment-blocktune';
 
 function EditorBox({ onContentChange, value }) {
   const editorRef = useRef(null);
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState(value);
 
   useEffect(() => {
     if (value) {
@@ -110,6 +110,16 @@ function EditorBox({ onContentChange, value }) {
             },
           },
         },
+        data: {
+          blocks: [
+            {
+              type: 'paragraph',
+              data: {
+                text: content,
+              },
+            },
+          ],
+        },
         onReady: () => {
           const inlineToolbar = document.querySelector('.ce-inline-toolbar');
 
@@ -120,7 +130,7 @@ function EditorBox({ onContentChange, value }) {
         onChange: async () => {
           const data = await editorRef.current.save();
           // const reviewBody = data.blocks.map((block) => block.data.text).join('\n');
-          const reviewBody = data.blocks.map((block) => `<p>${block.data.text}</p>`).join('');
+          const reviewBody = data?.blocks.map((block) => `<p>${block.data.text}</p>`).join('');
           // const reviewBody = data.blocks.map((block) => block.data.text);
 
           // setContent(data.blocks);
