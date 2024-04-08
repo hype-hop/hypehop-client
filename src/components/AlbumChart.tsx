@@ -1,7 +1,110 @@
 import { Link } from 'react-router-dom';
+import { Box, Typography, Button, Container, Card, CardMedia, CardContent, Rating } from '@mui/material';
+// import { useTheme } from '@mui/material/styles';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState, useEffect } from 'react';
 import { AlbumCharts } from '../types/albumChart';
 import BASE_URL from '../config';
+
+function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: number) {
+  // const theme = useTheme();
+
+  return (
+    <Box
+      sx={{
+        display: 'grid',
+        marginTop: '16px',
+        gridTemplateRows: 'repeat(4, 1fr)',
+      }}
+    >
+      {Array.isArray(data?.top5Albums) ? (
+        data?.top5Albums.slice(startIndex, endIndex).map((item, index) => (
+          <Link to={`/album/${item.albumId}`} key={item.albumId} style={{ textDecorationLine: 'none' }}>
+            <Card
+              sx={{
+                bgcolor: 'background.default',
+                // width: '288px',
+                height: '60px',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                padding: '0px',
+                flex: 'none',
+                order: '0',
+                flexGrow: '0',
+                margin: '16px 0px',
+                boxShadow: 'none',
+              }}
+            >
+              <CardContent sx={{ marginLeft: '12px' }}>
+                <Typography>{index + startIndex + 1}</Typography>
+              </CardContent>
+              <CardMedia
+                component="img"
+                width="60px"
+                height="60px"
+                image={item.thumbnail}
+                alt="album cover"
+                sx={{
+                  maxWidth: '60px',
+                  minWidth: '60px',
+                  borderRadius: '6.6px',
+                  margin: '0px 20px',
+                }}
+              />
+              <CardContent sx={{ marginTop: '8px' }}>
+                <Typography align="left" fontSize="fontSizeMd">
+                  {item.albumTitle.split('-', 2)[1]}
+                </Typography>
+                <Typography align="left" fontSize="fontSizeXs" sx={{ marginTop: '4px', marginBottom: '4px' }}>
+                  {item.albumTitle.split('-', 2)[0]}
+                </Typography>
+                <Box sx={{ display: 'flex' }}>
+                  <Rating
+                    name="half-rating-read"
+                    value={item.averageRating}
+                    precision={0.1}
+                    icon={
+                      <StarIcon
+                        sx={{
+                          marginTop: '0.5px',
+                          marginBottom: '0.5px',
+                          width: '15px',
+                          height: '15px',
+                          color: 'star.main',
+                        }}
+                      />
+                    }
+                    emptyIcon={
+                      <StarBorderIcon
+                        sx={{
+                          marginTop: '0.5px',
+                          marginBottom: '0.5px',
+                          width: '15px',
+                          height: '15px',
+                          color: 'star.main',
+                        }}
+                      />
+                    }
+                    sx={{ marginRight: '4px' }}
+                    readOnly
+                  />
+                  <Typography fontSize="fontSizeXs">{item.averageRating.toFixed(1)}</Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Link>
+        ))
+      ) : (
+        <Typography>List Empty</Typography>
+      )}
+    </Box>
+  );
+}
 
 function AlbumChart() {
   const [data, setData] = useState<AlbumCharts | null>(null);
@@ -23,39 +126,42 @@ function AlbumChart() {
   }, []);
 
   return (
-    <div className="album-chart">
-      <h1>앨범 차트</h1>
+    <Container maxWidth="md" sx={{ marginTop: '75px' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h1">인기 앨범 차트</Typography>
+        <Box sx={{ display: 'flex' }}>
+          <Button
+            variant="outlined"
+            sx={{
+              margin: '7px',
+              maxHeight: 36,
+              maxWidth: 36,
+              minHeight: 36,
+              minWidth: 36,
+            }}
+          >
+            <ArrowBackIosNewIcon fontSize="small" />
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              margin: '7px',
+              maxHeight: 36,
+              maxWidth: 36,
+              minHeight: 36,
+              minWidth: 36,
+            }}
+          >
+            <ArrowForwardIosIcon fontSize="small" />
+          </Button>
+        </Box>
+      </Box>
 
-      <a href="/album?sort=alltime">All Time</a>
-      <a href="/album?sort=yearly">1 year</a>
-
-      <div className="title">
-        <h1>인기 리뷰 앨범</h1>
-        <p>
-          하입합 유저들의 평가를 반영한 차트입니다.
-          <br />
-          앨범의 평균 평점과 평가 수를 반영합니다.
-        </p>
-      </div>
-
-      {Array.isArray(data?.top5Albums) ? (
-        data?.top5Albums.map((item) => (
-          <Link to={`${item.albumId}`} key={item.albumId}>
-            <div className="box">
-              <div className="cover">
-                <img src={item.thumbnail} alt="cover" />
-              </div>
-
-              <div className="name">
-                <span>{item.averageRating}</span> {item.albumTitle}
-              </div>
-            </div>
-          </Link>
-        ))
-      ) : (
-        <p>Empty</p>
-      )}
-    </div>
+      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 2fr)' }}>
+        {AlbumList(data, 0, 4)}
+        {AlbumList(data, 4, 8)}
+      </Box>
+    </Container>
   );
 }
 
