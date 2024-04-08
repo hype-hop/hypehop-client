@@ -148,48 +148,51 @@ function WriteReview({ data, userData }) {
             <label htmlFor="status">공개 여부</label>
           </div>
         </div>
-
-        <div className="row">
-          <div className="input-field">
-            <Input
-              fullWidth
-              type="text"
-              id="title"
-              name="title"
-              onChange={handleFormData}
-              value={formData.title}
-              placeholder="제목을 입력하세요"
-              required
-            />
-            <label htmlFor="title" />
+        <Box>
+          <Typography variant="h1">리뷰작성하기</Typography>
+          <div className="row">
+            <div className="input-field">
+              <Input
+                fullWidth
+                type="text"
+                id="title"
+                name="title"
+                onChange={handleFormData}
+                value={formData.title}
+                placeholder="제목을 입력하세요"
+                required
+                sx={{ mt: '16px' }}
+              />
+              <label htmlFor="title" />
+            </div>
           </div>
-        </div>
-        <div>
-          <EditorBox onContentChange={handleContentChange} /* value={reviewContent} */ />
-        </div>
+          <div>
+            <EditorBox onContentChange={handleContentChange} /* value={reviewContent} */ />
+          </div>
 
-        <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
-          <Button size="small" variant="outlined" type="submit" onClick={handleSubmit}>
-            <Typography fontSize="16px" fontWeight="fontWeightRegular">
-              Save
-            </Typography>
-          </Button>
-          <Button
-            size="small"
-            variant="outlined"
-            type="submit"
-            // onClick={handleCancel}
-            sx={{
-              width: '74px',
-              height: '36px',
-              background: 'rgb(52, 52, 52)',
-              ml: '16px',
-            }}
-          >
-            <Typography fontSize="16px" fontWeight="fontWeightRegular">
-              Cancel
-            </Typography>
-          </Button>
+          <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
+            <Button size="small" variant="outlined" type="submit" onClick={handleSubmit}>
+              <Typography fontSize="16px" fontWeight="fontWeightRegular">
+                Save
+              </Typography>
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              type="submit"
+              // onClick={handleCancel}
+              sx={{
+                width: '74px',
+                height: '36px',
+                background: 'rgb(52, 52, 52)',
+                ml: '16px',
+              }}
+            >
+              <Typography fontSize="16px" fontWeight="fontWeightRegular">
+                Cancel
+              </Typography>
+            </Button>
+          </Box>
         </Box>
       </form>
     </Container>
