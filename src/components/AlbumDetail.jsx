@@ -60,8 +60,6 @@ function AlbumDetail({ data, userData }) {
         <h4>Tracklist:</h4>
 
         <div>{renderTracks}</div>
-
-        <p>No tracklist available.</p>
       </ul>
 
       {data?.reviewUser.includes(userData?._id) ? (

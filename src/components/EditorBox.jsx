@@ -1,32 +1,17 @@
-// Import necessary hooks and effects from React
 import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/material';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import EditorJS from '@editorjs/editorjs';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Paragraph from '@editorjs/paragraph';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Header from '@editorjs/header';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import List from '@editorjs/list';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Embed from '@editorjs/embed';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Underline from '@editorjs/underline';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Strikethrough from '@sotaproject/strikethrough';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Checklist from '@editorjs/checklist';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import SimpleImage from '@editorjs/simple-image';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Marker from '@editorjs/marker';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import ColorPlugin from 'editorjs-text-color-plugin';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import AlignmentBlockTune from 'editorjs-text-alignment-blocktune';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 
 function EditorBox({ onContentChange, value }) {
   const editorRef = useRef(null);
@@ -85,9 +70,7 @@ function EditorBox({ onContentChange, value }) {
           strikethrough: Strikethrough,
           checklist: Checklist,
           image: SimpleImage,
-          marker: {
-            class: Marker,
-          },
+
           Color: {
             class: ColorPlugin,
             config: {
@@ -108,6 +91,9 @@ function EditorBox({ onContentChange, value }) {
               type: 'text',
               customPicker: true,
             },
+          },
+          Marker: {
+            class: Marker,
           },
         },
         data: {

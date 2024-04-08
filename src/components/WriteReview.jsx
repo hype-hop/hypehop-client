@@ -1,7 +1,7 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
-import { Input, Container, Button } from '@mui/material';
+import { Input, Container, Button, Typography, Box } from '@mui/material';
 import BASE_URL from '../config';
 import EditorBox from './EditorBox';
 import ensureError from '../utils/error';
@@ -59,21 +59,12 @@ function WriteReview({ data, userData }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const handleSubmitDummy = () => {
-    console.log(reviewContent);
-    const combinedData2 = {
-      ...formData,
-      trackRating,
-      body: reviewContent,
-    };
-    console.log(combinedData2);
-  };
-
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     // console.log(trackRating);
 
     if (formData.albumRating !== 0 && formData.title !== '') {
@@ -135,15 +126,11 @@ function WriteReview({ data, userData }) {
 
   return (
     <Container className="Write-review">
-      <button type="button" onClick={handleSubmitDummy}>
-        DummySave
-      </button>
-
       <form>
         <h5>앨범 평점:</h5>
 
         <Stack style={{ alignItems: 'center' }} spacing={1}>
-          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} />
+          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} required />
         </Stack>
 
         <h5>트랙별 평점:</h5>
@@ -181,9 +168,29 @@ function WriteReview({ data, userData }) {
           <EditorBox onContentChange={handleContentChange} /* value={reviewContent} */ />
         </div>
 
-        <Button variant="outlined" type="submit" onClick={handleSubmit}>
-          Save
-        </Button>
+        <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
+          <Button size="small" variant="outlined" type="submit" onClick={handleSubmit}>
+            <Typography fontSize="16px" fontWeight="fontWeightRegular">
+              Save
+            </Typography>
+          </Button>
+          <Button
+            size="small"
+            variant="outlined"
+            type="submit"
+            // onClick={handleCancel}
+            sx={{
+              width: '74px',
+              height: '36px',
+              background: 'rgb(52, 52, 52)',
+              ml: '16px',
+            }}
+          >
+            <Typography fontSize="16px" fontWeight="fontWeightRegular">
+              Cancel
+            </Typography>
+          </Button>
+        </Box>
       </form>
     </Container>
   );
