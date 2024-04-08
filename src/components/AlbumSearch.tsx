@@ -49,7 +49,14 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumS
         sx={isSearchCompleted ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}}
       />
 
-      {isSearchCompleted && <Result data={searchResult} setSelectedAlbum={setSelectedAlbum} />}
+      {isSearchCompleted && (
+        <Result
+          data={searchResult}
+          setSelectedAlbum={setSelectedAlbum}
+          setSearchResult={setSearchResult}
+          setKeyword={setKeyword}
+        />
+      )}
     </Container>
   );
 }

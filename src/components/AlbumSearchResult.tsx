@@ -24,9 +24,13 @@ function ResultBox({ children }: { children: ReactNode }) {
 function Result({
   data,
   setSelectedAlbum,
+  setSearchResult,
+  setKeyword,
 }: {
   data: AlbumSearchResult[];
   setSelectedAlbum: Dispatch<SetStateAction<AlbumSearchResult | null>>;
+  setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
+  setKeyword: Dispatch<SetStateAction<string | null>>;
 }) {
   if (data.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
   return (
@@ -36,6 +40,8 @@ function Result({
           sx={{ display: 'flex', cursor: 'pointer' }}
           onClick={() => {
             setSelectedAlbum(album);
+            setKeyword(null);
+            setSearchResult(null);
           }}
         >
           <Box
