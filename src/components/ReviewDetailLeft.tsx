@@ -1,101 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardMedia, Typography, Box, Stack, Rating, Avatar } from '@mui/material';
+import { Typography, Box, Stack, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import AlbumCard from './reusable/AlbumCard';
 import TimeSincePost from './TimeSincePost';
 // import Comment from './Comment';
 // import Favorite from './Favorite';
 
 function ReviewDetailLeft({ data, albumData }) {
+  console.log(data);
   return (
     <Box sx={{ mb: '18px' }}>
       <Stack sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h1">앨범 정보</Typography>
       </Stack>
 
-      <Card
-        key={data?.review._id}
-        sx={{
-          mt: '16px',
-          display: 'flex',
-          flexDirection: 'column',
-          width: {
-            xs: '100%',
-            sm: '100%',
-            md: '100%',
-            lg: '846px',
-          },
-          height: '90px',
-          paddingLeft: '22px',
-          paddingTop: '15px',
-          paddingBottom: '15px',
-          bgcolor: 'background.default',
-          border: '1px solid',
-          borderColor: 'rgb(52,52,52)',
-          borderRadius: '0px 16px 16px 16px',
-        }}
-      >
-        <Box
-          sx={{
-            width: '266px',
-            height: '60px',
-            alignContent: 'center',
-            display: 'flex',
-          }}
-        >
-          <Link to={`/album/${data?.review.albumId}`} style={{ justifyContent: 'center', alignContent: 'center' }}>
-            <CardMedia
-              component="img"
-              image={data?.review.thumbnail}
-              alt="album cover"
-              sx={{
-                width: '60px',
-                height: '60px',
-                borderRadius: '6.6px',
-              }}
-            />
-          </Link>
-          <Box>
-            <Typography
-              fontSize="fontSizeMd"
-              fontWeight="fontWeightBold"
-              sx={{
-                paddingTop: '4px',
-                paddingLeft: '20px',
-                textAlign: 'left',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {albumData?.albumTitleOnly}
-            </Typography>
-            <Typography
-              fontSize="fontSizeSm"
-              fontWeight="fontWeightLight"
-              color="grey.main"
-              sx={{
-                paddingLeft: '20px',
-                textAlign: 'left',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {albumData?.artistNameOnly}
-            </Typography>
-            <Stack direction="row" alignItems="center" spacing={1} sx={{ paddingLeft: '20px' }}>
-              <Rating
-                name="albumRating"
-                value={Number(albumData?.albumRatingAverage)}
-                precision={0.5}
-                readOnly
-                size="small"
-                sx={{ textAlign: 'left' }}
-              />
-              <Typography fontSize="fontSizeSm" fontWeight="700" sx={{ alignContent: 'flex-end' }}>
-                {albumData?.albumRatingAverage}
-              </Typography>
-            </Stack>
-          </Box>
-        </Box>
-      </Card>
+      <AlbumCard data={data} albumData={albumData} />
 
       <Box
         sx={{

@@ -3,7 +3,6 @@ import { Card, List, ListItem, ListItemText, Box, Typography } from '@mui/materi
 import StarIcon from '@mui/icons-material/Star';
 
 function TrackRatingCard({ data }) {
-  console.log(data);
   return (
     <Card
       variant="outlined"
