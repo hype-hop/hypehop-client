@@ -1,5 +1,4 @@
 import { Box, Rating, Typography } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { AlbumSearchResult } from '../types/albumSearch';
@@ -13,15 +12,13 @@ const starIconStyle = {
   color: 'star.main',
 };
 
-function RatingAlbum({
-  album,
-  rating,
-  setRating,
-}: {
+type RatingAlbumProps = {
   album: AlbumSearchResult;
   rating: number;
-  setRating: Dispatch<SetStateAction<number>>;
-}) {
+  setRating: (_rating: number) => void;
+};
+
+function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
   const { name, artists } = album;
   return (
     <Box

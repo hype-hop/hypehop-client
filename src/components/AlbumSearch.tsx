@@ -5,11 +5,12 @@ import { AlbumSearchResult } from '../types/albumSearch';
 import postSearchAlbum from '../api/album';
 import useDebounce from '../utils/useDebounce';
 import Result from './AlbumSearchResult';
+import { AlbumForReview } from '../types/albumReview';
 
 interface AlbumSearchProps {
   searchResult: AlbumSearchResult[] | null;
   setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
-  setSelectedAlbum: Dispatch<SetStateAction<AlbumSearchResult | null>>;
+  setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
 }
 
 function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumSearchProps) {

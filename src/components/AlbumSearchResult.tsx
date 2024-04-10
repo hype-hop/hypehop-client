@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { AlbumSearchResult } from '../types/albumSearch';
+import { AlbumForReview } from '../types/albumReview';
+import INITIAL_RATING_VALUE from './constants/rating';
 
 function ResultBox({ children }: { children: ReactNode }) {
   return (
@@ -28,7 +30,7 @@ function Result({
   setKeyword,
 }: {
   data: AlbumSearchResult[];
-  setSelectedAlbum: Dispatch<SetStateAction<AlbumSearchResult | null>>;
+  setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
   setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
   setKeyword: Dispatch<SetStateAction<string | null>>;
 }) {
@@ -40,6 +42,7 @@ function Result({
           sx={{ display: 'flex', cursor: 'pointer' }}
           onClick={() => {
             setSelectedAlbum(album);
+            setSelectedAlbum((prev) => ({ ...prev!, rating: INITIAL_RATING_VALUE }));
             setKeyword(null);
             setSearchResult(null);
           }}
