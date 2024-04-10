@@ -1,62 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import TrackRatingCard from './TrackRatingCard';
+import ReviewDetailLeft from './ReviewDetailLeft';
+import BASE_URL from '../config';
 
-import { Link } from 'react-router-dom';
+function ReviewDetail({ data, albumId }) {
+  const [albumData, setAlbumData] = useState(null);
 
-function ReviewDetail({ data }) {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/album/api/${albumId}`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const result = await response.json();
+        setAlbumData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [albumId]);
+
   return (
-    <div className="Review-detail">
-      <div key={data?.review._id} className="reviews-body">
-        <div className="chip-chip">
-          <img style={{ width: '50px', height: '50px' }} src={data?.review.user.image} alt="user-image" />
-          <a style={{ color: 'black' }} href={`/user/${data?.review.user._id}`}>
-            {data?.review.user.name ? data?.review.user.name : data?.review.user.displayName}
-          </a>
-        </div>
-
-        <p className="card-title">{data?.review.title}</p>
-
-        <ul>
-          <li>앨범 평점: {data?.review.albumRating}</li>
-          <p>트랙별 평점</p>
-
-          <table className="striped">
-            {data?.review.tracks.map((disc, index) => (
-              <React.Fragment key={index}>
-                <thead>
-                  <tr>
-                    <th>Disc {index + 1}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {disc.trackTitle.map((track, trackIndex) => (
-                    <tr key={trackIndex}>
-                      <td>{track}</td>
-                      <td>
-                        {data?.review.trackRating && data?.review.trackRating[index]
-                          ? data?.review.trackRating[index][trackIndex]
-                          : '-'}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </React.Fragment>
-            ))}
-          </table>
-
-          <p>앨범 평</p>
-          <li>
-            <div className="content-body-show">{data?.review.body}</div>
-          </li>
-
-          <div className="reviewedAblum">
-            <Link to={`/album/${data?.review.albumId}`}>
-              <img src={data?.review.thumbnail} alt="album-cover" />
-              <p>{data?.review.albumTitle} </p>
-            </Link>
-          </div>
-        </ul>
-      </div>
-    </div>
+    <Box display="flex" flexDirection={{ xs: 'column', sm: 'column', md: 'row' }}>
+      <ReviewDetailLeft data={data} albumData={albumData} />
+      <Box
+        sx={{
+          display: { xs: 'none', sm: 'none', md: 'block' },
+        }}
+      >
+        <Typography variant="h1" sx={{ textAlign: 'center', mb: '16px' }}>
+          트랙별 평점
+        </Typography>
+        <TrackRatingCard data={data} />
+      </Box>
+    </Box>
   );
 }
 

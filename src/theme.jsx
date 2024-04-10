@@ -43,6 +43,9 @@ const theme = createTheme({
       light: 'rgb(215,215,215)',
       dark: 'rgb(86,87,87)',
     },
+    star: {
+      main: 'rgb(255, 196, 3)',
+    },
 
     body1: {
       textAlign: 'left',
@@ -85,6 +88,24 @@ const theme = createTheme({
         root: {
           padding: 0,
         },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          border: '0px',
+          borderRadius: '16px',
+          outline: 'none',
+          background: 'rgb(52,52,52)',
+          color: 'white',
+          padding: '15px',
+          '&::before': {
+            content: 'none',
+          },
+          '&::after': {
+            content: 'none',
+          },
+          fontSize: '14px',
+        },
+        input: { padding: '0px', lineHeight: '1', '&::placeholder': { color: 'white' } },
       },
     },
   },
