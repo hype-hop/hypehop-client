@@ -96,6 +96,13 @@ const theme = createTheme({
         input: { padding: '0px', lineHeight: '1', '&::placeholder': { color: 'white' } },
       },
     },
+    MuiRating: {
+      styleOverrides: {
+        iconEmpty: {
+          color: 'rgb(255, 196, 3)',
+        },
+      },
+    },
   },
 });
 

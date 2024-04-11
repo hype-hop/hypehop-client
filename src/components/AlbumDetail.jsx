@@ -1,6 +1,6 @@
 import WriteReview from './WriteReview';
 
-function AlbumDetail({ data }) {
+function AlbumDetail({ data, userData }) {
   const tracksByDisc = {};
 
   data?.albumData.tracks.items.forEach((track) => {
@@ -60,14 +60,12 @@ function AlbumDetail({ data }) {
         <h4>Tracklist:</h4>
 
         <div>{renderTracks}</div>
-
-        <p>No tracklist available.</p>
       </ul>
 
-      {data?.reviewUser.includes(data?.loggedInUser) ? (
+      {data?.reviewUser.includes(userData?._id) ? (
         <p>이미 작성한 리뷰가 있습니다.</p>
       ) : (
-        <WriteReview data={data} />
+        <WriteReview data={data} userData={userData} />
       )}
     </div>
   );

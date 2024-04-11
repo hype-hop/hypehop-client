@@ -1,16 +1,16 @@
 import React from 'react';
 import AlbumSearch from '../components/AlbumSearch';
 import RecentlyReviewed from '../components/RecentlyReviewed';
-import AlbumChart from '../components/AlbumChart';
+import WriteReview from '../components/WriteReview';
 
 function AlbumPage() {
   return (
     <div className="Album">
-      <h1>AlbumPage.jsx</h1>
+      <h1>AlbumPage.jsx - 작성페이지 </h1>
 
       <AlbumSearch />
+      <WriteReview />
       <RecentlyReviewed />
-      <AlbumChart />
     </div>
   );
 }

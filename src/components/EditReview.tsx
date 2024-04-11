@@ -1,18 +1,21 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
+import { Button } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
 import EditorBox from './EditorBox';
+import BASE_URL from '../config';
 
 function EditReview({ data /* id */ }) {
-  const [, setReviewContent] = useState('');
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [reviewContent, setReviewContent] = useState('');
   const handleContentChange = (newContent) => {
     setReviewContent(newContent);
   };
 
   // const tracksByDisc = {};
   // const tracks = [];
-
-  console.log(data);
 
   // const [trackRating, setTrackRating] = useState([]);
 
@@ -49,42 +52,44 @@ function EditReview({ data /* id */ }) {
       setTrackRating(trackRatingArray);
     */
     }
-  }, [data, formData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // const handleSubmit = (e) => {
-  //   if (formData.albumRating !== 0 && formData.title !== '') {
-  //     const combinedData = {
-  //       ...formData,
-  //       trackRating,
-  //       body: reviewContent,
-  //     };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (formData.albumRating !== 0 && formData.title !== '') {
+      const combinedData = {
+        ...formData,
+        body: reviewContent,
+      };
 
-  //     fetch(`/album/api/review/${id}`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(combinedData),
-  //     })
-  //       .then((response) => response.json())
-  //       .then(() => {
-  //         window.location.reload();
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   } else if (formData.albumRating === 0) {
-  //     if (typeof window !== 'undefined') {
-  //       window.alert('평점을 입력해주세요');
-  //     }
-  //   } else if (formData.title === '') {
-  //     alert('앨범평을 입력해주세요');
-  //   }
-  // };
+      fetch(`${BASE_URL}/album/api/review/${id}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(combinedData),
+      })
+        .then((response) => response.json())
+        .then(() => {
+          navigate(`/album/review/${id}`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else if (formData.albumRating === 0) {
+      if (typeof window !== 'undefined') {
+        window.alert('평점을 입력해주세요');
+      }
+    } else if (formData.title === '') {
+      alert('앨범평을 입력해주세요');
+    }
+  };
 
   /*
     const renderTracks = Object.keys(tracksByDisc).map(discNumber => (
@@ -165,9 +170,9 @@ function EditReview({ data /* id */ }) {
           <EditorBox onContentChange={handleContentChange} value={formData.body} />
         </div>
 
-        {/*
-<button onClick={handleSubmit}>Save</button>
-*/}
+        <Button variant="outlined" size="small" type="submit" onClick={handleSubmit}>
+          Save
+        </Button>
       </form>
     </div>
   );
