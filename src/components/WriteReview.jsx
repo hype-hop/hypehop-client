@@ -2,11 +2,13 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Input, Container, Button, Typography, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../config';
 import EditorBox from './EditorBox';
 import ensureError from '../utils/error';
 
 function WriteReview({ data, userData }) {
+  const navigate = useNavigate();
   const [reviewContent, setReviewContent] = useState('');
   const [trackRating, setTrackRating] = useState([]);
 
@@ -84,7 +86,7 @@ function WriteReview({ data, userData }) {
       })
         .then((response) => response.json())
         .then(() => {
-          window.location.reload();
+          navigate(`/album/review/`);
         })
         .catch((error) => {
           const ensuredError = ensureError(error);
@@ -167,7 +169,7 @@ function WriteReview({ data, userData }) {
             </div>
           </div>
           <div>
-            <EditorBox onContentChange={handleContentChange} /* value={reviewContent} */ />
+            <EditorBox onContentChange={handleContentChange} /* value={reviewContent}  */ />
           </div>
 
           <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>

@@ -7,25 +7,43 @@ import List from '@editorjs/list';
 import Embed from '@editorjs/embed';
 import Underline from '@editorjs/underline';
 import Strikethrough from '@sotaproject/strikethrough';
-import Checklist from '@editorjs/checklist';
+// import Checklist from '@editorjs/checklist';
 import SimpleImage from '@editorjs/simple-image';
 import Marker from '@editorjs/marker';
 import ColorPlugin from 'editorjs-text-color-plugin';
 import AlignmentBlockTune from 'editorjs-text-alignment-blocktune';
+import { useLocation } from 'react-router-dom';
 
 function EditorBox({ onContentChange, value }) {
   const editorRef = useRef(null);
-  const [content, setContent] = useState(value);
-
+  const [isCreating, setIsCreating] = useState(null);
+  const [content, setContent] = useState(null);
+  const location = useLocation();
   useEffect(() => {
-    if (value) {
+    if (location.pathname.includes('edit') /* && value */) {
+      setIsCreating(false);
       setContent(value);
+    } else {
+      setIsCreating(true);
     }
-  }, [value]);
+  }, [location.pathname, value, content]);
 
-  useEffect(() => {
+  const parseHTMLToBlocks = (html) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const paragraphs = doc.querySelectorAll('p');
+    const blocks = Array.from(paragraphs).map((p) => ({
+      type: 'paragraph',
+      data: {
+        text: p.textContent,
+      },
+    }));
+    return blocks;
+  };
+
+  const initializeEditor = () => {
     if (!editorRef.current) {
-      editorRef.current = true;
+      const initialBlocks = parseHTMLToBlocks(content);
       const editor = new EditorJS({
         holder: 'editorjs',
         tools: {
@@ -68,7 +86,6 @@ function EditorBox({ onContentChange, value }) {
           },
           underline: Underline,
           strikethrough: Strikethrough,
-          checklist: Checklist,
           image: SimpleImage,
 
           Color: {
@@ -97,43 +114,45 @@ function EditorBox({ onContentChange, value }) {
           },
         },
         data: {
-          blocks: [
+          blocks: initialBlocks,
+          /* [
+          
             {
               type: 'paragraph',
               data: {
                 text: content,
               },
             },
-          ],
+          ], */
         },
         onReady: () => {
           const inlineToolbar = document.querySelector('.ce-inline-toolbar');
-
           if (inlineToolbar) {
             inlineToolbar.style.color = 'black';
           }
         },
         onChange: async () => {
           const data = await editorRef.current.save();
-          // const reviewBody = data.blocks.map((block) => block.data.text).join('\n');
           const reviewBody = data?.blocks.map((block) => `<p>${block.data.text}</p>`).join('');
-          // const reviewBody = data.blocks.map((block) => block.data.text);
-
-          // setContent(data.blocks);
-          // setContent(reviewBody);
-          // eslint-disable-next-line react/destructuring-assignment
           onContentChange(reviewBody);
         },
       });
       editorRef.current = editor;
     }
+  };
+
+  useEffect(() => {
+    if (content && !isCreating) {
+      initializeEditor();
+    } else if (isCreating) {
+      initializeEditor();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [content, isCreating]);
 
   return (
     <Box
       id="editorjs"
-      value={content}
       sx={{
         mt: '16px',
         background: 'rgb(52,52,52)',
