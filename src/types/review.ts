@@ -15,9 +15,12 @@ export interface Review {
   createdAt: string;
   user: User;
   isFavorite: Array<string>;
-  // eslint-disable-next-line no-use-before-define
   comments: Array<Comment>;
   albumRating: number;
+}
+
+export interface ReviewsRank extends Review {
+  favoriteCount: number;
 }
 
 export interface FormData {
