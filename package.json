@@ -3,6 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@editorjs/checklist": "^1.6.0",
+    "@editorjs/editorjs": "^2.29.1",
+    "@editorjs/embed": "^2.7.0",
+    "@editorjs/header": "^2.8.1",
+    "@editorjs/list": "^1.9.0",
+    "@editorjs/marker": "^1.4.0",
+    "@editorjs/paragraph": "^2.11.4",
+    "@editorjs/simple-image": "^1.6.0",
+    "@editorjs/underline": "^1.1.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
@@ -10,8 +19,11 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.11",
+    "@sotaproject/strikethrough": "^1.0.1",
     "@types/react": "^18.2.70",
     "@types/react-dom": "^18.2.22",
+    "editorjs-text-alignment-blocktune": "^1.0.3",
+    "editorjs-text-color-plugin": "^2.0.4",
     "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,7 +36,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint" : "npx eslint src/"
+    "lint": "npx eslint src/"
   },
   "eslintConfig": {
     "extends": [

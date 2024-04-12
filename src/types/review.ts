@@ -22,3 +22,17 @@ export interface Review {
 export interface ReviewsRank extends Review {
   favoriteCount: number;
 }
+
+export interface FormData {
+  title: string;
+  status: string;
+  albumRating: number;
+  body: string;
+  albumTitle: string | null;
+  albumId: string | null;
+  thumbnail: string | null;
+  user: string | null;
+  albumReleaseDate: string | null;
+  trackTitle: string[] | null;
+  artistGenre: string[] | null;
+}

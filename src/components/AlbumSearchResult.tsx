@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/material';
-import { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { AlbumSearchResult } from '../types/albumSearch';
+import { AlbumForReview } from '../types/albumReview';
+import INITIAL_RATING_VALUE from './constants/rating';
 
 function ResultBox({ children }: { children: ReactNode }) {
   return (
@@ -22,13 +23,30 @@ function ResultBox({ children }: { children: ReactNode }) {
   );
 }
 
-function Result({ data }: { data: AlbumSearchResult[] }) {
-  const router = useNavigate();
+function Result({
+  data,
+  setSelectedAlbum,
+  setSearchResult,
+  setKeyword,
+}: {
+  data: AlbumSearchResult[];
+  setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
+  setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
+  setKeyword: Dispatch<SetStateAction<string | null>>;
+}) {
   if (data.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
   return (
     <ResultBox>
       {data.map((album) => (
-        <Box sx={{ display: 'flex', cursor: 'pointer' }} onClick={() => router(`/album/${album.id}`)}>
+        <Box
+          sx={{ display: 'flex', cursor: 'pointer' }}
+          onClick={() => {
+            setSelectedAlbum(album);
+            setSelectedAlbum((prev) => ({ ...prev!, rating: INITIAL_RATING_VALUE }));
+            setKeyword(null);
+            setSearchResult(null);
+          }}
+        >
           <Box
             component="img"
             width="60px"

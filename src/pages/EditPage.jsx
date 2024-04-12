@@ -12,7 +12,10 @@ function EditPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/album/api/review/edit/${id}`);
+        const response = await fetch(`${BASE_URL}/album/api/review/edit/${id}`, {
+          method: 'GET',
+          credentials: 'include',
+        });
         const result = await response.json();
         setData(result);
       } catch (error) {

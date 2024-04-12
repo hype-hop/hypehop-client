@@ -1,31 +1,24 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
+import { Input, Container, Button, Typography, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../config';
+import EditorBox from './EditorBox';
+import ensureError from '../utils/error';
 
-function WriteReview({ data }) {
-  const [reviewContent /* setReviewContent */] = useState('');
-  // const handleContentChange = (newContent) => {
-  //   setReviewContent(newContent);
-  // };
-
-  const tracksByDisc = {};
-  const tracks = useMemo(() => [], []);
-
+function WriteReview({ data, userData }) {
+  const navigate = useNavigate();
+  const [reviewContent, setReviewContent] = useState('');
   const [trackRating, setTrackRating] = useState([]);
 
-  const [formData, setFormData] = useState({
-    title: '',
-    status: 'public',
-    albumRating: 0,
-    body: '',
-    albumTitle: data?.pageTitle,
-    albumId: data?.albumData.id,
-    thumbnail: data?.albumData.images[1].url,
-    user: data?.loggedInUser,
-    albumReleaseDate: data?.albumData.release_date,
-    trackTitle: [],
-    artistGenre: [],
-  });
+  const handleContentChange = (newContent) => {
+    setReviewContent(newContent);
+  };
+
+  const tracksByDisc = {};
+
+  const tracks = [];
 
   data?.albumData.tracks.items.forEach((track, index) => {
     const discNumber = track.disc_number || 1;
@@ -36,6 +29,20 @@ function WriteReview({ data }) {
     tracks.push(`disc${discNumber - 1}-${index + 1}.${track.name}`);
   });
 
+  const [formData, setFormData] = useState({
+    title: '',
+    status: 'public',
+    albumRating: 0,
+    body: '',
+    albumTitle: data?.pageTitle,
+    albumId: data?.albumData.id,
+    thumbnail: data?.albumData.images[1].url,
+    user: userData?._id,
+    albumReleaseDate: data?.albumData.release_date,
+    trackTitle: [],
+    artistGenre: [],
+  });
+
   useEffect(() => {
     if (data) {
       setFormData({
@@ -44,21 +51,23 @@ function WriteReview({ data }) {
         albumTitle: data?.pageTitle,
         thumbnail: data.albumData.images[1].url,
         albumReleaseDate: data.albumData.release_date,
-        user: data?.loggedInUser,
-        trackTitle: tracks,
+        user: userData?._id,
+        trackTitle: tracks || null,
         artistGenre: data?.spotify_artist_genre,
       });
       const trackRatingArray = Array(data?.albumData.tracks.items.length || 0).fill(null);
       setTrackRating(trackRatingArray);
     }
-  }, [data, formData, tracks]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log(trackRating);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // console.log(trackRating);
 
     if (formData.albumRating !== 0 && formData.title !== '') {
       const combinedData = {
@@ -67,8 +76,9 @@ function WriteReview({ data }) {
         body: reviewContent,
       };
 
-      fetch('/album/api/review/create', {
+      fetch(`${BASE_URL}/album/api/review/create`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -76,10 +86,11 @@ function WriteReview({ data }) {
       })
         .then((response) => response.json())
         .then(() => {
-          window.location.reload();
+          navigate(`/album/review/`);
         })
         .catch((error) => {
-          console.error(error);
+          const ensuredError = ensureError(error);
+          return { success: false, error: ensuredError };
         });
     } else if (formData.albumRating === 0) {
       alert('평점을 입력해주세요');
@@ -116,26 +127,17 @@ function WriteReview({ data }) {
   ));
 
   return (
-    <div className="Write-review">
-      <h3>작성페이지</h3>
-
+    <Container className="Write-review">
       <form>
         <h5>앨범 평점:</h5>
 
         <Stack style={{ alignItems: 'center' }} spacing={1}>
-          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} />
+          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} required />
         </Stack>
 
         <h5>트랙별 평점:</h5>
 
         {renderTracks}
-
-        <div className="row">
-          <div className="input-field">
-            <input type="text" id="title" name="title" onChange={handleFormData} value={formData.title} required />
-            <label htmlFor="title">한줄평</label>
-          </div>
-        </div>
 
         <div className="row">
           <div className="input-field">
@@ -148,25 +150,54 @@ function WriteReview({ data }) {
             <label htmlFor="status">공개 여부</label>
           </div>
         </div>
+        <Box>
+          <Typography variant="h1">리뷰작성하기</Typography>
+          <div className="row">
+            <div className="input-field">
+              <Input
+                fullWidth
+                type="text"
+                id="title"
+                name="title"
+                onChange={handleFormData}
+                value={formData.title}
+                placeholder="제목을 입력하세요"
+                required
+                sx={{ mt: '16px' }}
+              />
+              <label htmlFor="title" />
+            </div>
+          </div>
+          <div>
+            <EditorBox onContentChange={handleContentChange} /* value={reviewContent}  */ />
+          </div>
 
-        <h5>리뷰 작성</h5>
-
-        <div style={{ margin: '50px' }} className="row">
-          <h5>리뷰 작성하기:</h5>
-
-          {/*
-          <EditorBox 
-          onContentChange={handleContentChange}
-          
-          />
-  */}
-        </div>
-
-        <button type="submit" onClick={handleSubmit}>
-          Save
-        </button>
+          <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
+            <Button size="small" variant="outlined" type="submit" onClick={handleSubmit}>
+              <Typography fontSize="16px" fontWeight="fontWeightRegular">
+                Save
+              </Typography>
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              type="submit"
+              // onClick={handleCancel}
+              sx={{
+                width: '74px',
+                height: '36px',
+                background: 'rgb(52, 52, 52)',
+                ml: '16px',
+              }}
+            >
+              <Typography fontSize="16px" fontWeight="fontWeightRegular">
+                Cancel
+              </Typography>
+            </Button>
+          </Box>
+        </Box>
       </form>
-    </div>
+    </Container>
   );
 }
 
