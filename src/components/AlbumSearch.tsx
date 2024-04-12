@@ -1,14 +1,20 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Container, Input, InputAdornment } from '@mui/material';
 import { AlbumSearchResult } from '../types/albumSearch';
 import postSearchAlbum from '../api/album';
 import useDebounce from '../utils/useDebounce';
 import Result from './AlbumSearchResult';
+import { AlbumForReview } from '../types/albumReview';
 
-function AlbumSearch() {
+interface AlbumSearchProps {
+  searchResult: AlbumSearchResult[] | null;
+  setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
+  setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
+}
+
+function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumSearchProps) {
   const [keyword, setKeyword] = useState<string | null>(null);
-  const [searchResult, setSearchResult] = useState<AlbumSearchResult[] | null>(null);
 
   const { debouncedValue } = useDebounce(keyword!, 200);
   const isSearchCompleted = debouncedValue && searchResult;
@@ -23,7 +29,7 @@ function AlbumSearch() {
       const res = await postSearchAlbum(debouncedValue!);
       if (res.success) setSearchResult(res.data);
     })();
-  }, [debouncedValue]);
+  }, [debouncedValue, setSearchResult]);
 
   return (
     <Container>
@@ -44,7 +50,14 @@ function AlbumSearch() {
         sx={isSearchCompleted ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}}
       />
 
-      {isSearchCompleted && <Result data={searchResult} />}
+      {isSearchCompleted && (
+        <Result
+          data={searchResult}
+          setSelectedAlbum={setSelectedAlbum}
+          setSearchResult={setSearchResult}
+          setKeyword={setKeyword}
+        />
+      )}
     </Container>
   );
 }
