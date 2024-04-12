@@ -1,13 +1,13 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
-import { Button, Box, Input } from '@mui/material';
+import { Button, Box, Input, Typography, Container } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import EditorBox from './EditorBox';
 import BASE_URL from '../config';
 import TrackListForEdit from './TrackListForEdit';
 
-function EditReview({ data }) {
+function EditReview({ data, albumData }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [reviewContent, setReviewContent] = useState('');
@@ -38,8 +38,6 @@ function EditReview({ data }) {
         albumRating: data?.review.albumRating,
         body: data?.review.body,
       });
-      // const trackRatingArray = Array(data?.albumData.tracks.items.length || 0).fill(null);
-      // setTrackRating(trackRatingArray);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -82,7 +80,7 @@ function EditReview({ data }) {
   };
 
   return (
-    <div className="Edit-review">
+    <Container className="Edit-review">
       <Box
         component="img"
         width="60px"
@@ -92,15 +90,59 @@ function EditReview({ data }) {
       />
 
       <form>
-        <h5>앨범 평점:</h5>
+        <Typography variant="h1">앨범 평점</Typography>
+        <Box
+          sx={{
+            mt: '16px',
+            background: 'rgb(52,52,52)',
+            borderRadius: '16px',
+            mb: '62px',
+          }}
+        >
+          <Stack sx={{ height: '74px', justifyContent: 'center', margin: '20px' }} spacing={1}>
+            <Box sx={{ display: 'flex' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Typography
+                  textAlign="left"
+                  fontSize="fontSizeMd"
+                  fontWeight="fontWeightBold"
+                  sx={{ whiteSpace: 'nowrap' }}
+                >
+                  {albumData?.albumTitleOnly}
+                </Typography>
+                <Typography
+                  fontSize="fontSizeSm"
+                  fontWeight="fontWeightLight"
+                  sx={{ whiteSpace: 'nowrap', alignContent: 'center', color: 'grey.main' }}
+                >
+                  {data?.review.albumTitle}
+                </Typography>
+              </Box>
 
-        <Stack style={{ alignItems: 'center' }} spacing={1}>
-          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} />
-        </Stack>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%', alignItems: 'center' }}>
+                <Rating
+                  size="small"
+                  name="albumRating"
+                  value={formData.albumRating}
+                  precision={0.5}
+                  onChange={handleFormData}
+                  sx={{ mr: '3px' }}
+                />
 
-        <h5>트랙별 평점:</h5>
+                <Typography fontSize="fontSizeMd" fontWeight="fontWeightRegular" sx={{ alignContent: 'center' }}>
+                  {Number(formData.albumRating).toFixed(1)}
+                </Typography>
+              </Box>
+            </Box>
+          </Stack>
+        </Box>
+        <Typography variant="h1">트랙별 평점</Typography>
 
-        <TrackListForEdit data={data} onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate} />
+        <TrackListForEdit
+          data={data}
+          onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
+          albumData={albumData}
+        />
 
         <div className="row" />
 
@@ -116,7 +158,10 @@ function EditReview({ data }) {
           </div>
         </div>
 
-        <div style={{ margin: '50px' }} className="row">
+        <Typography sx={{ mt: '62px' }} variant="h1">
+          리뷰 작성하기
+        </Typography>
+        <div className="row">
           <div className="input-field">
             <Input
               fullWidth
@@ -139,7 +184,7 @@ function EditReview({ data }) {
           Save
         </Button>
       </form>
-    </div>
+    </Container>
   );
 }
 

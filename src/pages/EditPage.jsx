@@ -7,6 +7,7 @@ function EditPage() {
   const { id } = useParams();
 
   const [data, setData] = useState(null);
+  const [albumData, setAlbumData] = useState(null);
   const [, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
@@ -18,6 +19,12 @@ function EditPage() {
         });
         const result = await response.json();
         setData(result);
+        const response2 = await fetch(`${BASE_URL}/album/api/${data?.review.albumId}`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const result2 = await response2.json();
+        setAlbumData(result2);
       } catch (error) {
         console.error('Error fetching data:', error);
         setIsAuthenticated(false);
@@ -25,11 +32,11 @@ function EditPage() {
     };
 
     fetchData();
-  }, [id]);
+  }, [data?.review.albumId, id]);
 
   return (
     <div className="Edit-review">
-      <EditReview data={data} id={id} />
+      <EditReview data={data} id={id} albumData={albumData} />
     </div>
   );
 }
