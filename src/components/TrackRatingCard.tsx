@@ -9,7 +9,6 @@ function TrackRatingCard({ data }) {
       sx={{
         ml: '67px',
         width: '287px',
-        // height: '336px',
         height: '500px',
         padding: '16px',
         overflow: 'auto',
@@ -71,7 +70,8 @@ function TrackRatingCard({ data }) {
                           >
                             {' '}
                             {/* eslint-disable-next-line no-unsafe-optional-chaining */}
-                            {data?.review.tracks[index].trackRating && data?.review.tracks[index].trackRating[index]
+                            {data?.review.tracks[index].trackRating &&
+                            data?.review.tracks[index].trackRating[trackIndex]
                               ? Number(data?.review.tracks[index].trackRating[trackIndex]).toFixed(1)
                               : '--'}
                           </Typography>

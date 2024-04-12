@@ -88,6 +88,8 @@ const theme = createTheme({
         root: {
           padding: 0,
         },
+      },
+    },
     MuiInput: {
       styleOverrides: {
         root: {

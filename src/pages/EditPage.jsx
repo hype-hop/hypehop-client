@@ -29,9 +29,6 @@ function EditPage() {
 
   return (
     <div className="Edit-review">
-      <h3>EditPage.jsx</h3>
-      <h4>작업중..</h4>
-
       <EditReview data={data} id={id} />
     </div>
   );

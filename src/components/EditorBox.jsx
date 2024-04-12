@@ -17,7 +17,7 @@ import { useLocation } from 'react-router-dom';
 function EditorBox({ onContentChange, value }) {
   const editorRef = useRef(null);
   const [isCreating, setIsCreating] = useState(null);
-  const [content, setContent] = useState(null);
+  const [content, setContent] = useState(null || ' ');
   const location = useLocation();
   useEffect(() => {
     if (location.pathname.includes('edit') /* && value */) {

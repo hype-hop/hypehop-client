@@ -236,7 +236,7 @@ function ReviewsPage() {
                         letterSpacing: '-4%',
                       }}
                     >
-                      {review.body.replace(/<[^>]+>/g, '')}
+                      {review.body.replace(/<[^>]+>/g, ' ')}
                     </Typography>
                   </Box>
                 </Link>
