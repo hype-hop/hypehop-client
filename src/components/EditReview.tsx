@@ -3,6 +3,8 @@ import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Button, Box, Input, Typography, Container } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditorBox from './EditorBox';
 import BASE_URL from '../config';
 import TrackListForEdit from './TrackListForEdit';
@@ -11,7 +13,8 @@ function EditReview({ data, albumData }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [reviewContent, setReviewContent] = useState('');
-  const [parentTrackRatingForEdit, setParentTrackRatingForEdit] = useState(null);
+  const [isTrackListOpened, SetsTrackListOpened] = useState(false);
+  const [parentTrackRatingForEdit, setParentTrackRatingForEdit] = useState(data?.review.tracks);
 
   const handleTrackRatingForEditUpdate = (updatedTrackRatingForEdit) => {
     setParentTrackRatingForEdit(updatedTrackRatingForEdit);
@@ -20,6 +23,10 @@ function EditReview({ data, albumData }) {
 
   const handleContentChange = (newContent) => {
     setReviewContent(newContent);
+  };
+
+  const handleOpen = () => {
+    SetsTrackListOpened(!isTrackListOpened);
   };
 
   const [formData, setFormData] = useState({
@@ -136,13 +143,52 @@ function EditReview({ data, albumData }) {
             </Box>
           </Stack>
         </Box>
-        <Typography variant="h1">트랙별 평점</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography variant="h1">트랙별 평점</Typography>
 
-        <TrackListForEdit
-          data={data}
-          onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
-          albumData={albumData}
-        />
+          <Button size="small" variant="outlined" onClick={handleOpen}>
+            <Typography fontSize="fontSizeMd" fontWeight="fontWeightRegular">
+              {isTrackListOpened ? `트랙리스트 닫기` : '트랙리스트 열기'}
+            </Typography>
+            {isTrackListOpened ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </Button>
+        </Box>
+        {isTrackListOpened ? (
+          <TrackListForEdit
+            data={data}
+            onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
+            albumData={albumData}
+          />
+        ) : (
+          <Box
+            sx={{
+              mt: '16px',
+              background: 'rgb(52,52,52)',
+              borderRadius: '16px',
+              mb: '62px',
+              height: '46px',
+              alignContent: 'center',
+            }}
+          >
+            <Typography
+              fontSize="fontSizeMd"
+              fontWeight="fontWeightRegular"
+              ml="20px"
+              textAlign="left"
+              sx={{
+                color: 'grey.main',
+              }}
+            >
+              트랙리스트를 열어 확인하세요.
+            </Typography>
+          </Box>
+        )}
 
         <div className="row" />
 
