@@ -21,7 +21,6 @@ function JoinPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Send the POST request here using fetch or axios
     fetch(`${BASE_URL}/api/join`, {
       method: 'POST',
       headers: {

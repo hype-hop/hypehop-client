@@ -20,7 +20,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login/error?" element={<LoginPage />} />
           <Route path="/join" element={<JoinPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/album" element={<AlbumPage />} />

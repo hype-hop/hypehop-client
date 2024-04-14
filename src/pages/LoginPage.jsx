@@ -1,16 +1,24 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Box, Container, Typography, Input, Button } from '@mui/material';
+import { useState } from 'react';
 import { useAuth } from '../AuthenticationContext';
 import BASE_URL from '../config';
 
 function LoginPage() {
-  const [user] = useAuth();
-
   const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+  const isError = pathname.includes('error');
+  const [user] = useAuth();
+  const [isTyping, setIsTyping] = useState(false);
 
   if (user) {
     navigate('/dashboard');
   }
+
+  const handleChange = () => {
+    setIsTyping(true);
+  };
 
   return (
     <Container className="Login">
@@ -29,6 +37,8 @@ function LoginPage() {
           <label className="labels" htmlFor="email" />
           <Box className="inputForm">
             <Input
+              onChange={handleChange}
+              required
               fullWidth
               type="email"
               id="email"
@@ -50,6 +60,8 @@ function LoginPage() {
           <label className="labels" htmlFor="password" />
           <Box className="inputForm">
             <Input
+              onChange={handleChange}
+              required
               fullWidth
               type="password"
               id="password"
@@ -64,7 +76,26 @@ function LoginPage() {
             />
           </Box>
         </Box>
-
+        {isError && !isTyping ? (
+          <Box>
+            <Typography
+              textAlign="left"
+              fontSize="fontSizeMd"
+              fontWeight="fontWeightRegular"
+              sx={{
+                mt: '10px',
+                ml: '8px',
+                color: 'rgb(131, 36, 254)',
+              }}
+            >
+              *등록되지 않은 아이디이거나 비밀번호를 잘못 입력하셨습니다.
+            </Typography>
+          </Box>
+        ) : (
+          <Box>
+            <Typography />
+          </Box>
+        )}
         <Button
           fullWidth
           type="submit"
