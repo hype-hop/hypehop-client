@@ -56,8 +56,6 @@ function JoinPage() {
       </Typography>
 
       <div className="section">
-        {error && <div className="error-message">{error}</div>}
-
         <form className="form" onSubmit={handleSubmit} method="POST">
           <Box className="flex-column">
             <label htmlFor="name" />
@@ -146,6 +144,22 @@ function JoinPage() {
               />
             </Box>
           </Box>
+          {error && (
+            <Box className="error-message">
+              <Typography
+                textAlign="left"
+                fontSize="fontSizeMd"
+                fontWeight="fontWeightRegular"
+                sx={{
+                  mt: '10px',
+                  ml: '8px',
+                  color: 'rgb(131, 36, 254)',
+                }}
+              >
+                *{error}
+              </Typography>
+            </Box>
+          )}
           <Button
             fullWidth
             id="submit"
