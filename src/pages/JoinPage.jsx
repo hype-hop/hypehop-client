@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Box, Container, Typography, Input, Button } from '@mui/material';
 import BASE_URL from '../config';
 
 function JoinPage() {
@@ -43,85 +44,138 @@ function JoinPage() {
   };
 
   return (
-    <div className="Join">
-      <h1>Join page</h1>
+    <Container className="Join">
+      <Typography
+        variant="h1"
+        textAlign="center"
+        sx={{
+          mt: '105px',
+        }}
+      >
+        회원가입
+      </Typography>
 
       <div className="section">
         {error && <div className="error-message">{error}</div>}
 
         <form className="form" onSubmit={handleSubmit} method="POST">
-          <div className="flex-column">
-            <label htmlFor="name">Name</label>
-            <div className="inputForm">
-              <input
+          <Box className="flex-column">
+            <label htmlFor="name" />
+            <Box className="inputForm">
+              <Input
+                fullWidth
                 type="name"
                 id="name"
                 name="name"
                 className="form-control"
-                placeholder="Enter Name"
+                placeholder="아이디를 입력해주세요."
                 onChange={handleChange}
                 value={formData.name}
+                sx={{
+                  borderRadius: '16px',
+                  mb: '16px',
+                  mt: '57px',
+                  backgroundColor: 'background.default',
+                  border: '1px solid rgb(52, 52, 52)',
+                }}
               />
-            </div>
-          </div>
-          <div className="flex-column">
-            <label htmlFor="email">Email</label>
-            <div className="inputForm">
-              <input
+            </Box>
+          </Box>
+          <Box className="flex-column">
+            <label htmlFor="email" />
+            <Box className="inputForm">
+              <Input
+                fullWidth
                 type="email"
                 id="email"
                 name="email"
                 className="form-control"
-                placeholder="Enter Email"
+                placeholder="이메일을 입력해주세요."
                 onChange={handleChange}
                 value={formData.email}
+                sx={{
+                  borderRadius: '16px',
+                  backgroundColor: 'background.default',
+                  border: '1px solid rgb(52, 52, 52)',
+                  mb: '16px',
+                }}
               />
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          <div className="flex-column">
-            <label htmlFor="password">Password</label>
-            <div className="inputForm">
-              <input
+          <Box className="flex-column">
+            <label htmlFor="password" />
+            <Box className="inputForm">
+              <Input
+                fullWidth
                 type="password"
                 id="password"
                 name="password"
                 className="form-control"
-                placeholder="Create Password"
+                placeholder="비밀번호를 입력해주세요."
                 onChange={handleChange}
                 value={formData.password}
+                sx={{
+                  borderRadius: '16px',
+                  backgroundColor: 'background.default',
+                  border: '1px solid rgb(52, 52, 52)',
+                  mb: '16px',
+                }}
               />
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          <div className="flex-column">
-            <label htmlFor="password2">Confirm Password</label>
-            <div className="inputForm">
-              <input
+          <Box className="flex-column">
+            <label htmlFor="password2" />
+            <Box className="inputForm">
+              <Input
+                fullWidth
                 type="password"
                 id="password2"
                 name="password2"
                 className="form-control"
-                placeholder="Confirm Password"
+                placeholder="비밀번호를 확인해주세요."
                 onChange={handleChange}
                 value={formData.password2}
+                sx={{
+                  mb: '16px',
+                  borderRadius: '16px',
+                  backgroundColor: 'background.default',
+                  border: '1px solid rgb(52, 52, 52)',
+                }}
               />
-            </div>
-          </div>
-          <button id="submit" type="submit" className="button-submit">
-            Register
-          </button>
+            </Box>
+          </Box>
+          <Button
+            fullWidth
+            id="submit"
+            type="submit"
+            className="button-submit"
+            sx={{
+              background: 'rgb(131, 36, 254)',
+              borderRadius: '16px',
+              height: '60px',
+              mt: '31px',
+            }}
+          >
+            회원가입
+          </Button>
         </form>
 
-        <p className="p">
-          Have An Account?{' '}
-          <Link to="/login">
-            {' '}
-            <span className="span">Sign In</span>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            mt: '16px',
+          }}
+        >
+          <Typography sx={{ mr: '5px' }}>이미 계정이 있으신가요?</Typography>
+          <Link to="/login" style={{ color: 'inherit', textDecoration: 'none' }}>
+            <Typography sx={{ color: 'rgb(131, 36, 254)' }}>로그인</Typography>{' '}
           </Link>
-        </p>
+        </Box>
       </div>
-    </div>
+    </Container>
   );
 }
 
