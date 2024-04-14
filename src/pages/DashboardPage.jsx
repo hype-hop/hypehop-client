@@ -5,10 +5,10 @@ import BASE_URL from '../config';
 
 function DashboardPage() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+
+  const [user] = useAuth();
 
   const [data, setData] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,14 +22,13 @@ function DashboardPage() {
         setData(result);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setIsAuthenticated(false);
       }
     };
 
     fetchData();
   }, []);
 
-  if (!isAuthenticated) {
+  if (!user) {
     navigate(`/login`);
   }
 
