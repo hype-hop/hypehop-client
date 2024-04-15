@@ -35,6 +35,8 @@ function WriteReview({ data, userData }) {
     albumRating: 0,
     body: '',
     albumTitle: data?.pageTitle,
+    // artistNameOnly: data?.artistNameOnly,
+    // albumTitleOnly: data?.albumTitleOnly,
     albumId: data?.albumData.id,
     thumbnail: data?.albumData.images[1].url,
     user: userData?._id,

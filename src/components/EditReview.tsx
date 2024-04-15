@@ -1,23 +1,33 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
-import { Button } from '@mui/material';
+import { Button, Box, Input, Typography, Container } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditorBox from './EditorBox';
 import BASE_URL from '../config';
+import TrackListForEdit from './TrackListForEdit';
 
-function EditReview({ data /* id */ }) {
+function EditReview({ data, albumData }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [reviewContent, setReviewContent] = useState('');
+  const [isTrackListOpened, SetsTrackListOpened] = useState(false);
+  const [parentTrackRatingForEdit, setParentTrackRatingForEdit] = useState(data?.review.tracks);
+
+  const handleTrackRatingForEditUpdate = (updatedTrackRatingForEdit) => {
+    setParentTrackRatingForEdit(updatedTrackRatingForEdit);
+  };
+  // const [trackRating, setTrackRating] = useState<(number | null)[]>([]);
+
   const handleContentChange = (newContent) => {
     setReviewContent(newContent);
   };
 
-  // const tracksByDisc = {};
-  // const tracks = [];
-
-  // const [trackRating, setTrackRating] = useState([]);
+  const handleOpen = () => {
+    SetsTrackListOpened(!isTrackListOpened);
+  };
 
   const [formData, setFormData] = useState({
     title: '',
@@ -25,17 +35,6 @@ function EditReview({ data /* id */ }) {
     albumRating: 0,
     body: '',
   });
-
-  /*
-  data?.albumData.tracks.items.forEach((track,index) => {
-      const discNumber = track.disc_number || 1; 
-      if (!tracksByDisc[discNumber]) {
-        tracksByDisc[discNumber] = [];
-      }
-      tracksByDisc[discNumber].push(track);
-      tracks.push(`disc${discNumber-1}-${index + 1}.${track.name}`)
-    });
-  */
 
   useEffect(() => {
     if (data) {
@@ -46,11 +45,6 @@ function EditReview({ data /* id */ }) {
         albumRating: data?.review.albumRating,
         body: data?.review.body,
       });
-
-      /*
-      const trackRatingArray = Array(data?.albumData.tracks.items.length || 0).fill(null);
-      setTrackRating(trackRatingArray);
-    */
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -64,6 +58,7 @@ function EditReview({ data /* id */ }) {
     if (formData.albumRating !== 0 && formData.title !== '') {
       const combinedData = {
         ...formData,
+        tracks: parentTrackRatingForEdit,
         body: reviewContent,
       };
 
@@ -91,64 +86,111 @@ function EditReview({ data /* id */ }) {
     }
   };
 
-  /*
-    const renderTracks = Object.keys(tracksByDisc).map(discNumber => (
-      <div key={discNumber}>
-        <h3>Disc {discNumber}</h3>
-        <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-     
-          {tracksByDisc[discNumber].map((track, index) => (
-         
-        <div style={{display:'flex'}} key={index}> 
-        {index+1}. {track.name} - 
-        {trackRating && (
-  <Stack spacing={1}>
-    <Rating 
-      name="trackRating" 
-      value={trackRating[index]}
-      precision={0.5}
-      onChange={(event, newValue) => {
-        const updatedRating = [...trackRating];
-        updatedRating[index] = newValue;
-        setTrackRating(updatedRating);
-      }}
-    />
-  </Stack>
-)}
-
-      </div>
-      
-          ))}
-      
-        </div>
-      </div>
-    ));
-
-*/
-
   return (
-    <div className="Edit-review">
-      <h3>작성페이지</h3>
+    <Container className="Edit-review">
+      <Box
+        component="img"
+        width="60px"
+        height="60px"
+        src={data?.review.thumbnail}
+        sx={{ borderRadius: '6.6px', marginRight: '20px' }}
+      />
 
       <form>
-        <h5>앨범 평점:</h5>
+        <Typography variant="h1">앨범 평점</Typography>
+        <Box
+          sx={{
+            mt: '16px',
+            background: 'rgb(52,52,52)',
+            borderRadius: '16px',
+            mb: '62px',
+          }}
+        >
+          <Stack sx={{ height: '74px', justifyContent: 'center', margin: '20px' }} spacing={1}>
+            <Box sx={{ display: 'flex' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Typography
+                  textAlign="left"
+                  fontSize="fontSizeMd"
+                  fontWeight="fontWeightBold"
+                  sx={{ whiteSpace: 'nowrap' }}
+                >
+                  {albumData?.albumTitleOnly}
+                </Typography>
+                <Typography
+                  fontSize="fontSizeSm"
+                  fontWeight="fontWeightLight"
+                  sx={{ whiteSpace: 'nowrap', alignContent: 'center', color: 'grey.main' }}
+                >
+                  {data?.review.albumTitle}
+                </Typography>
+              </Box>
 
-        <Stack style={{ alignItems: 'center' }} spacing={1}>
-          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} />
-        </Stack>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%', alignItems: 'center' }}>
+                <Rating
+                  size="small"
+                  name="albumRating"
+                  value={formData.albumRating}
+                  precision={0.5}
+                  onChange={handleFormData}
+                  sx={{ mr: '3px' }}
+                />
 
-        <h5>트랙별 평점:</h5>
+                <Typography fontSize="fontSizeMd" fontWeight="fontWeightRegular" sx={{ alignContent: 'center' }}>
+                  {Number(formData.albumRating).toFixed(1)}
+                </Typography>
+              </Box>
+            </Box>
+          </Stack>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography variant="h1">트랙별 평점</Typography>
 
-        {/*
-    {renderTracks}
-  */}
+          <Button size="small" variant="outlined" onClick={handleOpen}>
+            <Typography fontSize="fontSizeMd" fontWeight="fontWeightRegular">
+              {isTrackListOpened ? `트랙리스트 닫기` : '트랙리스트 열기'}
+            </Typography>
+            {isTrackListOpened ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </Button>
+        </Box>
+        {isTrackListOpened ? (
+          <TrackListForEdit
+            data={data}
+            onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
+            albumData={albumData}
+          />
+        ) : (
+          <Box
+            sx={{
+              mt: '16px',
+              background: 'rgb(52,52,52)',
+              borderRadius: '16px',
+              mb: '62px',
+              height: '46px',
+              alignContent: 'center',
+            }}
+          >
+            <Typography
+              fontSize="fontSizeMd"
+              fontWeight="fontWeightRegular"
+              ml="20px"
+              textAlign="left"
+              sx={{
+                color: 'grey.main',
+              }}
+            >
+              트랙리스트를 열어 확인하세요.
+            </Typography>
+          </Box>
+        )}
 
-        <div className="row">
-          <div className="input-field">
-            <input type="text" id="title" name="title" onChange={handleFormData} value={formData.title} required />
-            <label htmlFor="title">한줄평</label>
-          </div>
-        </div>
+        <div className="row" />
 
         <div className="row">
           <div className="input-field">
@@ -162,10 +204,24 @@ function EditReview({ data /* id */ }) {
           </div>
         </div>
 
-        <h5>리뷰 작성</h5>
-
-        <div style={{ margin: '50px' }} className="row">
-          <h5>리뷰 작성하기:</h5>
+        <Typography sx={{ mt: '62px' }} variant="h1">
+          리뷰 작성하기
+        </Typography>
+        <div className="row">
+          <div className="input-field">
+            <Input
+              fullWidth
+              type="text"
+              id="title"
+              name="title"
+              onChange={handleFormData}
+              value={formData.title}
+              placeholder="제목을 입력하세요"
+              required
+              sx={{ mt: '16px' }}
+            />
+            <label htmlFor="title" />
+          </div>
 
           <EditorBox onContentChange={handleContentChange} value={formData.body} />
         </div>
@@ -174,7 +230,7 @@ function EditReview({ data /* id */ }) {
           Save
         </Button>
       </form>
-    </div>
+    </Container>
   );
 }
 

@@ -8,7 +8,6 @@ import TimeSincePost from './TimeSincePost';
 // import Favorite from './Favorite';
 
 function ReviewDetailLeft({ data, albumData }) {
-  console.log(data);
   return (
     <Box sx={{ mb: '18px' }}>
       <Stack sx={{ display: 'flex', justifyContent: 'space-between' }}>

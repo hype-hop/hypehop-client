@@ -20,9 +20,15 @@ function EditorBox({ onContentChange, value }) {
   const [content, setContent] = useState(null);
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname.includes('edit') /* && value */) {
-      setIsCreating(false);
-      setContent(value);
+    console.log(value === '');
+    if (location.pathname.includes('edit')) {
+      if (value !== '') {
+        setIsCreating(false);
+        setContent(value);
+      }
+      if (value === null) {
+        setIsCreating(true);
+      }
     } else {
       setIsCreating(true);
     }
