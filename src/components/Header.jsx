@@ -42,7 +42,7 @@ export default function MenuAppBar() {
           <IconButton size="large" edge="start" color="primary" aria-label="menu">
             <MenuIcon sx={{ width: 30, height: 30 }} />
           </IconButton>
-          <Typography variant="h1" color="primary" component="div" sx={{ flexGrow: 1 }}>
+          <Typography textAlign="center" variant="h1" color="primary" component="div" sx={{ flexGrow: 1 }}>
             LOGO
           </Typography>
 
