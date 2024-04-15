@@ -1,8 +1,8 @@
-import AlbumSearch from '../components/AlbumSearch';
 import RecentlyReviewed from '../components/RecentlyReviewed';
 import WriteReview from '../components/WriteReview';
 import { useAuth } from '../AuthenticationContext';
 import LogInForm from '../components/LogInForm';
+import AlbumReviewForm from '../components/AlbumReviewForm';
 
 function AlbumPage() {
   const [user] = useAuth();
@@ -11,8 +11,8 @@ function AlbumPage() {
     <div className="Album">
       {user ? (
         <>
-          <h1>AlbumPage.jsx - 작성페이지</h1>
-          <AlbumSearch />
+          <h1>앨범 리뷰 작성 페이지</h1>
+          <AlbumReviewForm />
           <WriteReview />
           <RecentlyReviewed />
         </>
