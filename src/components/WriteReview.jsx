@@ -16,6 +16,7 @@ function WriteReview({ data, userData }) {
     setReviewContent(newContent);
   };
 
+  console.log(data);
   const tracksByDisc = {};
 
   const tracks = [];
@@ -35,8 +36,8 @@ function WriteReview({ data, userData }) {
     albumRating: 0,
     body: '',
     albumTitle: data?.pageTitle,
-    // artistNameOnly: data?.artistNameOnly,
-    // albumTitleOnly: data?.albumTitleOnly,
+    artists: [],
+    albumName: data?.albumData.name,
     albumId: data?.albumData.id,
     thumbnail: data?.albumData.images[1].url,
     user: userData?._id,
@@ -46,6 +47,7 @@ function WriteReview({ data, userData }) {
   });
 
   useEffect(() => {
+    console.log(formData);
     if (data) {
       setFormData({
         ...formData,
@@ -56,6 +58,10 @@ function WriteReview({ data, userData }) {
         user: userData?._id,
         trackTitle: tracks || null,
         artistGenre: data?.spotify_artist_genre,
+        artists: data?.albumData.artists.map((artist) => {
+          return artist.name;
+        }),
+        albumName: data?.albumData.name,
       });
       const trackRatingArray = Array(data?.albumData.tracks.items.length || 0).fill(null);
       setTrackRating(trackRatingArray);
