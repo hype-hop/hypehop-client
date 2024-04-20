@@ -57,12 +57,20 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                 }}
               />
               <CardContent sx={{ marginTop: '8px' }}>
-                <Typography align="left" fontSize="fontSizeMd">
-                  {item.albumTitle.split('-', 2)[1]}
-                </Typography>
-                <Typography align="left" fontSize="fontSizeXs" sx={{ marginTop: '4px', marginBottom: '4px' }}>
-                  {item.albumTitle.split('-', 2)[0]}
-                </Typography>
+                {item.artists ? (
+                  <Typography align="left">{item.albumName}</Typography>
+                ) : (
+                  <Typography align="left" fontSize="fontSizeMd">
+                    {item.albumTitle.split('-', 2)[1]}
+                  </Typography>
+                )}
+                {item.artists ? (
+                  <Typography align="left">{item.artists}</Typography>
+                ) : (
+                  <Typography align="left" fontSize="fontSizeMd">
+                    {item.albumTitle.split('-', 2)[0]}
+                  </Typography>
+                )}
                 <Box sx={{ display: 'flex' }}>
                   <Rating
                     name="half-rating-read"
