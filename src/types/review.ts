@@ -33,6 +33,6 @@ export interface FormData {
   thumbnail: string | null;
   user: string | null;
   albumReleaseDate: string | null;
-  trackTitle: string[] | null;
-  artistGenre: string[] | null;
+  trackTitle: string[];
+  artistGenre: string[];
 }

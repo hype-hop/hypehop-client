@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { AlbumSearchResult } from '../types/albumSearch';
 import { AlbumForReview } from '../types/albumReview';
-import INITIAL_RATING_VALUE from './constants/rating';
+import INITIAL_RATING_VALUE from '../constants/rating';
 
 function ResultBox({ children }: { children: ReactNode }) {
   return (

@@ -1,28 +1,61 @@
-import { createTheme, responsiveFontSizes } from '@mui/material';
+import { createTheme, responsiveFontSizes, Theme } from '@mui/material';
+import { CSSProperties } from 'react';
+import { typography } from './constants/themeValue';
 
-const theme = createTheme({
+declare module '@mui/material' {
+  interface Color {
+    dark: string;
+    main: string;
+    light: string;
+  }
+
+  interface PaletteOptions {
+    white: Partial<Color>;
+    star: Partial<Color>;
+  }
+}
+
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    timeSincePost: CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    timeSincePost?: CSSProperties;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    timeSincePost: true;
+  }
+}
+
+const theme: Theme = createTheme({
   typography: {
     fontFamily: 'Pretendard',
-    fontSizeXs: '11px',
-    fontSizeSm: '12px',
-    fontSizeMd: '14px',
-    fontSizeLg: '30px',
-    fontWeightLighter: 300,
-    fontWeightLight: 400,
-    fontWeightRegular: 500,
-    fontWeightBold: 700,
-    lineHeightSm: '-1px',
-    lineHeightMd: 1.24,
-    letterSpacing: '-4%',
-
+    fontSize: 11,
+    fontWeightLight: typography.weight.light,
+    fontWeightRegular: typography.weight.regular,
+    fontWeightMedium: typography.weight.medium,
+    fontWeightBold: typography.weight.bold,
     h1: {
       color: 'rgb(255, 255, 255)',
       fontFamily: 'Pretendard',
-      fontWeight: 700,
+      fontWeight: typography.weight.bold,
       fontSize: '30px',
       lineHeight: -1,
       letterSpacing: 0,
       textAlign: 'left',
+    },
+    timeSincePost: {
+      color: 'rgb(86,87,87)',
+      fontSize: typography.size.lg,
+      fontWeight: typography.weight.light,
+      lineHeight: typography.lineHeight.sm,
+      letterSpacing: '-4%',
+      textAlign: 'left',
+      alignContent: 'center',
     },
   },
   palette: {
@@ -45,27 +78,6 @@ const theme = createTheme({
     },
     star: {
       main: 'rgb(255, 196, 3)',
-    },
-
-    body1: {
-      textAlign: 'left',
-      mt: '13px',
-    },
-    body2: {
-      fontSize: '12px',
-      fontWeight: '300',
-      lineHeight: '15px',
-      letterSpacing: '-4%',
-      color: 'rgb(215, 215, 215)',
-    },
-    timeSincePost: {
-      color: 'rgb(86,87,87)',
-      fontSize: '12px',
-      fontWeight: '400',
-      lineHeight: '-1px',
-      letterSpacing: '-4%',
-      textAlign: 'left',
-      alignContent: 'center',
     },
   },
   components: {

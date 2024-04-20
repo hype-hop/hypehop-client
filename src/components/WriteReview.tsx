@@ -6,22 +6,47 @@ import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../config';
 import EditorBox from './EditorBox';
 import ensureError from '../utils/error';
+import AlbumSearch from './AlbumSearch';
+import RatingAlbum from './RatingAlbum';
+import { AlbumData } from '../types/albumData';
+import { AlbumSearchResult } from '../types/albumSearch';
+import { AlbumForReview } from '../types/albumReview';
 
-function WriteReview({ data, userData }) {
+function WriteReview({ userData }) {
   const navigate = useNavigate();
   const [reviewContent, setReviewContent] = useState('');
-  const [trackRating, setTrackRating] = useState([]);
+  const [trackRating, setTrackRating] = useState<number[]>([]);
+  const [searchResult, setSearchResult] = useState<AlbumSearchResult[] | null>(null);
+  const [selectedAlbum, setSelectedAlbum] = useState<AlbumForReview | null>(null);
+  const [data, setData] = useState<AlbumData | null>(null);
+
+  /** 선택된 앨범 Id */
+  // const selectedAlbumId = selectedAlbum?.id;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/album/api/${selectedAlbum?.id}`);
+        const result = await response.json();
+        setData(result);
+        console.log(selectedAlbum);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [selectedAlbum]);
 
   const handleContentChange = (newContent) => {
     setReviewContent(newContent);
   };
 
-  console.log(data);
   const tracksByDisc = {};
 
-  const tracks = [];
+  const tracks: string[] = [];
 
-  data?.albumData.tracks.items.forEach((track, index) => {
+  data?.albumData?.tracks.items.forEach((track, index) => {
     const discNumber = track.disc_number || 1;
     if (!tracksByDisc[discNumber]) {
       tracksByDisc[discNumber] = [];
@@ -37,33 +62,30 @@ function WriteReview({ data, userData }) {
     body: '',
     albumTitle: data?.pageTitle,
     artists: [],
-    albumName: data?.albumData.name,
-    albumId: data?.albumData.id,
-    thumbnail: data?.albumData.images[1].url,
+    albumName: data?.albumData?.name,
+    albumId: data?.albumData?.id,
+    thumbnail: data?.albumData?.images[1].url,
     user: userData?._id,
-    albumReleaseDate: data?.albumData.release_date,
+    albumReleaseDate: data?.albumData?.release_date,
     trackTitle: [],
     artistGenre: [],
   });
 
   useEffect(() => {
-    console.log(formData);
     if (data) {
       setFormData({
         ...formData,
-        albumId: data.albumData.id,
+        albumId: data.albumData?.id,
         albumTitle: data?.pageTitle,
-        thumbnail: data.albumData.images[1].url,
-        albumReleaseDate: data.albumData.release_date,
+        thumbnail: data.albumData?.images[1].url,
+        albumReleaseDate: data.albumData?.release_date,
         user: userData?._id,
-        trackTitle: tracks || null,
-        artistGenre: data?.spotify_artist_genre,
-        artists: data?.albumData.artists.map((artist) => {
-          return artist.name;
-        }),
-        albumName: data?.albumData.name,
+        // trackTitle: tracks,
+        artistGenre: data?.spotify_artist_genre || [],
+        artists: data.albumData?.artists.map((artist) => artist.name),
+        albumName: data?.albumData?.name,
       });
-      const trackRatingArray = Array(data?.albumData.tracks.items.length || 0).fill(null);
+      const trackRatingArray = Array(data?.albumData?.tracks.items.length || 0).fill(null);
       setTrackRating(trackRatingArray);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,8 +143,8 @@ function WriteReview({ data, userData }) {
                   value={trackRating[index]}
                   precision={0.5}
                   onChange={(event, newValue) => {
-                    const updatedRating = [...trackRating];
-                    updatedRating[index] = newValue;
+                    const updatedRating: number[] = [...trackRating];
+                    updatedRating[index] = newValue!;
                     setTrackRating(updatedRating);
                   }}
                 />
@@ -137,10 +159,24 @@ function WriteReview({ data, userData }) {
   return (
     <Container className="Write-review">
       <form>
+        <AlbumSearch
+          searchResult={searchResult}
+          setSearchResult={setSearchResult}
+          setSelectedAlbum={setSelectedAlbum}
+        />
+        {selectedAlbum && (
+          <RatingAlbum
+            album={selectedAlbum!}
+            rating={selectedAlbum.rating!}
+            setRating={(rating: number) => {
+              setSelectedAlbum((prev) => ({ ...prev!, rating }));
+            }}
+          />
+        )}
         <h5>앨범 평점:</h5>
 
         <Stack style={{ alignItems: 'center' }} spacing={1}>
-          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} required />
+          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} />
         </Stack>
 
         <h5>트랙별 평점:</h5>

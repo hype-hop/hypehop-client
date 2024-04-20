@@ -2,7 +2,7 @@ import { Box, Rating, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { AlbumSearchResult } from '../types/albumSearch';
-import INITIAL_RATING_VALUE from './constants/rating';
+import INITIAL_RATING_VALUE from '../constants/rating';
 
 const starIconStyle = {
   marginTop: '0.5px',
