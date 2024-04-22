@@ -8,7 +8,7 @@ export interface AlbumData {
   albumRatingAverage: number;
   reviews: Review[];
   storedAverageArr: number[];
-  reviewUser: string;
+  reviewUser: string[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   spotify_artist_genre: any;
   pageTitle: string;

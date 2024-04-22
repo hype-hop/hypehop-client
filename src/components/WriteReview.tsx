@@ -20,16 +20,12 @@ function WriteReview({ userData }) {
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumForReview | null>(null);
   const [data, setData] = useState<AlbumData | null>(null);
 
-  /** 선택된 앨범 Id */
-  // const selectedAlbumId = selectedAlbum?.id;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${BASE_URL}/album/api/${selectedAlbum?.id}`);
         const result = await response.json();
         setData(result);
-        console.log(selectedAlbum);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -81,7 +77,7 @@ function WriteReview({ userData }) {
         albumReleaseDate: data.albumData?.release_date,
         user: userData?._id,
         // trackTitle: tracks,
-        artistGenre: data?.spotify_artist_genre || [],
+        artistGenre: data?.spotify_artist_genre,
         artists: data.albumData?.artists.map((artist) => artist.name),
         albumName: data?.albumData?.name,
       });
