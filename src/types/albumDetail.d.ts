@@ -11,6 +11,7 @@ interface AlbumDataTracks {
 
 interface AlbumDataArtists {
   name: string;
+  id: string;
 }
 
 interface AlbumData {
