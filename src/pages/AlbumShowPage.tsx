@@ -3,38 +3,31 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AlbumDetail from '../components/AlbumDetail';
 import Reviewed from '../components/Reviewed';
 import BASE_URL from '../config';
+import { AlbumDetailType } from '../types/albumDetail';
+import { useAuth } from '../AuthenticationContext';
 
 function AlbumShowPage() {
   const { id } = useParams();
 
-  const [data, setData] = useState(null);
-  const [user, setUser] = useState(null);
+  const [data, setData] = useState<AlbumDetailType | null>(null);
+
+  const [user] = useAuth();
 
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
-        const response = await fetch(`${BASE_URL}/album/api/${id}`);
-        const result = await response.json();
+        const result = await (await fetch(`${BASE_URL}/album/api/${id}`)).json();
         setData(result);
-        const response2 = await fetch(`${BASE_URL}/api/user`, {
-          method: 'GET',
-          credentials: 'include',
-        });
-        const result2 = await response2.json();
-        setUser(result2);
+        console.log(result);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setIsAuthenticated(false);
       }
-    };
-
-    fetchData();
+    })();
   }, [id]);
 
-  if (!isAuthenticated) {
+  if (!user) {
     navigate('/login');
   }
 
@@ -42,7 +35,7 @@ function AlbumShowPage() {
     <div className="Album-show">
       <h3>AlbumShowPage.jsx </h3>
 
-      <AlbumDetail data={data} userData={user?.user} />
+      <AlbumDetail data={data!} />
       <Reviewed data={data} />
     </div>
   );

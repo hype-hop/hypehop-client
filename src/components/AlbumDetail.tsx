@@ -1,7 +1,10 @@
 import WriteReview from './WriteReview';
+import { useAuth } from '../AuthenticationContext';
+import { AlbumDetailType } from '../types/albumDetail';
 
-function AlbumDetail({ data, userData }) {
+function AlbumDetail({ data }: { data: AlbumDetailType }) {
   const tracksByDisc = {};
+  const [user] = useAuth();
 
   data?.albumData.tracks.items.forEach((track) => {
     const discNumber = track.disc_number || 1;
@@ -21,9 +24,9 @@ function AlbumDetail({ data, userData }) {
         {tracksByDisc[discNumber].map((track, index) => (
           <div key={index}>
             {index + 1}.{track.name} -{' '}
-            {Number.isNaN(data?.storedAverageArr[discNumber - 1]?.values[index])
+            {Number.isNaN(data?.storedAverageArr[Number(discNumber) - 1]?.values[index])
               ? '평점이 없습니다.'
-              : data?.storedAverageArr[discNumber - 1]?.values[index]}
+              : data?.storedAverageArr[Number(discNumber) - 1]?.values[index]}
           </div>
         ))}
       </div>
@@ -62,10 +65,10 @@ function AlbumDetail({ data, userData }) {
         <div>{renderTracks}</div>
       </ul>
 
-      {data?.reviewUser.includes(userData?._id) ? (
+      {data?.reviewUser.includes(user?.userData?._id) ? (
         <p>이미 작성한 리뷰가 있습니다.</p>
       ) : (
-        <WriteReview data={data} userData={userData} />
+        <WriteReview data={data} userData={user?.userData} />
       )}
     </div>
   );
