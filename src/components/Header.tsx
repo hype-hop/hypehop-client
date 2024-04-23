@@ -11,26 +11,22 @@ import {
   styled,
   MenuProps,
   MenuItemProps,
+  Button,
+  Avatar,
 } from '@mui/material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import StarsIcon from '@mui/icons-material/Stars'; // 임시 로고
+import { useAuth } from '../AuthenticationContext';
+import TimeSincePost from './TimeSincePost';
 
 // 목업 데이터
-const notiArray: { noti: string; time: number }[] = [
-  { noti: '새로운 알림이 있습니다.', time: 10 },
-  { noti: '새로운 알림이 있습니다.', time: 300 },
-  { noti: '새로운 알림이 있습니다.', time: 3600 },
+const notiArray: { noti: string; time: Date }[] = [
+  { noti: '새로운 알림이 있습니다.', time: new Date(2024, 3, 23, 22, 0) },
+  { noti: '새로운 알림이 있습니다.', time: new Date(2024, 3, 20, 10, 0) },
+  { noti: '새로운 알림이 있습니다.', time: new Date(2023, 3, 23, 10, 0) },
 ];
-
-const timeToString = (sec: number): string => {
-  if (sec / 60 < 1) return `${sec}초전`;
-  if (sec / (60 * 60) < 1) return `${sec / 60}분전`;
-  if (sec / (60 * 60 * 24) < 1) return `${sec / (60 * 60)}시간전`;
-  return '오래전';
-};
 
 const HeaderMenu = styled((props: MenuProps) => (
   <Menu
@@ -68,13 +64,13 @@ const HeaderMenuItem = styled((props: MenuItemProps) => (
 ))();
 
 export default function MenuAppBar() {
-  // const [auth, setAuth] = React.useState(false);
+  const [auth, setAuth] = useAuth();
   const [anchorProfile, setAnchorProfile] = React.useState(null);
   const [anchorNoti, setAnchorNoti] = React.useState(null);
 
-  // const handleChange = (event) => {
-  //   setAuth(event.target.checked);
-  // };
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
 
   const handleMenuProfile = (event) => {
     setAnchorProfile(event.currentTarget);
@@ -110,66 +106,101 @@ export default function MenuAppBar() {
             <StarsIcon sx={{ color: 'white.main' }} />
           </Link>
 
-          <div>
-            <IconButton
-              aria-label="notifications"
-              aria-controls="menu-notifications"
-              aria-haspopup="true"
-              onClick={handleMenuNoti}
-              color="primary"
-            >
-              <NotificationsIcon sx={{ height: 25, width: 25 }} />
-            </IconButton>
+          {auth ? (
+            <div>
+              <IconButton
+                aria-label="notifications"
+                aria-controls="menu-notifications"
+                aria-haspopup="true"
+                onClick={handleMenuNoti}
+                color="primary"
+              >
+                <NotificationsIcon sx={{ height: 25, width: 25 }} />
+              </IconButton>
 
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenuProfile}
-              color="primary"
-            >
-              <AccountCircle sx={{ height: 30, width: 30 }} />
-            </IconButton>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenuProfile}
+                color="primary"
+              >
+                <Avatar
+                  style={{
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '50%',
+                  }}
+                  src={auth.image}
+                  alt="user"
+                />
+              </IconButton>
 
-            <HeaderMenu
-              id="menu-notifications"
-              anchorEl={anchorNoti}
-              open={Boolean(anchorNoti)}
-              onClose={handleCloseNoti}
-            >
-              {notiArray.map((noti) => (
-                <HeaderMenuItem onClick={handleCloseNoti}>
-                  <Typography fontSize="md">{noti.noti}</Typography>
-                  <Typography
-                    fontWeight="light"
-                    fontSize="md"
-                    sx={{
-                      paddingLeft: '4px',
-                      color: 'rgb(126, 126, 126)',
-                    }}
-                  >
-                    {timeToString(noti.time)}
+              <HeaderMenu
+                id="menu-notifications"
+                anchorEl={anchorNoti}
+                open={Boolean(anchorNoti)}
+                onClose={handleCloseNoti}
+              >
+                {notiArray.map((noti) => (
+                  <HeaderMenuItem onClick={handleCloseNoti}>
+                    <Typography fontSize="md">{noti.noti}</Typography>
+                    <Typography
+                      fontWeight="light"
+                      fontSize="md"
+                      sx={{
+                        paddingLeft: '4px',
+                        color: 'rgb(126, 126, 126)',
+                      }}
+                    >
+                      <TimeSincePost createdAt={noti.time} />
+                    </Typography>
+                  </HeaderMenuItem>
+                ))}
+              </HeaderMenu>
+
+              <HeaderMenu
+                id="menu-appbar"
+                anchorEl={anchorProfile}
+                open={Boolean(anchorProfile)}
+                onClose={handleCloseProfile}
+              >
+                <Link to="/dashboard" style={{ textDecorationLine: 'none' }}>
+                  <HeaderMenuItem onClick={handleCloseProfile}>
+                    <PersonIcon sx={{ marginRight: '16px', color: 'white.main' }} />
+                    <Typography fontSize="md" sx={{ color: 'white.main' }}>
+                      마이프로필
+                    </Typography>
+                  </HeaderMenuItem>
+                </Link>
+                <Link to="/" style={{ textDecorationLine: 'none' }}>
+                  <HeaderMenuItem onClick={handleChange}>
+                    <LogoutIcon sx={{ marginRight: '16px', color: 'white.main' }} />
+                    <Typography fontSize="md" sx={{ color: 'white.main' }}>
+                      로그아웃
+                    </Typography>
+                  </HeaderMenuItem>
+                </Link>
+              </HeaderMenu>
+            </div>
+          ) : (
+            <div>
+              <Link to="/login">
+                <Button
+                  sx={{
+                    background: 'rgb(152, 72, 255)',
+                    borderRadius: '4px',
+                    width: '69px',
+                    height: '32px',
+                  }}
+                >
+                  <Typography fontSize="lg" fontWeight="medium" sx={{ color: 'white.main' }}>
+                    로그인
                   </Typography>
-                </HeaderMenuItem>
-              ))}
-            </HeaderMenu>
-
-            <HeaderMenu
-              id="menu-appbar"
-              anchorEl={anchorProfile}
-              open={Boolean(anchorProfile)}
-              onClose={handleCloseProfile}
-            >
-              <HeaderMenuItem onClick={handleCloseProfile}>
-                <PersonIcon sx={{ marginRight: '16px' }} />
-                <Typography fontSize="md">마이프로필</Typography>
-              </HeaderMenuItem>
-              <HeaderMenuItem onClick={handleCloseProfile}>
-                <LogoutIcon sx={{ marginRight: '16px' }} />
-                <Typography fontSize="md">로그아웃</Typography>
-              </HeaderMenuItem>
-            </HeaderMenu>
-          </div>
+                </Button>
+              </Link>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
