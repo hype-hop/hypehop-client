@@ -115,14 +115,15 @@ function EditReview({ data, albumData }) {
                   fontWeight="fontWeightBold"
                   sx={{ whiteSpace: 'nowrap' }}
                 >
-                  {albumData?.albumTitleOnly}
+                  {data?.review.albumName}
                 </Typography>
                 <Typography
                   fontSize="fontSizeSm"
+                  textAlign="left"
                   fontWeight="fontWeightLight"
                   sx={{ whiteSpace: 'nowrap', alignContent: 'center', color: 'grey.main' }}
                 >
-                  {data?.review.albumTitle}
+                  {data?.review.artists}
                 </Typography>
               </Box>
 

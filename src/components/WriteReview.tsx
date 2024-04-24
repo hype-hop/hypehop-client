@@ -1,26 +1,39 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
-import { Input, Container, Button, Typography, Box } from '@mui/material';
+import { Input, Container, Button, Typography, Box, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../config';
 import EditorBox from './EditorBox';
 import ensureError from '../utils/error';
 import AlbumSearch from './AlbumSearch';
 import RatingAlbum from './RatingAlbum';
+import { AlbumData } from '../types/albumData';
 import { AlbumSearchResult } from '../types/albumSearch';
 import { AlbumForReview } from '../types/albumReview';
+import { FormData } from '../types/review';
 
-function WriteReview({ data, userData }) {
+function WriteReview({ userData }) {
   const navigate = useNavigate();
   const [reviewContent, setReviewContent] = useState('');
   const [trackRating, setTrackRating] = useState<number[]>([]);
-
   const [searchResult, setSearchResult] = useState<AlbumSearchResult[] | null>(null);
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumForReview | null>(null);
+  const [data, setData] = useState<AlbumData | null>(null);
 
-  /** 선택된 앨범 Id */
-  // const selectedAlbumId = selectedAlbum?.id;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/album/api/${selectedAlbum?.id}`);
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [selectedAlbum]);
 
   const handleContentChange = (newContent) => {
     setReviewContent(newContent);
@@ -30,7 +43,7 @@ function WriteReview({ data, userData }) {
 
   const tracks: string[] = [];
 
-  data?.albumData.tracks.items.forEach((track, index) => {
+  data?.albumData?.tracks.items.forEach((track, index) => {
     const discNumber = track.disc_number || 1;
     if (!tracksByDisc[discNumber]) {
       tracksByDisc[discNumber] = [];
@@ -39,18 +52,19 @@ function WriteReview({ data, userData }) {
     tracks.push(`disc${discNumber - 1}-${index + 1}.${track.name}`);
   });
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     title: '',
     status: 'public',
-    albumRating: 0,
+
     body: '',
     albumTitle: data?.pageTitle,
-    // artistNameOnly: data?.artistNameOnly,
-    // albumTitleOnly: data?.albumTitleOnly,
-    albumId: data?.albumData.id,
-    thumbnail: data?.albumData.images[1].url,
+    albumRating: selectedAlbum?.rating,
+    artists: [],
+    albumName: data?.albumData?.name,
+    albumId: data?.albumData?.id,
+    thumbnail: data?.albumData?.images[1].url,
     user: userData?._id,
-    albumReleaseDate: data?.albumData.release_date,
+    albumReleaseDate: data?.albumData?.release_date,
     trackTitle: [],
     artistGenre: [],
   });
@@ -59,15 +73,18 @@ function WriteReview({ data, userData }) {
     if (data) {
       setFormData({
         ...formData,
-        albumId: data.albumData.id,
+        albumRating: selectedAlbum?.rating,
+        albumId: data.albumData?.id,
         albumTitle: data?.pageTitle,
-        thumbnail: data.albumData.images[1].url,
-        albumReleaseDate: data.albumData.release_date,
+        thumbnail: data.albumData?.images[1].url,
+        albumReleaseDate: data.albumData?.release_date,
         user: userData?._id,
-        // trackTitle: tracks,
+        trackTitle: tracks,
         artistGenre: data?.spotify_artist_genre,
+        artists: data.albumData?.artists.map((artist) => artist.name),
+        albumName: data?.albumData?.name,
       });
-      const trackRatingArray = Array(data?.albumData.tracks.items.length || 0).fill(null);
+      const trackRatingArray = Array(data?.albumData?.tracks.items.length || 0).fill(null);
       setTrackRating(trackRatingArray);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -141,11 +158,27 @@ function WriteReview({ data, userData }) {
   return (
     <Container className="Write-review">
       <form>
+        <Typography
+          variant="h1"
+          sx={{
+            mb: '16px',
+          }}
+        >
+          앨범 검색
+        </Typography>
         <AlbumSearch
           searchResult={searchResult}
           setSearchResult={setSearchResult}
           setSelectedAlbum={setSelectedAlbum}
         />
+        <Typography
+          variant="h1"
+          sx={{
+            mt: '40px',
+          }}
+        >
+          앨범 평점
+        </Typography>
         {selectedAlbum && (
           <RatingAlbum
             album={selectedAlbum!}
@@ -155,26 +188,42 @@ function WriteReview({ data, userData }) {
             }}
           />
         )}
-        {/* <h5>앨범 평점:</h5>
 
-        <Stack style={{ alignItems: 'center' }} spacing={1}>
-          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} required />
-        </Stack> */}
-
-        <h5>트랙별 평점:</h5>
+        <Typography
+          sx={{
+            mt: '40px',
+            mb: '40px',
+          }}
+          variant="h1"
+        >
+          트랙별 평점
+        </Typography>
 
         {renderTracks}
 
         <div className="row">
-          <div className="input-field">
-            <select id="status" name="status" value={formData.status} onChange={handleFormData}>
-              <option value="public" selected>
-                공개
-              </option>
-              <option value="private">비공개</option>
-            </select>
-            <label htmlFor="status">공개 여부</label>
-          </div>
+          <Box
+            className="input-field"
+            sx={{
+              mt: '16px',
+              mb: '40px',
+            }}
+          >
+            <label htmlFor="status">
+              {' '}
+              <Typography sx={{ mb: '16px' }} variant="h1">
+                공개여부
+              </Typography>
+            </label>
+            <Select id="status" name="status" value={formData.status} onChange={handleFormData} fullWidth sx={{}}>
+              <MenuItem value="public" selected>
+                <Typography textAlign="left">공개</Typography>
+              </MenuItem>
+              <MenuItem value="private">
+                <Typography textAlign="left">비공개</Typography>
+              </MenuItem>
+            </Select>
+          </Box>
         </div>
         <Box>
           <Typography variant="h1">리뷰작성하기</Typography>

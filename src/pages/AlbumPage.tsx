@@ -11,7 +11,7 @@ function AlbumPage() {
       {user ? (
         <>
           <h1>앨범 리뷰 작성 페이지</h1>
-          <WriteReview />
+          <WriteReview userData={user} />
           <RecentlyReviewed />
         </>
       ) : (

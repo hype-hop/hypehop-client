@@ -2,7 +2,7 @@ import { Box, Rating, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { AlbumSearchResult } from '../types/albumSearch';
-import INITIAL_RATING_VALUE from '../constants/rating';
+import PRECISION from '../constants/ratingPrecision';
 
 const starIconStyle = {
   marginTop: '0.5px',
@@ -20,15 +20,19 @@ type RatingAlbumProps = {
 
 function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
   const { name, artists } = album;
+
   return (
     <Box
       sx={{
         display: 'flex',
-        backgroundColor: 'rgb(52,52,52)',
+        backgroundColor: 'rgb(22, 22, 22)',
         borderRadius: '16px',
+        border: '1px solid',
+        borderColor: 'rgb(52, 52, 52)',
         padding: '20px',
         justifyContent: 'space-between',
         alignItems: 'center',
+        mt: '10px',
       }}
     >
       <Box>
@@ -49,7 +53,7 @@ function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
         value={rating}
         icon={<StarIcon sx={{ ...starIconStyle }} />}
         emptyIcon={<StarBorderIcon sx={{ ...starIconStyle }} />}
-        precision={INITIAL_RATING_VALUE}
+        precision={PRECISION}
         onChange={(_, value: number | null) => {
           setRating(value!);
         }}

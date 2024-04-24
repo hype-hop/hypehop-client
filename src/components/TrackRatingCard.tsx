@@ -21,7 +21,7 @@ function TrackRatingCard({ data }) {
     >
       <Box sx={{ margin: 'auto', width: '100%', maxWidth: 360 }}>
         {data?.review.tracks.map((disc, index) => (
-          <Card key={index} sx={{ mb: 2, bgcolor: 'rgb(25,25,25)' }}>
+          <Card key={index} sx={{ mb: 2, bgcolor: 'background.default' }}>
             <Typography fontSize="fontSizeSm" component="div">
               Disc {index + 1}
             </Typography>
