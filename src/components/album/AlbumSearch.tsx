@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, Input, InputAdornment } from '@mui/material';
-import { AlbumSearchResult } from '../types/albumSearch';
-import postSearchAlbum from '../api/album';
-import useDebounce from '../utils/useDebounce';
+import { AlbumSearchResult } from '../../types/albumSearch';
+import postSearchAlbum from '../../api/album';
+import useDebounce from '../../utils/useDebounce';
 import Result from './AlbumSearchResult';
-import { AlbumForReview } from '../types/albumReview';
+import { AlbumForReview } from '../../types/albumReview';
 
 interface AlbumSearchProps {
   searchResult: AlbumSearchResult[] | null;

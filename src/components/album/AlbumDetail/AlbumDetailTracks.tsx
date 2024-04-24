@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { AlbumDetailType } from '../../types/albumDetail';
+import { AlbumDetailType } from '../../../types/albumDetail';
 
 function AlbumDetailTracks({ data }: { data: AlbumDetailType }) {
   const tracksByDisc = {};

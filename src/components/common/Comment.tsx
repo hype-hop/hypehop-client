@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Typography, Box, Button, Input, Avatar, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 // import { useAuth } from '../AuthenticationContext';
-import BASE_URL from '../config';
-import TimeSincePost from './TimeSincePost';
+import BASE_URL from '../../config';
+import TimeSincePost from '../album/TimeSincePost';
 
-import { CommentType } from '../types/review';
-import { User } from '../types/user';
+import { CommentType } from '../../types/review';
+import { User } from '../../types/user';
 
 interface Props {
   comments: CommentType[];

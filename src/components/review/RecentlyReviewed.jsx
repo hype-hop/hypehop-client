@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import BASE_URL from '../config';
+import BASE_URL from '../../config';
 
 function RecentlyReviewed() {
   const [data, setData] = useState(null);

@@ -1,8 +1,8 @@
 import { Box, Rating, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { AlbumSearchResult } from '../types/albumSearch';
-import PRECISION from '../constants/ratingPrecision';
+import { AlbumSearchResult } from '../../types/albumSearch';
+import PRECISION from '../../constants/ratingPrecision';
 
 const starIconStyle = {
   marginTop: '0.5px',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import EditReview from '../components/EditReview';
+import EditReview from '../components/review/EditReview';
 import BASE_URL from '../config';
 
 function EditPage() {

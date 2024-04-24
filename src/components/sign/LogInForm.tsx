@@ -1,8 +1,8 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Box, Container, Typography, Input, Button } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { useAuth } from '../AuthenticationContext';
-import BASE_URL from '../config';
+import { useAuth } from '../../AuthenticationContext';
+import BASE_URL from '../../config';
 
 function LogInForm() {
   const navigate = useNavigate();

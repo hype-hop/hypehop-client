@@ -1,6 +1,6 @@
 import { Box, Rating, Typography } from '@mui/material';
-import { AlbumDetailType } from '../../types/albumDetail';
-import { typography } from '../../constants/themeValue';
+import { AlbumDetailType } from '../../../types/albumDetail';
+import { typography } from '../../../constants/themeValue';
 
 function AlbumDetailInformation({ data }: { data: AlbumDetailType }) {
   return (

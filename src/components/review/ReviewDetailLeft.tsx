@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Box, Stack, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-import AlbumCard from './reusable/AlbumCard';
-import TimeSincePost from './TimeSincePost';
+import AlbumCard from '../album/AlbumCard';
+import TimeSincePost from '../album/TimeSincePost';
 // import Comment from './Comment';
 // import Favorite from './Favorite';
 

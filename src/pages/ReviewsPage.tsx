@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Container, Box, CardActions } from '@mui/material';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import StarIcon from '@mui/icons-material/Star';
-import TimeSincePost from '../components/TimeSincePost';
-import Favorite from '../components/Favorite';
+import TimeSincePost from '../components/album/TimeSincePost';
+import Favorite from '../components/common/Favorite';
 import BASE_URL from '../config';
 import { Review } from '../types/review';
 
