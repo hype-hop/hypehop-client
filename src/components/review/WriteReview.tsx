@@ -3,15 +3,15 @@ import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Input, Container, Button, Typography, Box, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import BASE_URL from '../config';
+import BASE_URL from '../../config';
 import EditorBox from './EditorBox';
-import ensureError from '../utils/error';
-import AlbumSearch from './AlbumSearch';
+import ensureError from '../../utils/error';
+import AlbumSearch from '../album/AlbumSearch';
 import RatingAlbum from './RatingAlbum';
-import { AlbumData } from '../types/albumData';
-import { AlbumSearchResult } from '../types/albumSearch';
-import { AlbumForReview } from '../types/albumReview';
-import { FormData } from '../types/review';
+import { AlbumData } from '../../types/albumData';
+import { AlbumSearchResult } from '../../types/albumSearch';
+import { AlbumForReview } from '../../types/albumReview';
+import { FormData } from '../../types/review';
 
 function WriteReview({ userData }) {
   const navigate = useNavigate();

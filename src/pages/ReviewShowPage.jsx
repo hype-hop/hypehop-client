@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Typography, Box } from '@mui/material';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
-import Comment from '../components/Comment';
-import Favorite from '../components/Favorite';
-import ReviewDetail from '../components/ReviewDetail';
+import Comment from '../components/common/Comment';
+import Favorite from '../components/common/Favorite';
+import ReviewDetail from '../components/review/ReviewDetail';
 
 import BASE_URL from '../config';
 

@@ -18,9 +18,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import StarsIcon from '@mui/icons-material/Stars'; // 임시 로고
-import { useAuth } from '../AuthenticationContext';
-import TimeSincePost from './TimeSincePost';
-import { typography } from '../constants/themeValue';
+import { useAuth } from '../../AuthenticationContext';
+import TimeSincePost from '../album/TimeSincePost';
+import { typography } from '../../constants/themeValue';
 
 // 목업 데이터
 const notiArray: { noti: string; time: Date }[] = [

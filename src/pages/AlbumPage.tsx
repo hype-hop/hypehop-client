@@ -1,7 +1,7 @@
-import RecentlyReviewed from '../components/RecentlyReviewed';
-import WriteReview from '../components/WriteReview';
+import RecentlyReviewed from '../components/review/RecentlyReviewed';
+import WriteReview from '../components/review/WriteReview';
 import { useAuth } from '../AuthenticationContext';
-import LogInForm from '../components/LogInForm';
+import LogInForm from '../components/sign/LogInForm';
 
 function AlbumPage() {
   const [user] = useAuth();

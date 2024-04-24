@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button, Card, CardContent, CardMedia, Typography, Container, Box, CardActions, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import Favorite from './Favorite';
+import Favorite from '../common/Favorite';
 
-import TimeSincePost from './TimeSincePost';
-import BASE_URL from '../config';
+import TimeSincePost from '../album/TimeSincePost';
+import BASE_URL from '../../config';
 
 function ReviewMain() {
   const [data, setData] = useState(null);

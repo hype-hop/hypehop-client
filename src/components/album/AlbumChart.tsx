@@ -6,8 +6,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState, useEffect } from 'react';
-import { AlbumCharts } from '../types/albumChart';
-import BASE_URL from '../config';
+import { AlbumCharts } from '../../types/albumChart';
+import BASE_URL from '../../config';
 
 function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: number) {
   // const theme = useTheme();

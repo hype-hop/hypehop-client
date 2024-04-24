@@ -4,9 +4,9 @@ import { Box, Container, Typography } from '@mui/material';
 import BASE_URL from '../config';
 import { AlbumDetailType } from '../types/albumDetail';
 import { useAuth } from '../AuthenticationContext';
-import AlbumDetailInformation from '../components/AlbumDetail/AlbumDetailInformation';
+import AlbumDetailInformation from '../components/album/AlbumDetail/AlbumDetailInformation';
 // import AlbumDetailTracks from '../components/AlbumDetail/AlbumDetailTracks';
-import AlbumReviewSummary from '../components/AlbumReviewSummary';
+import AlbumReviewSummary from '../components/review/AlbumReviewSummary';
 
 function AlbumShowPage() {
   const { id } = useParams();

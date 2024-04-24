@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
 // import { useAuth } from '../AuthenticationContext';
-import BASE_URL from '../config';
-import { ReactComponent as EmptyFavoriteIcon } from '../assets/icons/empty-favorite.svg';
+import BASE_URL from '../../config';
+import { ReactComponent as EmptyFavoriteIcon } from '../../assets/icons/empty-favorite.svg';
 
 function Favorite({ reviewId, numberOfFavorite }) {
   // const { user } = useAuth();

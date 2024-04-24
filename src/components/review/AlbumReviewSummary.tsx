@@ -1,10 +1,10 @@
 import { Avatar, Box, Card, CardActions, CardContent, Rating, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import TimeSincePost from './TimeSincePost';
-import Favorite from './Favorite';
-import { Review } from '../types/review';
-import { typography } from '../constants/themeValue';
-import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
+import TimeSincePost from '../album/TimeSincePost';
+import Favorite from '../common/Favorite';
+import { Review } from '../../types/review';
+import { typography } from '../../constants/themeValue';
+import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
 
 function AlbumReviewSummary({ review }: { review: Review }) {
   const router = useNavigate();

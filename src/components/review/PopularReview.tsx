@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { List, ListItem, Typography } from '@mui/material';
-import BASE_URL from '../config';
-import { ReviewsRank } from '../types/review';
+import BASE_URL from '../../config';
+import { ReviewsRank } from '../../types/review';
 
 function PopularReview() {
   const [data, setData] = useState<ReviewsRank[] | null>(null);

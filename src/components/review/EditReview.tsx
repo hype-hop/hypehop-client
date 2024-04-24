@@ -6,7 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditorBox from './EditorBox';
-import BASE_URL from '../config';
+import BASE_URL from '../../config';
 import TrackListForEdit from './TrackListForEdit';
 
 function EditReview({ data, albumData }) {

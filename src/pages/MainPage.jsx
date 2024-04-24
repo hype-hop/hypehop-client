@@ -1,6 +1,6 @@
-import AlbumChart from '../components/AlbumChart';
-import PopularReview from '../components/PopularReview';
-import ReviewMain from '../components/ReviewMain';
+import AlbumChart from '../components/album/AlbumChart';
+import PopularReview from '../components/review/PopularReview';
+import ReviewMain from '../components/review/ReviewMain';
 
 function MainPage() {
   return (

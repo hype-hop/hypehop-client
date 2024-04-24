@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { typography } from '../constants/themeValue';
-import { AlbumCoverProps } from '../types/albumCover';
+import { typography } from '../../constants/themeValue';
+import { AlbumCoverProps } from '../../types/albumCover';
 
 function AlbumCover({ albumId, url, albumTitle, artists }: AlbumCoverProps) {
   const router = useNavigate();
