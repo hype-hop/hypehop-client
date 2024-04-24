@@ -1,7 +1,7 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
-import { Input, Container, Button, Typography, Box } from '@mui/material';
+import { Input, Container, Button, Typography, Box, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../config';
 import EditorBox from './EditorBox';
@@ -11,6 +11,7 @@ import RatingAlbum from './RatingAlbum';
 import { AlbumData } from '../types/albumData';
 import { AlbumSearchResult } from '../types/albumSearch';
 import { AlbumForReview } from '../types/albumReview';
+import { FormData } from '../types/review';
 
 function WriteReview({ userData }) {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function WriteReview({ userData }) {
     tracks.push(`disc${discNumber - 1}-${index + 1}.${track.name}`);
   });
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     title: '',
     status: 'public',
 
@@ -78,7 +79,7 @@ function WriteReview({ userData }) {
         thumbnail: data.albumData?.images[1].url,
         albumReleaseDate: data.albumData?.release_date,
         user: userData?._id,
-        // trackTitle: tracks,
+        trackTitle: tracks,
         artistGenre: data?.spotify_artist_genre,
         artists: data.albumData?.artists.map((artist) => artist.name),
         albumName: data?.albumData?.name,
@@ -188,20 +189,41 @@ function WriteReview({ userData }) {
           />
         )}
 
-        <h5>트랙별 평점:</h5>
+        <Typography
+          sx={{
+            mt: '40px',
+            mb: '40px',
+          }}
+          variant="h1"
+        >
+          트랙별 평점
+        </Typography>
 
         {renderTracks}
 
         <div className="row">
-          <div className="input-field">
-            <select id="status" name="status" value={formData.status} onChange={handleFormData}>
-              <option value="public" selected>
-                공개
-              </option>
-              <option value="private">비공개</option>
-            </select>
-            <label htmlFor="status">공개 여부</label>
-          </div>
+          <Box
+            className="input-field"
+            sx={{
+              mt: '16px',
+              mb: '40px',
+            }}
+          >
+            <label htmlFor="status">
+              {' '}
+              <Typography sx={{ mb: '16px' }} variant="h1">
+                공개여부
+              </Typography>
+            </label>
+            <Select id="status" name="status" value={formData.status} onChange={handleFormData} fullWidth sx={{}}>
+              <MenuItem value="public" selected>
+                <Typography textAlign="left">공개</Typography>
+              </MenuItem>
+              <MenuItem value="private">
+                <Typography textAlign="left">비공개</Typography>
+              </MenuItem>
+            </Select>
+          </Box>
         </div>
         <Box>
           <Typography variant="h1">리뷰작성하기</Typography>

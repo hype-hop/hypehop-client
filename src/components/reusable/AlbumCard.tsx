@@ -3,6 +3,7 @@ import { Card, Box, Typography, CardMedia, Stack, Rating } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 function AlbumCard({ data }) {
+  const formattedDate = data?.review.albumReleaseDate.split('T')[0];
   return (
     <Card
       key={data?.review._id}
@@ -75,13 +76,16 @@ function AlbumCard({ data }) {
               whiteSpace: 'nowrap',
             }}
           >
-            {data?.review.artists ? (
-              <Typography align="left"> {data?.review.artists}</Typography>
-            ) : (
-              <Typography align="left" fontSize="fontSizeMd">
-                {data.review.albumTitle.split('-', 2)[0]}
-              </Typography>
-            )}
+            <Box display="flex">
+              {data?.review.artists ? (
+                <Typography align="left"> {data?.review.artists}</Typography>
+              ) : (
+                <Typography align="left" fontSize="fontSizeMd">
+                  {data.review.albumTitle.split('-', 2)[0]}
+                </Typography>
+              )}
+              <Typography> ·{formattedDate}</Typography>
+            </Box>
           </Typography>
           <Stack direction="row" alignItems="center" spacing={1} sx={{ paddingLeft: '20px' }}>
             <Rating
