@@ -60,7 +60,7 @@ const theme: Theme = createTheme({
   },
   palette: {
     background: {
-      default: 'rgb(25,25,25)',
+      default: 'rgb(14, 14, 14)',
     },
     text: {
       primary: 'rgb(255,255,255)',
@@ -105,11 +105,13 @@ const theme: Theme = createTheme({
     MuiInput: {
       styleOverrides: {
         root: {
-          border: '0px',
+          border: '1px solid',
+          borderColor: 'rgb(52, 52, 52)',
           borderRadius: '16px',
           outline: 'none',
-          background: 'rgb(52,52,52)',
+          background: 'rgb(22, 22, 22)',
           color: 'white',
+          height: '46px',
           padding: '15px',
           '&::before': {
             content: 'none',
@@ -126,6 +128,36 @@ const theme: Theme = createTheme({
       styleOverrides: {
         iconEmpty: {
           color: 'rgb(255, 196, 3)',
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          border: '1px solid',
+          borderColor: 'rgb(52, 52, 52)',
+          borderRadius: '16px',
+          outline: 'none',
+          background: 'rgb(22, 22, 22)',
+          height: '46px',
+          color: 'white',
+          '&:hover': {
+            borderColor: 'black',
+          },
+          fontSize: '14px',
+        },
+      },
+    },
+
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          background: 'rgb(22, 22, 22)',
+          height: '40px',
+          '&:hover': {
+            background: 'black',
+          },
+          fontSize: '14px',
         },
       },
     },

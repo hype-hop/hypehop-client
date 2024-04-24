@@ -75,7 +75,7 @@ function Favorite({ reviewId, numberOfFavorite }) {
           className="hover:cursor-pointer hover:text-red-200"
           size={1}
           onClick={addToFavorite}
-          style={{ color: 'white' }}
+          style={{ color: 'red' }}
         />
 
         <Typography

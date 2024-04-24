@@ -26,13 +26,15 @@ export interface ReviewsRank extends Review {
 export interface FormData {
   title: string;
   status: string;
-  albumRating: number;
+  albumRating: number | null | undefined;
   body: string;
-  albumTitle: string | null;
+  albumTitle: string | null | undefined;
   albumId: string | null;
   thumbnail: string | null;
   user: string | null;
   albumReleaseDate: string | null;
-  trackTitle: string[] | null;
-  artistGenre: string[] | null;
+  trackTitle: string[];
+  artistGenre: string[];
+  artists: [];
+  albumName: string;
 }

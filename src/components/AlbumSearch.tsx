@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { Container, Input, InputAdornment } from '@mui/material';
+import { Box, Input, InputAdornment } from '@mui/material';
 import { AlbumSearchResult } from '../types/albumSearch';
 import postSearchAlbum from '../api/album';
 import useDebounce from '../utils/useDebounce';
@@ -32,7 +32,7 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumS
   }, [debouncedValue, setSearchResult]);
 
   return (
-    <Container>
+    <Box>
       <Input
         fullWidth
         startAdornment={
@@ -58,7 +58,7 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumS
           setKeyword={setKeyword}
         />
       )}
-    </Container>
+    </Box>
   );
 }
 

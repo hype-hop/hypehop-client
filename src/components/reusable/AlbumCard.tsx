@@ -2,7 +2,8 @@ import React from 'react';
 import { Card, Box, Typography, CardMedia, Stack, Rating } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-function AlbumCard({ data, albumData }) {
+function AlbumCard({ data }) {
+  const formattedDate = data?.review.albumReleaseDate.split('T')[0];
   return (
     <Card
       key={data?.review._id}
@@ -57,7 +58,13 @@ function AlbumCard({ data, albumData }) {
               whiteSpace: 'nowrap',
             }}
           >
-            {albumData?.albumTitleOnly}
+            {data?.review.artists ? (
+              <Typography align="left"> {data?.review.albumName}</Typography>
+            ) : (
+              <Typography align="left" fontSize="fontSizeMd">
+                {data.review.albumTitle.split('-', 2)[1]}
+              </Typography>
+            )}
           </Typography>
           <Typography
             fontSize="fontSizeSm"
@@ -69,19 +76,28 @@ function AlbumCard({ data, albumData }) {
               whiteSpace: 'nowrap',
             }}
           >
-            {albumData?.artistNameOnly}
+            <Box display="flex">
+              {data?.review.artists ? (
+                <Typography align="left"> {data?.review.artists}</Typography>
+              ) : (
+                <Typography align="left" fontSize="fontSizeMd">
+                  {data.review.albumTitle.split('-', 2)[0]}
+                </Typography>
+              )}
+              <Typography> ·{formattedDate}</Typography>
+            </Box>
           </Typography>
           <Stack direction="row" alignItems="center" spacing={1} sx={{ paddingLeft: '20px' }}>
             <Rating
               name="albumRating"
-              value={Number(albumData?.albumRatingAverage)}
+              value={Number(data?.albumRatingAverage)}
               precision={0.5}
               readOnly
               size="small"
               sx={{ textAlign: 'left' }}
             />
             <Typography fontSize="fontSizeSm" fontWeight="700" sx={{ alignContent: 'flex-end' }}>
-              {albumData?.albumRatingAverage}
+              {data?.albumRatingAverage}
             </Typography>
           </Stack>
         </Box>

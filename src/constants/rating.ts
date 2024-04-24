@@ -1,3 +1,3 @@
-const INITIAL_RATING_VALUE = 0.5;
+const INITIAL_RATING_VALUE = 0;
 
 export default INITIAL_RATING_VALUE;

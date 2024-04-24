@@ -7,14 +7,14 @@ import TimeSincePost from './TimeSincePost';
 // import Comment from './Comment';
 // import Favorite from './Favorite';
 
-function ReviewDetailLeft({ data, albumData }) {
+function ReviewDetailLeft({ data }) {
   return (
     <Box sx={{ mb: '18px' }}>
       <Stack sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h1">앨범 정보</Typography>
       </Stack>
 
-      <AlbumCard data={data} albumData={albumData} />
+      <AlbumCard data={data} />
 
       <Box
         sx={{

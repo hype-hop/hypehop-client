@@ -12,6 +12,8 @@ export interface Top5Album {
   ratings: number[];
   thumbnail: string;
   weightedAverage: number;
+  artists: string[];
+  albumName: string;
 }
 export interface UniqueAlbum {
   albumId: string;
