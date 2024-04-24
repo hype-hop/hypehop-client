@@ -20,6 +20,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import StarsIcon from '@mui/icons-material/Stars'; // 임시 로고
 import { useAuth } from '../AuthenticationContext';
 import TimeSincePost from './TimeSincePost';
+import { typography } from '../constants/themeValue';
 
 // 목업 데이터
 const notiArray: { noti: string; time: Date }[] = [
@@ -144,10 +145,10 @@ export default function MenuAppBar() {
               >
                 {notiArray.map((noti) => (
                   <HeaderMenuItem onClick={handleCloseNoti}>
-                    <Typography fontSize="md">{noti.noti}</Typography>
+                    <Typography fontSize={typography.size.md}>{noti.noti}</Typography>
                     <Typography
                       fontWeight="light"
-                      fontSize="md"
+                      fontSize={typography.size.md}
                       sx={{
                         paddingLeft: '4px',
                         color: 'rgb(126, 126, 126)',
@@ -168,7 +169,7 @@ export default function MenuAppBar() {
                 <Link to="/dashboard" style={{ textDecorationLine: 'none' }}>
                   <HeaderMenuItem onClick={handleCloseProfile}>
                     <PersonIcon sx={{ marginRight: '16px', color: 'white.main' }} />
-                    <Typography fontSize="md" sx={{ color: 'white.main' }}>
+                    <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>
                       마이프로필
                     </Typography>
                   </HeaderMenuItem>
@@ -176,7 +177,7 @@ export default function MenuAppBar() {
                 <Link to="/" style={{ textDecorationLine: 'none' }}>
                   <HeaderMenuItem onClick={handleChange}>
                     <LogoutIcon sx={{ marginRight: '16px', color: 'white.main' }} />
-                    <Typography fontSize="md" sx={{ color: 'white.main' }}>
+                    <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>
                       로그아웃
                     </Typography>
                   </HeaderMenuItem>
@@ -194,7 +195,7 @@ export default function MenuAppBar() {
                     height: '32px',
                   }}
                 >
-                  <Typography fontSize="lg" fontWeight="medium" sx={{ color: 'white.main' }}>
+                  <Typography fontSize={typography.size.lg} fontWeight="medium" sx={{ color: 'white.main' }}>
                     로그인
                   </Typography>
                 </Button>
