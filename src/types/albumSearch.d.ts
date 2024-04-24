@@ -1,4 +1,4 @@
-interface AlbumImage {
+export interface AlbumImage {
   width: number;
   height: number;
   url: string;

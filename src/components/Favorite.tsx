@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography, Box } from '@mui/material';
 // import { useAuth } from '../AuthenticationContext';
 import BASE_URL from '../config';
+import { ReactComponent as EmptyFavoriteIcon } from '../assets/icons/empty-favorite.svg';
 
 function Favorite({ reviewId, numberOfFavorite }) {
   // const { user } = useAuth();
@@ -65,31 +63,13 @@ function Favorite({ reviewId, numberOfFavorite }) {
     }
   };
 
-  const heartIcon = isFavorite ? faHeart : faHeartRegular;
-
   return (
-    <div>
-      <Box sx={{ display: 'flex' }}>
-        <FontAwesomeIcon
-          icon={heartIcon}
-          className="hover:cursor-pointer hover:text-red-200"
-          size={1}
-          onClick={addToFavorite}
-          style={{ color: 'red' }}
-        />
-
-        <Typography
-          color="grey.main"
-          fontSize="fontSizeSm"
-          sx={{
-            FontAwesomeIcon: '300',
-            margin: '0px 8px',
-          }}
-        >
-          좋아요 {numberOfFavorite}개{' '}
-        </Typography>
-      </Box>
-    </div>
+    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
+      <EmptyFavoriteIcon onClick={addToFavorite} fill={isFavorite ? 'red' : '#7e7e7e'} />
+      <Typography component="div" color="grey.main" fontSize="fontSizeSm">
+        좋아요 {numberOfFavorite}개,
+      </Typography>
+    </Box>
   );
 }
 

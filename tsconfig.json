@@ -7,5 +7,6 @@
     "noImplicitAny": false,
     "jsx": "react-jsx",
     "moduleResolution": "NodeNext"
-  }
+  },
+  "include":["src/", "customSvg.d.ts"]
 }
