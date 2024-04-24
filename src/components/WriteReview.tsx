@@ -54,9 +54,10 @@ function WriteReview({ userData }) {
   const [formData, setFormData] = useState({
     title: '',
     status: 'public',
-    albumRating: 0,
+
     body: '',
     albumTitle: data?.pageTitle,
+    albumRating: selectedAlbum?.rating,
     artists: [],
     albumName: data?.albumData?.name,
     albumId: data?.albumData?.id,
@@ -71,6 +72,7 @@ function WriteReview({ userData }) {
     if (data) {
       setFormData({
         ...formData,
+        albumRating: selectedAlbum?.rating,
         albumId: data.albumData?.id,
         albumTitle: data?.pageTitle,
         thumbnail: data.albumData?.images[1].url,
@@ -155,11 +157,27 @@ function WriteReview({ userData }) {
   return (
     <Container className="Write-review">
       <form>
+        <Typography
+          variant="h1"
+          sx={{
+            mb: '16px',
+          }}
+        >
+          앨범 검색
+        </Typography>
         <AlbumSearch
           searchResult={searchResult}
           setSearchResult={setSearchResult}
           setSelectedAlbum={setSelectedAlbum}
         />
+        <Typography
+          variant="h1"
+          sx={{
+            mt: '40px',
+          }}
+        >
+          앨범 평점
+        </Typography>
         {selectedAlbum && (
           <RatingAlbum
             album={selectedAlbum!}
@@ -169,11 +187,6 @@ function WriteReview({ userData }) {
             }}
           />
         )}
-        <h5>앨범 평점:</h5>
-
-        <Stack style={{ alignItems: 'center' }} spacing={1}>
-          <Rating name="albumRating" value={formData.albumRating} precision={0.5} onChange={handleFormData} />
-        </Stack>
 
         <h5>트랙별 평점:</h5>
 

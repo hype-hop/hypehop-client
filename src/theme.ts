@@ -60,7 +60,7 @@ const theme: Theme = createTheme({
   },
   palette: {
     background: {
-      default: 'rgb(25,25,25)',
+      default: 'rgb(14, 14, 14)',
     },
     text: {
       primary: 'rgb(255,255,255)',
@@ -105,10 +105,11 @@ const theme: Theme = createTheme({
     MuiInput: {
       styleOverrides: {
         root: {
-          border: '0px',
+          border: '1px solid',
+          borderColor: 'rgb(52, 52, 52)',
           borderRadius: '16px',
           outline: 'none',
-          background: 'rgb(52,52,52)',
+          background: 'rgb(22, 22, 22)',
           color: 'white',
           padding: '15px',
           '&::before': {

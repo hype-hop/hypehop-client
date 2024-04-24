@@ -3,7 +3,6 @@ import { Card, Box, Typography, CardMedia, Stack, Rating } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 function AlbumCard({ data }) {
-  console.log(data);
   return (
     <Card
       key={data?.review._id}

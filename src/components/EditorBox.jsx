@@ -160,10 +160,14 @@ function EditorBox({ onContentChange, value }) {
       id="editorjs"
       sx={{
         mt: '16px',
-        background: 'rgb(52,52,52)',
+
         borderRadius: '16px',
         height: '310px',
         overflow: 'scroll',
+        background: 'rgb(22, 22, 22)',
+
+        border: '1px solid',
+        borderColor: 'rgb(52, 52, 52)',
       }}
     />
   );
