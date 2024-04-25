@@ -25,7 +25,6 @@ function Comment({ comments, reviewId, user }: Props) {
         const response = await fetch(`${BASE_URL}/api/comments/review/${reviewId}`);
         const result = await response.json();
         setComment(result.comments);
-        console.log(result);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -58,7 +57,6 @@ function Comment({ comments, reviewId, user }: Props) {
       }
     } catch (error) {
       console.error('Error fetching data:', error);
-      console.log('no res');
     }
   };
 
@@ -191,7 +189,11 @@ function Comment({ comments, reviewId, user }: Props) {
                   {comment.content}
                 </Typography>{' '}
                 {comment.user._id === user?._id && (
-                  <form action={`/api/comments/${reviewId}/delete/${comment._id}`} method="POST" id="delete-form">
+                  <form
+                    action={`${BASE_URL}/api/comments/${reviewId}/delete/${comment._id}`}
+                    method="POST"
+                    id="delete-form"
+                  >
                     <input type="hidden" name="_method" value="DELETE" />
                     <Button variant="outlined" size="small" type="submit" sx={{ ml: '10px' }}>
                       <Typography fontSize="fontSizeXs">삭제</Typography>

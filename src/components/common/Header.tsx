@@ -18,17 +18,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import StarsIcon from '@mui/icons-material/Stars'; // 임시 로고
+import { useEffect, useState } from 'react';
 import { useAuth } from '../../AuthenticationContext';
 import TimeSincePost from '../album/TimeSincePost';
 import { typography } from '../../constants/themeValue';
 import BASE_URL from '../../config';
-
-// 목업 데이터
-const notiArray: { noti: string; time: Date }[] = [
-  { noti: '새로운 알림이 있습니다.', time: new Date(2024, 3, 23, 22, 0) },
-  { noti: '새로운 알림이 있습니다.', time: new Date(2024, 3, 20, 10, 0) },
-  { noti: '새로운 알림이 있습니다.', time: new Date(2023, 3, 23, 10, 0) },
-];
+import fetchNotification from '../../api/notification';
+import { Notification } from '../../types/notification';
 
 const HeaderMenu = styled((props: MenuProps) => (
   <Menu
@@ -66,9 +62,23 @@ const HeaderMenuItem = styled((props: MenuItemProps) => (
 ))();
 
 export default function MenuAppBar() {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [auth, setAuth] = useAuth();
   const [anchorProfile, setAnchorProfile] = React.useState(null);
   const [anchorNoti, setAnchorNoti] = React.useState(null);
+
+  useEffect(() => {
+    const getNotifications = async () => {
+      try {
+        const fetchedNotifications = await fetchNotification();
+        setNotifications(fetchedNotifications);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getNotifications();
+  }, []);
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -144,21 +154,39 @@ export default function MenuAppBar() {
                 open={Boolean(anchorNoti)}
                 onClose={handleCloseNoti}
               >
-                {notiArray.map((noti) => (
-                  <HeaderMenuItem onClick={handleCloseNoti}>
-                    <Typography fontSize={typography.size.md}>{noti.noti}</Typography>
-                    <Typography
-                      fontWeight="light"
-                      fontSize={typography.size.md}
-                      sx={{
-                        paddingLeft: '4px',
-                        color: 'rgb(126, 126, 126)',
-                      }}
-                    >
-                      <TimeSincePost createdAt={noti.time} />
-                    </Typography>
+                {notifications.length === 0 ? (
+                  <HeaderMenuItem disabled>
+                    <Typography>새로운 알림이 없습니다.</Typography>
                   </HeaderMenuItem>
-                ))}
+                ) : (
+                  notifications.map((noti) => (
+                    <Link
+                      to={`/album/review/${noti.review_id._id}`}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <HeaderMenuItem onClick={handleCloseNoti}>
+                        <Typography>{noti.sender_id.name}님이&nbsp; </Typography>
+                        <Typography>{noti.review_id.title}에&nbsp;</Typography>
+                        {noti.type === '좋아요' ? (
+                          <Typography>{noti.type} 표시를 했습니다.</Typography>
+                        ) : (
+                          <Typography>{noti.type}을 달았습니다.</Typography>
+                        )}
+                        <Typography fontSize={typography.size.md}>{noti.text}</Typography>
+                        <Typography
+                          fontWeight="light"
+                          fontSize={typography.size.md}
+                          sx={{
+                            paddingLeft: '4px',
+                            color: 'rgb(126, 126, 126)',
+                          }}
+                        >
+                          <TimeSincePost createdAt={noti.timestamp} />
+                        </Typography>
+                      </HeaderMenuItem>
+                    </Link>
+                  ))
+                )}
               </HeaderMenu>
 
               <HeaderMenu
