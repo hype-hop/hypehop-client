@@ -21,6 +21,7 @@ import StarsIcon from '@mui/icons-material/Stars'; // 임시 로고
 import { useAuth } from '../../AuthenticationContext';
 import TimeSincePost from '../album/TimeSincePost';
 import { typography } from '../../constants/themeValue';
+import BASE_URL from '../../config';
 
 // 목업 데이터
 const notiArray: { noti: string; time: Date }[] = [
@@ -174,7 +175,8 @@ export default function MenuAppBar() {
                     </Typography>
                   </HeaderMenuItem>
                 </Link>
-                <Link to="/" style={{ textDecorationLine: 'none' }}>
+
+                <Link to={`${BASE_URL}/api/logout`} style={{ textDecorationLine: 'none' }}>
                   <HeaderMenuItem onClick={handleChange}>
                     <LogoutIcon sx={{ marginRight: '16px', color: 'white.main' }} />
                     <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>
