@@ -17,10 +17,12 @@ import {
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
-import StarsIcon from '@mui/icons-material/Stars'; // 임시 로고
+import { ReactComponent as LogoMainIcon } from '../../assets/icons/logo-main.svg';
+import { ReactComponent as LogoSubIcon } from '../../assets/icons/logo-hover.svg';
+
 import { useAuth } from '../../AuthenticationContext';
-import TimeSincePost from '../album/TimeSincePost';
 import { typography } from '../../constants/themeValue';
+import TimeSincePost from '../album/TimeSincePost';
 
 // 목업 데이터
 const notiArray: { noti: string; time: Date }[] = [
@@ -64,10 +66,49 @@ const HeaderMenuItem = styled((props: MenuItemProps) => (
   />
 ))();
 
+function LogoHoverIcon() {
+  const [count, setCount] = React.useState(false);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCount(!count);
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+    };
+  });
+
+  return (
+    <div>
+      {count ? (
+        <LogoMainIcon
+          style={{
+            width: 125,
+            height: 20,
+          }}
+        />
+      ) : (
+        <LogoSubIcon
+          style={{
+            width: 125,
+            height: 20,
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
 export default function MenuAppBar() {
   const [auth, setAuth] = useAuth();
   const [anchorProfile, setAnchorProfile] = React.useState(null);
   const [anchorNoti, setAnchorNoti] = React.useState(null);
+  const [LogoHover, setLogoHover] = React.useState(false);
+
+  const handleHoverLogo = (event) => {
+    setLogoHover(event.type === 'mouseenter');
+  };
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -104,7 +145,15 @@ export default function MenuAppBar() {
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Link to="/">
-            <StarsIcon sx={{ color: 'white.main' }} />
+            <IconButton onMouseEnter={handleHoverLogo} onMouseLeave={handleHoverLogo} disableRipple>
+              {LogoHover ? (
+                <LogoHoverIcon />
+              ) : (
+                <div>
+                  <LogoMainIcon style={{ width: 125, height: 20 }} />
+                </div>
+              )}
+            </IconButton>
           </Link>
 
           {auth ? (
