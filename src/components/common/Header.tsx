@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AppBar,
@@ -67,7 +68,7 @@ const HeaderMenuItem = styled((props: MenuItemProps) => (
 ))();
 
 function LogoHoverIcon() {
-  const [count, setCount] = React.useState(false);
+  const [count, setCount] = useState(false);
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -79,32 +80,28 @@ function LogoHoverIcon() {
     };
   });
 
-  return (
-    <div>
-      {count ? (
-        <LogoMainIcon
-          style={{
-            width: 125,
-            height: 20,
-          }}
-        />
-      ) : (
-        <LogoSubIcon
-          style={{
-            width: 125,
-            height: 20,
-          }}
-        />
-      )}
-    </div>
+  return count ? (
+    <LogoMainIcon
+      style={{
+        width: 125,
+        height: 20,
+      }}
+    />
+  ) : (
+    <LogoSubIcon
+      style={{
+        width: 125,
+        height: 20,
+      }}
+    />
   );
 }
 
 export default function MenuAppBar() {
   const [auth, setAuth] = useAuth();
-  const [anchorProfile, setAnchorProfile] = React.useState(null);
-  const [anchorNoti, setAnchorNoti] = React.useState(null);
-  const [LogoHover, setLogoHover] = React.useState(false);
+  const [anchorProfile, setAnchorProfile] = useState(null);
+  const [anchorNoti, setAnchorNoti] = useState(null);
+  const [logoHover, setLogoHover] = useState(false);
 
   const handleHoverLogo = (event) => {
     setLogoHover(event.type === 'mouseenter');
@@ -146,13 +143,7 @@ export default function MenuAppBar() {
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Link to="/">
             <IconButton onMouseEnter={handleHoverLogo} onMouseLeave={handleHoverLogo} disableRipple>
-              {LogoHover ? (
-                <LogoHoverIcon />
-              ) : (
-                <div>
-                  <LogoMainIcon style={{ width: 125, height: 20 }} />
-                </div>
-              )}
+              {logoHover ? <LogoHoverIcon /> : <LogoMainIcon style={{ width: 125, height: 20 }} />}
             </IconButton>
           </Link>
 
