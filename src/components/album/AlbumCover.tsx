@@ -8,8 +8,11 @@ function AlbumCover({ albumId, url, albumTitle, artists }: AlbumCoverProps) {
   return (
     <Box
       sx={{
+        width: '100%',
         maxWidth: '282px',
+        minWidth: '200px',
         maxHeight: '282px',
+        minHeight: '200px',
         aspectRatio: 1 / 1,
         position: 'relative',
       }}
@@ -42,7 +45,7 @@ function AlbumCover({ albumId, url, albumTitle, artists }: AlbumCoverProps) {
           {albumTitle}
         </Typography>
         <Box sx={{ display: 'flex' }}>
-          {artists.map((artist, index) => (
+          {artists?.map((artist, index) => (
             <Typography>
               {artist} {artists.length > 1 && index < artists.length - 1 && '· '}
             </Typography>
