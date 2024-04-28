@@ -1,4 +1,5 @@
 import { AlbumReview } from './albumChart';
+import { MyReview } from './review';
 
 export interface MyInformation {
   comments: [];
@@ -7,6 +8,6 @@ export interface MyInformation {
   pageDescription: string;
   pageKeywords: string;
   pageTitle: string;
-  reviews: AlbumReview[];
+  reviews: MyReview[];
   stories: [];
 }

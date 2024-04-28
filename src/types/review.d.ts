@@ -19,6 +19,13 @@ export interface Review {
   albumRating: number;
 }
 
+export interface MyReview extends Review {
+  albumId: string;
+  albumName: string;
+  artists: string[];
+  status: string;
+}
+
 export interface ReviewsRank extends Review {
   favoriteCount: number;
 }
