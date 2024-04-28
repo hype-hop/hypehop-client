@@ -66,10 +66,15 @@ function Favorite({ reviewId, numberOfFavorite }) {
     }
   };
 
+  const openFavoriteListCheckModal = () => {
+    if (numberOfFavorite === 0) return;
+    setOpen(true);
+  };
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
       <EmptyFavoriteIcon onClick={addToFavorite} fill={isFavorite ? 'red' : '#7e7e7e'} />
-      <Typography onClick={() => setOpen(true)} component="div" color="grey.main" fontSize="fontSizeSm">
+      <Typography onClick={() => openFavoriteListCheckModal()} component="div" color="grey.main" fontSize="fontSizeSm">
         좋아요 {numberOfFavorite}개,
       </Typography>
       <FavoriteListCheckModal open={open} setOpen={setOpen} />
