@@ -3,12 +3,14 @@ import { Typography, Box } from '@mui/material';
 // import { useAuth } from '../AuthenticationContext';
 import BASE_URL from '../../config';
 import { ReactComponent as EmptyFavoriteIcon } from '../../assets/icons/empty-favorite.svg';
+import FavoriteListCheckModal from './Modal/FavoriteListCheckModal';
 
 function Favorite({ reviewId, numberOfFavorite }) {
   // const { user } = useAuth();
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [user, setUser] = useState(null);
+  const [open, setOpen] = useState(false);
 
   // const [data, setData] = useState(null);
 
@@ -23,6 +25,7 @@ function Favorite({ reviewId, numberOfFavorite }) {
         const favoritedReview = Object.keys(result.user.favoritesReview);
 
         // setData(favoritedReview);
+
         setUser(result);
         setIsFavorite(favoritedReview.includes(reviewId));
       } catch (error) {
@@ -66,9 +69,10 @@ function Favorite({ reviewId, numberOfFavorite }) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
       <EmptyFavoriteIcon onClick={addToFavorite} fill={isFavorite ? 'red' : '#7e7e7e'} />
-      <Typography component="div" color="grey.main" fontSize="fontSizeSm">
+      <Typography onClick={() => setOpen(true)} component="div" color="grey.main" fontSize="fontSizeSm">
         좋아요 {numberOfFavorite}개,
       </Typography>
+      <FavoriteListCheckModal open={open} setOpen={setOpen} />
     </Box>
   );
 }
