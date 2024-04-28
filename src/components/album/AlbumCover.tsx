@@ -16,7 +16,7 @@ function AlbumCover({ albumId, url, albumTitle, artists }: AlbumCoverProps) {
         aspectRatio: 1 / 1,
         position: 'relative',
       }}
-      onClick={() => router(`/${albumId}`)}
+      onClick={() => router(`/album/${albumId}`)}
     >
       <Box
         sx={{
