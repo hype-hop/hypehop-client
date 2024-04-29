@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AppBar,
@@ -18,19 +17,18 @@ import {
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
+
+import { useEffect, useState } from 'react';
+
 import { ReactComponent as LogoMainIcon } from '../../assets/icons/logo-main.svg';
 import { ReactComponent as LogoSubIcon } from '../../assets/icons/logo-hover.svg';
 
 import { useAuth } from '../../AuthenticationContext';
 import { typography } from '../../constants/themeValue';
+import BASE_URL from '../../config';
+import fetchNotification from '../../api/notification';
+import { Notification } from '../../types/notification';
 import TimeSincePost from '../album/TimeSincePost';
-
-// 목업 데이터
-const notiArray: { noti: string; time: Date }[] = [
-  { noti: '새로운 알림이 있습니다.', time: new Date(2024, 3, 23, 22, 0) },
-  { noti: '새로운 알림이 있습니다.', time: new Date(2024, 3, 20, 10, 0) },
-  { noti: '새로운 알림이 있습니다.', time: new Date(2023, 3, 23, 10, 0) },
-];
 
 const HeaderMenu = styled((props: MenuProps) => (
   <Menu
@@ -98,6 +96,7 @@ function LogoHoverIcon() {
 }
 
 export default function MenuAppBar() {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [auth, setAuth] = useAuth();
   const [anchorProfile, setAnchorProfile] = useState(null);
   const [anchorNoti, setAnchorNoti] = useState(null);
@@ -106,6 +105,19 @@ export default function MenuAppBar() {
   const handleHoverLogo = (event) => {
     setLogoHover(event.type === 'mouseenter');
   };
+
+  useEffect(() => {
+    const getNotifications = async () => {
+      try {
+        const fetchedNotifications = await fetchNotification();
+        setNotifications(fetchedNotifications);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getNotifications();
+  }, []);
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -183,21 +195,39 @@ export default function MenuAppBar() {
                 open={Boolean(anchorNoti)}
                 onClose={handleCloseNoti}
               >
-                {notiArray.map((noti) => (
-                  <HeaderMenuItem onClick={handleCloseNoti}>
-                    <Typography fontSize={typography.size.md}>{noti.noti}</Typography>
-                    <Typography
-                      fontWeight="light"
-                      fontSize={typography.size.md}
-                      sx={{
-                        paddingLeft: '4px',
-                        color: 'rgb(126, 126, 126)',
-                      }}
-                    >
-                      <TimeSincePost createdAt={noti.time} />
-                    </Typography>
+                {notifications.length === 0 ? (
+                  <HeaderMenuItem disabled>
+                    <Typography>새로운 알림이 없습니다.</Typography>
                   </HeaderMenuItem>
-                ))}
+                ) : (
+                  notifications.map((noti) => (
+                    <Link
+                      to={`/album/review/${noti.review_id._id}`}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <HeaderMenuItem onClick={handleCloseNoti}>
+                        <Typography>{noti.sender_id.name}님이&nbsp; </Typography>
+                        <Typography>{noti.review_id.title}에&nbsp;</Typography>
+                        {noti.type === '좋아요' ? (
+                          <Typography>{noti.type} 표시를 했습니다.</Typography>
+                        ) : (
+                          <Typography>{noti.type}을 달았습니다.</Typography>
+                        )}
+                        <Typography fontSize={typography.size.md}>{noti.text}</Typography>
+                        <Typography
+                          fontWeight="light"
+                          fontSize={typography.size.md}
+                          sx={{
+                            paddingLeft: '4px',
+                            color: 'rgb(126, 126, 126)',
+                          }}
+                        >
+                          <TimeSincePost createdAt={noti.timestamp} />
+                        </Typography>
+                      </HeaderMenuItem>
+                    </Link>
+                  ))
+                )}
               </HeaderMenu>
 
               <HeaderMenu
@@ -214,7 +244,8 @@ export default function MenuAppBar() {
                     </Typography>
                   </HeaderMenuItem>
                 </Link>
-                <Link to="/" style={{ textDecorationLine: 'none' }}>
+
+                <Link to={`${BASE_URL}/api/logout`} style={{ textDecorationLine: 'none' }}>
                   <HeaderMenuItem onClick={handleChange}>
                     <LogoutIcon sx={{ marginRight: '16px', color: 'white.main' }} />
                     <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>

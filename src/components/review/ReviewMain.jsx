@@ -79,9 +79,10 @@ function ReviewMain() {
                 >
                   <Avatar
                     style={{ width: '28px', height: '28px', borderRadius: '50%' }}
-                    src={review.user.image}
+                    src={review?.user?.image}
                     alt="user"
                   />
+
                   <Typography
                     variant="body1"
                     color="primary"
