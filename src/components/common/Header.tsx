@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AppBar,
@@ -17,14 +18,21 @@ import {
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
+
 import StarsIcon from '@mui/icons-material/Stars'; // 임시 로고
 import { useEffect, useState } from 'react';
+
+import { ReactComponent as LogoMainIcon } from '../../assets/icons/logo-main.svg';
+import { ReactComponent as LogoSubIcon } from '../../assets/icons/logo-hover.svg';
+
+
 import { useAuth } from '../../AuthenticationContext';
-import TimeSincePost from '../album/TimeSincePost';
 import { typography } from '../../constants/themeValue';
 import BASE_URL from '../../config';
 import fetchNotification from '../../api/notification';
 import { Notification } from '../../types/notification';
+import TimeSincePost from '../album/TimeSincePost';
+
 
 const HeaderMenu = styled((props: MenuProps) => (
   <Menu
@@ -61,11 +69,46 @@ const HeaderMenuItem = styled((props: MenuItemProps) => (
   />
 ))();
 
+function LogoHoverIcon() {
+  const [count, setCount] = useState(false);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCount(!count);
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+    };
+  });
+
+  return count ? (
+    <LogoMainIcon
+      style={{
+        width: 125,
+        height: 20,
+      }}
+    />
+  ) : (
+    <LogoSubIcon
+      style={{
+        width: 125,
+        height: 20,
+      }}
+    />
+  );
+}
+
 export default function MenuAppBar() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [auth, setAuth] = useAuth();
-  const [anchorProfile, setAnchorProfile] = React.useState(null);
-  const [anchorNoti, setAnchorNoti] = React.useState(null);
+  const [anchorProfile, setAnchorProfile] = useState(null);
+  const [anchorNoti, setAnchorNoti] = useState(null);
+  const [logoHover, setLogoHover] = useState(false);
+
+  const handleHoverLogo = (event) => {
+    setLogoHover(event.type === 'mouseenter');
+  };
 
   useEffect(() => {
     const getNotifications = async () => {
@@ -115,7 +158,9 @@ export default function MenuAppBar() {
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Link to="/">
-            <StarsIcon sx={{ color: 'white.main' }} />
+            <IconButton onMouseEnter={handleHoverLogo} onMouseLeave={handleHoverLogo} disableRipple>
+              {logoHover ? <LogoHoverIcon /> : <LogoMainIcon style={{ width: 125, height: 20 }} />}
+            </IconButton>
           </Link>
 
           {auth ? (
