@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography, Container, Box, CardActions } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Container, Box, CardActions, Avatar } from '@mui/material';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import StarIcon from '@mui/icons-material/Star';
 import TimeSincePost from '../components/album/TimeSincePost';
@@ -139,9 +139,9 @@ function ReviewsPage() {
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  <img
+                  <Avatar
                     style={{ width: '28px', height: '28px', borderRadius: '50%' }}
-                    src={review.user.image}
+                    src={review?.user?.image}
                     alt="user"
                   />
                   <Typography
