@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AppBar,
@@ -19,12 +18,10 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-import StarsIcon from '@mui/icons-material/Stars'; // 임시 로고
 import { useEffect, useState } from 'react';
 
 import { ReactComponent as LogoMainIcon } from '../../assets/icons/logo-main.svg';
 import { ReactComponent as LogoSubIcon } from '../../assets/icons/logo-hover.svg';
-
 
 import { useAuth } from '../../AuthenticationContext';
 import { typography } from '../../constants/themeValue';
@@ -32,7 +29,6 @@ import BASE_URL from '../../config';
 import fetchNotification from '../../api/notification';
 import { Notification } from '../../types/notification';
 import TimeSincePost from '../album/TimeSincePost';
-
 
 const HeaderMenu = styled((props: MenuProps) => (
   <Menu
