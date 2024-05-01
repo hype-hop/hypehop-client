@@ -27,7 +27,8 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
             <Card
               sx={{
                 bgcolor: 'background.default',
-                width: '288px',
+
+                // width: '288px',
                 height: '60px',
                 display: 'flex',
                 flexDirection: 'row',
@@ -66,6 +67,8 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                     sx={{
                       whiteSpace: 'nowrap',
                       textOverflow: 'ellipsis',
+                      overflow: 'hidden',
+                      // maxWidth: '150px',
                     }}
                   >
                     {item.albumName}
@@ -76,7 +79,10 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                     fontSize={typography.size.lg}
                     fontWeight={typography.weight.bold}
                     sx={{
+                      //  maxWidth: '100px',
                       whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
+                      overflow: 'hidden',
                     }}
                   >
                     {item.albumTitle.split('-', 2)[1]}
