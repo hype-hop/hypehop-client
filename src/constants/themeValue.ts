@@ -3,7 +3,8 @@ export const typography = {
     sm: 11,
     md: 12,
     lg: 14,
-    xl: 30,
+    xl: 24,
+    '2xl': 30,
   },
   weight: {
     light: 300,
