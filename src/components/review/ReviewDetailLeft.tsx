@@ -72,7 +72,7 @@ function ReviewDetailLeft({ data }) {
             borderRadius: '67px',
           }}
         >
-          <StarIcon sx={{ color: 'white.main', fontSize: 'fontSizeMd', mt: '1px' }} />
+          <StarIcon fontSize="small" sx={{ color: 'white.main', mt: '1px' }} />
           <Typography
             sx={{
               width: '15.33px',

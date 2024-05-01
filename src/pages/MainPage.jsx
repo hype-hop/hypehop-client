@@ -1,3 +1,4 @@
+import { Box, Container } from '@mui/material';
 import AlbumChart from '../components/album/AlbumChart';
 import PopularReview from '../components/review/PopularReview';
 import ReviewMain from '../components/review/ReviewMain';
@@ -5,15 +6,20 @@ import FloatingActionButton from '../components/common/FloatingActionButton';
 
 function MainPage() {
   return (
-    <div className="Main">
-      <ReviewMain />
+    <Container className="Main">
+      <Box display="flex">
+        <Box>
+          <ReviewMain />
 
-      <AlbumChart />
+          <AlbumChart />
+        </Box>
 
-      <PopularReview />
-
+        <Box>
+          <PopularReview />
+        </Box>
+      </Box>
       <FloatingActionButton />
-    </div>
+    </Container>
   );
 }
 

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 // import { useAuth } from '../AuthenticationContext';
 import BASE_URL from '../../config';
 import TimeSincePost from '../album/TimeSincePost';
-
 import { CommentType } from '../../types/review';
 import { User } from '../../types/user';
 

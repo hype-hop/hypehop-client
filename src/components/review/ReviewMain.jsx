@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardContent, CardMedia, Typography, Container, Box, CardActions, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Favorite from '../common/Favorite';
-
+import { typography } from '../../constants/themeValue';
 import TimeSincePost from '../album/TimeSincePost';
 import BASE_URL from '../../config';
+import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
 
 function ReviewMain() {
   const [data, setData] = useState(null);
@@ -126,7 +126,7 @@ function ReviewMain() {
                       borderRadius: '67px',
                     }}
                   >
-                    <StarIcon sx={{ color: 'white.main', fontSize: 'fontSizeMd', mt: '1px' }} />
+                    <StarIcon fontSize="small" sx={{ color: 'white.main', mt: '1px' }} />
                     <Typography
                       sx={{
                         width: '15.33px',
@@ -144,8 +144,8 @@ function ReviewMain() {
                   <Box sx={{ width: '234px', height: '74px' }}>
                     <Typography
                       color="white.main"
-                      fontWeight="fontWeightRegular"
-                      fontSize="fontSizeMd"
+                      fontWeight="600"
+                      fontSize={typography.size.lg}
                       component="div"
                       sx={{
                         textAlign: 'left',
@@ -159,8 +159,8 @@ function ReviewMain() {
                     </Typography>
                     <Typography
                       color="grey.light"
-                      fontSize="fontSizeSm"
-                      fontWeight="fontWeightLighter"
+                      fontSize={typography.size.md}
+                      fontWeight={typography.weight.regular}
                       component="div"
                       sx={{
                         textAlign: 'left',
@@ -185,17 +185,28 @@ function ReviewMain() {
                 >
                   <Favorite reviewId={review._id} numberOfFavorite={review.isFavorite.length} />
 
-                  <Box sx={{ display: 'flex' }}>
-                    <Link
-                      to={`/album/review/${review._id}`}
-                      style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
+                  <Link
+                    to={`/album/review/${review._id}`}
+                    style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        columnGap: '1px',
+                        ml: '9px',
+                      }}
                     >
-                      <ChatBubbleOutlineIcon sx={{ color: 'white.main', fontSize: '1em' }} />
-                      <Typography sx={{ color: 'rgb(168,168,168)', fontSize: '12px', margin: '0px 8px' }}>
+                      <CommentIcon />
+                      <Typography
+                        fontSize={typography.size.md}
+                        fontWeight={typography.weight.regular}
+                        sx={{ color: 'rgb(168,168,168)' }}
+                      >
                         댓글 {review.comments.length}개
                       </Typography>
-                    </Link>
-                  </Box>
+                    </Box>
+                  </Link>
                 </Box>
               </CardActions>
             </Card>

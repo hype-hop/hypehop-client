@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, List, ListItem, ListItemText, Box, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import { typography } from '../../constants/themeValue';
 
 function TrackRatingCard({ data }) {
   return (
@@ -22,7 +23,7 @@ function TrackRatingCard({ data }) {
       <Box sx={{ margin: 'auto', width: '100%', maxWidth: 360 }}>
         {data?.review.tracks.map((disc, index) => (
           <Card key={index} sx={{ mb: 2, bgcolor: 'background.default' }}>
-            <Typography fontSize="fontSizeSm" component="div">
+            <Typography fontSize={typography.size.lg} component="div">
               Disc {index + 1}
             </Typography>
             <List component="nav" aria-label="tracks">
@@ -59,7 +60,7 @@ function TrackRatingCard({ data }) {
                             borderRadius: '67px',
                           }}
                         >
-                          <StarIcon sx={{ color: 'white.main', fontSize: 'fontSizeMd', mt: '1px' }} />
+                          <StarIcon fontSize="small" sx={{ color: 'white.main', mt: '1px' }} />
                           <Typography
                             sx={{
                               width: '15.33px',

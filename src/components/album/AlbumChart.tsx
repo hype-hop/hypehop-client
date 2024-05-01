@@ -8,6 +8,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState, useEffect } from 'react';
 import { AlbumCharts } from '../../types/albumChart';
 import BASE_URL from '../../config';
+import { typography } from '../../constants/themeValue';
 
 function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: number) {
   // const theme = useTheme();
@@ -58,16 +59,45 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
               />
               <CardContent sx={{ marginTop: '8px' }}>
                 {item.artists ? (
-                  <Typography align="left">{item.albumName}</Typography>
+                  <Typography
+                    align="left"
+                    fontSize={typography.size.lg}
+                    fontWeight={typography.weight.bold}
+                    sx={{
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {item.albumName}
+                  </Typography>
                 ) : (
-                  <Typography align="left" fontSize="fontSizeMd">
+                  <Typography
+                    align="left"
+                    fontSize={typography.size.lg}
+                    fontWeight={typography.weight.bold}
+                    sx={{
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
                     {item.albumTitle.split('-', 2)[1]}
                   </Typography>
                 )}
                 {item.artists ? (
-                  <Typography align="left">{item.artists}</Typography>
+                  <Typography
+                    align="left"
+                    fontSize={typography.size.md}
+                    fontWeight={typography.weight.regular}
+                    sx={{ color: 'rgb(168, 168, 168)' }}
+                  >
+                    {item.artists}
+                  </Typography>
                 ) : (
-                  <Typography align="left" fontSize="fontSizeMd">
+                  <Typography
+                    align="left"
+                    fontSize={typography.size.md}
+                    fontWeight={typography.weight.regular}
+                    sx={{ color: 'rgb(168, 168, 168)' }}
+                  >
                     {item.albumTitle.split('-', 2)[0]}
                   </Typography>
                 )}
@@ -134,7 +164,7 @@ function AlbumChart() {
   }, []);
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: '75px' }}>
+    <Container sx={{ marginTop: '75px' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h1">인기 앨범 차트</Typography>
         <Box sx={{ display: 'flex' }}>
