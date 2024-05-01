@@ -53,7 +53,6 @@ function ReviewMain() {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-
                 width: '266px',
                 height: '423px',
                 padding: '16px',

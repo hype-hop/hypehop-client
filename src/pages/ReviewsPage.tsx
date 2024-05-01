@@ -104,7 +104,7 @@ function ReviewsPage() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)', md: 'repeat(4, 1fr)' },
           gap: 2,
           mt: 2,
         }}
@@ -116,14 +116,15 @@ function ReviewsPage() {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-
-                width: '266px',
                 height: '423px',
                 padding: '16px',
                 bgcolor: 'background.default',
                 border: '1px solid',
                 borderColor: 'rgb(52,52,52)',
                 borderRadius: '0px 16px 16px 16px',
+                width: '100%',
+                margin: '0 auto',
+                maxWidth: '100%',
               }}
             >
               <Link to={`/album/review/${review._id}`}>

@@ -8,9 +8,8 @@ function MainPage() {
   return (
     <Container className="Main">
       <Box display="flex">
-        <Box>
+        <Box width="100%">
           <ReviewMain />
-
           <AlbumChart />
         </Box>
 

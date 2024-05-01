@@ -27,7 +27,7 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
             <Card
               sx={{
                 bgcolor: 'background.default',
-                // width: '288px',
+                width: '288px',
                 height: '60px',
                 display: 'flex',
                 flexDirection: 'row',
@@ -153,8 +153,6 @@ function AlbumChart() {
         const response = await fetch(`${BASE_URL}/album/api`);
         const result = await response.json();
         setData(result);
-
-        console.log(result);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
