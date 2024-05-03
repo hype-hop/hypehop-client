@@ -5,6 +5,7 @@ import BASE_URL from '../../config';
 import { ReactComponent as EmptyFavoriteIcon } from '../../assets/icons/empty-favorite.svg';
 import FavoriteListCheckModal from './Modal/FavoriteListCheckModal';
 import { FavoriteClickedUser } from '../../types/favorite';
+import { typography } from '../../constants/themeValue';
 
 function Favorite({
   reviewId,
@@ -17,6 +18,24 @@ function Favorite({
   const [isMyFavorite, setIsMyFavorite] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
+  const [iconHoverColor, setIconHoverColor] = useState('#7e7e7e');
+  const [textHoverColor, setTextHoverColor] = useState('grey.main');
+
+  const handleIconMouseEnter = () => {
+    setIconHoverColor('rgb(218, 218, 218)');
+  };
+
+  const handleIconMouseLeave = () => {
+    setIconHoverColor('#7e7e7e');
+  };
+
+  const handleTextMouseEnter = () => {
+    setTextHoverColor('text.primary');
+  };
+
+  const handleTextMouseLeave = () => {
+    setTextHoverColor('grey.main');
+  };
 
   useEffect(() => {
     setIsMyFavorite(Object.keys(user?.favoritesReview).includes(reviewId));
@@ -58,10 +77,27 @@ function Favorite({
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
-      <EmptyFavoriteIcon onClick={addToFavorite} fill={isMyFavorite ? 'red' : '#7e7e7e'} />
-      <Typography onClick={openFavoriteListCheckModal} component="div" color="grey.main" fontSize="fontSizeSm">
-        좋아요 {favoriteCount}개,
+      <EmptyFavoriteIcon
+        onClick={addToFavorite}
+        fill={isMyFavorite ? 'red' : iconHoverColor}
+        onMouseEnter={handleIconMouseEnter}
+        onMouseLeave={handleIconMouseLeave}
+        style={{ cursor: 'pointer' }}
+      />
+
+      <Typography
+        component="div"
+        color={textHoverColor}
+        onClick={openFavoriteListCheckModal}
+        fontSize={typography.size.md}
+        fontWeight={typography.weight.regular}
+        onMouseEnter={handleTextMouseEnter}
+        onMouseLeave={handleTextMouseLeave}
+        sx={{ cursor: 'pointer' }}
+      >
+        좋아요 {favoriteCount}개
       </Typography>
+
       <FavoriteListCheckModal open={open} setOpen={setOpen} favoriteClickedUsers={favoriteClickedUsers} />
     </Box>
   );
