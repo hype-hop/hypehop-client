@@ -4,7 +4,8 @@ import { Avatar, Box, Container, Typography } from '@mui/material';
 import { useAuth } from '../AuthenticationContext';
 import { MyInformation } from '../types/myInformation';
 import getMyInformation from '../api/myInformation';
-import MyReview from '../components/review/MyReview';
+import AlbumReviewSummary from '../components/review/AlbumReviewSummary';
+import AlbumCover from '../components/album/AlbumCover';
 
 function MyPage() {
   const [data, setData] = useState<MyInformation | null>(null);
@@ -39,8 +40,26 @@ function MyPage() {
           내가 작성한 리뷰
         </Typography>
         {data?.reviews && (
-          <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '24px' }}>
-            {data?.reviews.map((review) => <MyReview review={review} />)}
+          <Box sx={{ display: 'flex', flexWrap: 'wrap' }} gap={3}>
+            {data?.reviews.map((review) => (
+              <Box
+                sx={{
+                  border: '1px solid rgb(52, 52, 52)',
+                  padding: '16px',
+                  borderRadius: '0px 16px 16px 16px',
+                  width: '282px',
+                  minWidth: '282px',
+                }}
+              >
+                <AlbumCover
+                  albumId={review.albumId}
+                  url={review.thumbnail}
+                  albumTitle={review.albumName}
+                  artists={review.artists}
+                />
+                <AlbumReviewSummary review={review} isMyReview />
+              </Box>
+            ))}
           </Box>
         )}
       </Box>
