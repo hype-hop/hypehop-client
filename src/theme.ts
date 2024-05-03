@@ -149,21 +149,11 @@ const theme: Theme = createTheme({
           height: '46px',
           color: 'white',
           '&:hover': {
-            borderColor: 'black',
+            '&& fieldset': {
+              border: 'rgb(22, 22, 22)',
+            },
           },
-          fontSize: '14px',
-        },
-      },
-    },
 
-    MuiMenuItem: {
-      styleOverrides: {
-        root: {
-          background: 'rgb(22, 22, 22)',
-          height: '40px',
-          '&:hover': {
-            background: 'black',
-          },
           fontSize: '14px',
         },
       },

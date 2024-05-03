@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Typography, Box } from '@mui/material';
-import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
+import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 import Comment from '../components/common/Comment';
 import Favorite from '../components/common/Favorite';
 import ReviewDetail from '../components/review/ReviewDetail';
-
+import { typography } from '../constants/themeValue';
 import BASE_URL from '../config';
 
 function ReviewShowPage() {
@@ -35,22 +35,34 @@ function ReviewShowPage() {
 
   return (
     <Container sx={{ marginTop: '105px' }}>
-      {data ? (
+      {data && id !== 'undefined' ? (
         <div>
           <ReviewDetail
             data={data}
-            albumId={data.review.albumId}
-            numberOfFavorite={data?.review.isFavorite.length}
+            albumId={data?.review?.albumId}
+            numberOfFavorite={data?.review?.isFavorite?.length}
             comments={data?.comments}
             reviewId={id}
           />
 
-          <Box display="flex">
-            <Favorite reviewId={id} numberOfFavorite={data?.review.isFavorite.length} />
-            <ChatBubbleOutline sx={{ color: 'white.main', fontSize: '1em' }} />
-            <Typography sx={{ color: 'rgb(168,168,168)', fontSize: '12px', margin: '0px 8px' }}>
-              댓글 {data?.comments.length}개
-            </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}
+          >
+            <Favorite reviewId={id} numberOfFavorite={data?.review?.isFavorite?.length} />
+            <Box sx={{ ml: '8px', alignItems: 'center', display: 'flex' }}>
+              <CommentIcon />
+              <Typography
+                fontSize={typography.size.md}
+                fontWeight={typography.weight.regular}
+                sx={{ color: 'rgb(168,168,168)' }}
+              >
+                댓글 {data?.comments?.length}개
+              </Typography>
+            </Box>
           </Box>
           <Comment comments={data?.comments} reviewId={id} user={user?.user} />
         </div>

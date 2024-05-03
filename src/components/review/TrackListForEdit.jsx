@@ -53,7 +53,7 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData }) {
     <Box
       sx={{
         mt: '16px',
-        background: 'rgb(52,52,52)',
+        background: 'rgb(22, 22, 22)',
         borderRadius: '16px',
         height: 'auto',
         overflow: 'scroll',
