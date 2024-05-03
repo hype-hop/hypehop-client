@@ -149,27 +149,27 @@ export default function MenuAppBar() {
                 onClose={handleCloseNoti}
                 width={256}
               >
-                {notifications.length === 0 ? (
-                  <StyledMenuItem disabled>
+
+                {notifications?.length === 0 ? (
+                  <HeaderMenuItem disabled>
+
                     <Typography>새로운 알림이 없습니다.</Typography>
                   </StyledMenuItem>
                 ) : (
-                  notifications.map((noti) => (
+                  notifications?.map((noti) => (
                     <Link
-                      to={`/album/review/${noti.review_id._id}`}
+                      to={`/album/review/${noti?.review_id?._id}`}
                       style={{ textDecoration: 'none', color: 'inherit' }}
                     >
-                      <StyledMenuItem onClick={handleCloseNoti}>
-                        <Box sx={{ flexDirection: 'column' }}>
-                          <Typography>
-                            {noti.sender_id.name}님이&nbsp;
-                            {noti.review_id.title}에&nbsp;
-                          </Typography>
-                          <Typography>
-                            {noti.type === '좋아요' ? `${noti.type} 표시를 했습니다.` : `${noti.type}을 달았습니다.`}
-                          </Typography>
-                          <Typography fontSize={typography.size.md}>{noti.text}</Typography>
-                        </Box>
+                      <HeaderMenuItem onClick={handleCloseNoti}>
+                        <Typography>{noti?.sender_id?.name}님이&nbsp; </Typography>
+                        <Typography>{noti?.review_id?.title}에&nbsp;</Typography>
+                        {noti?.type === '좋아요' ? (
+                          <Typography>{noti?.type} 표시를 했습니다.</Typography>
+                        ) : (
+                          <Typography>{noti?.type}을 달았습니다.</Typography>
+                        )}
+                        <Typography fontSize={typography.size.md}>{noti?.text}</Typography>
                         <Typography
                           fontWeight="light"
                           fontSize={typography.size.md}
@@ -181,7 +181,7 @@ export default function MenuAppBar() {
                             color: 'rgb(126, 126, 126)',
                           }}
                         >
-                          <TimeSincePost createdAt={noti.timestamp} />
+                          <TimeSincePost createdAt={noti?.timestamp} />
                         </Typography>
                       </StyledMenuItem>
                     </Link>

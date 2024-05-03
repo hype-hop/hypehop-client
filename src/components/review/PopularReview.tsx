@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { List, ListItem, Typography } from '@mui/material';
+import { Box, List, ListItem, Typography } from '@mui/material';
 import BASE_URL from '../../config';
 import { ReviewsRank } from '../../types/review';
 
@@ -26,34 +26,51 @@ function PopularReview() {
   }
 
   return (
-    <List
-      sx={{ border: '1px solid rgb(52,52,52)', borderRadius: '0px 16px 16px 16px', padding: '16px', maxWidth: '287px' }}
-    >
-      {data?.map(({ _id, title, favoriteCount }, index) => (
-        <ListItem
-          sx={{
-            display: 'flex',
-            columnGap: '4px',
-            marginBottom: index < data.length - 1 ? '16px' : '0px',
-            alignItems: 'flex-start',
-          }}
-          key={_id}
-        >
-          <Typography lineHeight="1" component="div" fontSize="fontSizeMd" fontWeight="600">
-            {index + 1}.
-          </Typography>
-          <Link to={`/album/review/${_id}`} style={{ textAlign: 'left', color: 'white', textDecoration: 'none' }}>
-            <Typography lineHeight="1" component="div" fontSize="fontSizeMd">
-              {title}
+    <Box sx={{ mt: '105px', display: { xs: 'none', sm: 'none', md: 'block' } }}>
+      <Typography variant="h1" sx={{ mb: '16px' }}>
+        인기리뷰
+      </Typography>
+      <List
+        sx={{
+          border: '1px solid rgb(52,52,52)',
+          borderRadius: '0px 16px 16px 16px',
+          padding: '16px',
+          maxWidth: '287px',
+          minWidth: '280px',
+          minHeight: '330px',
+        }}
+      >
+        {data?.map(({ _id, title, favoriteCount }, index) => (
+          <ListItem
+            sx={{
+              display: 'flex',
+              columnGap: '4px',
+              marginBottom: index < data.length - 1 ? '16px' : '0px',
+              alignItems: 'flex-start',
+            }}
+            key={_id}
+          >
+            <Typography lineHeight="1" component="div" fontSize="fontSizeMd" fontWeight="600">
+              {index + 1}.
             </Typography>
-          </Link>
+            <Link to={`/album/review/${_id}`} style={{ textAlign: 'left', color: 'white', textDecoration: 'none' }}>
+              <Typography
+                lineHeight="1"
+                component="div"
+                fontSize="fontSizeMd"
+                sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '200px' }}
+              >
+                {title}
+              </Typography>
+            </Link>
 
-          <Typography lineHeight="1" component="div" fontSize="fontSizeMd" color="grey.main">
-            ({favoriteCount < 100 ? favoriteCount : '100 +'})
-          </Typography>
-        </ListItem>
-      ))}
-    </List>
+            <Typography lineHeight="1" component="div" fontSize="fontSizeMd" color="grey.main">
+              ({favoriteCount < 100 ? favoriteCount : '100 +'})
+            </Typography>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 }
 
