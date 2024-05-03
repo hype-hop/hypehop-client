@@ -26,8 +26,9 @@ function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
     <Box
       sx={{
         display: 'flex',
+        height: '74px',
         backgroundColor: 'rgb(22, 22, 22)',
-        borderRadius: '16px',
+        borderRadius: '1 6px',
         border: '1px solid',
         borderColor: 'rgb(52, 52, 52)',
         padding: '20px',
@@ -52,7 +53,7 @@ function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
         </Box>
       </Box>
 
-      <Box>
+      <Box display="flex">
         <Rating
           name="albumRating"
           value={rating}
@@ -63,6 +64,13 @@ function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
             setRating(value!);
           }}
         />
+        <Typography
+          fontSize={typography.size.md}
+          fontWeight="600"
+          sx={{ ml: '2px', alignContent: 'center', justifyContent: 'center' }}
+        >
+          {Number(rating).toFixed(1)}
+        </Typography>
       </Box>
     </Box>
   );

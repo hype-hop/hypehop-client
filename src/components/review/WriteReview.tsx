@@ -179,7 +179,7 @@ function WriteReview({ userData }) {
         >
           앨범 평점
         </Typography>
-        {selectedAlbum && (
+        {selectedAlbum ? (
           <RatingAlbum
             album={selectedAlbum!}
             rating={selectedAlbum.rating!}
@@ -187,12 +187,27 @@ function WriteReview({ userData }) {
               setSelectedAlbum((prev) => ({ ...prev!, rating }));
             }}
           />
+        ) : (
+          <Box
+            sx={{
+              border: '1px solid',
+              // height: '46px',
+              backgroundColor: 'rgb(22, 22, 22)',
+              borderRadius: '16px',
+              borderColor: 'rgb(52, 52, 52)',
+              mt: '10px',
+              pl: '16px',
+              padding: '15px',
+              justifyItems: 'center',
+            }}
+          >
+            <Typography textAlign="left">앨범을 추가해 확인하세요.</Typography>
+          </Box>
         )}
 
         <Typography
           sx={{
             mt: '40px',
-            mb: '40px',
           }}
           variant="h1"
         >
@@ -211,11 +226,40 @@ function WriteReview({ userData }) {
           >
             <label htmlFor="status">
               {' '}
-              <Typography sx={{ mb: '16px' }} variant="h1">
+              <Typography sx={{ mb: '16px', mt: '40px' }} variant="h1">
                 공개여부
               </Typography>
             </label>
-            <Select id="status" name="status" value={formData.status} onChange={handleFormData} fullWidth sx={{}}>
+
+            <Select
+              id="status"
+              name="status"
+              value={formData.status}
+              onChange={handleFormData}
+              fullWidth
+              inputProps={{
+                sx: {
+                  '&:focus': {
+                    border: '1px solid',
+                    borderColor: 'rgb(52, 52, 52)',
+                  },
+                },
+              }}
+              MenuProps={{
+                sx: {
+                  '.MuiMenuItem-root': {
+                    background: 'rgb(22, 22, 22)',
+                    color: 'grey',
+                    height: '48px',
+                  },
+                  '&& .Mui-selected': {
+                    border: '1px solid',
+                    borderColor: 'rgb(52, 52, 52)',
+                    background: 'rgb(46, 45, 45)',
+                  },
+                },
+              }}
+            >
               <MenuItem value="public" selected>
                 <Typography textAlign="left">공개</Typography>
               </MenuItem>
@@ -226,7 +270,9 @@ function WriteReview({ userData }) {
           </Box>
         </div>
         <Box>
-          <Typography variant="h1">리뷰작성하기</Typography>
+          <Typography variant="h1" sx={{ mt: '40px' }}>
+            리뷰작성하기
+          </Typography>
           <div className="row">
             <div className="input-field">
               <Input
