@@ -81,6 +81,13 @@ const theme: Theme = createTheme({
     },
   },
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          lineHeight: 1,
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

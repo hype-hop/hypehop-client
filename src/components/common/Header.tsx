@@ -1,24 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  MenuItem,
-  Menu,
-  Typography,
-  styled,
-  MenuProps,
-  MenuItemProps,
-  Button,
-  Avatar,
-} from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Typography, Button, Avatar } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useEffect, useState } from 'react';
+import { StyledMenu, StyledMenuItem } from './StyledMenu';
 
 import { ReactComponent as LogoMainIcon } from '../../assets/icons/logo-main.svg';
 import { ReactComponent as LogoSubIcon } from '../../assets/icons/logo-hover.svg';
@@ -29,41 +17,6 @@ import BASE_URL from '../../config';
 import fetchNotification from '../../api/notification';
 import { Notification } from '../../types/notification';
 import TimeSincePost from '../album/TimeSincePost';
-
-const HeaderMenu = styled((props: MenuProps) => (
-  <Menu
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right',
-    }}
-    keepMounted
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'right',
-    }}
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    {...props}
-  />
-))(({ theme }) => ({
-  '& .MuiMenu-paper': {
-    borderRadius: 16,
-    minWidth: 256,
-    boxShadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.4)',
-    backgroundColor: theme.palette.background.default,
-    outline: '1px solid rgb(47, 47, 47)',
-  },
-  '& .MuiMenu-list': {
-    padding: 8,
-  },
-}));
-
-const HeaderMenuItem = styled((props: MenuItemProps) => (
-  <MenuItem
-    sx={{ borderRadius: '8px', ':hover': { backgroundColor: 'rgb(46, 45, 45)' } }}
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    {...props}
-  />
-))();
 
 function LogoHoverIcon() {
   const [count, setCount] = useState(false);
@@ -189,16 +142,19 @@ export default function MenuAppBar() {
                 />
               </IconButton>
 
-              <HeaderMenu
+              <StyledMenu
                 id="menu-notifications"
                 anchorEl={anchorNoti}
                 open={Boolean(anchorNoti)}
                 onClose={handleCloseNoti}
+                width={256}
               >
+
                 {notifications?.length === 0 ? (
                   <HeaderMenuItem disabled>
+
                     <Typography>새로운 알림이 없습니다.</Typography>
-                  </HeaderMenuItem>
+                  </StyledMenuItem>
                 ) : (
                   notifications?.map((noti) => (
                     <Link
@@ -218,42 +174,65 @@ export default function MenuAppBar() {
                           fontWeight="light"
                           fontSize={typography.size.md}
                           sx={{
+                            // position: 'absolute',
+                            // bottom: '8px',
+                            // right: '8px',
                             paddingLeft: '4px',
                             color: 'rgb(126, 126, 126)',
                           }}
                         >
                           <TimeSincePost createdAt={noti?.timestamp} />
                         </Typography>
-                      </HeaderMenuItem>
+                      </StyledMenuItem>
                     </Link>
                   ))
                 )}
-              </HeaderMenu>
+                <Link
+                  to="/dashboard"
+                  onClick={handleCloseNoti}
+                  style={{
+                    textDecoration: 'none',
+                    color: 'inherit',
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      margin: '8px 0 8px 16px',
+                      ':hover': {
+                        textDecorationLine: 'underline',
+                      },
+                    }}
+                  >
+                    더보기
+                  </Typography>
+                </Link>
+              </StyledMenu>
 
-              <HeaderMenu
+              <StyledMenu
                 id="menu-appbar"
                 anchorEl={anchorProfile}
                 open={Boolean(anchorProfile)}
                 onClose={handleCloseProfile}
+                width={200}
               >
                 <Link to="/dashboard" style={{ textDecorationLine: 'none' }}>
-                  <HeaderMenuItem onClick={handleCloseProfile}>
+                  <StyledMenuItem onClick={handleCloseProfile}>
                     <PersonIcon sx={{ marginRight: '16px', color: 'white.main' }} />
                     <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>
                       마이프로필
                     </Typography>
-                  </HeaderMenuItem>
+                  </StyledMenuItem>
                 </Link>
 
                 <Link to={`${BASE_URL}/api/logout`} style={{ textDecorationLine: 'none' }}>
-                  <HeaderMenuItem onClick={handleChange}>
+                  <StyledMenuItem onClick={handleChange}>
                     <LogoutIcon sx={{ marginRight: '16px', color: 'white.main' }} />
                     <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>
                       로그아웃
                     </Typography>
-                  </HeaderMenuItem>
+                  </StyledMenuItem>
                 </Link>
-              </HeaderMenu>
+              </StyledMenu>
             </div>
           ) : (
             <div>
