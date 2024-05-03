@@ -27,7 +27,9 @@
         "jsx-a11y/label-has-associated-control":"off",
         "no-shadow":"off",
         "react/no-unescaped-entities":"off",
-        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "react/require-default-props": "off",
+        "react/jsx-props-no-spreading":"off"
     },
     "settings": {
       "import/resolver": {

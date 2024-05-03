@@ -6,9 +6,10 @@ import { Review } from '../../types/review';
 import { typography } from '../../constants/themeValue';
 import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
 
-function AlbumReviewSummary({ review }: { review: Review }) {
+function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; isMyReview?: boolean }) {
   const router = useNavigate();
   const { _id, user, albumRating, title, createdAt, isFavorite, comments, body } = review;
+
   return (
     <Card
       key={_id}
@@ -16,8 +17,7 @@ function AlbumReviewSummary({ review }: { review: Review }) {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        minHeight: '181px',
-        padding: '16px',
+        maxHeight: '181px',
         backgroundColor: 'transparent',
         border: 'none',
         borderRadius: 'none',
@@ -27,56 +27,58 @@ function AlbumReviewSummary({ review }: { review: Review }) {
       {/* <Link to={`/album/review/${_id}`} /> */}
 
       <CardContent sx={{ width: '100%', padding: 0 }}>
-        <Box
-          sx={{
-            display: 'flex',
-            whiteSpace: 'nowrap',
-            columnGap: '7px',
-          }}
-        >
-          <Avatar style={{ width: 40, height: 40 }} src={user.image} alt="user" />
-          <Box textAlign="left">
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                marginLeft: '3px',
-                columnGap: '8px',
-              }}
-            >
-              <Typography
-                variant="body1"
-                color="primary"
+        {!isMyReview && (
+          <Box
+            sx={{
+              display: 'flex',
+              whiteSpace: 'nowrap',
+              columnGap: '7px',
+            }}
+          >
+            <Avatar style={{ width: 40, height: 40 }} src={user.image} alt="user" />
+            <Box textAlign="left">
+              <Box
                 sx={{
-                  alignContent: 'center',
-                  maxWidth: '100px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  marginLeft: '3px',
+                  columnGap: '8px',
                 }}
               >
-                <Link to={`/user/${user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  {user.name || user.displayName}
-                </Link>
-              </Typography>
+                <Typography
+                  variant="body1"
+                  color="primary"
+                  sx={{
+                    alignContent: 'center',
+                    maxWidth: '100px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  <Link to={`/user/${user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {user.name || user.displayName}
+                  </Link>
+                </Typography>
 
-              <Typography
-                color="grey.dark"
-                fontSize="fontSizeSm"
-                fontWeight="fontWeightLight"
-                lineHeight="lineHeightSm"
-                sx={{
-                  textAlign: 'left',
-                  alignContent: 'center',
-                }}
-              >
-                <TimeSincePost createdAt={createdAt} />{' '}
-              </Typography>
+                <Typography
+                  color="grey.dark"
+                  fontSize="fontSizeSm"
+                  fontWeight="fontWeightLight"
+                  lineHeight="lineHeightSm"
+                  sx={{
+                    textAlign: 'left',
+                    alignContent: 'center',
+                  }}
+                >
+                  <TimeSincePost createdAt={createdAt} />{' '}
+                </Typography>
+              </Box>
+              <Rating readOnly value={albumRating} />
             </Box>
-            <Rating readOnly value={albumRating} />
           </Box>
-        </Box>
+        )}
 
         <Box onClick={() => router(`/album/review/${_id}`)}>
           <Typography

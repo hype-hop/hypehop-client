@@ -149,16 +149,19 @@ export default function MenuAppBar() {
                 onClose={handleCloseNoti}
                 width={256}
               >
+
                 {notifications.length === 0 ? (
                   <StyledMenuItem disabled>
                     <Typography>새로운 알림이 없습니다.</Typography>
                   </StyledMenuItem>
                 ) : (
                   notifications.map((noti) => (
+
                     <Link
                       to={`/album/review/${noti.review_id._id}`}
                       style={{ textDecoration: 'none', color: 'inherit' }}
                     >
+
                       <StyledMenuItem onClick={handleCloseNoti}>
                         <Box sx={{ flexDirection: 'column' }}>
                           <Typography>
@@ -170,6 +173,7 @@ export default function MenuAppBar() {
                           </Typography>
                           <Typography fontSize={typography.size.md}>{noti.text}</Typography>
                         </Box>
+
                         <Typography
                           fontWeight="light"
                           fontSize={typography.size.md}
@@ -181,7 +185,11 @@ export default function MenuAppBar() {
                             color: 'rgb(126, 126, 126)',
                           }}
                         >
-                          <TimeSincePost createdAt={noti.timestamp} />
+
+
+                          <TimeSincePost createdAt={noti?.timestamp} />
+
+
                         </Typography>
                       </StyledMenuItem>
                     </Link>
@@ -215,7 +223,9 @@ export default function MenuAppBar() {
                 onClose={handleCloseProfile}
                 width={200}
               >
+
                 <Link to="/dashboard" style={{ textDecorationLine: 'none' }}>
+
                   <StyledMenuItem onClick={handleCloseProfile}>
                     <PersonIcon sx={{ marginRight: '16px', color: 'white.main' }} />
                     <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>

@@ -12,6 +12,7 @@ import ReviewShowPage from './pages/ReviewShowPage';
 import UserPage from './pages/UserPage';
 import EditPage from './pages/EditPage';
 import MainPage from './pages/MainPage';
+import MyInformationPage from './pages/MyInformationPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login/error?" element={<LoginPage />} />
           <Route path="/join" element={<JoinPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/myInformation" element={<MyInformationPage />} />
           <Route path="/album" element={<AlbumPage />} />
           <Route path="/album/:id" element={<AlbumShowPage />} />
           <Route path="/album/review" element={<ReviewsPage />} />
