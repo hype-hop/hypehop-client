@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import WriteReview from '../components/review/WriteReview';
 import { useAuth } from '../AuthenticationContext';
 import LogInForm from '../components/sign/LogInForm';
@@ -7,15 +6,18 @@ function AlbumPage() {
   const [user] = useAuth();
 
   return (
-    <Box className="Album" sx={{ mt: '40px' }}>
+    <div className="Album">
       {user ? (
-        <WriteReview userData={user} />
+        <>
+          <h1>앨범 리뷰 작성 페이지</h1>
+          <WriteReview userData={user} />
+        </>
       ) : (
         <div>
           <LogInForm />
         </div>
       )}
-    </Box>
+    </div>
   );
 }
 

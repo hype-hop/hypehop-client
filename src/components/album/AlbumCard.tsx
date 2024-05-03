@@ -3,10 +3,10 @@ import { Card, Box, Typography, CardMedia, Stack, Rating } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 function AlbumCard({ data }) {
-  const formattedDate = data?.review?.albumReleaseDate.split('T')[0];
+  const formattedDate = data?.review.albumReleaseDate.split('T')[0];
   return (
     <Card
-      key={data?.review?._id}
+      key={data?.review._id}
       sx={{
         mt: '16px',
         display: 'flex',
@@ -35,10 +35,10 @@ function AlbumCard({ data }) {
           display: 'flex',
         }}
       >
-        <Link to={`/album/${data?.review?.albumId}`} style={{ justifyContent: 'center', alignContent: 'center' }}>
+        <Link to={`/album/${data?.review.albumId}`} style={{ justifyContent: 'center', alignContent: 'center' }}>
           <CardMedia
             component="img"
-            image={data?.review?.thumbnail}
+            image={data?.review.thumbnail}
             alt="album cover"
             sx={{
               width: '60px',
@@ -58,11 +58,11 @@ function AlbumCard({ data }) {
               whiteSpace: 'nowrap',
             }}
           >
-            {data?.review?.artists ? (
-              <Typography align="left"> {data?.review?.albumName}</Typography>
+            {data?.review.artists ? (
+              <Typography align="left"> {data?.review.albumName}</Typography>
             ) : (
               <Typography align="left" fontSize="fontSizeMd">
-                {data?.review?.albumTitle.split('-', 2)[1]}
+                {data.review.albumTitle.split('-', 2)[1]}
               </Typography>
             )}
           </Typography>
@@ -77,11 +77,11 @@ function AlbumCard({ data }) {
             }}
           >
             <Box display="flex">
-              {data?.review?.artists ? (
-                <Typography align="left"> {data?.review?.artists}</Typography>
+              {data?.review.artists ? (
+                <Typography align="left"> {data?.review.artists}</Typography>
               ) : (
                 <Typography align="left" fontSize="fontSizeMd">
-                  {data?.review?.albumTitle.split('-', 2)[0]}
+                  {data.review.albumTitle.split('-', 2)[0]}
                 </Typography>
               )}
               <Typography> ·{formattedDate}</Typography>

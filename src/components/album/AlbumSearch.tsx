@@ -37,7 +37,7 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumS
         fullWidth
         startAdornment={
           <InputAdornment position="start">
-            <SearchIcon sx={{ color: 'rgb(110, 110, 110)' }} />
+            <SearchIcon />
           </InputAdornment>
         }
         type="text"
