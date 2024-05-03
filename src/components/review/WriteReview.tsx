@@ -199,6 +199,7 @@ function WriteReview({ userData }) {
               pl: '16px',
               padding: '15px',
               justifyItems: 'center',
+              color: 'rgb(168, 168, 168)',
             }}
           >
             <Typography textAlign="left">앨범을 추가해 확인하세요.</Typography>
@@ -214,7 +215,25 @@ function WriteReview({ userData }) {
           트랙별 평점
         </Typography>
 
-        {renderTracks}
+        {selectedAlbum ? (
+          <Box>{renderTracks}</Box>
+        ) : (
+          <Box
+            sx={{
+              border: '1px solid',
+              mt: '10px',
+              backgroundColor: 'rgb(22, 22, 22)',
+              borderRadius: '16px',
+              borderColor: 'rgb(52, 52, 52)',
+
+              pl: '16px',
+              padding: '15px',
+              justifyItems: 'center',
+            }}
+          >
+            <Typography textAlign="left">트랙리스트를 열어 확인하세요.</Typography>
+          </Box>
+        )}
 
         <div className="row">
           <Box

@@ -54,7 +54,12 @@ function PopularReview() {
               {index + 1}.
             </Typography>
             <Link to={`/album/review/${_id}`} style={{ textAlign: 'left', color: 'white', textDecoration: 'none' }}>
-              <Typography lineHeight="1" component="div" fontSize="fontSizeMd">
+              <Typography
+                lineHeight="1"
+                component="div"
+                fontSize="fontSizeMd"
+                sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '200px' }}
+              >
                 {title}
               </Typography>
             </Link>

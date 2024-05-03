@@ -28,7 +28,7 @@ function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
         display: 'flex',
         height: '74px',
         backgroundColor: 'rgb(22, 22, 22)',
-        borderRadius: '1 6px',
+        borderRadius: '16px',
         border: '1px solid',
         borderColor: 'rgb(52, 52, 52)',
         padding: '20px',
