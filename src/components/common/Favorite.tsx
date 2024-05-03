@@ -3,31 +3,12 @@ import { Typography, Box } from '@mui/material';
 // import { useAuth } from '../AuthenticationContext';
 import BASE_URL from '../../config';
 import { ReactComponent as EmptyFavoriteIcon } from '../../assets/icons/empty-favorite.svg';
-import { typography } from '../../constants/themeValue';
 
 function Favorite({ reviewId, numberOfFavorite }) {
   // const { user } = useAuth();
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [user, setUser] = useState(null);
-  const [iconHoverColor, setIconHoverColor] = useState('#7e7e7e');
-  const [textHoverColor, setTextHoverColor] = useState('grey.main');
-
-  const handleIconMouseEnter = () => {
-    setIconHoverColor('rgb(218, 218, 218)');
-  };
-
-  const handleIconMouseLeave = () => {
-    setIconHoverColor('#7e7e7e');
-  };
-
-  const handleTextMouseEnter = () => {
-    setTextHoverColor('text.primary');
-  };
-
-  const handleTextMouseLeave = () => {
-    setTextHoverColor('grey.main');
-  };
 
   // const [data, setData] = useState(null);
 
@@ -84,23 +65,9 @@ function Favorite({ reviewId, numberOfFavorite }) {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
-      <EmptyFavoriteIcon
-        onClick={addToFavorite}
-        fill={isFavorite ? 'red' : iconHoverColor}
-        onMouseEnter={handleIconMouseEnter}
-        onMouseLeave={handleIconMouseLeave}
-        style={{ cursor: 'pointer' }}
-      />
-      <Typography
-        component="div"
-        color={textHoverColor}
-        fontSize={typography.size.md}
-        fontWeight={typography.weight.regular}
-        onMouseEnter={handleTextMouseEnter}
-        onMouseLeave={handleTextMouseLeave}
-        sx={{ cursor: 'pointer' }}
-      >
-        좋아요 {numberOfFavorite}개
+      <EmptyFavoriteIcon onClick={addToFavorite} fill={isFavorite ? 'red' : '#7e7e7e'} />
+      <Typography component="div" color="grey.main" fontSize="fontSizeSm">
+        좋아요 {numberOfFavorite}개,
       </Typography>
     </Box>
   );

@@ -8,7 +8,6 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState, useEffect } from 'react';
 import { AlbumCharts } from '../../types/albumChart';
 import BASE_URL from '../../config';
-import { typography } from '../../constants/themeValue';
 
 function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: number) {
   // const theme = useTheme();
@@ -27,7 +26,6 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
             <Card
               sx={{
                 bgcolor: 'background.default',
-
                 // width: '288px',
                 height: '60px',
                 display: 'flex',
@@ -60,50 +58,16 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
               />
               <CardContent sx={{ marginTop: '8px' }}>
                 {item.artists ? (
-                  <Typography
-                    align="left"
-                    fontSize={typography.size.lg}
-                    fontWeight={typography.weight.bold}
-                    sx={{
-                      whiteSpace: 'nowrap',
-                      textOverflow: 'ellipsis',
-                      overflow: 'hidden',
-                      // maxWidth: '150px',
-                    }}
-                  >
-                    {item.albumName}
-                  </Typography>
+                  <Typography align="left">{item.albumName}</Typography>
                 ) : (
-                  <Typography
-                    align="left"
-                    fontSize={typography.size.lg}
-                    fontWeight={typography.weight.bold}
-                    sx={{
-                      //  maxWidth: '100px',
-                      whiteSpace: 'nowrap',
-                      textOverflow: 'ellipsis',
-                      overflow: 'hidden',
-                    }}
-                  >
+                  <Typography align="left" fontSize="fontSizeMd">
                     {item.albumTitle.split('-', 2)[1]}
                   </Typography>
                 )}
                 {item.artists ? (
-                  <Typography
-                    align="left"
-                    fontSize={typography.size.md}
-                    fontWeight={typography.weight.regular}
-                    sx={{ color: 'rgb(168, 168, 168)' }}
-                  >
-                    {item.artists}
-                  </Typography>
+                  <Typography align="left">{item.artists}</Typography>
                 ) : (
-                  <Typography
-                    align="left"
-                    fontSize={typography.size.md}
-                    fontWeight={typography.weight.regular}
-                    sx={{ color: 'rgb(168, 168, 168)' }}
-                  >
+                  <Typography align="left" fontSize="fontSizeMd">
                     {item.albumTitle.split('-', 2)[0]}
                   </Typography>
                 )}
@@ -159,6 +123,8 @@ function AlbumChart() {
         const response = await fetch(`${BASE_URL}/album/api`);
         const result = await response.json();
         setData(result);
+
+        console.log(result);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -168,7 +134,7 @@ function AlbumChart() {
   }, []);
 
   return (
-    <Container sx={{ marginTop: '75px' }}>
+    <Container maxWidth="md" sx={{ marginTop: '75px' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h1">인기 앨범 차트</Typography>
         <Box sx={{ display: 'flex' }}>
