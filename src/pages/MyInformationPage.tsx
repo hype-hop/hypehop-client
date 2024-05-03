@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Avatar, Box, Container, Link, Typography } from '@mui/material';
+import { Avatar, Box, Container, Link, Tab, Tabs, Typography } from '@mui/material';
 import { useAuth } from '../AuthenticationContext';
 import { MyInformation } from '../types/myInformation';
 import getMyInformation from '../api/myInformation';
@@ -14,6 +14,8 @@ import { ReactComponent as Delete } from '../assets/icons/delete-review.svg';
 import { StyledMenu, StyledMenuItem } from '../components/common/StyledMenu';
 import BASE_URL from '../config';
 import { typography } from '../constants/themeValue';
+import TabPanel from '../components/common/Tabs/TabPanel';
+import useTabs from '../hooks/useTab';
 
 function MyPage() {
   const [data, setData] = useState<MyInformation | null>(null);
@@ -21,6 +23,7 @@ function MyPage() {
   const [user] = useAuth();
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const [toEditReview, setToEditReview] = useState<string | null>(null);
+  const { currentTab, handleChangeCurrentTab, tabProps } = useTabs('my-information-tab');
 
   useEffect(() => {
     (async () => {
@@ -51,12 +54,14 @@ function MyPage() {
           <Typography>닉네임 변경</Typography>
         </Box>
       </Box>
-      <Box>
-        <Typography align="left" fontSize="24px" fontWeight="bold" lineHeight="1" mb="16px">
-          내가 작성한 리뷰
-        </Typography>
+      <Tabs value={currentTab} onChange={handleChangeCurrentTab} aria-label="my-information-tabs">
+        <Tab label="작성한 리뷰" {...tabProps(0)} />
+        <Tab label="좋아요한 리뷰" {...tabProps(1)} />
+      </Tabs>
+
+      <TabPanel value={currentTab} index={0}>
         {data?.reviews && (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap' }} gap={3}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 2 }} gap={3}>
             {data?.reviews.map((review) => (
               <Box
                 sx={{
@@ -121,7 +126,7 @@ function MyPage() {
             ))}
           </Box>
         )}
-      </Box>
+      </TabPanel>
     </Container>
   );
 }

@@ -168,6 +168,31 @@ const theme: Theme = createTheme({
         },
       },
     },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          minHeight: 0,
+        },
+        indicator: { backgroundColor: 'rgb(152, 72, 255)' },
+      },
+    },
+
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          padding: '0px 0px 8px 0px',
+          color: 'rgb(174, 174, 174)',
+          minHeight: 0,
+          minWidth: 0,
+          marginRight: '16px',
+          fontSize: typography.size.lg,
+          ':last-child': {
+            marginRight: 0,
+          },
+          '&.Mui-selected': { color: 'rgb(152, 72, 255)', borderBottom: '1px solid black' },
+        },
+      },
+    },
   },
 });
 
