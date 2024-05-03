@@ -250,7 +250,7 @@ function ReviewsPage() {
                     display: 'flex',
                   }}
                 >
-                  <Favorite reviewId={review._id} favoriteClickedUsers={review.isFavorite} />
+                  <Favorite reviewId={review?._id} favoriteClickedUsers={review?.isFavorite} />
                   <Link
                     to={`/album/review/${review._id}`}
                     style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}

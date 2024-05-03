@@ -38,8 +38,8 @@ function Favorite({
   };
 
   useEffect(() => {
-    setIsMyFavorite(Object.keys(user?.favoritesReview).includes(reviewId));
-    setFavoriteCount(favoriteClickedUsers.length);
+    setIsMyFavorite(user?.favoritesReview && Object.keys(user?.favoritesReview).includes(reviewId));
+    setFavoriteCount(favoriteClickedUsers?.length);
   }, [reviewId, user, favoriteClickedUsers]);
 
   const addToFavorite = async (e) => {
