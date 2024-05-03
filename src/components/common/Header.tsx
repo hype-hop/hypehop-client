@@ -195,25 +195,25 @@ export default function MenuAppBar() {
                 open={Boolean(anchorNoti)}
                 onClose={handleCloseNoti}
               >
-                {notifications.length === 0 ? (
+                {notifications?.length === 0 ? (
                   <HeaderMenuItem disabled>
                     <Typography>새로운 알림이 없습니다.</Typography>
                   </HeaderMenuItem>
                 ) : (
-                  notifications.map((noti) => (
+                  notifications?.map((noti) => (
                     <Link
-                      to={`/album/review/${noti.review_id._id}`}
+                      to={`/album/review/${noti?.review_id?._id}`}
                       style={{ textDecoration: 'none', color: 'inherit' }}
                     >
                       <HeaderMenuItem onClick={handleCloseNoti}>
-                        <Typography>{noti.sender_id.name}님이&nbsp; </Typography>
-                        <Typography>{noti.review_id.title}에&nbsp;</Typography>
-                        {noti.type === '좋아요' ? (
-                          <Typography>{noti.type} 표시를 했습니다.</Typography>
+                        <Typography>{noti?.sender_id?.name}님이&nbsp; </Typography>
+                        <Typography>{noti?.review_id?.title}에&nbsp;</Typography>
+                        {noti?.type === '좋아요' ? (
+                          <Typography>{noti?.type} 표시를 했습니다.</Typography>
                         ) : (
-                          <Typography>{noti.type}을 달았습니다.</Typography>
+                          <Typography>{noti?.type}을 달았습니다.</Typography>
                         )}
-                        <Typography fontSize={typography.size.md}>{noti.text}</Typography>
+                        <Typography fontSize={typography.size.md}>{noti?.text}</Typography>
                         <Typography
                           fontWeight="light"
                           fontSize={typography.size.md}
@@ -222,7 +222,7 @@ export default function MenuAppBar() {
                             color: 'rgb(126, 126, 126)',
                           }}
                         >
-                          <TimeSincePost createdAt={noti.timestamp} />
+                          <TimeSincePost createdAt={noti?.timestamp} />
                         </Typography>
                       </HeaderMenuItem>
                     </Link>

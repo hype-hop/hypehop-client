@@ -35,12 +35,12 @@ function ReviewShowPage() {
 
   return (
     <Container sx={{ marginTop: '105px' }}>
-      {data ? (
+      {data && id !== 'undefined' ? (
         <div>
           <ReviewDetail
             data={data}
-            albumId={data.review.albumId}
-            numberOfFavorite={data?.review.isFavorite.length}
+            albumId={data?.review?.albumId}
+            numberOfFavorite={data?.review?.isFavorite?.length}
             comments={data?.comments}
             reviewId={id}
           />
@@ -52,7 +52,7 @@ function ReviewShowPage() {
               justifyContent: 'flex-start',
             }}
           >
-            <Favorite reviewId={id} numberOfFavorite={data?.review.isFavorite.length} />
+            <Favorite reviewId={id} numberOfFavorite={data?.review?.isFavorite?.length} />
             <Box sx={{ ml: '8px', alignItems: 'center', display: 'flex' }}>
               <CommentIcon />
               <Typography
@@ -60,7 +60,7 @@ function ReviewShowPage() {
                 fontWeight={typography.weight.regular}
                 sx={{ color: 'rgb(168,168,168)' }}
               >
-                댓글 {data?.comments.length}개
+                댓글 {data?.comments?.length}개
               </Typography>
             </Box>
           </Box>

@@ -21,7 +21,7 @@ function TrackRatingCard({ data }) {
       }}
     >
       <Box sx={{ margin: 'auto', width: '100%', maxWidth: 360 }}>
-        {data?.review.tracks.map((disc, index) => (
+        {data?.review?.tracks.map((disc, index) => (
           <Card key={index} sx={{ mb: 2, bgcolor: 'background.default' }}>
             <Typography fontSize={typography.size.lg} component="div">
               Disc {index + 1}
@@ -71,9 +71,9 @@ function TrackRatingCard({ data }) {
                           >
                             {' '}
                             {/* eslint-disable-next-line no-unsafe-optional-chaining */}
-                            {data?.review.tracks[index].trackRating &&
-                            data?.review.tracks[index].trackRating[trackIndex]
-                              ? Number(data?.review.tracks[index].trackRating[trackIndex]).toFixed(1)
+                            {data?.review?.tracks[index].trackRating &&
+                            data?.review?.tracks[index].trackRating[trackIndex]
+                              ? Number(data?.review?.tracks[index].trackRating[trackIndex]).toFixed(1)
                               : '--'}
                           </Typography>
                         </Box>

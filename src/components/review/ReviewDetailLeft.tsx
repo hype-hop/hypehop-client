@@ -27,7 +27,7 @@ function ReviewDetailLeft({ data }) {
       >
         <Avatar
           style={{ width: '28px', height: '28px', borderRadius: '50%' }}
-          src={data?.review.user.image}
+          src={data?.review?.user.image}
           alt="user"
         />
         <Typography
@@ -42,8 +42,8 @@ function ReviewDetailLeft({ data }) {
             whiteSpace: 'nowrap',
           }}
         >
-          <Link to={`/user/${data?.review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            {data?.review.user.name || data?.review.user.displayName}
+          <Link to={`/user/${data?.review?.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            {data?.review?.user.name || data?.review?.user.displayName}
           </Link>
         </Typography>
 
@@ -58,7 +58,7 @@ function ReviewDetailLeft({ data }) {
             alignContent: 'center',
           }}
         >
-          <TimeSincePost createdAt={data?.review.createdAt} />{' '}
+          <TimeSincePost createdAt={data?.review?.createdAt} />{' '}
         </Typography>
         <Box
           sx={{
@@ -83,7 +83,7 @@ function ReviewDetailLeft({ data }) {
           >
             {' '}
             {/* eslint-disable-next-line no-unsafe-optional-chaining */}
-            {data?.review.albumRating % 1 === 0 ? `${data?.review.albumRating}.0` : data?.review.albumRating}
+            {data?.review?.albumRating % 1 === 0 ? `${data?.review?.albumRating}.0` : data?.review?.albumRating}
           </Typography>
         </Box>
       </Box>
@@ -98,10 +98,10 @@ function ReviewDetailLeft({ data }) {
             textAlign: 'left',
           }}
         >
-          {data?.review.title}
+          {data?.review?.title}
         </Typography>
         <Typography textAlign="left" fontSize="fontSizeMd" fontWeight="fontWeightLight">
-          <div dangerouslySetInnerHTML={{ __html: data?.review.body }} />
+          <div dangerouslySetInnerHTML={{ __html: data?.review?.body }} />
         </Typography>
       </Box>
 
