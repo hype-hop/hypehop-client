@@ -95,8 +95,8 @@ function ReviewMain() {
                       whiteSpace: 'nowrap',
                     }}
                   >
-                    <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      {review.user.name || review.user.displayName}
+                    <Link to={`/user/${review?.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      {review?.user.name || review?.user.displayName}
                     </Link>
                   </Typography>
 
@@ -111,7 +111,7 @@ function ReviewMain() {
                       alignContent: 'center',
                     }}
                   >
-                    <TimeSincePost createdAt={review.createdAt} />{' '}
+                    <TimeSincePost createdAt={review?.createdAt} />{' '}
                   </Typography>
 
                   <Box
@@ -183,7 +183,7 @@ function ReviewMain() {
                     display: 'flex',
                   }}
                 >
-                  <Favorite reviewId={review._id} favoriteClickedUsers={review.isFavorite} />
+                  <Favorite reviewId={review?._id} favoriteClickedUsers={review?.isFavorite} />
 
                   <Link
                     to={`/album/review/${review._id}`}
