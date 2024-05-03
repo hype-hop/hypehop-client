@@ -1,50 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
-// import { useAuth } from '../AuthenticationContext';
+import { useAuth } from '../../AuthenticationContext.js';
 import BASE_URL from '../../config';
 import { ReactComponent as EmptyFavoriteIcon } from '../../assets/icons/empty-favorite.svg';
 import FavoriteListCheckModal from './Modal/FavoriteListCheckModal';
+import { FavoriteClickedUser } from '../../types/favorite';
 
-function Favorite({ reviewId, numberOfFavorite }) {
-  // const { user } = useAuth();
-
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [user, setUser] = useState(null);
+function Favorite({
+  reviewId,
+  favoriteClickedUsers,
+}: {
+  reviewId: string;
+  favoriteClickedUsers: FavoriteClickedUser[];
+}) {
+  const [user] = useAuth();
+  const [isMyFavorite, setIsMyFavorite] = useState(false);
+  const [favoriteCount, setFavoriteCount] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
 
-  // const [data, setData] = useState(null);
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}/api/user`, {
-          method: 'GET',
-          credentials: 'include',
-        });
-        const result = await response.json();
-        const favoritedReview = Object.keys(result.user.favoritesReview);
-
-        // setData(favoritedReview);
-
-        setUser(result);
-        setIsFavorite(favoritedReview.includes(reviewId));
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [reviewId]);
+    setIsMyFavorite(Object.keys(user?.favoritesReview).includes(reviewId));
+    setFavoriteCount(favoriteClickedUsers.length);
+  }, [reviewId, user, favoriteClickedUsers]);
 
   const addToFavorite = async (e) => {
     e.stopPropagation();
-
     if (!user) {
       return;
     }
-
-    setIsFavorite(!isFavorite);
-    // console.log(isFavorite);
+    setFavoriteCount((prev) => (isMyFavorite ? prev! - 1 : prev! + 1));
+    setIsMyFavorite(!isMyFavorite);
 
     try {
       const response = await fetch(`${BASE_URL}/api/favorite/review/${reviewId}`, {
@@ -54,7 +39,7 @@ function Favorite({ reviewId, numberOfFavorite }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          isFavorite: !isFavorite,
+          isFavorite: !isMyFavorite,
         }),
       });
 
@@ -67,17 +52,17 @@ function Favorite({ reviewId, numberOfFavorite }) {
   };
 
   const openFavoriteListCheckModal = () => {
-    if (numberOfFavorite === 0) return;
+    if (favoriteCount === 0) return;
     setOpen(true);
   };
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
-      <EmptyFavoriteIcon onClick={addToFavorite} fill={isFavorite ? 'red' : '#7e7e7e'} />
-      <Typography onClick={() => openFavoriteListCheckModal()} component="div" color="grey.main" fontSize="fontSizeSm">
-        좋아요 {numberOfFavorite}개,
+      <EmptyFavoriteIcon onClick={addToFavorite} fill={isMyFavorite ? 'red' : '#7e7e7e'} />
+      <Typography onClick={openFavoriteListCheckModal} component="div" color="grey.main" fontSize="fontSizeSm">
+        좋아요 {favoriteCount}개,
       </Typography>
-      <FavoriteListCheckModal open={open} setOpen={setOpen} />
+      <FavoriteListCheckModal open={open} setOpen={setOpen} favoriteClickedUsers={favoriteClickedUsers} />
     </Box>
   );
 }

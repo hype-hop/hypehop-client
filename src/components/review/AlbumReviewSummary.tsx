@@ -124,7 +124,7 @@ function AlbumReviewSummary({ review }: { review: Review }) {
             columnGap: '8px',
           }}
         >
-          <Favorite reviewId={_id} numberOfFavorite={isFavorite.length} />
+          <Favorite reviewId={_id} favoriteClickedUsers={isFavorite} />
           <Link
             to={`/album/review/${_id}`}
             style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}

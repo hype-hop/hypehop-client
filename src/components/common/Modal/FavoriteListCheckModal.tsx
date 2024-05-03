@@ -1,19 +1,19 @@
 import { Avatar, Box, Modal, Typography, List, ListItem, ListItemAvatar } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 import { ReactComponent as Close } from '../../../assets/icons/modal-close.svg';
+import { FavoriteClickedUser } from '../../../types/favorite';
 
-interface FavoriteClickedUser {
-  name: string;
-  profileImageUrl: string;
-}
-
-function FavoriteListCheckModal({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) {
+function FavoriteListCheckModal({
+  open,
+  setOpen,
+  favoriteClickedUsers,
+}: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  favoriteClickedUsers: FavoriteClickedUser[];
+}) {
   const handleClose = () => setOpen(false);
-  const favorites: FavoriteClickedUser[] = [
-    { name: 'hhjh', profileImageUrl: 'fff' },
-    { name: 'hhjh', profileImageUrl: 'fff' },
-    { name: 'hhjh', profileImageUrl: 'fff' },
-  ];
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box
@@ -28,7 +28,7 @@ function FavoriteListCheckModal({ open, setOpen }: { open: boolean; setOpen: Dis
           background: 'rgb(27, 27, 27)',
           width: '90%',
           maxWidth: '650px',
-          height: '296px',
+          maxHeight: '296px',
           outline: 'none',
         }}
       >
@@ -47,11 +47,16 @@ function FavoriteListCheckModal({ open, setOpen }: { open: boolean; setOpen: Dis
             좋아요
           </Typography>
         </Box>
-        <List>
-          {favorites.map(({ name, profileImageUrl }) => (
+        <List
+          sx={{
+            maxHeight: '230px',
+            overflowY: 'scroll',
+          }}
+        >
+          {favoriteClickedUsers?.map(({ name, image }) => (
             <ListItem key={name} sx={{ height: '76px', paddingX: '16px', alignItems: 'center', cursor: 'pointer' }}>
               <ListItemAvatar>
-                <Avatar sx={{ width: '35px', height: '35px' }} src={profileImageUrl} />
+                <Avatar sx={{ width: '35px', height: '35px' }} src={image} />
               </ListItemAvatar>
               <Typography fontSize="20px">{name}</Typography>
             </ListItem>
