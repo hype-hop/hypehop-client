@@ -1,3 +1,4 @@
+import { FavoriteClickedUser } from './favorite';
 import { User } from './user';
 
 export interface CommentType {
@@ -14,7 +15,7 @@ export interface Review {
   thumbnail: string;
   createdAt: string;
   user: User;
-  isFavorite: Array<string>;
+  isFavorite: Array<FavoriteClickedUser>;
   comments: Array<Comment>;
   albumRating: number;
 }

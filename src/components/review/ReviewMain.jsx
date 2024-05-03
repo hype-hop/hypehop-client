@@ -183,7 +183,7 @@ function ReviewMain() {
                     display: 'flex',
                   }}
                 >
-                  <Favorite reviewId={review._id} numberOfFavorite={review.isFavorite.length} />
+                  <Favorite reviewId={review._id} favoriteClickedUsers={review.isFavorite} />
 
                   <Box sx={{ display: 'flex' }}>
                     <Link

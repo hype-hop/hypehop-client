@@ -46,7 +46,7 @@ function ReviewShowPage() {
           />
 
           <Box display="flex">
-            <Favorite reviewId={id} numberOfFavorite={data?.review.isFavorite.length} />
+            <Favorite reviewId={id} favoriteClickedUsers={data?.review.isFavorite} />
             <ChatBubbleOutline sx={{ color: 'white.main', fontSize: '1em' }} />
             <Typography sx={{ color: 'rgb(168,168,168)', fontSize: '12px', margin: '0px 8px' }}>
               댓글 {data?.comments.length}개
