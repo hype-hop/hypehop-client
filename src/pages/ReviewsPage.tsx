@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Container, Box, CardActions, Avatar } from '@mui/material';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import StarIcon from '@mui/icons-material/Star';
-import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 import TimeSincePost from '../components/album/TimeSincePost';
 import Favorite from '../components/common/Favorite';
 import BASE_URL from '../config';
 import { Review } from '../types/review';
-import { typography } from '../constants/themeValue';
 
 interface InitialData {
   totalPage: number;
@@ -104,7 +103,7 @@ function ReviewsPage() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
           gap: 2,
           mt: 2,
         }}
@@ -116,15 +115,14 @@ function ReviewsPage() {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
+
+                width: '266px',
                 height: '423px',
                 padding: '16px',
                 bgcolor: 'background.default',
                 border: '1px solid',
                 borderColor: 'rgb(52,52,52)',
                 borderRadius: '0px 16px 16px 16px',
-                width: '100%',
-                margin: '0 auto',
-                maxWidth: '100%',
               }}
             >
               <Link to={`/album/review/${review._id}`}>
@@ -190,11 +188,11 @@ function ReviewsPage() {
                       borderRadius: '67px',
                     }}
                   >
-                    <StarIcon fontSize="small" sx={{ color: 'white.main', mt: '1px' }} />
+                    <StarIcon sx={{ color: 'white.main', fontSize: 'fontSizeMd', mt: '1px' }} />
                     <Typography
                       color="white.main"
-                      fontSize="11px"
-                      fontWeight="400"
+                      fontSize="fontSizeSm"
+                      fontWeight="fontWeightLight"
                       sx={{
                         width: '15.33px',
                         alignContent: 'end',
@@ -210,8 +208,8 @@ function ReviewsPage() {
                   <Box sx={{ width: '234px', height: '74px' }}>
                     <Typography
                       color="white.main"
-                      fontWeight={typography.weight.bold}
-                      fontSize={typography.size.lg}
+                      fontWeight="fontWeightRegular"
+                      fontSize="fontSizeMd"
                       component="div"
                       sx={{
                         textAlign: 'left',
@@ -225,8 +223,8 @@ function ReviewsPage() {
                     </Typography>
                     <Typography
                       color="grey.light"
-                      fontSize={typography.size.md}
-                      fontWeight={typography.weight.regular}
+                      fontSize="fontSizeSm"
+                      fontWeight="fontWeightLighter"
                       component="div"
                       sx={{
                         textAlign: 'left',
@@ -251,17 +249,17 @@ function ReviewsPage() {
                 >
                   <Favorite reviewId={review._id} numberOfFavorite={review.isFavorite.length} />
 
-                  <Link
-                    to={`/album/review/${review._id}`}
-                    style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
-                  >
-                    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px', ml: '9px' }}>
-                      <CommentIcon />
-                      <Typography color="grey.main" fontSize={typography.size.sm}>
+                  <Box sx={{ display: 'flex' }}>
+                    <Link
+                      to={`/album/review/${review._id}`}
+                      style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <ChatBubbleOutlineIcon sx={{ color: 'white.main', fontSize: '1em' }} />
+                      <Typography color="grey.main" fontSize="fontSizeSm" sx={{ margin: '0px 8px' }}>
                         댓글 {review.comments.length}개
                       </Typography>
-                    </Box>
-                  </Link>
+                    </Link>
+                  </Box>
                 </Box>
               </CardActions>
             </Card>
