@@ -156,14 +156,14 @@ export default function MenuAppBar() {
                 ) : (
                   notifications.map((noti) => (
                     <Link
-                      to={`/album/review/${noti.review_id._id}`}
+                      to={`/album/review/${noti?.review_id?._id}`}
                       style={{ textDecoration: 'none', color: 'inherit' }}
                     >
                       <StyledMenuItem onClick={handleCloseNoti}>
                         <Box sx={{ flexDirection: 'column' }}>
                           <Typography>
-                            {noti.sender_id.name}님이&nbsp;
-                            {noti.review_id.title}에&nbsp;
+                            {noti?.sender_id?.name}님이&nbsp;
+                            {noti?.review_id?.title}에&nbsp;
                           </Typography>
                           <Typography>
                             {noti.type === '좋아요' ? `${noti.type} 표시를 했습니다.` : `${noti.type}을 달았습니다.`}
@@ -215,7 +215,7 @@ export default function MenuAppBar() {
                 onClose={handleCloseProfile}
                 width={200}
               >
-                <Link to="/dashboard" style={{ textDecorationLine: 'none' }}>
+                <Link to="/myInformation" style={{ textDecorationLine: 'none' }}>
                   <StyledMenuItem onClick={handleCloseProfile}>
                     <PersonIcon sx={{ marginRight: '16px', color: 'white.main' }} />
                     <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>
