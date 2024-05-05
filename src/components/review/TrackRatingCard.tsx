@@ -64,7 +64,7 @@ function TrackRatingCard({ data }) {
                           <Typography
                             sx={{
                               width: '15.33px',
-                              alignContent: 'end',
+                              alignContent: 'center',
                               fontSize: '11px',
                               fontWeight: '400',
                             }}

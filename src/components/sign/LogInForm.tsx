@@ -7,11 +7,19 @@ import BASE_URL from '../../config';
 function LogInForm() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { pathname } = location;
+  const { pathname, state } = location;
   const isError = pathname.includes('error');
   const [user] = useAuth();
   const [isTyping, setIsTyping] = useState(false);
   const [refUrl, setRefUrl] = useState('/');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    if (state && state.email) {
+      setEmail(state.email);
+      console.log(email);
+    }
+  }, [state, email]);
 
   useEffect(() => {
     if (pathname.includes('album')) {
@@ -22,9 +30,35 @@ function LogInForm() {
   if (user) {
     navigate('/dashboard');
   }
+  /*
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await fetch(`${BASE_URL}/api/login`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formData,
+      });
+
+      if (response.ok) {
+        navigate('/dashboard');
+      } else {
+        throw new Error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+*/
   const handleChange = () => {
     setIsTyping(true);
+  };
+  const handleChangeEmail = (e) => {
+    setIsTyping(true);
+    setEmail(e.target.value);
   };
 
   return (
@@ -38,14 +72,14 @@ function LogInForm() {
       >
         로그인
       </Typography>
-
       <form className="form" action={`${BASE_URL}/api/login`} method="POST">
+        {/*    <form className="form" onSubmit={handleSubmit}>  */}
         <Box className="flex-column">
           <Input type="refUrl" name="refUrl" sx={{ display: 'none' }} value={refUrl} />
           <label className="labels" htmlFor="email" />
           <Box className="inputForm">
             <Input
-              onChange={handleChange}
+              onChange={handleChangeEmail}
               required
               fullWidth
               type="email"

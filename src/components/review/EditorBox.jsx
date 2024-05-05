@@ -7,7 +7,6 @@ import List from '@editorjs/list';
 import Embed from '@editorjs/embed';
 import Underline from '@editorjs/underline';
 import Strikethrough from '@sotaproject/strikethrough';
-// import Checklist from '@editorjs/checklist';
 import SimpleImage from '@editorjs/simple-image';
 import Marker from '@editorjs/marker';
 import ColorPlugin from 'editorjs-text-color-plugin';
@@ -17,16 +16,16 @@ import { useLocation } from 'react-router-dom';
 function EditorBox({ onContentChange, value }) {
   const editorRef = useRef(null);
   const [isCreating, setIsCreating] = useState(null);
+
   const [content, setContent] = useState(null);
   const location = useLocation();
+
   useEffect(() => {
+    console.log(value === '');
     if (location.pathname.includes('edit')) {
       if (value !== '') {
         setIsCreating(false);
         setContent(value);
-      }
-      if (value === null) {
-        setIsCreating(true);
       }
     } else {
       setIsCreating(true);

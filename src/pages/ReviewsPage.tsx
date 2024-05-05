@@ -198,7 +198,7 @@ function ReviewsPage() {
                       fontWeight="400"
                       sx={{
                         width: '15.33px',
-                        alignContent: 'end',
+                        alignContent: 'center',
                       }}
                     >
                       {' '}
