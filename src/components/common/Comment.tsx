@@ -11,6 +11,7 @@ import { User } from '../../types/user';
 import { ReactComponent as Delete } from '../../assets/icons/delete-review.svg';
 import { typography } from '../../constants/themeValue';
 import { ReactComponent as Hamburger } from '../../assets/icons/hamburger.svg';
+import Warning from './Modal/Warning';
 
 interface Props {
   // comments: CommentType[];
@@ -24,6 +25,7 @@ function Comment({ reviewId, user }: Props) {
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const [refreshCount, setRefreshCount] = useState(0);
   const [commentData, setCommentData] = useState<CommentData[]>([]);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,6 +69,8 @@ function Comment({ reviewId, user }: Props) {
 
   const deleteComment = async (id: string) => {
     try {
+      setRefreshCount((count) => count + 1);
+      setOpen(false);
       const response = await fetch(`${BASE_URL}/api/comments/${reviewId}/delete/${id}`, {
         method: 'DELETE',
         credentials: 'include',
@@ -74,11 +78,10 @@ function Comment({ reviewId, user }: Props) {
           'Content-Type': 'application/json',
         },
       });
+
       if (!response.ok) {
         throw new Error('Failed to add comment');
       }
-      setRefreshCount((count) => count + 1);
-      console.log(refreshCount);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -253,7 +256,8 @@ function Comment({ reviewId, user }: Props) {
                       <StyledMenuItem
                         sx={{ height: '30px', padding: '9.75px' }}
                         onClick={() => {
-                          deleteComment(comment._id);
+                          // deleteComment(comment._id);
+                          setOpen(true);
                         }}
                       >
                         <Delete />
@@ -262,6 +266,7 @@ function Comment({ reviewId, user }: Props) {
                         </Typography>
                       </StyledMenuItem>
                     </StyledMenu>
+                    <Warning open={open} setOpen={setOpen} handleDelete={() => deleteComment(comment._id)} />
                   </>
                 )}
               </Box>

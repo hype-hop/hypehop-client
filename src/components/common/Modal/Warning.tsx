@@ -1,9 +1,17 @@
 import { Box, Modal, Typography, Button } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
 import { ReactComponent as Close } from '../../../assets/icons/modal-close.svg';
-import { ReactComponent as Warning } from '../../../assets/icons/warning.svg';
+import { ReactComponent as WarningImg } from '../../../assets/icons/warning.svg';
 
-function Duplicate({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) {
+function Warning({
+  open,
+  setOpen,
+  handleDelete,
+}: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  handleDelete: () => void;
+}) {
   const handleClose = () => setOpen(true);
 
   return (
@@ -36,22 +44,22 @@ function Duplicate({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStat
         </Box>
         <Box sx={{ alignContent: 'center', justifyContent: 'center', display: 'grid' }}>
           <Box sx={{ mt: '36px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Warning />
+            <WarningImg />
           </Box>
           <Typography sx={{ mt: '16px', mb: '24px' }} textAlign="center">
-            중복된 앨범 리뷰입니다.
+            삭제하시겠습니까?
           </Typography>
         </Box>
         <Box sx={{ pl: '8px', pr: '8px', pb: '16px' }}>
           <Button
-            onClick={() => setOpen(false)}
+            onClick={() => handleDelete()}
             fullWidth
             sx={{
               height: '30px',
               background: 'rgb(152, 72, 255)',
             }}
           >
-            <Typography>확인</Typography>
+            <Typography>삭제</Typography>
           </Button>
         </Box>
       </Box>
@@ -59,4 +67,4 @@ function Duplicate({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStat
   );
 }
 
-export default Duplicate;
+export default Warning;
