@@ -39,7 +39,7 @@ function LogInForm() {
     try {
       const response = await fetch(`${BASE_URL}/api/login`, {
         method: 'POST',
-        credentials: 'include',
+        credentials: 'include', // 서버에서 ensureauth?
         body: formData,
       });
 

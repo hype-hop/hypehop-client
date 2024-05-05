@@ -41,7 +41,6 @@ function ReviewShowPage() {
             data={data}
             albumId={data?.review?.albumId}
             numberOfFavorite={data?.review?.isFavorite.length}
-            comments={data?.comments}
             reviewId={id}
           />
           <Box

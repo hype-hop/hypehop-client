@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import TrackRatingCard from './TrackRatingCard';
 import ReviewDetailLeft from './ReviewDetailLeft';
 
@@ -11,9 +11,6 @@ function ReviewDetail({ data }) {
           display: { xs: 'none', sm: 'none', md: 'block' },
         }}
       >
-        <Typography variant="h1" sx={{ textAlign: 'center', mb: '16px' }}>
-          트랙별 평점
-        </Typography>
         <TrackRatingCard data={data} />
       </Box>
     </Box>
