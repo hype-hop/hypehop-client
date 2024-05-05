@@ -21,7 +21,6 @@ function EditorBox({ onContentChange, value }) {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(value === '');
     if (location.pathname.includes('edit')) {
       if (value !== '') {
         setIsCreating(false);

@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography, Container, Box, CardActions, Avatar } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Container,
+  Box,
+  CardActions,
+  Avatar,
+  CircularProgress,
+} from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 import TimeSincePost from '../components/album/TimeSincePost';
@@ -268,6 +278,11 @@ function ReviewsPage() {
           ))
         ) : (
           <Typography>Nothing to display</Typography>
+        )}
+        {isLoading && (
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <CircularProgress />
+          </Box>
         )}
       </Box>
     </Container>

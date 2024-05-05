@@ -166,7 +166,6 @@ function JoinPage() {
             type="submit"
             className="button-submit"
             sx={{
-              background: 'rgb(131, 36, 254)',
               borderRadius: '16px',
               height: '60px',
               mt: '31px',

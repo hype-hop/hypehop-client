@@ -92,6 +92,7 @@ const theme: Theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 20,
+          background: 'rgb(152, 72, 255)',
         },
       },
     },
