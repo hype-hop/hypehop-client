@@ -7,20 +7,13 @@ import BASE_URL from '../../config';
 function LogInForm() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { pathname, state } = location;
+  const { pathname } = location;
   const isError = pathname.includes('error');
   const [user] = useAuth();
   const [isTyping, setIsTyping] = useState(false);
   const [refUrl, setRefUrl] = useState('/');
-  const [email, setEmail] = useState('');
-
-  useEffect(() => {
-    if (state && state.email) {
-      setEmail(state.email);
-      console.log(email);
-    }
-  }, [state, email]);
-
+  const searchParams = new URLSearchParams(location.search);
+  const failedEmail = searchParams.get('email');
   useEffect(() => {
     if (pathname.includes('album')) {
       setRefUrl('/album');
@@ -28,7 +21,7 @@ function LogInForm() {
   }, [pathname]);
 
   if (user) {
-    navigate('/dashboard');
+    navigate('/myInformation');
   }
   /*
   const handleSubmit = async (e) => {
@@ -56,10 +49,6 @@ function LogInForm() {
   const handleChange = () => {
     setIsTyping(true);
   };
-  const handleChangeEmail = (e) => {
-    setIsTyping(true);
-    setEmail(e.target.value);
-  };
 
   return (
     <Container className="Login">
@@ -79,12 +68,13 @@ function LogInForm() {
           <label className="labels" htmlFor="email" />
           <Box className="inputForm">
             <Input
-              onChange={handleChangeEmail}
+              onChange={handleChange}
               required
               fullWidth
               type="email"
               id="email"
               name="email"
+              value={failedEmail}
               className="form-control"
               placeholder="이메일을 입력해주세요."
               sx={{
