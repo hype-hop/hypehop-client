@@ -144,6 +144,7 @@ function LogInForm() {
           className="button-submit"
           sx={{
             borderRadius: '16px',
+            background: 'rgb(152, 72, 255)',
             height: '60px',
             mt: '31px',
           }}
@@ -160,7 +161,7 @@ function LogInForm() {
       >
         <Typography sx={{ mr: '5px' }}>계정이 없으신가요?</Typography>
         <Link to="/join" style={{ color: 'inherit', textDecoration: 'none' }}>
-          <Typography sx={{ color: 'rgb(131, 36, 254)' }}>회원가입</Typography>{' '}
+          <Typography sx={{ color: 'rgb(152, 72, 255)' }}>회원가입</Typography>{' '}
         </Link>
       </Box>
     </Container>
