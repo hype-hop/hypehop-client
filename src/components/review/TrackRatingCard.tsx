@@ -6,15 +6,16 @@ import { typography } from '../../constants/themeValue';
 function TrackRatingCard({ data }) {
   return (
     <Box>
-      <Typography variant="h1" sx={{ ml: '67px', mb: '16px' }}>
+      <Typography variant="h1" sx={{ mt: { xs: '40px', sm: '40px' }, ml: { lg: '67px' }, mb: '16px' }}>
         트랙별 평점
       </Typography>
       <Card
         variant="outlined"
         sx={{
-          ml: '67px',
-          width: '287px',
-          height: '500px',
+          ml: { lg: '67px' },
+          mb: { xs: '40px', sm: '40px', md: '40px', lg: '0px' },
+          width: { xs: '100%', sm: '100%', md: '287px', lg: '287px' },
+          height: '336px',
           padding: '16px',
           overflow: 'auto',
           bgcolor: 'background.default',
@@ -24,7 +25,7 @@ function TrackRatingCard({ data }) {
           borderRadius: '0px 16px 16px 16px',
         }}
       >
-        <Box sx={{ margin: 'auto', width: '100%', maxWidth: 360 }}>
+        <Box sx={{ width: '100%' }}>
           {data?.review?.tracks.map((disc, index) => (
             <Card key={index} sx={{ mb: 2, bgcolor: 'background.default' }}>
               <Typography sx={{ mb: '16px' }} fontSize={typography.size.lg} fontWeight="400" component="div">

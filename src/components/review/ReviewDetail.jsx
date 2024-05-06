@@ -8,7 +8,7 @@ function ReviewDetail({ data }) {
       <ReviewDetailLeft data={data} />
       <Box
         sx={{
-          display: { xs: 'none', sm: 'none', md: 'block' },
+          display: { xs: 'grid', sm: 'grid', md: 'block', lg: 'block' },
         }}
       >
         <TrackRatingCard data={data} />

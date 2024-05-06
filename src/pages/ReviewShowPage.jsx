@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Typography, Box } from '@mui/material';
-import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
+import { Container } from '@mui/material';
+// import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 import Comment from '../components/common/Comment';
-import Favorite from '../components/common/Favorite';
+// import Favorite from '../components/common/Favorite';
 import ReviewDetail from '../components/review/ReviewDetail';
-import { typography } from '../constants/themeValue';
+// import { typography } from '../constants/themeValue';
 import BASE_URL from '../config';
 
 function ReviewShowPage() {
@@ -43,25 +43,7 @@ function ReviewShowPage() {
             numberOfFavorite={data?.review?.isFavorite.length}
             reviewId={id}
           />
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <Favorite reviewId={id} favoriteClickedUsers={data?.review?.isFavorite} />
-            <Box sx={{ ml: '8px', alignItems: 'center', display: 'flex' }}>
-              <CommentIcon />
-              <Typography
-                fontSize={typography.size.md}
-                fontWeight={typography.weight.regular}
-                sx={{ color: 'rgb(168,168,168)' }}
-              >
-                댓글 {data?.comments?.length}개
-              </Typography>
-            </Box>
-          </Box>
+
           <Comment comments={data?.comments} reviewId={id} user={user?.user} />
         </div>
       ) : (

@@ -89,9 +89,7 @@ function Comment({ reviewId, user }: Props) {
 
   return (
     <div className="Comment">
-      <Typography sx={{ mt: '24px' }} variant="h1">
-        댓글
-      </Typography>
+      <Typography variant="h1">댓글</Typography>
       <Box
         sx={{
           width: '100%',
