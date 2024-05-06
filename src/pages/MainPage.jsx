@@ -7,7 +7,7 @@ import FloatingActionButton from '../components/common/FloatingActionButton';
 function MainPage() {
   return (
     <Container className="Main">
-      <Box display="flex">
+      <Box sx={{ display: { xs: 'grid', sm: 'grid', md: 'flex', lg: 'flex' } }}>
         <Box width="100%">
           <ReviewMain />
 

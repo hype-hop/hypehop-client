@@ -52,8 +52,7 @@ function ReviewMain() {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-
-                width: '266px',
+                width: { xs: '100%', sm: '100%', md: '100%', lg: '266px' },
                 height: '423px',
                 padding: '16px',
                 bgcolor: 'background.default',

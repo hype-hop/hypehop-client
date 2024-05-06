@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Box, Typography, Button, Container, Card, CardMedia, CardContent, Rating } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Box, Typography, Card, CardMedia, CardContent, Rating } from '@mui/material';
+// import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+// import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState, useEffect } from 'react';
@@ -26,7 +26,7 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
             <Card
               sx={{
                 bgcolor: 'background.default',
-                // width: '288px',
+                maxWidth: { xs: '100%', sm: '300px', md: '100%', lg: '100%' },
                 height: '60px',
                 display: 'flex',
                 flexDirection: 'row',
@@ -78,7 +78,6 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                     sx={{
                       whiteSpace: 'nowrap',
                       textOverflow: 'ellipsis',
-                      overflow: 'hidden',
                     }}
                   >
                     {item.albumTitle.split('-', 2)[1]}
@@ -164,10 +163,10 @@ function AlbumChart() {
   }, []);
 
   return (
-    <Container sx={{ marginTop: '75px' }}>
+    <Box sx={{ marginTop: '75px' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h1">인기 앨범 차트</Typography>
-        <Box sx={{ display: 'flex' }}>
+        {/* <Box sx={{ display: 'flex' }}>
           <Button
             variant="outlined"
             sx={{
@@ -192,14 +191,19 @@ function AlbumChart() {
           >
             <ArrowForwardIosIcon fontSize="small" />
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
-      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 2fr)' }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)' },
+        }}
+      >
         {AlbumList(data, 0, 4)}
         {AlbumList(data, 4, 8)}
       </Box>
-    </Container>
+    </Box>
   );
 }
 
