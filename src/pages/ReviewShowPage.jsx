@@ -10,11 +10,20 @@ function ReviewShowPage() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if (id === 'undefined') {
+          setNotFound(true);
+          return;
+        }
         const response = await fetch(`${BASE_URL}/album/api/review/${id}`);
+        if (!response.ok) {
+          setNotFound(true);
+          return;
+        }
         const result = await response.json();
         setData(result);
         const response2 = await fetch(`${BASE_URL}/api/user`, {
@@ -31,9 +40,13 @@ function ReviewShowPage() {
     fetchData();
   }, [id]);
 
+  if (notFound) {
+    return <PageNotFound />;
+  }
+
   return (
     <Container sx={{ marginTop: '105px' }}>
-      {data && id !== 'undefined' ? (
+      {data ? (
         <div>
           <ReviewDetail
             data={data}
@@ -45,7 +58,7 @@ function ReviewShowPage() {
           <Comment comments={data?.comments} reviewId={id} user={user?.user} />
         </div>
       ) : (
-        <PageNotFound />
+        <p>skeleton</p>
       )}
     </Container>
   );
