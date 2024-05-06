@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
-// import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 import Comment from '../components/common/Comment';
-// import Favorite from '../components/common/Favorite';
 import ReviewDetail from '../components/review/ReviewDetail';
-// import { typography } from '../constants/themeValue';
 import BASE_URL from '../config';
+import PageNotFound from '../components/common/Error/PageNotFound';
 
 function ReviewShowPage() {
   const { id } = useParams();
@@ -47,7 +45,7 @@ function ReviewShowPage() {
           <Comment comments={data?.comments} reviewId={id} user={user?.user} />
         </div>
       ) : (
-        <p>삭제되었거나 잘못된 경로입니다.</p>
+        <PageNotFound />
       )}
     </Container>
   );
