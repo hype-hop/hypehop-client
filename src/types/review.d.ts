@@ -24,7 +24,10 @@ export interface Review {
   user: User;
   isFavorite: Array<FavoriteClickedUser>;
   comments: Array<Comment>;
+  albumId: string;
+  albumTitle: string;
   albumRating: number;
+  artists: string[];
 }
 
 export interface MyReview extends Review {
