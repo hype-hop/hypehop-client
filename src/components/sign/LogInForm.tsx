@@ -1,8 +1,9 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Box, Container, Typography, Input, Button } from '@mui/material';
+import { Box, Container, Typography, Input, Button, Divider } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthenticationContext';
 import BASE_URL from '../../config';
+import { ReactComponent as Google } from '../../assets/icons/google.svg';
 
 function LogInForm() {
   const navigate = useNavigate();
@@ -153,6 +154,41 @@ function LogInForm() {
         <Link to="/join" style={{ color: 'inherit', textDecoration: 'none' }}>
           <Typography sx={{ color: 'rgb(152, 72, 255)' }}>회원가입</Typography>{' '}
         </Link>
+      </Box>
+
+      <Box className="youtube">
+        <Box sx={{ mt: '24px' }}>
+          <Divider
+            variant="middle"
+            sx={
+              {
+                /* background: 'rgb(86, 87, 87)' */
+              }
+            }
+          >
+            OR
+          </Divider>
+
+          <Link to={`${BASE_URL}/auth/google`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Button
+              fullWidth
+              sx={{
+                mt: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                border: '1px solid rgb(52, 52, 52)',
+                borderRadius: '16px',
+                height: '50px',
+                padding: '0 16px',
+              }}
+            >
+              <Google style={{ marginRight: '8px' }} />
+              <Typography fontSize="14px" fontWeight="500">
+                구글 계정으로 로그인하기
+              </Typography>
+            </Button>
+          </Link>
+        </Box>
       </Box>
     </Container>
   );

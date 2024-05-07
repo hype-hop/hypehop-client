@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/common/Header';
 import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
-import DashboardPage from './pages/DashboardPage';
+// import DashboardPage from './pages/DashboardPage';
 import ReviewsPage from './pages/ReviewsPage';
 import AlbumPage from './pages/AlbumPage';
 import AlbumShowPage from './pages/AlbumShowPage';
@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/login/error?" element={<LoginPage />} />
           <Route path="/join" element={<JoinPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
           <Route path="/myInformation" element={<MyInformationPage />} />
           <Route path="/album" element={<AlbumPage />} />
           <Route path="/album/:id" element={<AlbumShowPage />} />
