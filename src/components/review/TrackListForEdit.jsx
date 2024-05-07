@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Stack, Rating, Box, Typography } from '@mui/material';
-// import BASE_URL from '../config';
+import { Stack, Rating, Box, Typography, Button } from '@mui/material';
+import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
+import { typography } from '../../constants/themeValue';
 
-function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData }) {
+function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandleOpen }) {
   const [trackRatingForEdit, setTrackRatingForEdit] = useState(null);
   const [, setTrackRating] = useState(null);
+
   // const [albumData] = useState(null);
 
   const id = data?.review.albumId;
@@ -20,22 +22,10 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData }) {
 
   useEffect(() => {
     if (id) {
-      /*
-      const fetchData = async () => {
-        try {
-          const response = await fetch(`${BASE_URL}/album/api/${id}`);
-
-          const result = await response.json();
-          setAlbumData(result);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-      fetchData();
-*/
       setTrackRatingForEdit(data?.review.tracks);
       const trackRatingArray = Array(data?.review.tracks.length || 0).fill(null);
       setTrackRating(trackRatingArray);
+      console.log(trackRatingForEdit);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, data]);
@@ -57,45 +47,72 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData }) {
         borderRadius: '16px',
         height: 'auto',
         overflow: 'scroll',
+        border: '1px solid rgb(52, 52, 52) ',
       }}
     >
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography sx={{ mt: '16px' }} fontSize="14px" fontWeight="500" ml="16px" textAlign="left">
+          트랙리스트 닫기
+        </Typography>
+        <Button sx={{ mt: '8px', mb: '8px' }} onClick={onHandleOpen}>
+          <ArrowUp />
+        </Button>
+      </Box>
+
       {trackRatingForEdit?.map((album, albumIndex) => (
         <Box key={album._id} sx={{ margin: '20px' }}>
-          <Typography variant="h1" textAlign="left" sx={{ mb: '5px' }}>
-            Disc Number: {album.discNumber}
+          <Typography variant="h1" textAlign="left" sx={{ mb: '16px' }}>
+            Disc {album.discNumber}
           </Typography>
           <Box style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', width: '100%' }}>
             {album.trackTitle.map((title, trackIndex) => (
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: '5px' }} key={trackIndex}>
-                <Box>
-                  <Typography
-                    textAlign="left"
-                    fontSize="fontSizeMd"
-                    fontWeight="fontWeightBold"
-                    sx={{ whiteSpace: 'nowrap' }}
-                  >
-                    {title}
-                  </Typography>
-                  <Typography
-                    textAlign="left"
-                    fontSize="fontSizeSm"
-                    fontWeight="fontWeightLight"
-                    sx={{ whiteSpace: 'nowrap', alignContent: 'center', color: 'grey.main' }}
-                  >
-                    {data?.review.albumTitle}
-                  </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  mb: '5px',
+                  borderBottom: '1px solid rgb(52, 52, 52)',
+                  padding: '16px 0px 16px 0px',
+                }}
+                key={trackIndex}
+              >
+                <Box display="flex" alignItems="center">
+                  <Box sx={{ mr: '16px' }}>
+                    <Typography fontSize={typography.size.lg} fontWeight={typography.weight.medium}>
+                      {trackIndex + 1}
+                    </Typography>
+                  </Box>
+
+                  <Box>
+                    <Typography
+                      fontSize={typography.size.lg}
+                      fontWeight={typography.weight.bold}
+                      textAlign="left"
+                      sx={{ whiteSpace: 'nowrap' }}
+                    >
+                      {title.split('.')[1]}
+                    </Typography>
+                    <Typography
+                      sx={{ color: 'rgb(168, 168, 168)', mt: '4px', whiteSpace: 'nowrap' }}
+                      fontSize={typography.size.md}
+                      fontWeight={typography.weight.regular}
+                      textAlign="left"
+                    >
+                      {data?.review.albumTitle}
+                    </Typography>
+                  </Box>
                 </Box>
+
                 <Box sx={{ display: 'flex' }}>
                   <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
                     <Rating
-                      size="small"
                       name="trackRating"
                       value={album.trackRating[trackIndex]}
                       precision={0.5}
                       onChange={(event, newValue) => handleRatingChange(event, newValue, albumIndex, trackIndex)}
                     />
                   </Stack>
-                  <Typography fontSize="fontSizeMd" fontWeight="fontWeightRegular" sx={{ alignContent: 'center' }}>
+                  <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center' }}>
                     {Number(album.trackRating[trackIndex]).toFixed(1)}
                   </Typography>
                 </Box>

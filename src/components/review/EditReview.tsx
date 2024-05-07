@@ -3,8 +3,8 @@ import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Button, Box, Input, Typography, Container, MenuItem, Select } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
+
 import EditorBox from './EditorBox';
 import BASE_URL from '../../config';
 import TrackListForEdit from './TrackListForEdit';
@@ -13,7 +13,7 @@ function EditReview({ data, albumData }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [reviewContent, setReviewContent] = useState('');
-  const [isTrackListOpened, SetsTrackListOpened] = useState(false);
+  const [isTrackListOpened, SetTrackListOpened] = useState(false);
   const [parentTrackRatingForEdit, setParentTrackRatingForEdit] = useState(data?.review.tracks);
 
   const handleTrackRatingForEditUpdate = (updatedTrackRatingForEdit) => {
@@ -26,7 +26,7 @@ function EditReview({ data, albumData }) {
   };
 
   const handleOpen = () => {
-    SetsTrackListOpened(!isTrackListOpened);
+    SetTrackListOpened(!isTrackListOpened);
   };
 
   const [formData, setFormData] = useState({
@@ -138,7 +138,6 @@ function EditReview({ data, albumData }) {
 
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%', alignItems: 'center' }}>
                 <Rating
-                  size="small"
                   name="albumRating"
                   value={formData.albumRating}
                   precision={0.5}
@@ -161,19 +160,13 @@ function EditReview({ data, albumData }) {
           }}
         >
           <Typography variant="h1">트랙별 평점</Typography>
-
-          <Button size="small" variant="outlined" onClick={handleOpen}>
-            <Typography fontSize="fontSizeMd" fontWeight="fontWeightRegular">
-              {isTrackListOpened ? `트랙리스트 닫기` : '트랙리스트 열기'}
-            </Typography>
-            {isTrackListOpened ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </Button>
         </Box>
         {isTrackListOpened ? (
           <TrackListForEdit
             data={data}
             onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
             albumData={albumData}
+            onHandleOpen={handleOpen}
           />
         ) : (
           <Box
@@ -185,19 +178,16 @@ function EditReview({ data, albumData }) {
               mb: '62px',
               height: '46px',
               alignContent: 'center',
+              display: 'flex',
+              justifyContent: 'space-between',
             }}
           >
-            <Typography
-              fontSize="fontSizeMd"
-              fontWeight="fontWeightRegular"
-              ml="20px"
-              textAlign="left"
-              sx={{
-                color: 'grey.main',
-              }}
-            >
-              트랙리스트를 열어 확인하세요.
+            <Typography sx={{ mt: '16px' }} fontSize="14px" fontWeight="500" ml="16px" textAlign="left">
+              트랙리스트 펼치기
             </Typography>
+            <Button sx={{ mt: '8px', mb: '8px' }} onClick={handleOpen}>
+              <ArrowDown />
+            </Button>
           </Box>
         )}
 

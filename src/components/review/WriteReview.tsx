@@ -3,6 +3,8 @@ import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Input, Container, Button, Typography, Box, Select, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
+import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
 import BASE_URL from '../../config';
 import EditorBox from './EditorBox';
 import ensureError from '../../utils/error';
@@ -14,6 +16,7 @@ import { AlbumForReview } from '../../types/albumReview';
 import { FormData } from '../../types/review';
 import WriteReviewBefore from './WriteReviewBefore';
 import Duplicate from '../common/Modal/Duplicate';
+import { typography } from '../../constants/themeValue';
 
 function WriteReview({ userData }) {
   const navigate = useNavigate();
@@ -23,6 +26,7 @@ function WriteReview({ userData }) {
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumForReview | null>(null);
   const [data, setData] = useState<AlbumData | null>(null);
   const [open, setOpen] = useState(true);
+  const [isTrackListOpened, SetsTrackListOpened] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -100,6 +104,10 @@ function WriteReview({ userData }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleOpen = () => {
+    SetsTrackListOpened(!isTrackListOpened);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // console.log(trackRating);
@@ -135,30 +143,65 @@ function WriteReview({ userData }) {
   };
 
   const renderTracks = Object.keys(tracksByDisc).map((discNumber) => (
-    <div key={discNumber}>
-      <h3>Disc {discNumber}</h3>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Box key={discNumber} sx={{ padding: '16px 16px 16px 16px' }}>
+      <Typography variant="h1">Disc {discNumber}</Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         {tracksByDisc[discNumber].map((track, index) => (
-          <div style={{ display: 'flex' }} key={index}>
-            {index + 1}. {track.name} -
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              borderBottom: '1px solid rgb(52, 52, 52)',
+              padding: '16px 0px 16px 0px',
+            }}
+            key={index}
+          >
+            <Box display="flex">
+              <Box sx={{ alignContent: 'center', mr: '16px' }}>
+                <Typography fontSize={typography.size.lg} fontWeight={typography.weight.medium}>
+                  {index + 1}{' '}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  sx={{ whiteSpace: 'nowrap' }}
+                  fontSize={typography.size.lg}
+                  fontWeight={typography.weight.bold}
+                >
+                  {track.name}
+                </Typography>
+                <Typography
+                  sx={{ color: 'rgb(168, 168, 168)', mt: '4px' }}
+                  fontSize={typography.size.md}
+                  fontWeight={typography.weight.regular}
+                >
+                  {track.artists[0].name} -{data?.albumData?.name}
+                </Typography>
+              </Box>
+            </Box>
             {trackRating && (
-              <Stack spacing={1}>
-                <Rating
-                  name="trackRating"
-                  value={trackRating[index]}
-                  precision={0.5}
-                  onChange={(event, newValue) => {
-                    const updatedRating: number[] = [...trackRating];
-                    updatedRating[index] = newValue!;
-                    setTrackRating(updatedRating);
-                  }}
-                />
-              </Stack>
+              <Box display="flex">
+                <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
+                  <Rating
+                    name="trackRating"
+                    value={trackRating[index]}
+                    precision={0.5}
+                    onChange={(event, newValue) => {
+                      const updatedRating: number[] = [...trackRating];
+                      updatedRating[index] = newValue!;
+                      setTrackRating(updatedRating);
+                    }}
+                  />
+                </Stack>
+                <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center' }}>
+                  {Number(trackRating[index]).toFixed(1)}
+                </Typography>
+              </Box>
             )}
-          </div>
+          </Box>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   ));
 
   return (
@@ -203,7 +246,61 @@ function WriteReview({ userData }) {
             >
               트랙별 평점
             </Typography>
-            <Box>{renderTracks}</Box>
+
+            {isTrackListOpened ? (
+              <Box
+                sx={{
+                  mt: '16px',
+                  bgcolor: 'rgb(22, 22, 22)',
+                  border: '1px solid rgb(52, 52, 52)',
+                  borderRadius: '16px',
+                }}
+              >
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography
+                    fontSize={typography.size.lg}
+                    fontWeight={typography.weight.medium}
+                    sx={{ mt: '16px', mb: '16px', ml: '16px' }}
+                  >
+                    트랙리스트 닫기
+                  </Typography>
+                  <Button sx={{ mt: '8px', mb: '8px' }} onClick={handleOpen}>
+                    {isTrackListOpened ? <ArrowUp /> : <ArrowDown />}
+                  </Button>
+                </Box>
+                {renderTracks}
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  mt: '16px',
+                  background: 'rgb(22, 22, 22)',
+                  borderRadius: '16px',
+                  border: '1px solid rgb(52, 52, 52)',
+                  mb: '62px',
+                  height: '46px',
+                  alignContent: 'center',
+                }}
+              >
+                <Typography
+                  fontSize={typography.size.lg}
+                  fontWeight={typography.weight.medium}
+                  ml="16px"
+                  textAlign="left"
+                  sx={{
+                    alignContent: 'center',
+                  }}
+                >
+                  트랙리스트 펼치기
+                </Typography>
+                <Button onClick={handleOpen}>
+                  <ArrowDown />
+                </Button>
+              </Box>
+            )}
+
             <div className="row">
               <Box
                 className="input-field"
