@@ -8,6 +8,13 @@ export interface CommentType {
   user: User;
 }
 
+export interface CommentData {
+  _id: string;
+  content: string;
+  createdAt: string;
+  user: User;
+}
+
 export interface Review {
   _id: string;
   title: string;

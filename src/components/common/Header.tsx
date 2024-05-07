@@ -175,9 +175,8 @@ export default function MenuAppBar() {
                           fontWeight="light"
                           fontSize={typography.size.md}
                           sx={{
-                            // position: 'absolute',
-                            // bottom: '8px',
-                            // right: '8px',
+                            position: 'absolute',
+                            right: '8px',
                             paddingLeft: '4px',
                             color: 'rgb(126, 126, 126)',
                           }}
@@ -197,14 +196,16 @@ export default function MenuAppBar() {
                   }}
                 >
                   <Typography
+                    fontSize={typography.size.sm}
                     sx={{
+                      color: 'rgb(174, 174, 174)',
                       margin: '8px 0 8px 16px',
                       ':hover': {
                         textDecorationLine: 'underline',
                       },
                     }}
                   >
-                    더보기
+                    최근 14일 동안 받은 알림을 모두 확인했습니다.
                   </Typography>
                 </Link>
               </StyledMenu>

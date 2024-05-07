@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Typography, Box } from '@mui/material';
-import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
+import { Container } from '@mui/material';
 import Comment from '../components/common/Comment';
-import Favorite from '../components/common/Favorite';
 import ReviewDetail from '../components/review/ReviewDetail';
-import { typography } from '../constants/themeValue';
 import BASE_URL from '../config';
+import PageNotFound from '../components/common/Error/PageNotFound';
 
 function ReviewShowPage() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if (id === 'undefined') {
+          setNotFound(true);
+          return;
+        }
         const response = await fetch(`${BASE_URL}/album/api/review/${id}`);
+        if (!response.ok) {
+          setNotFound(true);
+          return;
+        }
         const result = await response.json();
         setData(result);
         const response2 = await fetch(`${BASE_URL}/api/user`, {
@@ -33,40 +40,25 @@ function ReviewShowPage() {
     fetchData();
   }, [id]);
 
+  if (notFound) {
+    return <PageNotFound />;
+  }
+
   return (
     <Container sx={{ marginTop: '105px' }}>
-      {data && id !== 'undefined' ? (
+      {data ? (
         <div>
           <ReviewDetail
             data={data}
             albumId={data?.review?.albumId}
             numberOfFavorite={data?.review?.isFavorite.length}
-            comments={data?.comments}
             reviewId={id}
           />
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <Favorite reviewId={id} favoriteClickedUsers={data?.review?.isFavorite} />
-            <Box sx={{ ml: '8px', alignItems: 'center', display: 'flex' }}>
-              <CommentIcon />
-              <Typography
-                fontSize={typography.size.md}
-                fontWeight={typography.weight.regular}
-                sx={{ color: 'rgb(168,168,168)' }}
-              >
-                댓글 {data?.comments?.length}개
-              </Typography>
-            </Box>
-          </Box>
+
           <Comment comments={data?.comments} reviewId={id} user={user?.user} />
         </div>
       ) : (
-        <p>삭제되었거나 잘못된 경로입니다.</p>
+        <p>skeleton</p>
       )}
     </Container>
   );

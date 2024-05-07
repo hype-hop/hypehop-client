@@ -166,8 +166,8 @@ function JoinPage() {
             type="submit"
             className="button-submit"
             sx={{
-              background: 'rgb(131, 36, 254)',
               borderRadius: '16px',
+              background: 'rgb(152, 72, 255)',
               height: '60px',
               mt: '31px',
             }}
@@ -185,7 +185,7 @@ function JoinPage() {
         >
           <Typography sx={{ mr: '5px' }}>이미 계정이 있으신가요?</Typography>
           <Link to="/login" style={{ color: 'inherit', textDecoration: 'none' }}>
-            <Typography sx={{ color: 'rgb(131, 36, 254)' }}>로그인</Typography>{' '}
+            <Typography sx={{ color: 'rgb(152, 72, 255)' }}>로그인</Typography>{' '}
           </Link>
         </Box>
       </div>

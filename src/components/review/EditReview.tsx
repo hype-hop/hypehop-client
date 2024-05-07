@@ -37,13 +37,22 @@ function EditReview({ data, albumData }) {
   });
 
   useEffect(() => {
+    let reviewBodyData;
     if (data) {
+      if (data.review.body === '') {
+        reviewBodyData = ' ';
+      } else {
+        reviewBodyData = data?.review.body;
+      }
+      // setReviewContent(data?.review.body);
+      setReviewContent(reviewBodyData);
       setFormData({
         ...formData,
         title: data?.review.title,
         status: data?.review.status,
         albumRating: data?.review.albumRating,
-        body: data?.review.body,
+        // body: data?.review.body,
+        body: reviewBodyData,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

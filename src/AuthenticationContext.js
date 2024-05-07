@@ -15,6 +15,9 @@ export function AuthProvider({ children }) {
     fetch(`${BASE_URL}/api/user`, {
       method: 'GET',
       credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then((response) => response.json())
       .then((data) => {

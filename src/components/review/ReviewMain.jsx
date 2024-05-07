@@ -1,141 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Container,
-  Box,
-  CardActions,
-  Avatar,
-  CircularProgress,
-} from '@mui/material';
+import { Button, Card, CardContent, CardMedia, Typography, Container, Box, CardActions, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
-import TimeSincePost from '../components/album/TimeSincePost';
-import Favorite from '../components/common/Favorite';
-import BASE_URL from '../config';
-import { Review } from '../types/review';
-import { typography } from '../constants/themeValue';
+import { typography } from '../../constants/themeValue';
+import Favorite from '../common/Favorite';
+import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
+import TimeSincePost from '../album/TimeSincePost';
+import BASE_URL from '../../config';
 
-interface InitialData {
-  totalPage: number;
-  reviews: Review[];
-}
-
-function ReviewsPage() {
-  const [data, setData] = useState<InitialData | null>(null);
-  const [page, setPage] = useState<number>(1);
-  const [totalPage, setTotalPage] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [allDataLoaded, setAllDataLoaded] = useState<boolean>(false);
-
-  // eslint-disable-next-line no-unused-vars
-  function debounce(this: unknown, func: (...args: unknown[]) => void, delay: number): (...args: unknown[]) => void {
-    // eslint-disable-next-line no-undef
-    let timer: NodeJS.Timeout;
-    // eslint-disable-next-line func-names
-    return function (this: unknown, ...args: unknown[]) {
-      clearTimeout(timer);
-      timer = setTimeout(() => func.apply(this, args), delay);
-    };
-  }
-
-  const fetchData = async (page: number): Promise<InitialData | null> => {
-    try {
-      const response = await fetch(`${BASE_URL}/album/api/review/scroll?page=${page}`);
-      const result = await response.json();
-      return result;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      return null;
-    }
-  };
-
+function ReviewMain() {
+  const [data, setData] = useState(null);
   useEffect(() => {
-    const loadData = async () => {
-      const initialData = await fetchData(1);
-      if (initialData) {
-        setData(initialData);
-        setTotalPage(initialData.totalPage);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/review`);
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
     };
 
-    loadData();
+    fetchData();
   }, []);
 
-  useEffect(() => {
-    const loadMoreData = async () => {
-      if (isLoading || allDataLoaded) return;
-      setIsLoading(true);
-
-      const newData = await fetchData(page + 1);
-
-      if (newData && newData.reviews.length > 0) {
-        setData((prevData) => ({
-          ...prevData!,
-          reviews: [...prevData!.reviews, ...newData.reviews],
-        }));
-
-        setPage((prevPage) => Math.min(prevPage + 1, newData.totalPage));
-
-        if (page + 1 >= totalPage) {
-          setAllDataLoaded(true);
-        }
-      }
-
-      setIsLoading(false);
-    };
-
-    const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
-        loadMoreData();
-      }
-    };
-
-    const debouncedScrollHandler = debounce(handleScroll, 500);
-
-    window.addEventListener('scroll', debouncedScrollHandler);
-
-    return () => {
-      window.removeEventListener('scroll', debouncedScrollHandler);
-    };
-  }, [page, totalPage, isLoading, allDataLoaded]);
-
   return (
-    <Container sx={{ marginTop: '105px' }}>
+    <Container // maxWidth="md"
+      sx={{ marginTop: '40px' }}
+    >
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h1">리뷰 </Typography>
+        <Typography variant="h1">최근리뷰 </Typography>
+        <Button variant="outlined" sx={{ mb: 0 }}>
+          <Link to="/album/review" style={{ textDecoration: 'none', color: 'inherit' }}>
+            더보기
+          </Link>
+        </Button>
       </Box>
-
-      <Box />
 
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
           gap: 2,
           mt: 2,
         }}
       >
         {Array.isArray(data?.reviews) ? (
-          data?.reviews.map((review) => (
+          data.reviews.slice(0, 6).map((review) => (
             <Card
               key={review._id}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-
+                width: { xs: '100%', sm: '100%', md: '100%', lg: '266px' },
                 height: '423px',
                 padding: '16px',
                 bgcolor: 'background.default',
                 border: '1px solid',
                 borderColor: 'rgb(52,52,52)',
                 borderRadius: '0px 16px 16px 16px',
-                width: '100%',
-                margin: '0 auto',
-                maxWidth: '100%',
               }}
             >
               <Link to={`/album/review/${review._id}`}>
@@ -157,10 +80,10 @@ function ReviewsPage() {
                     src={review?.user?.image}
                     alt="user"
                   />
+
                   <Typography
-                    color="white.main"
-                    fontWeight="fontWeightLight"
-                    fontSize="fontSizeMd"
+                    variant="body1"
+                    color="primary"
                     sx={{
                       alignContent: 'center',
                       ml: 1,
@@ -170,8 +93,8 @@ function ReviewsPage() {
                       whiteSpace: 'nowrap',
                     }}
                   >
-                    <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      {review.user.name || review.user.displayName}
+                    <Link to={`/user/${review?.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      {review?.user.name || review?.user.displayName}
                     </Link>
                   </Typography>
 
@@ -186,7 +109,7 @@ function ReviewsPage() {
                       alignContent: 'center',
                     }}
                   >
-                    <TimeSincePost createdAt={review.createdAt} />{' '}
+                    <TimeSincePost createdAt={review?.createdAt} />{' '}
                   </Typography>
 
                   <Box
@@ -203,12 +126,11 @@ function ReviewsPage() {
                   >
                     <StarIcon fontSize="small" sx={{ color: 'white.main', mt: '1px' }} />
                     <Typography
-                      color="white.main"
-                      fontSize="11px"
-                      fontWeight="400"
                       sx={{
                         width: '15.33px',
                         alignContent: 'center',
+                        fontSize: '11px',
+                        fontWeight: '400',
                       }}
                     >
                       {' '}
@@ -216,12 +138,11 @@ function ReviewsPage() {
                     </Typography>
                   </Box>
                 </Box>
-
                 <Link to={`/album/review/${review._id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                   <Box sx={{ width: '234px', height: '74px' }}>
                     <Typography
                       color="white.main"
-                      fontWeight={typography.weight.bold}
+                      fontWeight="600"
                       fontSize={typography.size.lg}
                       component="div"
                       sx={{
@@ -261,13 +182,25 @@ function ReviewsPage() {
                   }}
                 >
                   <Favorite reviewId={review?._id} favoriteClickedUsers={review?.isFavorite} />
+
                   <Link
                     to={`/album/review/${review._id}`}
                     style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
                   >
-                    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px', ml: '9px' }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        columnGap: '1px',
+                        ml: '9px',
+                      }}
+                    >
                       <CommentIcon />
-                      <Typography color="grey.main" fontSize={typography.size.sm}>
+                      <Typography
+                        fontSize={typography.size.md}
+                        fontWeight={typography.weight.regular}
+                        sx={{ color: 'rgb(168,168,168)' }}
+                      >
                         댓글 {review.comments.length}개
                       </Typography>
                     </Box>
@@ -279,14 +212,9 @@ function ReviewsPage() {
         ) : (
           <Typography>Nothing to display</Typography>
         )}
-        {isLoading && (
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <CircularProgress />
-          </Box>
-        )}
       </Box>
     </Container>
   );
 }
 
-export default ReviewsPage;
+export default ReviewMain;

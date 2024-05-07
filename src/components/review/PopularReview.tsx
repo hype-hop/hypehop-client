@@ -26,9 +26,13 @@ function PopularReview() {
   }
 
   return (
-    <Box sx={{ mt: '105px', display: { xs: 'none', sm: 'none', md: 'block' } }}>
+    <Box
+      sx={{
+        mt: '105px',
+      }}
+    >
       <Typography variant="h1" sx={{ mb: '16px' }}>
-        인기리뷰
+        인기리뷰🔥
       </Typography>
       <List
         sx={{
@@ -36,7 +40,7 @@ function PopularReview() {
           borderRadius: '0px 16px 16px 16px',
           padding: '16px',
           maxWidth: '287px',
-          minWidth: '280px',
+          minWidth: { xs: '100%', sm: '100%', md: '280px', lg: '280px' },
           minHeight: '330px',
         }}
       >

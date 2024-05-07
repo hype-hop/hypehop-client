@@ -4,34 +4,41 @@ import { Link } from 'react-router-dom';
 // import { useAuth } from '../AuthenticationContext';
 import BASE_URL from '../../config';
 import TimeSincePost from '../album/TimeSincePost';
-
-import { CommentType } from '../../types/review';
+import { StyledMenu, StyledMenuItem } from './StyledMenu';
+// import { CommentType } from '../../types/review';
+import { CommentData } from '../../types/review';
 import { User } from '../../types/user';
+import { ReactComponent as Delete } from '../../assets/icons/delete-review.svg';
+import { typography } from '../../constants/themeValue';
+import { ReactComponent as Hamburger } from '../../assets/icons/hamburger.svg';
+import Warning from './Modal/Warning';
 
 interface Props {
-  comments: CommentType[];
+  // comments: CommentType[];
   reviewId: string;
   user: User | null;
 }
 
-function Comment({ comments, reviewId, user }: Props) {
+function Comment({ reviewId, user }: Props) {
   // const { user } = useAuth();
   const [content, setContent] = useState('');
-  const [, setComment] = useState(null);
-
+  const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
+  const [refreshCount, setRefreshCount] = useState(0);
+  const [commentData, setCommentData] = useState<CommentData[]>([]);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/api/comments/review/${reviewId}`);
+        const response = await fetch(`${BASE_URL}/api/comments/review/${reviewId}`, { credentials: 'include' });
         const result = await response.json();
-        setComment(result.comments);
+        setCommentData(result.comments);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, [reviewId]);
+  }, [reviewId, refreshCount]);
 
   const handleCommentChange = (e) => {
     setContent(e.target.value);
@@ -52,8 +59,28 @@ function Comment({ comments, reviewId, user }: Props) {
       if (!response.ok) {
         throw new Error('Failed to add comment');
       }
-      if (typeof window !== 'undefined' && window !== undefined) {
-        window.location.reload();
+
+      setContent('');
+      setRefreshCount((count) => count + 1);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const deleteComment = async (id: string) => {
+    try {
+      setRefreshCount((count) => count + 1);
+      setOpen(false);
+      const response = await fetch(`${BASE_URL}/api/comments/${reviewId}/delete/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add comment');
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -62,9 +89,7 @@ function Comment({ comments, reviewId, user }: Props) {
 
   return (
     <div className="Comment">
-      <Typography sx={{ mt: '24px' }} variant="h1">
-        댓글
-      </Typography>
+      <Typography variant="h1">댓글</Typography>
       <Box
         sx={{
           width: '100%',
@@ -114,7 +139,6 @@ function Comment({ comments, reviewId, user }: Props) {
           </form>
         </div>
       </Box>
-
       <Divider
         sx={{
           background: 'rgb(52, 52, 52)',
@@ -128,7 +152,8 @@ function Comment({ comments, reviewId, user }: Props) {
           },
         }}
       />
-      {comments?.map((comment) => (
+
+      {commentData?.map((comment) => (
         <div>
           <Box
             sx={{
@@ -184,21 +209,63 @@ function Comment({ comments, reviewId, user }: Props) {
               }}
             >
               {' '}
-              <Box display="flex">
+              <Box
+                display="flex"
+                sx={{
+                  justifyContent: 'space-between',
+                  width: {
+                    xs: '100%',
+                    sm: '100%',
+                    md: '100%',
+                    lg: '846px',
+                  },
+                }}
+              >
                 <Typography fontSize="fontSizeMd" fontWeight="fontWeightLight" textAlign="left">
                   {comment.content}
                 </Typography>{' '}
                 {comment.user._id === user?._id && (
-                  <form
-                    action={`${BASE_URL}/api/comments/${reviewId}/delete/${comment._id}`}
-                    method="POST"
-                    id="delete-form"
-                  >
-                    <input type="hidden" name="_method" value="DELETE" />
-                    <Button variant="outlined" size="small" type="submit" sx={{ ml: '10px' }}>
-                      <Typography fontSize="fontSizeXs">삭제</Typography>
-                    </Button>
-                  </form>
+                  <>
+                    <Box
+                      sx={{
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '50%',
+                        top: '27px',
+                        right: '27px',
+                        ':hover': { backgroundColor: 'rgb(126, 126, 126)' },
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                      onClick={(e) => {
+                        setOpenMenu(e.currentTarget);
+                      }}
+                    >
+                      <Hamburger>열기</Hamburger>
+                    </Box>
+
+                    <StyledMenu
+                      width={100}
+                      anchorEl={openMenu}
+                      open={Boolean(openMenu)}
+                      onClose={() => setOpenMenu(null)}
+                    >
+                      <StyledMenuItem
+                        sx={{ height: '30px', padding: '9.75px' }}
+                        onClick={() => {
+                          // deleteComment(comment._id);
+                          setOpen(true);
+                        }}
+                      >
+                        <Delete />
+                        <Typography fontSize={typography.size.md} ml={2}>
+                          삭제
+                        </Typography>
+                      </StyledMenuItem>
+                    </StyledMenu>
+                    <Warning open={open} setOpen={setOpen} handleDelete={() => deleteComment(comment._id)} />
+                  </>
                 )}
               </Box>
             </Box>
