@@ -34,23 +34,26 @@ function MainPage() {
       {user && user?.name === undefined ? (
         <EditProfile userId={user?._id} />
       ) : (
-        <Box sx={{ display: { xs: 'grid', sm: 'grid', md: 'flex', lg: 'flex' } }}>
-          <Box width="100%">
-            <Box sx={{ mt: '40px' }}>
-              <AlbumSearch
-                searchResult={searchResult}
-                setSearchResult={setSearchResult}
-                setSelectedAlbum={setSelectedAlbum}
-              />
+        <>
+          <Box sx={{ mt: '40px' }}>
+            <AlbumSearch
+              searchResult={searchResult}
+              setSearchResult={setSearchResult}
+              setSelectedAlbum={setSelectedAlbum}
+            />
+          </Box>
+          <Box sx={{ display: { xs: 'grid', sm: 'grid', md: 'flex', lg: 'flex' } }}>
+            <Box width="100%">
+              <Box sx={{ mt: '40px' }}>
+                <ReviewMain />
+              </Box>
+              <AlbumChart />
             </Box>
-
-            <ReviewMain />
-            <AlbumChart />
+            <Box sx={{ mt: '40px' }}>
+              <PopularReview />
+            </Box>
           </Box>
-          <Box>
-            <PopularReview />
-          </Box>
-        </Box>
+        </>
       )}
       <FloatingActionButton />
     </Container>

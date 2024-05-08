@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Avatar, Box, Container, Link, Tab, Tabs, Typography } from '@mui/material';
+import { Avatar, Box, Container, Link, Tab, Tabs, Typography, Button } from '@mui/material';
 import { useAuth } from '../AuthenticationContext';
 import { MyInformation } from '../types/myInformation';
 import getMyInformation from '../api/myInformation';
 import AlbumReviewSummary from '../components/review/AlbumReviewSummary';
 import AlbumCover from '../components/album/AlbumCover';
-
+import ChangeName from '../components/common/Modal/ChangeName';
 import { ReactComponent as Hamburger } from '../assets/icons/hamburger.svg';
 import { ReactComponent as Edit } from '../assets/icons/edit-review.svg';
 import { ReactComponent as Delete } from '../assets/icons/delete-review.svg';
@@ -24,7 +24,7 @@ function MyPage() {
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const [toEditReview, setToEditReview] = useState<string | null>(null);
   const { currentTab, handleChangeCurrentTab, tabProps } = useTabs('my-information-tab');
-
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     (async () => {
       const res = await getMyInformation();
@@ -47,11 +47,19 @@ function MyPage() {
 
   return (
     <Container>
+      {open && <ChangeName open={open} setOpen={setOpen} userId={user?._id} />}
       <Box sx={{ display: 'flex', columnGap: '24px', mt: '40px', mb: '40px' }}>
         <Avatar src={user?.image} sx={{ width: '100px', height: '100px' }} />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
           <Typography variant="h1"> {user?.name} </Typography>
-          <Typography>닉네임 변경</Typography>
+          <Button
+            onClick={() => {
+              setOpen(true);
+            }}
+            sx={{ padding: '0px' }}
+          >
+            <Typography textAlign="left">닉네임 변경</Typography>
+          </Button>
         </Box>
       </Box>
       <Tabs value={currentTab} onChange={handleChangeCurrentTab} aria-label="my-information-tabs">

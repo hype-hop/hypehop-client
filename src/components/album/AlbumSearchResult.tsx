@@ -11,7 +11,7 @@ function ResultBox({ children }: { children: ReactNode }) {
         display: 'flex',
         flexDirection: 'column',
         rowGap: '20px',
-        backgroundColor: 'rgb(52,52,52)',
+        backgroundColor: 'rgb(22, 22, 22)',
         padding: '34px 45px',
         borderRadius: '16px',
         borderTopRightRadius: 0,

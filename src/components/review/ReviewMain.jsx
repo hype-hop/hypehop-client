@@ -26,7 +26,6 @@ function ReviewMain() {
 
   return (
     <Container // maxWidth="md"
-      sx={{ marginTop: '40px' }}
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h1">최근리뷰 </Typography>

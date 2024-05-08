@@ -27,7 +27,6 @@ function ReviewMain() {
 
   return (
     <Container // maxWidth="md"
-      sx={{ marginTop: '105px' }}
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h1">최근리뷰 </Typography>
@@ -55,7 +54,7 @@ function ReviewMain() {
                 albumTitle={review.albumTitle}
                 artists={review.artists}
               />
-              <Box width="282px" mt={2}>
+              <Box width="200px" mt={2}>
                 <AlbumReviewSummary review={review} />
               </Box>
             </Box>
