@@ -26,11 +26,7 @@ function PopularReview() {
   }
 
   return (
-    <Box
-      sx={{
-        mt: '105px',
-      }}
-    >
+    <Box>
       <Typography variant="h1" sx={{ mb: '16px' }}>
         인기리뷰🔥
       </Typography>
