@@ -107,6 +107,9 @@ function WriteReview({ userData }) {
   const handleOpen = () => {
     SetsTrackListOpened(!isTrackListOpened);
   };
+  const handleCancel = () => {
+    setSelectedAlbum(null);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -380,25 +383,29 @@ function WriteReview({ userData }) {
               </div>
 
               <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
-                <Button size="small" variant="outlined" type="submit" onClick={handleSubmit}>
-                  <Typography fontSize="16px" fontWeight="fontWeightRegular">
-                    Save
+                <Button
+                  variant="outlined"
+                  type="submit"
+                  onClick={handleCancel}
+                  sx={{
+                    mr: '16px',
+                    width: '104px',
+                    height: '43px',
+
+                    padding: '12px 24px 12px 24px',
+                  }}
+                >
+                  <Typography fontSize="16px" fontWeight="500">
+                    취소
                   </Typography>
                 </Button>
                 <Button
-                  size="small"
-                  variant="outlined"
                   type="submit"
-                  // onClick={handleCancel}
-                  sx={{
-                    width: '74px',
-                    height: '36px',
-                    background: 'rgb(52, 52, 52)',
-                    ml: '16px',
-                  }}
+                  onClick={handleSubmit}
+                  sx={{ width: '104px', height: '43px', bgcolor: 'rgb(152, 72, 255)', padding: '12px 24px 12px 24px' }}
                 >
-                  <Typography fontSize="16px" fontWeight="fontWeightRegular">
-                    Cancel
+                  <Typography fontSize="16px" fontWeight="500">
+                    작성하기
                   </Typography>
                 </Button>
               </Box>

@@ -2,9 +2,8 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Button, Box, Input, Typography, Container, MenuItem, Select } from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
-
 import EditorBox from './EditorBox';
 import BASE_URL from '../../config';
 import TrackListForEdit from './TrackListForEdit';
@@ -267,9 +266,35 @@ function EditReview({ data, albumData }) {
           <EditorBox onContentChange={handleContentChange} value={formData.body} />
         </div>
 
-        <Button variant="outlined" size="small" type="submit" onClick={handleSubmit}>
-          Save
-        </Button>
+        <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
+          <Link to="/myInformation">
+            <Button
+              variant="outlined"
+              type="submit"
+              sx={{
+                mr: '16px',
+                width: '104px',
+                height: '43px',
+
+                padding: '12px 24px 12px 24px',
+              }}
+            >
+              <Typography fontSize="16px" fontWeight="500">
+                취소
+              </Typography>
+            </Button>
+          </Link>
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            sx={{ width: '104px', height: '43px', bgcolor: 'rgb(152, 72, 255)', padding: '12px 24px 12px 24px' }}
+          >
+            <Typography fontSize="16px" fontWeight="500">
+              {' '}
+              작성하기
+            </Typography>
+          </Button>
+        </Box>
       </form>
     </Container>
   );
