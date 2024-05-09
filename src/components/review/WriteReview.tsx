@@ -132,7 +132,7 @@ function WriteReview({ userData }) {
       })
         .then((response) => response.json())
         .then(() => {
-          navigate(`/album/review/`);
+          navigate(`/`);
         })
         .catch((error) => {
           const ensuredError = ensureError(error);
