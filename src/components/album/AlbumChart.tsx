@@ -106,7 +106,7 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                   <Rating
                     name="half-rating-read"
                     value={item.averageRating}
-                    precision={0.1}
+                    precision={0.5}
                     icon={
                       <StarIcon
                         sx={{
