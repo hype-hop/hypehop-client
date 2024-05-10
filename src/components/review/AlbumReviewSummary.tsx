@@ -5,6 +5,7 @@ import Favorite from '../common/Favorite';
 import { Review } from '../../types/review';
 import { typography } from '../../constants/themeValue';
 import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
+import PRECISION from '../../constants/ratingPrecision';
 
 function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; isMyReview?: boolean }) {
   const router = useNavigate();
@@ -75,7 +76,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
                   <TimeSincePost createdAt={createdAt} />{' '}
                 </Typography>
               </Box>
-              <Rating readOnly value={albumRating} />
+              <Rating readOnly value={albumRating} precision={PRECISION} />
             </Box>
           </Box>
         )}

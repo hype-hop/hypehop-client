@@ -1,8 +1,12 @@
 import { Box, Rating, Typography } from '@mui/material';
-import { AlbumDetailType } from '../../../types/albumDetail';
 import { typography } from '../../../constants/themeValue';
 
-function AlbumDetailInformation({ data }: { data: AlbumDetailType }) {
+import { AlbumData } from '../../../types/albumData';
+
+import PRECISION from '../../../constants/ratingPrecision';
+
+
+function AlbumDetailInformation({ data }: { data: AlbumData }) {
   return (
     <Box
       sx={{
@@ -27,7 +31,7 @@ function AlbumDetailInformation({ data }: { data: AlbumDetailType }) {
           <Typography fontWeight="bold">{data?.albumData.name}</Typography>
           <Box sx={{ display: 'flex' }}>
             {data?.albumData.artists.map((artist, index) => (
-              <Typography color="grey.main">
+              <Typography key={index} color="grey.main">
                 {artist.name}{' '}
                 {data?.albumData.artists.length > 1 && index < data!.albumData!.artists!.length - 1 && '· '}
               </Typography>
@@ -35,7 +39,7 @@ function AlbumDetailInformation({ data }: { data: AlbumDetailType }) {
           </Box>
           {data?.albumRatingAverage ? (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Rating value={Number(data?.albumRatingAverage)} readOnly />
+              <Rating value={Number(data?.albumRatingAverage)} readOnly precision={PRECISION} />
               <Typography component="div" fontSize={typography.size.md} fontWeight="medium" lineHeight={1}>
                 {data?.albumRatingAverage}
               </Typography>

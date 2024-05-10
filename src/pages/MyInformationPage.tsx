@@ -54,10 +54,12 @@ function MyPage() {
       </Tabs>
 
       <TabPanel value={currentTab} index={0}>
+
         {data?.reviews && <MyReviews reviews={data?.reviews} />}
       </TabPanel>
       <TabPanel value={currentTab} index={1}>
         {data?.favReviews && <MyReviews reviews={data?.favReviews} />}
+
       </TabPanel>
     </Container>
   );
