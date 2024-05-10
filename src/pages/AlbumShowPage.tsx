@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import BASE_URL from '../config';
-import { AlbumDetailType } from '../types/albumDetail';
 import { useAuth } from '../AuthenticationContext';
 import AlbumDetailInformation from '../components/album/AlbumDetail/AlbumDetailInformation';
 // import AlbumDetailTracks from '../components/AlbumDetail/AlbumDetailTracks';
 import AlbumReviewSummary from '../components/review/AlbumReviewSummary';
+import { AlbumData } from '../types/albumData';
+import { Review } from '../types/review';
+// import { Review } from '../types/review';
 
 function AlbumShowPage() {
   const { id } = useParams();
-  const [data, setData] = useState<AlbumDetailType | null>(null);
+  const [data, setData] = useState<AlbumData | null>(null);
 
   const [user] = useAuth();
   const navigate = useNavigate();
 
+  const parsedReviews = (reviews: Review[]) => {
+    return reviews.splice(0, 4);
+  };
+
   useEffect(() => {
     (async () => {
       try {
-        const result = await (await fetch(`${BASE_URL}/album/api/${id}`)).json();
+        const album = await (await fetch(`${BASE_URL}/album/api/${id}`)).json();
 
-        setData(result);
+        if (album.reviews.length > 4) {
+          album.reviews = parsedReviews(album.reviews);
+        }
+
+        setData(album);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -51,7 +61,7 @@ function AlbumShowPage() {
   return (
     data && (
       <Container>
-        <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '40px' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '40px', mt: 5 }}>
           <Box>
             <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
               앨범 정보
@@ -62,13 +72,40 @@ function AlbumShowPage() {
 
           <Box>
             <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
-              다른 리뷰
+              앨범 리뷰
             </Typography>
-            {data.reviews.map((review) => (
-              <Box sx={{ width: '266px', borderRadius: '16px', backgroundColor: ' rgb(22, 22, 22);' }}>
-                <AlbumReviewSummary review={review} />
-              </Box>
-            ))}
+
+            <Box sx={{ display: 'flex', columnGap: 2, overflowX: { xs: 'auto' }, maxWidth: { xs: '100%' } }}>
+              {data.reviews?.length > 0 ? (
+                data.reviews?.map((review) => (
+                  <Box
+                    key={`album-review-${review._id}`}
+                    sx={{
+                      minWidth: '282px',
+                      maxWidth: '282px',
+                      border: '1px solid rgb(52, 52, 52)',
+                      borderRadius: '0px 16px 16px 16px',
+                      p: 2,
+                    }}
+                  >
+                    <AlbumReviewSummary review={review} />
+                  </Box>
+                ))
+              ) : (
+                <Box>
+                  <Typography mb={2}>앨범 리뷰가 없습니다. 첫 리뷰를 작성해주세요!</Typography>
+                  <Button
+                    sx={{
+                      background: 'rgb(152, 72, 255)',
+                      borderRadius: '4px',
+                      height: '32px',
+                    }}
+                  >
+                    작성하러 가기
+                  </Button>
+                </Box>
+              )}
+            </Box>
           </Box>
         </Box>
       </Container>
