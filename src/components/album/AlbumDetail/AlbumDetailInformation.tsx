@@ -1,8 +1,8 @@
 import { Box, Rating, Typography } from '@mui/material';
-import { AlbumDetailType } from '../../../types/albumDetail';
 import { typography } from '../../../constants/themeValue';
+import { AlbumData } from '../../../types/albumData';
 
-function AlbumDetailInformation({ data }: { data: AlbumDetailType }) {
+function AlbumDetailInformation({ data }: { data: AlbumData }) {
   return (
     <Box
       sx={{
@@ -27,7 +27,7 @@ function AlbumDetailInformation({ data }: { data: AlbumDetailType }) {
           <Typography fontWeight="bold">{data?.albumData.name}</Typography>
           <Box sx={{ display: 'flex' }}>
             {data?.albumData.artists.map((artist, index) => (
-              <Typography color="grey.main">
+              <Typography key={index} color="grey.main">
                 {artist.name}{' '}
                 {data?.albumData.artists.length > 1 && index < data!.albumData!.artists!.length - 1 && '· '}
               </Typography>
