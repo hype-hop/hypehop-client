@@ -69,7 +69,14 @@ function MyPage() {
 
       <TabPanel value={currentTab} index={0}>
         {data?.reviews && (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 2 }} gap={3}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)', md: 'repeat(4, 1fr)' },
+              gap: 2,
+              mt: 2,
+            }}
+          >
             {data?.reviews.map((review) => (
               <Box
                 sx={{
@@ -77,7 +84,7 @@ function MyPage() {
                   border: '1px solid rgb(52, 52, 52)',
                   padding: '16px',
                   borderRadius: '0px 16px 16px 16px',
-                  width: '282px',
+                  width: { md: '282px' },
                   minWidth: '282px',
                 }}
               >
