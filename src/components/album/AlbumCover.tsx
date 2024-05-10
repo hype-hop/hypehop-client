@@ -9,9 +9,7 @@ function AlbumCover({ albumId, url, albumTitle, artists }: AlbumCoverProps) {
     <Box
       sx={{
         width: '100%',
-        maxWidth: '282px',
         minWidth: '200px',
-        maxHeight: '282px',
         minHeight: '200px',
         aspectRatio: 1 / 1,
         position: 'relative',
