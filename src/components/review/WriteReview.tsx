@@ -132,7 +132,7 @@ function WriteReview({ userData }) {
       })
         .then((response) => response.json())
         .then(() => {
-          navigate(`/album/review/`);
+          navigate(`/`);
         })
         .catch((error) => {
           const ensuredError = ensureError(error);
@@ -290,10 +290,12 @@ function WriteReview({ userData }) {
                 <Typography
                   fontSize={typography.size.lg}
                   fontWeight={typography.weight.medium}
-                  ml="16px"
                   textAlign="left"
                   sx={{
                     alignContent: 'center',
+                    ml: '16px',
+                    mt: '16px',
+                    mb: '16px',
                   }}
                 >
                   트랙리스트 펼치기
@@ -325,6 +327,7 @@ function WriteReview({ userData }) {
                   value={formData.status}
                   onChange={handleFormData}
                   fullWidth
+                  sx={{ pt: '7px' }}
                   inputProps={{
                     sx: {
                       '&:focus': {

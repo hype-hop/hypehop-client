@@ -3,7 +3,8 @@ import { Box, Container, Typography, Input, Button, Divider } from '@mui/materia
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthenticationContext';
 import BASE_URL from '../../config';
-import { ReactComponent as Google } from '../../assets/icons/google.svg';
+
+import { ReactComponent as GoogleIcon } from '../../assets/icons/googleIcon.svg';
 
 function LogInForm() {
   const navigate = useNavigate();
@@ -182,7 +183,10 @@ function LogInForm() {
                 padding: '0 16px',
               }}
             >
-              <Google style={{ marginRight: '8px' }} />
+              <Box sx={{ width: '16px', display: 'flex', justifyContent: 'center', mr: '4px' }}>
+                <GoogleIcon />
+              </Box>
+
               <Typography fontSize="14px" fontWeight="500">
                 구글 계정으로 로그인하기
               </Typography>
