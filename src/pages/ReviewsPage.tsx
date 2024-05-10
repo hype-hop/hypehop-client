@@ -10,8 +10,9 @@ import {
   CardActions,
   Avatar,
   CircularProgress,
+  Rating,
 } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
+import PRECISION from '../constants/ratingPrecision';
 import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 import TimeSincePost from '../components/album/TimeSincePost';
 import Favorite from '../components/common/Favorite';
@@ -152,68 +153,51 @@ function ReviewsPage() {
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  <Avatar
-                    style={{ width: '28px', height: '28px', borderRadius: '50%' }}
-                    src={review?.user?.image}
-                    alt="user"
-                  />
-                  <Typography
-                    color="white.main"
-                    fontWeight="fontWeightLight"
-                    fontSize="fontSizeMd"
-                    sx={{
-                      alignContent: 'center',
-                      ml: 1,
-                      maxWidth: '100px',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      {review.user.name || review.user.displayName}
-                    </Link>
-                  </Typography>
+                  <Box>
+                    <Avatar
+                      style={{ width: '28px', height: '28px', borderRadius: '50%' }}
+                      src={review?.user?.image}
+                      alt="user"
+                    />
+                  </Box>
 
-                  <Typography
-                    color="grey.dark"
-                    fontSize="fontSizeSm"
-                    fontWeight="fontWeightLight"
-                    lineHeight="lineHeightSm"
-                    sx={{
-                      ml: '4px',
-                      textAlign: 'left',
-                      alignContent: 'center',
-                    }}
-                  >
-                    <TimeSincePost createdAt={review.createdAt} />{' '}
-                  </Typography>
+                  <Box display="grid">
+                    <Box display="flex">
+                      <Typography
+                        color="white.main"
+                        fontWeight="fontWeightLight"
+                        fontSize="fontSizeMd"
+                        sx={{
+                          alignContent: 'center',
+                          ml: 1,
+                          maxWidth: '100px',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                          {review.user.name || review.user.displayName}
+                        </Link>
+                      </Typography>
 
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                      ml: 'auto',
-                      width: '46px',
-                      height: '20px',
-                      border: '1px solid rgb(86, 87, 87) ',
-                      borderRadius: '67px',
-                    }}
-                  >
-                    <StarIcon fontSize="small" sx={{ color: 'white.main', mt: '1px' }} />
-                    <Typography
-                      color="white.main"
-                      fontSize="11px"
-                      fontWeight="400"
-                      sx={{
-                        width: '15.33px',
-                        alignContent: 'center',
-                      }}
-                    >
-                      {' '}
-                      {review.albumRating % 1 === 0 ? `${review.albumRating}.0` : review.albumRating}
-                    </Typography>
+                      <Typography
+                        color="grey.dark"
+                        fontSize="fontSizeSm"
+                        fontWeight="fontWeightLight"
+                        lineHeight="lineHeightSm"
+                        sx={{
+                          ml: '4px',
+                          textAlign: 'left',
+                          alignContent: 'center',
+                        }}
+                      >
+                        <TimeSincePost createdAt={review.createdAt} />{' '}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ ml: '4px' }}>
+                      <Rating readOnly value={review.albumRating} precision={PRECISION} />
+                    </Box>
                   </Box>
                 </Box>
 

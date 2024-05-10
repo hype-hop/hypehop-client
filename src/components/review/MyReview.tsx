@@ -5,6 +5,7 @@ import { MyReview } from '../../types/review';
 import AlbumCover from '../album/AlbumCover';
 import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
 import { typography } from '../../constants/themeValue';
+import PRECISION from '../../constants/ratingPrecision';
 
 function MyReviews({ review }: { review: MyReview }) {
   const router = useNavigate();
@@ -67,7 +68,7 @@ function MyReviews({ review }: { review: MyReview }) {
                     columnGap: '8px',
                   }}
                 />
-                <Rating readOnly value={albumRating} />
+                <Rating readOnly value={albumRating} precision={PRECISION} />
               </Box>
             </Box>
 
