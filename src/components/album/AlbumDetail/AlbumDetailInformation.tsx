@@ -5,7 +5,6 @@ import { AlbumData } from '../../../types/albumData';
 
 import PRECISION from '../../../constants/ratingPrecision';
 
-
 function AlbumDetailInformation({ data }: { data: AlbumData }) {
   return (
     <Box
