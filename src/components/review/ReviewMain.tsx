@@ -26,9 +26,11 @@ function ReviewMain() {
   }, []);
 
   return (
-    <Container sx={{ maxWidth: '100%' }}>
+    <Container sx={{ width: '100%' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h1">최근리뷰 </Typography>
+        <Typography sx={{ ml: '4px' }} variant="h1">
+          최근리뷰{' '}
+        </Typography>
         <Button variant="outlined" sx={{ mb: 0 }}>
           <Link to="/album/review" style={{ textDecoration: 'none', color: 'inherit' }}>
             더보기

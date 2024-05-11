@@ -30,7 +30,7 @@ function MainPage() {
   }, [selectedAlbum]);
 
   return (
-    <Container className="Main">
+    <Container className="Main" sx={{ pl: { xs: '0px' } }}>
       {user && user?.name === undefined ? (
         <EditProfile userId={user?._id} />
       ) : (
@@ -43,10 +43,9 @@ function MainPage() {
             />
           </Box>
           <Box sx={{ display: { xs: 'grid', sm: 'grid', md: 'flex', lg: 'flex' } }}>
-            <Box width="100%">
-              <Box sx={{ mt: '40px' }}>
-                <ReviewMain />
-              </Box>
+            {/* <Box sx={{ width: { xs: '350px', sm: '100%', md: '100%', lg: '100%' } }}> */}
+            <Box sx={{ mt: '40px' }}>
+              <ReviewMain />
               <AlbumChart />
             </Box>
             <Box sx={{ mt: '40px' }}>
