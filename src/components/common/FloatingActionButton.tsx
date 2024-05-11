@@ -12,6 +12,7 @@ export default function FloatingActionButton() {
           bottom: '10%',
           width: 60,
           height: 60,
+          zIndex: 1,
           background: 'rgb(152, 72, 255)',
           ':hover': {
             background: 'rgb(152, 72, 255)',
