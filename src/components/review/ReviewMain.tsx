@@ -47,7 +47,7 @@ function ReviewMain() {
         }}
       >
         {Array.isArray(data?.reviews) ? (
-          data?.reviews.slice(0, 6).map((review) => (
+          data?.reviews.map((review) => (
             <Box
               sx={{
                 padding: '16px',
