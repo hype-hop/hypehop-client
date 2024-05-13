@@ -9,7 +9,7 @@ import PRECISION from '../../constants/ratingPrecision';
 
 function MyReviews({ review }: { review: MyReview }) {
   const router = useNavigate();
-  const { _id, albumId, thumbnail, albumName, albumRating, body, artists, title, comments, isFavorite } = review;
+  const { _id, albumId, thumbnail, albumName, albumRating, body, artists, title, comments } = review;
 
   return (
     <Box>

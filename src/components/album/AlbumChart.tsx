@@ -165,7 +165,9 @@ function AlbumChart() {
   return (
     <Box sx={{ marginTop: '75px' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h1">인기 앨범 차트</Typography>
+        <Typography sx={{ ml: '20px' }} variant="h1">
+          인기 앨범 차트
+        </Typography>
         {/* <Box sx={{ display: 'flex' }}>
           <Button
             variant="outlined"

@@ -68,6 +68,7 @@ function TrackRatingCard({ data }) {
                               sx={{
                                 width: '15.33px',
                                 alignContent: 'center',
+                                mt: '4px',
                                 fontSize: '11px',
                                 fontWeight: '400',
                               }}

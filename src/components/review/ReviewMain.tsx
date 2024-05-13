@@ -26,10 +26,11 @@ function ReviewMain() {
   }, []);
 
   return (
-    <Container // maxWidth="md"
-    >
+    <Container sx={{ width: '100%' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h1">최근리뷰 </Typography>
+        <Typography sx={{ ml: '4px' }} variant="h1">
+          최근리뷰{' '}
+        </Typography>
         <Button variant="outlined" sx={{ mb: 0 }}>
           <Link to="/album/review" style={{ textDecoration: 'none', color: 'inherit' }}>
             더보기
@@ -46,8 +47,14 @@ function ReviewMain() {
         }}
       >
         {Array.isArray(data?.reviews) ? (
-          data?.reviews.slice(0, 6).map((review) => (
-            <Box sx={{ padding: '16px', border: '1px solid rgb(52, 52, 52)', borderRadius: '0px 16px 16px 16px' }}>
+          data?.reviews.map((review) => (
+            <Box
+              sx={{
+                padding: '16px',
+                border: '1px solid rgb(52, 52, 52)',
+                borderRadius: '0px 16px 16px 16px',
+              }}
+            >
               <AlbumCover
                 albumId={review.albumId}
                 url={review.thumbnail}
