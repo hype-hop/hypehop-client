@@ -55,8 +55,12 @@ export default function MenuAppBar() {
   const [anchorNoti, setAnchorNoti] = useState(null);
   const [logoHover, setLogoHover] = useState(false);
 
-  const handleHoverLogo = (event) => {
-    setLogoHover(event.type === 'mouseenter');
+  const handleHoverLogoEnter = () => {
+    setLogoHover(true);
+  };
+
+  const handleHoverLogoLeave = () => {
+    setLogoHover(false);
   };
 
   useEffect(() => {
@@ -107,7 +111,7 @@ export default function MenuAppBar() {
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Link to="/">
-            <IconButton onMouseEnter={handleHoverLogo} onMouseLeave={handleHoverLogo} disableRipple>
+            <IconButton onMouseOver={handleHoverLogoEnter} onMouseOut={handleHoverLogoLeave} disableRipple>
               {logoHover ? <LogoHoverIcon /> : <LogoMainIcon style={{ width: 125, height: 20 }} />}
             </IconButton>
           </Link>
