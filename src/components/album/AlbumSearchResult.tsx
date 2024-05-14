@@ -41,8 +41,7 @@ function Result({
         <Box
           sx={{ display: 'flex', cursor: 'pointer' }}
           onClick={() => {
-            setSelectedAlbum(album);
-            setSelectedAlbum((prev) => ({ ...prev!, rating: INITIAL_RATING_VALUE }));
+            setSelectedAlbum({ ...album, rating: INITIAL_RATING_VALUE });
             setKeyword(null);
             setSearchResult(null);
           }}
