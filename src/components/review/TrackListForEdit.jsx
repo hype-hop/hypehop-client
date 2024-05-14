@@ -25,7 +25,6 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
       setTrackRatingForEdit(data?.review.tracks);
       const trackRatingArray = Array(data?.review.tracks.length || 0).fill(null);
       setTrackRating(trackRatingArray);
-      console.log(trackRatingForEdit);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, data]);

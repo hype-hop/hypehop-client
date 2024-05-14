@@ -113,7 +113,6 @@ function WriteReview({ userData }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(trackRating);
 
     if (formData.albumRating !== 0 && formData.title !== '') {
       const combinedData = {

@@ -16,7 +16,6 @@ function ReviewMain() {
         const response = await fetch(`${BASE_URL}/api/review`);
         const result = await response.json();
         setData(result);
-        console.log(result);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

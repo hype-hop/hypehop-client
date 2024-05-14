@@ -90,7 +90,7 @@ function ReviewsPage() {
     };
 
     const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
         loadMoreData();
       }
     };
