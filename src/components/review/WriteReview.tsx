@@ -166,11 +166,7 @@ function WriteReview({ userData }) {
                 </Typography>
               </Box>
               <Box>
-                <Typography
-                  sx={{ whiteSpace: 'nowrap' }}
-                  fontSize={typography.size.lg}
-                  fontWeight={typography.weight.bold}
-                >
+                <Typography sx={{}} fontSize={typography.size.lg} fontWeight={typography.weight.bold}>
                   {track.name}
                 </Typography>
                 <Typography

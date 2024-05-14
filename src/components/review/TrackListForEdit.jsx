@@ -84,12 +84,7 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
                   </Box>
 
                   <Box>
-                    <Typography
-                      fontSize={typography.size.lg}
-                      fontWeight={typography.weight.bold}
-                      textAlign="left"
-                      sx={{ whiteSpace: 'nowrap' }}
-                    >
+                    <Typography fontSize={typography.size.lg} fontWeight={typography.weight.bold} textAlign="left">
                       {title.split('.')[1]}
                     </Typography>
                     <Typography
