@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Avatar, Box, Container, Tab, Tabs, Typography, Button } from '@mui/material';
+import { Avatar, Box, Tab, Tabs, Typography, Button } from '@mui/material';
 import { useAuth } from '../AuthenticationContext';
 import { MyInformation } from '../types/myInformation';
 import getMyInformation from '../api/myInformation';
@@ -32,9 +32,9 @@ function MyPage() {
   }
 
   return (
-    <Container>
+    <>
       {open && <ChangeName open={open} setOpen={setOpen} userId={user?._id} />}
-      <Box sx={{ display: 'flex', columnGap: '24px', mt: '40px', mb: '40px' }}>
+      <Box sx={{ display: 'flex', columnGap: '24px', mb: '40px' }}>
         <Avatar src={user?.image} sx={{ width: '100px', height: '100px' }} />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
           <Typography variant="h1"> {user?.name} </Typography>
@@ -59,7 +59,7 @@ function MyPage() {
       <TabPanel value={currentTab} index={1}>
         {data?.favReviews && <MyReviews reviews={data?.favReviews} />}
       </TabPanel>
-    </Container>
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Box, Container, Typography, Input, Button } from '@mui/material';
+import { Box, Typography, Input, Button } from '@mui/material';
 import BASE_URL from '../config';
 
 function JoinPage() {
@@ -44,7 +44,7 @@ function JoinPage() {
   };
 
   return (
-    <Container className="Join">
+    <>
       <Typography
         variant="h1"
         textAlign="center"
@@ -189,7 +189,7 @@ function JoinPage() {
           </Link>
         </Box>
       </div>
-    </Container>
+    </>
   );
 }
 

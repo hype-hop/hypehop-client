@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Input, Button } from '@mui/material';
+import { Box, Typography, Input, Button } from '@mui/material';
 import { useState } from 'react';
 import BASE_URL from '../../config';
 
@@ -38,7 +38,7 @@ function EditProfile({ userId }) {
   };
 
   return (
-    <Container className="Join">
+    <>
       <Typography
         variant="h1"
         textAlign="center"
@@ -106,7 +106,7 @@ function EditProfile({ userId }) {
           가입하기
         </Typography>
       </Button>
-    </Container>
+    </>
   );
 }
 

@@ -93,7 +93,7 @@ export default function MenuAppBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, height: 60 }}>
+    <Box>
       <AppBar
         position="static"
         elevation={0}

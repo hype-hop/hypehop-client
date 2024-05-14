@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { List, ListItem, Typography, Container } from '@mui/material';
+import { List, ListItem, Typography } from '@mui/material';
 import BASE_URL from '../../config';
 import { ReviewsRank } from '../../types/review';
 
@@ -26,7 +26,7 @@ function PopularReview() {
   }
 
   return (
-    <Container>
+    <>
       <Typography variant="h1" sx={{ mb: '16px', ml: '4px' }}>
         인기리뷰🔥
       </Typography>
@@ -70,7 +70,7 @@ function PopularReview() {
           </ListItem>
         ))}
       </List>
-    </Container>
+    </>
   );
 }
 

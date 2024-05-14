@@ -1,7 +1,7 @@
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
-import { Input, Container, Button, Typography, Box, Select, MenuItem } from '@mui/material';
+import { Input, Button, Typography, Box, Select, MenuItem } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
 import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
@@ -222,7 +222,7 @@ function WriteReview({ userData }) {
   ));
 
   return (
-    <Container className="Write-review">
+    <>
       <form>
         <Typography
           variant="h1"
@@ -432,7 +432,7 @@ function WriteReview({ userData }) {
       </form>
       {!selectedAlbum && <WriteReviewBefore />}
       {selectedAlbum && data?.reviewUser?.includes(userData._id) && <Duplicate open={open} setOpen={setOpen} />}
-    </Container>
+    </>
   );
 }
 

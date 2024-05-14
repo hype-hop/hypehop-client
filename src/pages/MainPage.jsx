@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AlbumChart from '../components/album/AlbumChart';
@@ -30,12 +30,12 @@ function MainPage() {
   }, [selectedAlbum]);
 
   return (
-    <Container className="Main" sx={{ pl: { xs: '0px' } }}>
+    <>
       {user && user?.name === undefined ? (
         <EditProfile userId={user?._id} />
       ) : (
         <>
-          <Box sx={{ mt: '40px' }}>
+          <Box>
             <AlbumSearch
               searchResult={searchResult}
               setSearchResult={setSearchResult}
@@ -55,7 +55,7 @@ function MainPage() {
         </>
       )}
       <FloatingActionButton />
-    </Container>
+    </>
   );
 }
 

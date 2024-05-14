@@ -7,7 +7,7 @@ function AlbumPage() {
   const [user] = useAuth();
 
   return (
-    <Box className="Album" sx={{ mt: '40px' }}>
+    <Box className="Album">
       {user ? (
         <WriteReview userData={user} />
       ) : (
