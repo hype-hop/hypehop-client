@@ -4,7 +4,7 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import BASE_URL from '../config';
 import { useAuth } from '../AuthenticationContext';
 import AlbumDetailInformation from '../components/album/AlbumDetail/AlbumDetailInformation';
-// import AlbumDetailTracks from '../components/AlbumDetail/AlbumDetailTracks';
+import AlbumDetailTracks from '../components/album/AlbumDetail/AlbumDetailTracks';
 import AlbumReviewSummary from '../components/review/AlbumReviewSummary';
 import { AlbumData } from '../types/albumData';
 import { Review } from '../types/review';
@@ -68,7 +68,7 @@ function AlbumShowPage() {
             </Typography>
             <AlbumDetailInformation data={data} />
           </Box>
-          {/* <AlbumDetailTracks data={data} /> */}
+          <AlbumDetailTracks data={data} />
 
           <Box>
             <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
