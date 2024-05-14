@@ -19,4 +19,6 @@ export const typography = {
   letterSpacing: '-4%',
 } as const;
 
-export const palette = {};
+export const palette = {
+  favorite: 'rgb(236, 60, 60)',
+} as const;

@@ -5,7 +5,7 @@ import BASE_URL from '../../config';
 import { ReactComponent as EmptyFavoriteIcon } from '../../assets/icons/empty-favorite.svg';
 import FavoriteListCheckModal from './Modal/FavoriteListCheckModal';
 import { FavoriteClickedUser } from '../../types/favorite';
-import { typography } from '../../constants/themeValue';
+import { palette, typography } from '../../constants/themeValue';
 
 function Favorite({
   reviewId,
@@ -79,7 +79,7 @@ function Favorite({
     <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
       <EmptyFavoriteIcon
         onClick={addToFavorite}
-        fill={isMyFavorite ? 'red' : iconHoverColor}
+        fill={isMyFavorite ? palette.favorite : iconHoverColor}
         onMouseEnter={handleIconMouseEnter}
         onMouseLeave={handleIconMouseLeave}
         style={{ cursor: 'pointer' }}
