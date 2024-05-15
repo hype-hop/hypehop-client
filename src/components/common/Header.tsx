@@ -148,6 +148,7 @@ export default function MenuAppBar() {
                 open={Boolean(anchorNoti)}
                 onClose={handleCloseNoti}
                 width={256}
+                sx={{ height: 300 }}
               >
                 {notifications?.length === 0 ? (
                   <StyledMenuItem disabled>
@@ -160,7 +161,17 @@ export default function MenuAppBar() {
                       style={{ textDecoration: 'none', color: 'inherit' }}
                     >
                       <StyledMenuItem onClick={handleCloseNoti}>
-                        <Box sx={{ flexDirection: 'column' }}>
+                        <Box sx={{ flexDirection: 'column', margin: '8px 0px' }}>
+                          <Typography
+                            fontWeight="light"
+                            fontSize={typography.size.md}
+                            sx={{
+                              color: 'rgb(126, 126, 126)',
+                              mb: '4px',
+                            }}
+                          >
+                            <TimeSincePost createdAt={noti?.timestamp} />
+                          </Typography>
                           <Typography>
                             {noti?.sender_id?.name}님이&nbsp;
                             {noti?.review_id?.title}에&nbsp;
@@ -170,19 +181,6 @@ export default function MenuAppBar() {
                           </Typography>
                           <Typography fontSize={typography.size.md}>{noti?.text}</Typography>
                         </Box>
-
-                        <Typography
-                          fontWeight="light"
-                          fontSize={typography.size.md}
-                          sx={{
-                            position: 'absolute',
-                            right: '8px',
-                            paddingLeft: '4px',
-                            color: 'rgb(126, 126, 126)',
-                          }}
-                        >
-                          <TimeSincePost createdAt={noti?.timestamp} />
-                        </Typography>
                       </StyledMenuItem>
                     </Link>
                   ))
@@ -199,13 +197,14 @@ export default function MenuAppBar() {
                     fontSize={typography.size.sm}
                     sx={{
                       color: 'rgb(174, 174, 174)',
-                      margin: '8px 0 8px 16px',
+                      textAlign: 'center',
+                      margin: '16px 0 16px 0',
                       ':hover': {
                         textDecorationLine: 'underline',
                       },
                     }}
                   >
-                    최근 14일 동안 받은 알림을 모두 확인했습니다.
+                    최근 14일 동안 받은 알림을 <br /> 모두 확인했습니다.
                   </Typography>
                 </Link>
               </StyledMenu>
