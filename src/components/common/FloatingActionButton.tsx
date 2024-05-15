@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 import { typography } from '../../constants/themeValue';
-import { ReactComponent as WriteIcon } from '../../assets/icons/plus.svg';
+import { ReactComponent as PlusIcon } from '../../assets/icons/plus.svg';
 
 export default function FloatingActionButton() {
   const [isHover, setIsHover] = useState(false);
 
-  const handleMouseEnter = () => {
+  const handleMouseOver = () => {
     setIsHover(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseOut = () => {
     setIsHover(false);
   };
 
@@ -35,15 +35,19 @@ export default function FloatingActionButton() {
             width: '84px',
           },
         }}
-        onMouseOver={handleMouseEnter}
-        onMouseOut={handleMouseLeave}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
       >
         {isHover ? (
-          <Typography fontSize={typography.size.lg} fontWeight="medium">
+          <Typography
+            fontSize={typography.size.lg}
+            fontWeight="medium"
+            sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'clip' }}
+          >
             리뷰 쓰기
           </Typography>
         ) : (
-          <WriteIcon />
+          <PlusIcon />
         )}
       </Button>
     </Link>
