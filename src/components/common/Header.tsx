@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Box, Toolbar, IconButton, Typography, Button, Avatar } from '@mui/material';
+import { isMobile } from 'react-device-detect';
+import { AppBar, Box, Toolbar, IconButton, Typography, Button, Avatar, Modal } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -10,6 +10,7 @@ import { StyledMenu, StyledMenuItem } from './StyledMenu';
 
 import { ReactComponent as LogoMainIcon } from '../../assets/icons/logo-main.svg';
 import { ReactComponent as LogoSubIcon } from '../../assets/icons/logo-hover.svg';
+import { ReactComponent as CancleIcon } from '../../assets/icons/cancle.svg';
 
 import { useAuth } from '../../AuthenticationContext';
 import { typography } from '../../constants/themeValue';
@@ -18,10 +19,35 @@ import fetchNotification from '../../api/notification';
 import { Notification } from '../../types/notification';
 import TimeSincePost from '../album/TimeSincePost';
 
+function NotificationContents({ noti }) {
+  return (
+    <Box sx={{ flexDirection: 'column', margin: '8px 0px' }}>
+      <Typography
+        fontWeight="light"
+        fontSize={typography.size.md}
+        sx={{
+          color: 'rgb(126, 126, 126)',
+          mb: '4px',
+        }}
+      >
+        <TimeSincePost createdAt={noti?.timestamp} />
+      </Typography>
+      <Typography>
+        {noti?.sender_id?.name}님이&nbsp;
+        {noti?.review_id?.title}에&nbsp;
+        {noti?.type === '좋아요' ? `${noti?.type} 표시를 했습니다.` : `${noti?.type}을 달았습니다.`}
+      </Typography>
+      <Typography fontSize={typography.size.md} sx={{ mt: '4px' }}>
+        {noti?.text}
+      </Typography>
+    </Box>
+  );
+}
+
 function LogoHoverIcon() {
   const [count, setCount] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
       setCount(!count);
     }, 500);
@@ -142,72 +168,125 @@ export default function MenuAppBar() {
                 />
               </IconButton>
 
-              <StyledMenu
-                id="menu-notifications"
-                anchorEl={anchorNoti}
-                open={Boolean(anchorNoti)}
-                onClose={handleCloseNoti}
-                width={256}
-                sx={{ height: 300 }}
-              >
-                {notifications?.length === 0 ? (
-                  <StyledMenuItem disabled>
-                    <Typography>새로운 알림이 없습니다.</Typography>
-                  </StyledMenuItem>
-                ) : (
-                  notifications?.map((noti) => (
-                    <Link
-                      to={`/album/review/${noti?.review_id?._id}`}
-                      style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                      <StyledMenuItem onClick={handleCloseNoti}>
-                        <Box sx={{ flexDirection: 'column', margin: '8px 0px' }}>
-                          <Typography
-                            fontWeight="light"
-                            fontSize={typography.size.md}
-                            sx={{
-                              color: 'rgb(126, 126, 126)',
-                              mb: '4px',
-                            }}
-                          >
-                            <TimeSincePost createdAt={noti?.timestamp} />
-                          </Typography>
-                          <Typography>
-                            {noti?.sender_id?.name}님이&nbsp;
-                            {noti?.review_id?.title}에&nbsp;
-                          </Typography>
-                          <Typography>
-                            {noti?.type === '좋아요' ? `${noti?.type} 표시를 했습니다.` : `${noti?.type}을 달았습니다.`}
-                          </Typography>
-                          <Typography fontSize={typography.size.md}>{noti?.text}</Typography>
-                        </Box>
-                      </StyledMenuItem>
-                    </Link>
-                  ))
-                )}
-                <Link
-                  to="/myInformation"
-                  onClick={handleCloseNoti}
-                  style={{
-                    textDecoration: 'none',
-                    color: 'inherit',
+              {isMobile ? (
+                <Modal
+                  open={Boolean(anchorNoti)}
+                  onClose={handleCloseNoti}
+                  sx={{
+                    position: 'sticky',
+                    bottom: 0,
+                    height: '300px',
+                    bgcolor: 'rgb(25,25,25)',
+                    outline: '1px solid rgb(47, 47, 47)',
+                    borderRadius: '16px 16px 0px 0px',
+                    display: 'flex',
+                    flexDirection: 'column',
                   }}
                 >
-                  <Typography
-                    fontSize={typography.size.sm}
-                    sx={{
-                      color: 'rgb(174, 174, 174)',
-                      textAlign: 'center',
-                      margin: '16px 0 16px 0',
-                      ':hover': {
-                        textDecorationLine: 'underline',
-                      },
+                  <Box sx={{ padding: '8px' }}>
+                    <IconButton
+                      onClick={handleCloseNoti}
+                      sx={{
+                        display: 'block',
+                        marginLeft: 'auto',
+                        marginRight: 0,
+                      }}
+                    >
+                      <CancleIcon />
+                    </IconButton>
+                    <Box sx={{ height: '235px', overflowY: 'auto' }}>
+                      {notifications?.length === 0 ? (
+                        <StyledMenuItem disabled>
+                          <Typography>새로운 알림이 없습니다.</Typography>
+                        </StyledMenuItem>
+                      ) : (
+                        notifications?.map((noti) => (
+                          <Link
+                            key={noti?.review_id?._id}
+                            to={`/album/review/${noti?.review_id?._id}`}
+                            style={{ textDecoration: 'none', color: 'inherit' }}
+                          >
+                            <StyledMenuItem onClick={handleCloseNoti}>
+                              <NotificationContents noti={noti} />
+                            </StyledMenuItem>
+                          </Link>
+                        ))
+                      )}
+                      <Link
+                        to="/myInformation"
+                        onClick={handleCloseNoti}
+                        style={{
+                          textDecoration: 'none',
+                          color: 'inherit',
+                          display: 'block',
+                          marginTop: '16px',
+                          textAlign: 'center',
+                        }}
+                      >
+                        <Typography
+                          fontSize={typography.size.sm}
+                          sx={{
+                            color: 'rgb(174, 174, 174)',
+                            ':hover': {
+                              textDecorationLine: 'underline',
+                            },
+                          }}
+                        >
+                          최근 14일 동안 받은 알림을 <br /> 모두 확인했습니다.
+                        </Typography>
+                      </Link>
+                    </Box>
+                  </Box>
+                </Modal>
+              ) : (
+                <StyledMenu
+                  id="menu-notifications"
+                  anchorEl={anchorNoti}
+                  open={Boolean(anchorNoti)}
+                  onClose={handleCloseNoti}
+                  width={256}
+                  sx={{ height: 300 }}
+                >
+                  {notifications?.length === 0 ? (
+                    <StyledMenuItem disabled>
+                      <Typography>새로운 알림이 없습니다.</Typography>
+                    </StyledMenuItem>
+                  ) : (
+                    notifications?.map((noti) => (
+                      <Link
+                        to={`/album/review/${noti?.review_id?._id}`}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                      >
+                        <StyledMenuItem onClick={handleCloseNoti}>
+                          <NotificationContents noti={noti} />
+                        </StyledMenuItem>
+                      </Link>
+                    ))
+                  )}
+                  <Link
+                    to="/myInformation"
+                    onClick={handleCloseNoti}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
                     }}
                   >
-                    최근 14일 동안 받은 알림을 <br /> 모두 확인했습니다.
-                  </Typography>
-                </Link>
-              </StyledMenu>
+                    <Typography
+                      fontSize={typography.size.sm}
+                      sx={{
+                        color: 'rgb(174, 174, 174)',
+                        textAlign: 'center',
+                        margin: '16px 0 16px 0',
+                        ':hover': {
+                          textDecorationLine: 'underline',
+                        },
+                      }}
+                    >
+                      최근 14일 동안 받은 알림을 <br /> 모두 확인했습니다.
+                    </Typography>
+                  </Link>
+                </StyledMenu>
+              )}
 
               <StyledMenu
                 id="menu-appbar"
@@ -246,7 +325,13 @@ export default function MenuAppBar() {
                     height: '32px',
                   }}
                 >
-                  <Typography fontSize={typography.size.lg} fontWeight="medium" sx={{ color: 'white.main' }}>
+                  <Typography
+                    fontSize={typography.size.lg}
+                    fontWeight="medium"
+                    sx={{
+                      color: 'white.main',
+                    }}
+                  >
                     로그인
                   </Typography>
                 </Button>
