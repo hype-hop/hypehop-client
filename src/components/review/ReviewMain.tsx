@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Typography, Container, Box } from '@mui/material';
-
 import BASE_URL from '../../config';
 import { AlbumData } from '../../types/albumData';
 import AlbumCover from '../album/AlbumCover';

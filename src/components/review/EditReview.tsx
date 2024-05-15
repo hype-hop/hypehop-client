@@ -117,12 +117,7 @@ function EditReview({ data, albumData }) {
                 sx={{ borderRadius: '6.6px', marginRight: '20px' }}
               />
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <Typography
-                  textAlign="left"
-                  fontSize="fontSizeMd"
-                  fontWeight="fontWeightBold"
-                  sx={{ whiteSpace: 'nowrap' }}
-                >
+                <Typography textAlign="left" fontSize="fontSizeMd" fontWeight="fontWeightBold">
                   {data?.review.albumName}
                 </Typography>
                 <Typography
