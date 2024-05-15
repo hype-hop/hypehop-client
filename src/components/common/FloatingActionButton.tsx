@@ -35,6 +35,7 @@ export default function FloatingActionButton() {
             width: '84px',
           },
         }}
+        onClick={handleMouseOut}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
       >
