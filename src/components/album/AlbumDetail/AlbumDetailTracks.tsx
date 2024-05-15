@@ -1,5 +1,5 @@
-import { Box, Typography, Stack, Rating } from '@mui/material';
-
+import { Box, Typography, Stack } from '@mui/material';
+import CustomStar from '../../review/CustomStar';
 // import { AlbumDetailType } from '../../../types/albumDetail';
 import { typography } from '../../../constants/themeValue';
 import { AlbumData } from '../../../types/albumData';
@@ -55,11 +55,10 @@ function AlbumDetailTracks({ data }: { data: AlbumData }) {
 
                 <Box display="flex">
                   <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
-                    <Rating
+                    <CustomStar
                       name="trackRating"
                       value={Number(data?.storedAverageArr[Number(discNumber) - 1]?.values[index])}
-                      precision={0.5}
-                      readOnly
+                      edit={false}
                     />
                   </Stack>
                   <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center' }}>

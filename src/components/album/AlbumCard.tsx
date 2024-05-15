@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, Box, Typography, CardMedia, Stack, Rating } from '@mui/material';
+import { Card, Box, Typography, CardMedia, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
+import CustomStar from '../review/CustomStar';
 
 function AlbumCard({ data }) {
   const formattedDate = data?.review?.albumReleaseDate.split('T')[0];
@@ -87,15 +88,8 @@ function AlbumCard({ data }) {
               <Typography> ·{formattedDate}</Typography>
             </Box>
           </Typography>
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ paddingLeft: '20px' }}>
-            <Rating
-              name="albumRating"
-              value={Number(data?.albumRatingAverage)}
-              precision={0.5}
-              readOnly
-              size="small"
-              sx={{ textAlign: 'left' }}
-            />
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ paddingLeft: '16px' }}>
+            <CustomStar name="albumRating" value={Number(data?.albumRatingAverage)} edit={false} />
             <Typography fontSize="fontSizeSm" fontWeight="700" sx={{ alignContent: 'flex-end' }}>
               {data?.albumRatingAverage}
             </Typography>

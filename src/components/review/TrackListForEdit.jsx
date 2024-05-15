@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Stack, Rating, Box, Typography, Button } from '@mui/material';
+import { Stack, Box, Typography, Button } from '@mui/material';
 import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
 import { typography } from '../../constants/themeValue';
+import CustomStar from './CustomStar';
 
 function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandleOpen }) {
   const [trackRatingForEdit, setTrackRatingForEdit] = useState(null);
@@ -13,7 +14,7 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
   const tracksByDisc = {};
   const tracks = [];
 
-  const handleRatingChange = (event, newValue, albumIndex, trackIndex) => {
+  const handleRatingChange = (newValue, albumIndex, trackIndex) => {
     const updatedState = [...trackRatingForEdit];
     updatedState[albumIndex].trackRating[trackIndex] = newValue;
     setTrackRatingForEdit(updatedState);
@@ -87,7 +88,7 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
                       {title.split('.')[1]}
                     </Typography>
                     <Typography
-                      sx={{ color: 'rgb(168, 168, 168)', mt: '4px', whiteSpace: 'nowrap' }}
+                      sx={{ color: 'rgb(168, 168, 168)', mt: '4px' }}
                       fontSize={typography.size.md}
                       fontWeight={typography.weight.regular}
                       textAlign="left"
@@ -99,14 +100,13 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
 
                 <Box sx={{ display: 'flex' }}>
                   <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
-                    <Rating
+                    <CustomStar
                       name="trackRating"
                       value={album.trackRating[trackIndex]}
-                      precision={0.5}
-                      onChange={(event, newValue) => handleRatingChange(event, newValue, albumIndex, trackIndex)}
+                      onChange={(newValue) => handleRatingChange(newValue, albumIndex, trackIndex)}
                     />
                   </Stack>
-                  <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center' }}>
+                  <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center', width: '17px' }}>
                     {Number(album.trackRating[trackIndex]).toFixed(1)}
                   </Typography>
                 </Box>

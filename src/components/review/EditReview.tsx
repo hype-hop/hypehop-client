@@ -1,4 +1,3 @@
-import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Button, Box, Input, Typography, Container, MenuItem, Select } from '@mui/material';
@@ -7,6 +6,7 @@ import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
 import EditorBox from './EditorBox';
 import BASE_URL from '../../config';
 import TrackListForEdit from './TrackListForEdit';
+import CustomStarEdit from './CustomStarEdit';
 
 function EditReview({ data, albumData }) {
   const navigate = useNavigate();
@@ -131,15 +131,13 @@ function EditReview({ data, albumData }) {
               </Box>
 
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%', alignItems: 'center' }}>
-                <Rating
-                  name="albumRating"
-                  value={formData.albumRating}
-                  precision={0.5}
-                  onChange={handleFormData}
-                  sx={{ mr: '3px' }}
-                />
+                <CustomStarEdit name="albumRating" value={formData.albumRating} onChange={handleFormData} />
 
-                <Typography fontSize="fontSizeMd" fontWeight="fontWeightRegular" sx={{ alignContent: 'center' }}>
+                <Typography
+                  fontSize="fontSizeMd"
+                  fontWeight="fontWeightRegular"
+                  sx={{ alignContent: 'center', ml: '4px', width: '17px' }}
+                >
                   {Number(formData.albumRating).toFixed(1)}
                 </Typography>
               </Box>
