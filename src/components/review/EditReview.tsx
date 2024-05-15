@@ -130,7 +130,15 @@ function EditReview({ data, albumData }) {
                 </Typography>
               </Box>
 
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%', alignItems: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  width: '100%',
+                  alignItems: 'center',
+                  minWidth: 'fit-content',
+                }}
+              >
                 <CustomStarEdit name="albumRating" value={formData.albumRating} onChange={handleFormData} />
 
                 <Typography

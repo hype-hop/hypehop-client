@@ -98,7 +98,7 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
                   </Box>
                 </Box>
 
-                <Box sx={{ display: 'flex' }}>
+                <Box sx={{ display: 'flex', minWidth: 'fit-content' }}>
                   <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
                     <CustomStar
                       name="trackRating"

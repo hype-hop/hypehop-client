@@ -42,7 +42,7 @@ function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
           </Box>
         </Box>
       </Box>
-      <Box display="flex">
+      <Box display="flex" sx={{ minWidth: 'fit-content' }}>
         <CustomStar
           name="albumRating"
           value={rating}

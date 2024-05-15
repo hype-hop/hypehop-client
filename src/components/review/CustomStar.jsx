@@ -10,7 +10,6 @@ function CustomStars(props) {
     filledIcon: <FullStar />,
     count: 5,
     isHalf: true,
-    // name: props.name,
     ...props,
   };
 
