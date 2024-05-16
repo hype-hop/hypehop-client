@@ -53,7 +53,7 @@ function AlbumDetailTracks({ data }: { data: AlbumData }) {
                   </Box>
                 </Box>
 
-                <Box display="flex">
+                <Box display="flex" sx={{ minWidth: 'fit-content' }}>
                   <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
                     <CustomStar
                       name="trackRating"

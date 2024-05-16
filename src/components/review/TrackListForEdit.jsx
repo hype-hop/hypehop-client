@@ -50,11 +50,11 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
         border: '1px solid rgb(52, 52, 52) ',
       }}
     >
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box onClick={onHandleOpen} sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography sx={{ mt: '16px' }} fontSize="14px" fontWeight="500" ml="16px" textAlign="left">
           트랙리스트 닫기
         </Typography>
-        <Button sx={{ mt: '8px', mb: '8px' }} onClick={onHandleOpen}>
+        <Button sx={{ mt: '8px', mb: '8px' }}>
           <ArrowUp />
         </Button>
       </Box>

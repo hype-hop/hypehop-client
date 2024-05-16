@@ -264,7 +264,7 @@ function WriteReview({ userData }) {
                   borderRadius: '16px',
                 }}
               >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box onClick={handleOpen} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Typography
                     fontSize={typography.size.lg}
                     fontWeight={typography.weight.medium}
@@ -272,14 +272,13 @@ function WriteReview({ userData }) {
                   >
                     트랙리스트 닫기
                   </Typography>
-                  <Button sx={{ mt: '8px', mb: '8px' }} onClick={handleOpen}>
-                    {isTrackListOpened ? <ArrowUp /> : <ArrowDown />}
-                  </Button>
+                  <Button sx={{ mt: '8px', mb: '8px' }}>{isTrackListOpened ? <ArrowUp /> : <ArrowDown />}</Button>
                 </Box>
                 {renderTracks}
               </Box>
             ) : (
               <Box
+                onClick={handleOpen}
                 sx={{
                   display: 'flex',
                   justifyContent: 'space-between',
@@ -305,7 +304,7 @@ function WriteReview({ userData }) {
                 >
                   트랙리스트 펼치기
                 </Typography>
-                <Button onClick={handleOpen}>
+                <Button>
                   <ArrowDown />
                 </Button>
               </Box>

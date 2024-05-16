@@ -50,26 +50,28 @@ function AlbumCard({ data }) {
         </Link>
         <Box>
           <Typography
-            fontSize="fontSizeMd"
-            fontWeight="fontWeightBold"
+            fontSize="12"
+            fontWeight="400"
             sx={{
               paddingTop: '4px',
               paddingLeft: '20px',
               textAlign: 'left',
-              whiteSpace: 'nowrap',
             }}
           >
             {data?.review?.artists ? (
-              <Typography align="left"> {data?.review?.albumName}</Typography>
+              <Typography fontSize="16px" fontWeight="700" align="left">
+                {' '}
+                {data?.review?.albumName}
+              </Typography>
             ) : (
-              <Typography align="left" fontSize="fontSizeMd">
+              <Typography fontSize="16px" fontWeight="700" align="left">
                 {data.review?.albumTitle.split('-', 2)[1]}
               </Typography>
             )}
           </Typography>
           <Typography
-            fontSize="fontSizeSm"
-            fontWeight="fontWeightLight"
+            fontSize="12px"
+            fontWeight="400"
             color="grey.main"
             sx={{
               paddingLeft: '20px',
@@ -79,9 +81,12 @@ function AlbumCard({ data }) {
           >
             <Box display="flex">
               {data?.review?.artists ? (
-                <Typography align="left"> {data?.review?.artists}</Typography>
+                <Typography fontSize="12px" fontWeight="400" align="left">
+                  {' '}
+                  {data?.review?.artists}
+                </Typography>
               ) : (
-                <Typography align="left" fontSize="fontSizeMd">
+                <Typography fontSize="12px" fontWeight="400" align="left">
                   {data.review?.albumTitle.split('-', 2)[0]}
                 </Typography>
               )}

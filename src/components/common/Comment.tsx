@@ -170,7 +170,12 @@ function Comment({ reviewId, user }: Props) {
                 display: 'flex',
               }}
             >
-              <img style={{ width: '28px', height: '28px', borderRadius: '50%' }} src={comment.user.image} alt="user" />
+              <Avatar
+                style={{ width: '28px', height: '28px', borderRadius: '50%' }}
+                src={comment.user.image}
+                alt="user"
+              />
+
               <Typography
                 variant="body1"
                 color="primary"

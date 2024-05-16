@@ -3,7 +3,7 @@ import { ReactComponent as FullStar } from '../../assets/icons/fullStar.svg';
 import { ReactComponent as HalfStar } from '../../assets/icons/halfStar.svg';
 import { ReactComponent as EmptyStar } from '../../assets/icons/emptyStar.svg';
 
-function CustomStars({ name, onChange, ...props }) {
+function CustomStarEdit({ name, onChange, ...props }) {
   const mergedProps = {
     emptyIcon: <EmptyStar />,
     halfIcon: <HalfStar />,
@@ -18,4 +18,4 @@ function CustomStars({ name, onChange, ...props }) {
   return <ReactStars {...mergedProps} />;
 }
 
-export default CustomStars;
+export default CustomStarEdit;
