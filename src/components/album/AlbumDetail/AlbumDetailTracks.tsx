@@ -20,7 +20,7 @@ function AlbumDetailTracks({ data }: { data: AlbumData }) {
   return (
     <>
       {Object.keys(tracksByDisc).map((discNumber) => (
-        <Box key={discNumber} sx={{ padding: '16px 16px 16px 16px' }}>
+        <Box key={discNumber} sx={{ padding: '16px 16px 16px 16px', bgcolor: 'rgb(27, 27, 27)', borderRadius: '16px' }}>
           <Typography variant="h1">Disc {discNumber}</Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             {tracksByDisc[discNumber].map((track, index) => (
