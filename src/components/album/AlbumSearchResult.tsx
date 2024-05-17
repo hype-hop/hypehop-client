@@ -12,7 +12,7 @@ function ResultBox({ children }: { children: ReactNode }) {
         flexDirection: 'column',
         rowGap: '20px',
         backgroundColor: 'rgb(22, 22, 22)',
-        padding: '34px 45px',
+        padding: '16px',
         borderRadius: '16px',
         borderTopRightRadius: 0,
         borderTopLeftRadius: 0,
@@ -39,7 +39,15 @@ function Result({
     <ResultBox>
       {data.map((album) => (
         <Box
-          sx={{ display: 'flex', cursor: 'pointer' }}
+          sx={{
+            display: 'flex',
+            cursor: 'pointer',
+            padding: '8px',
+            borderRadius: '8px',
+            '&:hover': {
+              background: 'rgb(46, 45, 45)',
+            },
+          }}
           onClick={() => {
             setSelectedAlbum({ ...album, rating: INITIAL_RATING_VALUE });
             setKeyword(null);
