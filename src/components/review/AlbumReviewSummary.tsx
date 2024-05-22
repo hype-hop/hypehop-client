@@ -1,11 +1,11 @@
-import { Avatar, Box, Card, CardActions, CardContent, Rating, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import TimeSincePost from '../album/TimeSincePost';
 import Favorite from '../common/Favorite';
 import { Review } from '../../types/review';
 import { typography } from '../../constants/themeValue';
 import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
-import PRECISION from '../../constants/ratingPrecision';
+import CustomStar from './CustomStar';
 
 function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; isMyReview?: boolean }) {
   const router = useNavigate();
@@ -76,7 +76,8 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
                   <TimeSincePost createdAt={createdAt} />{' '}
                 </Typography>
               </Box>
-              <Rating readOnly value={albumRating} precision={PRECISION} />
+
+              <CustomStar edit={false} value={albumRating} activeColor="#ffd700" />
             </Box>
           </Box>
         )}

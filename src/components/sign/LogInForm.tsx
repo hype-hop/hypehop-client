@@ -52,6 +52,10 @@ function LogInForm() {
     setIsTyping(true);
   };
 
+  if (isError && isTyping) {
+    navigate('/login');
+  }
+
   return (
     <>
       <Typography

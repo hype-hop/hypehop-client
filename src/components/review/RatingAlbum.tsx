@@ -1,17 +1,8 @@
-import { Box, Rating, Typography } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { Box, Typography } from '@mui/material';
 import { AlbumSearchResult } from '../../types/albumSearch';
-import PRECISION from '../../constants/ratingPrecision';
 import { typography } from '../../constants/themeValue';
 
-const starIconStyle = {
-  marginTop: '0.5px',
-  marginBottom: '0.5px',
-  // width: '15px',
-  // height: '15px',
-  color: 'star.main',
-};
+import CustomStar from './CustomStar';
 
 type RatingAlbumProps = {
   album: AlbumSearchResult;
@@ -51,21 +42,20 @@ function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
           </Box>
         </Box>
       </Box>
-      <Box display="flex">
-        <Rating
+      <Box display="flex" sx={{ minWidth: 'fit-content' }}>
+        <CustomStar
           name="albumRating"
           value={rating}
-          icon={<StarIcon sx={{ ...starIconStyle }} />}
-          emptyIcon={<StarBorderIcon sx={{ ...starIconStyle }} />}
-          precision={PRECISION}
-          onChange={(_, value: number | null) => {
-            setRating(value!);
+          onChange={(value) => {
+            setRating(value);
           }}
+          activeColor="#ffd700"
         />
+
         <Typography
           fontSize={typography.size.md}
           fontWeight="600"
-          sx={{ ml: '2px', alignContent: 'center', justifyContent: 'center' }}
+          sx={{ ml: '4px', alignContent: 'center', justifyContent: 'center', width: '17px' }}
         >
           {Number(rating).toFixed(1)}
         </Typography>

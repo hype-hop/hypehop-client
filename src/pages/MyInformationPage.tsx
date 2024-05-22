@@ -16,16 +16,16 @@ function MyPage() {
   const [user] = useAuth();
   const { currentTab, handleChangeCurrentTab, tabProps } = useTabs('my-information-tab');
   const [open, setOpen] = useState(false);
+  const [refreshCount, setRefreshCount] = useState(0);
   useEffect(() => {
     (async () => {
       const res = await getMyInformation();
 
       if (res.success) {
         setData(res.data);
-        console.log(res.data);
       }
     })();
-  }, []);
+  }, [refreshCount]);
 
   if (!user) {
     navigate(`/login`);
@@ -54,10 +54,10 @@ function MyPage() {
       </Tabs>
 
       <TabPanel value={currentTab} index={0}>
-        {data?.reviews && <MyReviews reviews={data?.reviews} />}
+        {data?.reviews && <MyReviews reviews={data?.reviews} setRefreshCount={setRefreshCount} />}
       </TabPanel>
       <TabPanel value={currentTab} index={1}>
-        {data?.favReviews && <MyReviews reviews={data?.favReviews} />}
+        {data?.favReviews && <MyReviews reviews={data?.favReviews} setRefreshCount={setRefreshCount} />}
       </TabPanel>
     </>
   );

@@ -1,4 +1,4 @@
-import Rating from '@mui/material/Rating';
+// import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Input, Button, Typography, Box, Select, MenuItem } from '@mui/material';
@@ -18,6 +18,7 @@ import WriteReviewBefore from './WriteReviewBefore';
 import Duplicate from '../common/Modal/Duplicate';
 import { typography } from '../../constants/themeValue';
 import INITIAL_RATING_VALUE from '../../constants/rating';
+import CustomStar from './CustomStar';
 
 function WriteReview({ userData }) {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ function WriteReview({ userData }) {
   const [data, setData] = useState<AlbumData | null>(null);
   const [open, setOpen] = useState(true);
   const [isTrackListOpened, SetsTrackListOpened] = useState(false);
+  const [albumRatingState, setAlbumRatingState] = useState(0);
 
   useEffect(() => {
     if (searchParams.get('keyword')) {
@@ -82,7 +84,8 @@ function WriteReview({ userData }) {
 
     body: '',
     albumTitle: data?.pageTitle,
-    albumRating: selectedAlbum?.rating,
+    // albumRating: selectedAlbum?.rating,
+    albumRating: 0,
     artists: [],
     albumName: data?.albumData?.name,
     albumId: data?.albumData?.id,
@@ -97,10 +100,11 @@ function WriteReview({ userData }) {
     if (data) {
       setFormData({
         ...formData,
-        albumRating: selectedAlbum?.rating,
+        // albumRating: selectedAlbum?.rating,
+        albumRating: albumRatingState,
         albumId: data.albumData?.id,
         albumTitle: data?.pageTitle,
-        thumbnail: data.albumData?.images[1].url,
+        thumbnail: data.albumData?.images[1]?.url,
         albumReleaseDate: data.albumData?.release_date,
         user: userData?._id,
         trackTitle: tracks,
@@ -127,15 +131,15 @@ function WriteReview({ userData }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(trackRating);
 
-    if (formData.albumRating !== 0 && formData.title !== '') {
-      const combinedData = {
-        ...formData,
-        trackRating,
-        body: reviewContent,
-      };
+    const combinedData = {
+      ...formData,
+      trackRating,
+      body: reviewContent,
+      albumRating: albumRatingState,
+    };
 
+    if (albumRatingState !== 0 && formData.title !== '') {
       fetch(`${BASE_URL}/album/api/review/create`, {
         method: 'POST',
         credentials: 'include',
@@ -152,7 +156,7 @@ function WriteReview({ userData }) {
           const ensuredError = ensureError(error);
           return { success: false, error: ensuredError };
         });
-    } else if (formData.albumRating === 0) {
+    } else if (albumRatingState === 0) {
       alert('평점을 입력해주세요');
     } else if (formData.title === '') {
       alert('앨범평을 입력해주세요');
@@ -180,11 +184,7 @@ function WriteReview({ userData }) {
                 </Typography>
               </Box>
               <Box>
-                <Typography
-                  sx={{ whiteSpace: 'nowrap' }}
-                  fontSize={typography.size.lg}
-                  fontWeight={typography.weight.bold}
-                >
+                <Typography sx={{}} fontSize={typography.size.lg} fontWeight={typography.weight.bold}>
                   {track.name}
                 </Typography>
                 <Typography
@@ -197,20 +197,19 @@ function WriteReview({ userData }) {
               </Box>
             </Box>
             {trackRating && (
-              <Box display="flex">
+              <Box display="flex" sx={{ minWidth: 'fit-content' }}>
                 <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
-                  <Rating
+                  <CustomStar
                     name="trackRating"
                     value={trackRating[index]}
-                    precision={0.5}
-                    onChange={(event, newValue) => {
+                    onChange={(newValue) => {
                       const updatedRating: number[] = [...trackRating];
                       updatedRating[index] = newValue!;
                       setTrackRating(updatedRating);
                     }}
                   />
                 </Stack>
-                <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center' }}>
+                <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center', width: '17px' }}>
                   {Number(trackRating[index]).toFixed(1)}
                 </Typography>
               </Box>
@@ -250,10 +249,16 @@ function WriteReview({ userData }) {
             </Typography>
             <RatingAlbum
               album={selectedAlbum!}
-              rating={selectedAlbum.rating!}
+              rating={albumRatingState}
+              setRating={(rating: number) => {
+                setAlbumRatingState(rating);
+              }}
+
+              /*
               setRating={(rating: number) => {
                 setSelectedAlbum((prev) => ({ ...prev!, rating }));
               }}
+              */
             />
             <Typography
               sx={{
@@ -273,7 +278,7 @@ function WriteReview({ userData }) {
                   borderRadius: '16px',
                 }}
               >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box onClick={handleOpen} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Typography
                     fontSize={typography.size.lg}
                     fontWeight={typography.weight.medium}
@@ -281,14 +286,13 @@ function WriteReview({ userData }) {
                   >
                     트랙리스트 닫기
                   </Typography>
-                  <Button sx={{ mt: '8px', mb: '8px' }} onClick={handleOpen}>
-                    {isTrackListOpened ? <ArrowUp /> : <ArrowDown />}
-                  </Button>
+                  <Button sx={{ mt: '8px', mb: '8px' }}>{isTrackListOpened ? <ArrowUp /> : <ArrowDown />}</Button>
                 </Box>
                 {renderTracks}
               </Box>
             ) : (
               <Box
+                onClick={handleOpen}
                 sx={{
                   display: 'flex',
                   justifyContent: 'space-between',
@@ -314,7 +318,7 @@ function WriteReview({ userData }) {
                 >
                   트랙리스트 펼치기
                 </Typography>
-                <Button onClick={handleOpen}>
+                <Button>
                   <ArrowDown />
                 </Button>
               </Box>

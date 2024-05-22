@@ -1,5 +1,10 @@
 import { Review } from './review';
 
+interface AlbumDetailStoredAverage {
+  key: number;
+  values: string[];
+}
+
 export interface AlbumData {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   albumData: any;
@@ -7,7 +12,7 @@ export interface AlbumData {
   disc_total: number[];
   albumRatingAverage: string;
   reviews: Review[];
-  storedAverageArr: number[];
+  storedAverageArr: AlbumDetailStoredAverage[];
   reviewUser: string[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   spotify_artist_genre: any;

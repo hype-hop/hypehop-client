@@ -9,15 +9,15 @@ import {
   CardActions,
   Avatar,
   CircularProgress,
-  Rating,
 } from '@mui/material';
-import PRECISION from '../constants/ratingPrecision';
+
 import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 import TimeSincePost from '../components/album/TimeSincePost';
 import Favorite from '../components/common/Favorite';
 import BASE_URL from '../config';
 import { Review } from '../types/review';
 import { typography } from '../constants/themeValue';
+import CustomStar from '../components/review/CustomStar';
 
 interface InitialData {
   totalPage: number;
@@ -89,7 +89,7 @@ function ReviewsPage() {
     };
 
     const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
         loadMoreData();
       }
     };
@@ -195,7 +195,7 @@ function ReviewsPage() {
                       </Typography>
                     </Box>
                     <Box sx={{ ml: '4px' }}>
-                      <Rating readOnly value={review.albumRating} precision={PRECISION} />
+                      <CustomStar edit={false} value={review.albumRating} />
                     </Box>
                   </Box>
                 </Box>

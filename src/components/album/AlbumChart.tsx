@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import { Box, Typography, Card, CardMedia, CardContent, Rating } from '@mui/material';
+import { Box, Typography, Card, CardMedia, CardContent } from '@mui/material';
 // import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+
 import { useState, useEffect } from 'react';
 import { AlbumCharts } from '../../types/albumChart';
 import BASE_URL from '../../config';
 import { typography } from '../../constants/themeValue';
+import CustomStar from '../review/CustomStar';
 
 function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: number) {
   // const theme = useTheme();
@@ -88,51 +88,29 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                     align="left"
                     fontSize={typography.size.md}
                     fontWeight={typography.weight.regular}
-                    sx={{ color: 'rgb(168, 168, 168)' }}
+                    sx={{ mt: '4px 0px', color: 'rgb(168, 168, 168)' }}
                   >
                     {item.artists}
                   </Typography>
                 ) : (
+
+                  <Typography align="left" fontSize={typography.size.md} fontWeight={typography.weight.regular}>
+
                   <Typography
                     align="left"
                     fontSize={typography.size.md}
                     fontWeight={typography.weight.regular}
-                    sx={{ color: 'rgb(168, 168, 168)' }}
+                    sx={{ margin: '4px 0px', color: 'rgb(168, 168, 168)' }}
                   >
+
                     {item.albumTitle.split('-', 2)[0]}
                   </Typography>
                 )}
                 <Box sx={{ display: 'flex' }}>
-                  <Rating
-                    name="half-rating-read"
-                    value={item.averageRating}
-                    precision={0.5}
-                    icon={
-                      <StarIcon
-                        sx={{
-                          marginTop: '0.5px',
-                          marginBottom: '0.5px',
-                          width: '15px',
-                          height: '15px',
-                          color: 'star.main',
-                        }}
-                      />
-                    }
-                    emptyIcon={
-                      <StarBorderIcon
-                        sx={{
-                          marginTop: '0.5px',
-                          marginBottom: '0.5px',
-                          width: '15px',
-                          height: '15px',
-                          color: 'star.main',
-                        }}
-                      />
-                    }
-                    sx={{ marginRight: '4px' }}
-                    readOnly
-                  />
-                  <Typography fontSize="fontSizeXs">{item.averageRating.toFixed(1)}</Typography>
+                  <CustomStar name="half-rating-read" value={item.averageRating} edit={false} />
+                  <Typography sx={{ ml: '4px', mt: '4px' }} fontSize="fontSizeXs">
+                    {item.averageRating.toFixed(1)}
+                  </Typography>
                 </Box>
               </CardContent>
             </Card>
