@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Box, Button, Container, Typography } from '@mui/material';
 import BASE_URL from '../config';
-import { useAuth } from '../AuthenticationContext';
+
 import AlbumDetailInformation from '../components/album/AlbumDetail/AlbumDetailInformation';
-// import AlbumDetailTracks from '../components/AlbumDetail/AlbumDetailTracks';
+import AlbumDetailTracks from '../components/album/AlbumDetail/AlbumDetailTracks';
 import AlbumReviewSummary from '../components/review/AlbumReviewSummary';
 import { AlbumData } from '../types/albumData';
 import { Review } from '../types/review';
@@ -13,9 +13,6 @@ import { Review } from '../types/review';
 function AlbumShowPage() {
   const { id } = useParams();
   const [data, setData] = useState<AlbumData | null>(null);
-
-  const [user] = useAuth();
-  const navigate = useNavigate();
 
   const parsedReviews = (reviews: Review[]) => {
     return reviews.splice(0, 4);
@@ -54,10 +51,6 @@ function AlbumShowPage() {
   //   })();
   // }, [data]);
 
-  if (!user) {
-    navigate('/login');
-  }
-
   return (
     data && (
       <Container>
@@ -68,7 +61,7 @@ function AlbumShowPage() {
             </Typography>
             <AlbumDetailInformation data={data} />
           </Box>
-          {/* <AlbumDetailTracks data={data} /> */}
+          <AlbumDetailTracks data={data} />
 
           <Box>
             <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">

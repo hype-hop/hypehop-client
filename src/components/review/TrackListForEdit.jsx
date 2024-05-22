@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Stack, Rating, Box, Typography, Button } from '@mui/material';
+import { Stack, Box, Typography, Button } from '@mui/material';
 import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
 import { typography } from '../../constants/themeValue';
+import CustomStar from './CustomStar';
 
 function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandleOpen }) {
   const [trackRatingForEdit, setTrackRatingForEdit] = useState(null);
@@ -13,7 +14,7 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
   const tracksByDisc = {};
   const tracks = [];
 
-  const handleRatingChange = (event, newValue, albumIndex, trackIndex) => {
+  const handleRatingChange = (newValue, albumIndex, trackIndex) => {
     const updatedState = [...trackRatingForEdit];
     updatedState[albumIndex].trackRating[trackIndex] = newValue;
     setTrackRatingForEdit(updatedState);
@@ -25,7 +26,6 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
       setTrackRatingForEdit(data?.review.tracks);
       const trackRatingArray = Array(data?.review.tracks.length || 0).fill(null);
       setTrackRating(trackRatingArray);
-      console.log(trackRatingForEdit);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, data]);
@@ -50,11 +50,11 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
         border: '1px solid rgb(52, 52, 52) ',
       }}
     >
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box onClick={onHandleOpen} sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography sx={{ mt: '16px' }} fontSize="14px" fontWeight="500" ml="16px" textAlign="left">
           트랙리스트 닫기
         </Typography>
-        <Button sx={{ mt: '8px', mb: '8px' }} onClick={onHandleOpen}>
+        <Button sx={{ mt: '8px', mb: '8px' }}>
           <ArrowUp />
         </Button>
       </Box>
@@ -84,16 +84,11 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
                   </Box>
 
                   <Box>
-                    <Typography
-                      fontSize={typography.size.lg}
-                      fontWeight={typography.weight.bold}
-                      textAlign="left"
-                      sx={{ whiteSpace: 'nowrap' }}
-                    >
+                    <Typography fontSize={typography.size.lg} fontWeight={typography.weight.bold} textAlign="left">
                       {title.split('.')[1]}
                     </Typography>
                     <Typography
-                      sx={{ color: 'rgb(168, 168, 168)', mt: '4px', whiteSpace: 'nowrap' }}
+                      sx={{ color: 'rgb(168, 168, 168)', mt: '4px' }}
                       fontSize={typography.size.md}
                       fontWeight={typography.weight.regular}
                       textAlign="left"
@@ -103,16 +98,15 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
                   </Box>
                 </Box>
 
-                <Box sx={{ display: 'flex' }}>
+                <Box sx={{ display: 'flex', minWidth: 'fit-content' }}>
                   <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
-                    <Rating
+                    <CustomStar
                       name="trackRating"
                       value={album.trackRating[trackIndex]}
-                      precision={0.5}
-                      onChange={(event, newValue) => handleRatingChange(event, newValue, albumIndex, trackIndex)}
+                      onChange={(newValue) => handleRatingChange(newValue, albumIndex, trackIndex)}
                     />
                   </Stack>
-                  <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center' }}>
+                  <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center', width: '17px' }}>
                     {Number(album.trackRating[trackIndex]).toFixed(1)}
                   </Typography>
                 </Box>

@@ -13,8 +13,6 @@ function UserPage() {
         const response = await fetch(`${BASE_URL}/api/user/${userId}`);
         const result = await response.json();
         setData(result);
-
-        console.log(result.reviews);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

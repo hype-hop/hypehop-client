@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, Box, Typography, CardMedia, Stack, Rating } from '@mui/material';
+import { Card, Box, Typography, CardMedia, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
+import CustomStar from '../review/CustomStar';
 
 function AlbumCard({ data }) {
   const formattedDate = data?.review?.albumReleaseDate.split('T')[0];
@@ -49,26 +50,28 @@ function AlbumCard({ data }) {
         </Link>
         <Box>
           <Typography
-            fontSize="fontSizeMd"
-            fontWeight="fontWeightBold"
+            fontSize="12"
+            fontWeight="400"
             sx={{
               paddingTop: '4px',
               paddingLeft: '20px',
               textAlign: 'left',
-              whiteSpace: 'nowrap',
             }}
           >
             {data?.review?.artists ? (
-              <Typography align="left"> {data?.review?.albumName}</Typography>
+              <Typography fontSize="16px" fontWeight="700" align="left">
+                {' '}
+                {data?.review?.albumName}
+              </Typography>
             ) : (
-              <Typography align="left" fontSize="fontSizeMd">
+              <Typography fontSize="16px" fontWeight="700" align="left">
                 {data.review?.albumTitle.split('-', 2)[1]}
               </Typography>
             )}
           </Typography>
           <Typography
-            fontSize="fontSizeSm"
-            fontWeight="fontWeightLight"
+            fontSize="12px"
+            fontWeight="400"
             color="grey.main"
             sx={{
               paddingLeft: '20px',
@@ -78,24 +81,20 @@ function AlbumCard({ data }) {
           >
             <Box display="flex">
               {data?.review?.artists ? (
-                <Typography align="left"> {data?.review?.artists}</Typography>
+                <Typography fontSize="12px" fontWeight="400" align="left">
+                  {' '}
+                  {data?.review?.artists}
+                </Typography>
               ) : (
-                <Typography align="left" fontSize="fontSizeMd">
+                <Typography fontSize="12px" fontWeight="400" align="left">
                   {data.review?.albumTitle.split('-', 2)[0]}
                 </Typography>
               )}
               <Typography> ·{formattedDate}</Typography>
             </Box>
           </Typography>
-          <Stack direction="row" alignItems="center" spacing={1} sx={{ paddingLeft: '20px' }}>
-            <Rating
-              name="albumRating"
-              value={Number(data?.albumRatingAverage)}
-              precision={0.5}
-              readOnly
-              size="small"
-              sx={{ textAlign: 'left' }}
-            />
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ paddingLeft: '16px' }}>
+            <CustomStar name="albumRating" value={Number(data?.albumRatingAverage)} edit={false} />
             <Typography fontSize="fontSizeSm" fontWeight="700" sx={{ alignContent: 'flex-end' }}>
               {data?.albumRatingAverage}
             </Typography>

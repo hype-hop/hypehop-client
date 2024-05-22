@@ -1,5 +1,5 @@
 import { Box, Link, Typography } from '@mui/material';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MyReview } from '../../types/review';
 import { ReactComponent as Hamburger } from '../../assets/icons/hamburger.svg';
 import { ReactComponent as Edit } from '../../assets/icons/edit-review.svg';
@@ -9,15 +9,35 @@ import BASE_URL from '../../config';
 import AlbumCover from '../album/AlbumCover';
 import AlbumReviewSummary from '../review/AlbumReviewSummary';
 import { typography } from '../../constants/themeValue';
+import Warning from '../common/Modal/Warning';
 
-export default function MyReviews({ reviews }: { reviews: MyReview[] }) {
+interface MyReviewsProps {
+  reviews: MyReview[];
+  setRefreshCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) {
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const [toEditReview, setToEditReview] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+
   const deleteMyReview = async (id: string) => {
-    await fetch(`${BASE_URL}/album/api/review/delete/${id}`, {
-      method: 'DELETE',
-    });
+    try {
+      setRefreshCount((count) => count + 1);
+      setOpen(false);
+      const response = await fetch(`${BASE_URL}/album/api/review/delete/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
+
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 2 }} gap={3}>
       {reviews?.map((review) => (
@@ -52,6 +72,7 @@ export default function MyReviews({ reviews }: { reviews: MyReview[] }) {
           >
             <Hamburger>열기</Hamburger>
           </Box>
+
           <StyledMenu width={100} anchorEl={openMenu} open={Boolean(openMenu)} onClose={() => setOpenMenu(null)}>
             <Link sx={{ textDecoration: 'none' }} href={`/album/review/edit/${toEditReview}`}>
               <StyledMenuItem sx={{ height: '30px', padding: '9.75px' }}>
@@ -64,7 +85,7 @@ export default function MyReviews({ reviews }: { reviews: MyReview[] }) {
             <StyledMenuItem
               sx={{ height: '30px', padding: '9.75px' }}
               onClick={() => {
-                deleteMyReview(toEditReview!);
+                setOpen(true);
               }}
             >
               <Delete />
@@ -73,6 +94,7 @@ export default function MyReviews({ reviews }: { reviews: MyReview[] }) {
               </Typography>
             </StyledMenuItem>
           </StyledMenu>
+
           <AlbumCover
             albumId={review.albumId}
             url={review.thumbnail}
@@ -82,6 +104,7 @@ export default function MyReviews({ reviews }: { reviews: MyReview[] }) {
           <AlbumReviewSummary review={review} isMyReview />
         </Box>
       ))}
+      <Warning open={open} setOpen={setOpen} handleDelete={() => deleteMyReview(toEditReview!)} />
     </Box>
   );
 }

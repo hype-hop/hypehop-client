@@ -1,9 +1,7 @@
-import { Box, Rating, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { typography } from '../../../constants/themeValue';
-
 import { AlbumData } from '../../../types/albumData';
-
-import PRECISION from '../../../constants/ratingPrecision';
+import CustomStar from '../../review/CustomStar';
 
 function AlbumDetailInformation({ data }: { data: AlbumData }) {
   return (
@@ -38,7 +36,7 @@ function AlbumDetailInformation({ data }: { data: AlbumData }) {
           </Box>
           {data?.albumRatingAverage ? (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Rating value={Number(data?.albumRatingAverage)} readOnly precision={PRECISION} />
+              <CustomStar value={Number(data?.albumRatingAverage)} edit={false} />
               <Typography component="div" fontSize={typography.size.md} fontWeight="medium" lineHeight={1}>
                 {data?.albumRatingAverage}
               </Typography>
