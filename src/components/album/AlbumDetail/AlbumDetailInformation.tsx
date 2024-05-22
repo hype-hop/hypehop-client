@@ -1,8 +1,7 @@
-import { Box, Rating, Skeleton, Typography } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 import { typography } from '../../../constants/themeValue';
 import { AlbumData } from '../../../types/albumData';
 import CustomStar from '../../review/CustomStar';
-import PRECISION from '../../../constants/ratingPrecision';
 
 function AlbumDetailInformation({ data }: { data?: AlbumData }) {
   return (
@@ -36,7 +35,7 @@ function AlbumDetailInformation({ data }: { data?: AlbumData }) {
           ) : (
             <Skeleton variant="rounded" />
           )}
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', mt: 0.5 }}>
             {data?.albumData.artists.map((artist, index) => (
               <Typography key={index} color="grey.main">
                 {artist.name}{' '}
@@ -44,6 +43,7 @@ function AlbumDetailInformation({ data }: { data?: AlbumData }) {
               </Typography>
             ))}
           </Box>
+          {!data?.albumRatingAverage && <Skeleton />}
           {!Number.isNaN(Number(data?.albumRatingAverage)) && (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <CustomStar value={Number(data?.albumRatingAverage)} edit={false} />
@@ -52,31 +52,6 @@ function AlbumDetailInformation({ data }: { data?: AlbumData }) {
               </Typography>
             </Box>
           )}
-
-          <Box sx={{ display: 'flex', mt: '2px' }}>
-            {data?.albumData.artists.length > 0 ? (
-              data?.albumData.artists.map((artist, index) => (
-                <Typography key={index} color="grey.main">
-                  {artist.name}{' '}
-                  {data?.albumData.artists.length > 1 && index < data!.albumData!.artists!.length - 1 && '· '}
-                </Typography>
-              ))
-            ) : (
-              <Skeleton variant="rounded" width="40px" />
-            )}
-          </Box>
-          {!data?.albumRatingAverage && <Skeleton />}
-          {data &&
-            (Number.isNaN(data?.albumRatingAverage) ? (
-              <Typography>평점이 없습니다.</Typography>
-            ) : (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Rating value={Number(data?.albumRatingAverage)} readOnly precision={PRECISION} />
-                <Typography component="div" fontSize={typography.size.md} fontWeight="medium" lineHeight={1}>
-                  {data?.albumRatingAverage}
-                </Typography>
-              </Box>
-            ))}
         </Box>
       </Box>
     </Box>
