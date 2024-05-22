@@ -9,6 +9,7 @@ import ChangeName from '../components/common/Modal/ChangeName';
 import TabPanel from '../components/common/Tabs/TabPanel';
 import useTabs from '../hooks/useTab';
 import MyReviews from '../components/myInformation/MyReviews';
+import MyInformationPageSkeleton from '../components/common/skeletons/myInformationPage/MyInformationPageSkeleton';
 
 function MyPage() {
   const [data, setData] = useState<MyInformation | null>(null);
@@ -31,7 +32,7 @@ function MyPage() {
     navigate(`/login`);
   }
 
-  return (
+  return data ? (
     <>
       {open && <ChangeName open={open} setOpen={setOpen} userId={user?._id} />}
       <Box sx={{ display: 'flex', columnGap: '24px', mb: '40px' }}>
@@ -60,6 +61,8 @@ function MyPage() {
         {data?.favReviews && <MyReviews reviews={data?.favReviews} setRefreshCount={setRefreshCount} />}
       </TabPanel>
     </>
+  ) : (
+    <MyInformationPageSkeleton />
   );
 }
 
