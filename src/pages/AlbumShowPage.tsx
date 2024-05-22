@@ -8,6 +8,8 @@ import AlbumDetailTracks from '../components/album/AlbumDetail/AlbumDetailTracks
 import AlbumReviewSummary from '../components/review/AlbumReviewSummary';
 import { AlbumData } from '../types/albumData';
 import { Review } from '../types/review';
+import AlbumDetailInformationSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
+import AlbumDetailTracksSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailTracksSkeleton';
 
 function NoAlbumView() {
   return (
@@ -68,35 +70,36 @@ function AlbumShowPage() {
   // }, [data]);
 
   return (
-    data && (
-      <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '40px' }}>
-        <Box>
-          <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
-            앨범 정보
-          </Typography>
-          <AlbumDetailInformation data={data} />
-        </Box>
-        <AlbumDetailTracks data={data} />
-        <Box>
-          <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
-            앨범 리뷰
-          </Typography>
+    <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '40px' }}>
+      <Box>
+        <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
+          앨범 정보
+        </Typography>
+        {data ? <AlbumDetailInformation data={data} /> : <AlbumDetailInformationSkeleton />}
+      </Box>
+      {data ? <AlbumDetailTracks data={data} /> : <AlbumDetailTracksSkeleton />}
 
-          <Box sx={{ display: 'flex', columnGap: 2, overflowX: { xs: 'auto' }, maxWidth: { xs: '100%' } }}>
-            {!data &&
-              Array.from({ length: 3 }).map(() => (
-                <Skeleton
-                  variant="rounded"
-                  sx={{
-                    minWidth: '282px',
-                    maxWidth: '282px',
-                    height: '183px',
-                    p: 2,
-                  }}
-                />
-              ))}
-            {data.reviews?.length > 0 ? (
-              data.reviews?.map((review) => (
+      <Box>
+        <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
+          앨범 리뷰
+        </Typography>
+
+        <Box sx={{ display: 'flex', columnGap: 2, overflowX: { xs: 'auto' }, maxWidth: { xs: '100%' } }}>
+          {!data &&
+            Array.from({ length: 3 }).map(() => (
+              <Skeleton
+                variant="rounded"
+                sx={{
+                  minWidth: '282px',
+                  maxWidth: '282px',
+                  height: '183px',
+                  p: 2,
+                }}
+              />
+            ))}
+          {data &&
+            (data!.reviews!.length! > 0 ? (
+              data?.reviews?.map((review) => (
                 <Box
                   key={`album-review-${review._id}`}
                   sx={{
@@ -112,11 +115,10 @@ function AlbumShowPage() {
               ))
             ) : (
               <NoAlbumView />
-            )}
-          </Box>
+            ))}
         </Box>
       </Box>
-    )
+    </Box>
   );
 }
 
