@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Box,
-  CardActions,
-  Avatar,
-  CircularProgress,
-} from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Box, CardActions, Avatar, CircularProgress } from '@mui/material';
 
 import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 import TimeSincePost from '../components/album/TimeSincePost';
