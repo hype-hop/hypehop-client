@@ -115,14 +115,13 @@ function EditReview({ data, albumData }) {
               src={data?.review.thumbnail}
               sx={{ borderRadius: '6.6px', marginRight: '20px' }}
             />
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <Typography
-                textAlign="left"
-                fontSize="fontSizeMd"
-                fontWeight="fontWeightBold"
-                sx={{ whiteSpace: 'nowrap' }}
-              >
-                {data?.review.albumName}
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
+              <Typography textAlign="left">
+                {data?.review?.artists ? (
+                  <Typography align="left"> {data?.review?.albumName}</Typography>
+                ) : (
+                  <Typography align="left">{data?.review?.albumTitle.split('-', 2)[1]}</Typography>
+                )}
               </Typography>
               <Typography
                 fontSize="fontSizeSm"
@@ -130,20 +129,34 @@ function EditReview({ data, albumData }) {
                 fontWeight="fontWeightLight"
                 sx={{ whiteSpace: 'nowrap', alignContent: 'center', color: 'grey.main' }}
               >
-                {data?.review.artists}
+                {data?.review?.artists ? (
+                  <Typography align="left"> {data?.review?.artists}</Typography>
+                ) : (
+                  <Typography align="left" fontSize="fontSizeMd">
+                    {data?.review?.albumTitle.split('-', 2)[0]}
+                  </Typography>
+                )}
               </Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%', alignItems: 'center' }}>
-              <Rating
-                name="albumRating"
-                value={formData.albumRating}
-                precision={0.5}
-                onChange={handleFormData}
-                sx={{ mr: '3px' }}
-              />
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                width: '100%',
+                alignItems: 'center',
+                minWidth: 'fit-content',
+              }}
+            >
+              {formData.albumRating && (
+                <CustomStarEdit name="albumRating" value={formData.albumRating} onChange={handleFormData} />
+              )}
 
-              <Typography fontSize="fontSizeMd" fontWeight="fontWeightRegular" sx={{ alignContent: 'center' }}>
+              <Typography
+                fontSize="fontSizeMd"
+                fontWeight="fontWeightRegular"
+                sx={{ alignContent: 'center', ml: '4px', width: '17px' }}
+              >
                 {Number(formData.albumRating).toFixed(1)}
               </Typography>
             </Box>
@@ -168,6 +181,7 @@ function EditReview({ data, albumData }) {
         />
       ) : (
         <Box
+          onClick={handleOpen}
           sx={{
             mt: '16px',
             background: 'rgb(22, 22, 22)',
@@ -180,62 +194,12 @@ function EditReview({ data, albumData }) {
             justifyContent: 'space-between',
           }}
         >
-          <Stack sx={{ height: '74px', justifyContent: 'center', ml: '20px', mr: '20px' }} spacing={1}>
-            <Box sx={{ display: 'flex' }}>
-              <Box
-                component="img"
-                width="60px"
-                height="60px"
-                src={data?.review.thumbnail}
-                sx={{ borderRadius: '6.6px', marginRight: '20px' }}
-              />
-              <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
-                <Typography textAlign="left">
-                  {data?.review?.artists ? (
-                    <Typography align="left"> {data?.review?.albumName}</Typography>
-                  ) : (
-                    <Typography align="left">{data?.review?.albumTitle.split('-', 2)[1]}</Typography>
-                  )}
-                </Typography>
-                <Typography
-                  fontSize="fontSizeSm"
-                  textAlign="left"
-                  fontWeight="fontWeightLight"
-                  sx={{ whiteSpace: 'nowrap', alignContent: 'center', color: 'grey.main' }}
-                >
-                  {data?.review?.artists ? (
-                    <Typography align="left"> {data?.review?.artists}</Typography>
-                  ) : (
-                    <Typography align="left" fontSize="fontSizeMd">
-                      {data?.review?.albumTitle.split('-', 2)[0]}
-                    </Typography>
-                  )}
-                </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  width: '100%',
-                  alignItems: 'center',
-                  minWidth: 'fit-content',
-                }}
-              >
-                {formData.albumRating && (
-                  <CustomStarEdit name="albumRating" value={formData.albumRating} onChange={handleFormData} />
-                )}
-
-                <Typography
-                  fontSize="fontSizeMd"
-                  fontWeight="fontWeightRegular"
-                  sx={{ alignContent: 'center', ml: '4px', width: '17px' }}
-                >
-                  {Number(formData.albumRating).toFixed(1)}
-                </Typography>
-              </Box>
-            </Box>
-          </Stack>
+          <Typography sx={{ mt: '16px' }} fontSize="14px" fontWeight="500" ml="16px" textAlign="left">
+            트랙리스트 펼치기
+          </Typography>
+          <Button sx={{ mt: '8px', mb: '8px' }}>
+            <ArrowDown />
+          </Button>
         </Box>
       )}
 
@@ -247,38 +211,12 @@ function EditReview({ data, albumData }) {
             mb: '40px',
           }}
         >
-          <Typography variant="h1">트랙별 평점</Typography>
-        </Box>
-        {isTrackListOpened ? (
-          <TrackListForEdit
-            data={data}
-            onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
-            albumData={albumData}
-            onHandleOpen={handleOpen}
-          />
-        ) : (
-          <Box
-            onClick={handleOpen}
-            sx={{
-              mt: '16px',
-              background: 'rgb(22, 22, 22)',
-              borderRadius: '16px',
-              border: '1px solid rgb(52, 52, 52)',
-              mb: '62px',
-              height: '46px',
-              alignContent: 'center',
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Typography sx={{ mt: '16px' }} fontSize="14px" fontWeight="500" ml="16px" textAlign="left">
-              트랙리스트 펼치기
+          <label htmlFor="status">
+            {' '}
+            <Typography sx={{ mb: '16px' }} variant="h1">
+              공개여부
             </Typography>
-            <Button sx={{ mt: '8px', mb: '8px' }}>
-              <ArrowDown />
-            </Button>
-          </Box>
-        )}
+          </label>
 
           <Select
             id="status"
