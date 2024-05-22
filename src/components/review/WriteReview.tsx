@@ -1,8 +1,8 @@
 // import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
-import { Input, Container, Button, Typography, Box, Select, MenuItem } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Input, Button, Typography, Box, Select, MenuItem } from '@mui/material';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
 import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
 import BASE_URL from '../../config';
@@ -17,10 +17,13 @@ import { FormData } from '../../types/review';
 import WriteReviewBefore from './WriteReviewBefore';
 import Duplicate from '../common/Modal/Duplicate';
 import { typography } from '../../constants/themeValue';
+import INITIAL_RATING_VALUE from '../../constants/rating';
 import CustomStar from './CustomStar';
 
 function WriteReview({ userData }) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
   const [reviewContent, setReviewContent] = useState('');
   const [trackRating, setTrackRating] = useState<number[]>([]);
   const [searchResult, setSearchResult] = useState<AlbumSearchResult[] | null>(null);
@@ -29,6 +32,17 @@ function WriteReview({ userData }) {
   const [open, setOpen] = useState(true);
   const [isTrackListOpened, SetsTrackListOpened] = useState(false);
   const [albumRatingState, setAlbumRatingState] = useState(0);
+
+  useEffect(() => {
+    if (searchParams.get('keyword')) {
+      (async () => {
+        const response = await fetch(`${BASE_URL}/album/api/${searchParams.get('keyword')}`);
+        const result = await response.json();
+        setData(result);
+        setSelectedAlbum({ ...result.albumData, rating: INITIAL_RATING_VALUE });
+      })();
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -207,7 +221,7 @@ function WriteReview({ userData }) {
   ));
 
   return (
-    <Container className="Write-review">
+    <>
       <form>
         <Typography
           variant="h1"
@@ -422,7 +436,7 @@ function WriteReview({ userData }) {
       </form>
       {!selectedAlbum && <WriteReviewBefore />}
       {selectedAlbum && data?.reviewUser?.includes(userData._id) && <Duplicate open={open} setOpen={setOpen} />}
-    </Container>
+    </>
   );
 }
 

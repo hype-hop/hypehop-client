@@ -5,7 +5,6 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Container,
   Box,
   CardActions,
   Avatar,
@@ -105,7 +104,7 @@ function ReviewsPage() {
   }, [page, totalPage, isLoading, allDataLoaded]);
 
   return (
-    <Container sx={{ marginTop: '105px' }}>
+    <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h1">리뷰 </Typography>
       </Box>
@@ -269,7 +268,7 @@ function ReviewsPage() {
           </Box>
         )}
       </Box>
-    </Container>
+    </>
   );
 }
 

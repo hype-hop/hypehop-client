@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container } from '@mui/material';
 import Comment from '../components/common/Comment';
 import ReviewDetail from '../components/review/ReviewDetail';
 import BASE_URL from '../config';
@@ -44,23 +43,19 @@ function ReviewShowPage() {
     return <PageNotFound />;
   }
 
-  return (
-    <Container sx={{ marginTop: '105px' }}>
-      {data ? (
-        <div>
-          <ReviewDetail
-            data={data}
-            albumId={data?.review?.albumId}
-            numberOfFavorite={data?.review?.isFavorite.length}
-            reviewId={id}
-          />
+  return data ? (
+    <div>
+      <ReviewDetail
+        data={data}
+        albumId={data?.review?.albumId}
+        numberOfFavorite={data?.review?.isFavorite.length}
+        reviewId={id}
+      />
 
-          <Comment comments={data?.comments} reviewId={id} user={user?.user} />
-        </div>
-      ) : (
-        <p>skeleton</p>
-      )}
-    </Container>
+      <Comment comments={data?.comments} reviewId={id} user={user?.user} />
+    </div>
+  ) : (
+    <p>skeleton</p>
   );
 }
 

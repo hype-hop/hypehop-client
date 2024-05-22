@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
 import BASE_URL from '../config';
 
 import AlbumDetailInformation from '../components/album/AlbumDetail/AlbumDetailInformation';
@@ -53,40 +53,39 @@ function AlbumShowPage() {
 
   return (
     data && (
-      <Container>
-        <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '40px', mt: 5 }}>
-          <Box>
-            <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
-              앨범 정보
-            </Typography>
-            <AlbumDetailInformation data={data} />
-          </Box>
-          <AlbumDetailTracks data={data} />
+      <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '40px' }}>
+        <Box>
+          <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
+            앨범 정보
+          </Typography>
+          <AlbumDetailInformation data={data} />
+        </Box>
+        <AlbumDetailTracks data={data} />
+        <Box>
+          <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
+            앨범 리뷰
+          </Typography>
 
-          <Box>
-            <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
-              앨범 리뷰
-            </Typography>
-
-            <Box sx={{ display: 'flex', columnGap: 2, overflowX: { xs: 'auto' }, maxWidth: { xs: '100%' } }}>
-              {data.reviews?.length > 0 ? (
-                data.reviews?.map((review) => (
-                  <Box
-                    key={`album-review-${review._id}`}
-                    sx={{
-                      minWidth: '282px',
-                      maxWidth: '282px',
-                      border: '1px solid rgb(52, 52, 52)',
-                      borderRadius: '0px 16px 16px 16px',
-                      p: 2,
-                    }}
-                  >
-                    <AlbumReviewSummary review={review} />
-                  </Box>
-                ))
-              ) : (
-                <Box>
-                  <Typography mb={2}>앨범 리뷰가 없습니다. 첫 리뷰를 작성해주세요!</Typography>
+          <Box sx={{ display: 'flex', columnGap: 2, overflowX: { xs: 'auto' }, maxWidth: { xs: '100%' } }}>
+            {data.reviews?.length > 0 ? (
+              data.reviews?.map((review) => (
+                <Box
+                  key={`album-review-${review._id}`}
+                  sx={{
+                    minWidth: '282px',
+                    maxWidth: '282px',
+                    border: '1px solid rgb(52, 52, 52)',
+                    borderRadius: '0px 16px 16px 16px',
+                    p: 2,
+                  }}
+                >
+                  <AlbumReviewSummary review={review} />
+                </Box>
+              ))
+            ) : (
+              <Box>
+                <Typography mb={2}>앨범 리뷰가 없습니다. 첫 리뷰를 작성해주세요!</Typography>
+                <Link to={`/album?keyword=${data?.id}`}>
                   <Button
                     sx={{
                       background: 'rgb(152, 72, 255)',
@@ -96,12 +95,12 @@ function AlbumShowPage() {
                   >
                     작성하러 가기
                   </Button>
-                </Box>
-              )}
-            </Box>
+                </Link>
+              </Box>
+            )}
           </Box>
         </Box>
-      </Container>
+      </Box>
     )
   );
 }

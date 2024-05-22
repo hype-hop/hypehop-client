@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Box, Container, Typography, Input, Button, Divider } from '@mui/material';
+import { Box, Typography, Input, Button, Divider } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../AuthenticationContext';
 import BASE_URL from '../../config';
@@ -57,7 +57,7 @@ function LogInForm() {
   }
 
   return (
-    <Container className="Login">
+    <>
       <Typography
         variant="h1"
         textAlign="center"
@@ -198,7 +198,7 @@ function LogInForm() {
           </Link>
         </Box>
       </Box>
-    </Container>
+    </>
   );
 }
 

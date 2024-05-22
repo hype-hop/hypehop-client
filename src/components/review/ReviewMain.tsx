@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Typography, Container, Box } from '@mui/material';
+import { Button, Typography, Box } from '@mui/material';
+
 import BASE_URL from '../../config';
 import { AlbumData } from '../../types/albumData';
 import AlbumCover from '../album/AlbumCover';
@@ -24,7 +25,7 @@ function ReviewMain() {
   }, []);
 
   return (
-    <Container sx={{ width: '100%' }}>
+    <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography sx={{ ml: '4px' }} variant="h1">
           최근리뷰{' '}
@@ -68,7 +69,7 @@ function ReviewMain() {
           <>no</>
         )}
       </Box>
-    </Container>
+    </>
   );
 }
 

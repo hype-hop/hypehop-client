@@ -183,6 +183,19 @@ const theme: Theme = createTheme({
         },
       },
     },
+
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          maxWidth: '1200px',
+
+          '@media (min-width:0px)': {
+            paddingLeft: '0px',
+            paddingRight: '0px',
+          },
+        },
+      },
+    },
   },
 });
 

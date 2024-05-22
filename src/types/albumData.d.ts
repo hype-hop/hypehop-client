@@ -10,7 +10,7 @@ export interface AlbumData {
   albumData: any;
   id: string;
   disc_total: number[];
-  albumRatingAverage: number;
+  albumRatingAverage: string;
   reviews: Review[];
   storedAverageArr: AlbumDetailStoredAverage[];
   reviewUser: string[];

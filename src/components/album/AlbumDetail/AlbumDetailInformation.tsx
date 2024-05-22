@@ -34,15 +34,13 @@ function AlbumDetailInformation({ data }: { data: AlbumData }) {
               </Typography>
             ))}
           </Box>
-          {data?.albumRatingAverage ? (
+          {!Number.isNaN(Number(data?.albumRatingAverage)) && (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <CustomStar value={Number(data?.albumRatingAverage)} edit={false} />
               <Typography component="div" fontSize={typography.size.md} fontWeight="medium" lineHeight={1}>
                 {data?.albumRatingAverage}
               </Typography>
             </Box>
-          ) : (
-            <Typography>평점이 없습니다.</Typography>
           )}
         </Box>
       </Box>
