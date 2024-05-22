@@ -42,7 +42,7 @@ function MainPage() {
               setSelectedAlbum={setSelectedAlbum}
             />
           </Box>
-          <Box sx={{ display: { xs: 'grid', sm: 'grid', md: 'flex', lg: 'flex' } }}>
+          <Box sx={{ display: { md: 'flex', lg: 'flex' } }}>
             {/* <Box sx={{ width: { xs: '350px', sm: '100%', md: '100%', lg: '100%' } }}> */}
             <Box sx={{ mt: '40px' }}>
               <ReviewMain />

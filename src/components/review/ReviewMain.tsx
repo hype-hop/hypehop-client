@@ -40,9 +40,10 @@ function ReviewMain() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: { sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
           gap: 2,
           mt: 2,
+          width: { xs: '100%' },
         }}
       >
         {Array.isArray(data?.reviews) ? (
