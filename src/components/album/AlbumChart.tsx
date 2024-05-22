@@ -88,12 +88,21 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                     align="left"
                     fontSize={typography.size.md}
                     fontWeight={typography.weight.regular}
-                    sx={{ color: 'rgb(168, 168, 168)' }}
+                    sx={{ mt: '4px 0px', color: 'rgb(168, 168, 168)' }}
                   >
                     {item.artists}
                   </Typography>
                 ) : (
+
                   <Typography align="left" fontSize={typography.size.md} fontWeight={typography.weight.regular}>
+
+                  <Typography
+                    align="left"
+                    fontSize={typography.size.md}
+                    fontWeight={typography.weight.regular}
+                    sx={{ margin: '4px 0px', color: 'rgb(168, 168, 168)' }}
+                  >
+
                     {item.albumTitle.split('-', 2)[0]}
                   </Typography>
                 )}
