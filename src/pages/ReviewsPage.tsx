@@ -154,9 +154,7 @@ function ReviewsPage() {
                   <Box display="grid">
                     <Box display="flex">
                       <Typography
-                        color="white.main"
-                        fontWeight="fontWeightLight"
-                        fontSize="fontSizeMd"
+                        variant="body1"
                         sx={{
                           alignContent: 'center',
                           ml: 1,
@@ -172,7 +170,6 @@ function ReviewsPage() {
                       </Typography>
 
                       <Typography
-                        color="grey.dark"
                         fontSize="fontSizeSm"
                         fontWeight="fontWeightLight"
                         lineHeight="lineHeightSm"

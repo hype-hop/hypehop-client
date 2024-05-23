@@ -194,7 +194,6 @@ function Comment({ reviewId, user }: Props) {
               </Typography>
 
               <Typography
-                color="grey.dark"
                 fontSize="fontSizeSm"
                 fontWeight="fontWeightLight"
                 lineHeight="lineHeightSm"
