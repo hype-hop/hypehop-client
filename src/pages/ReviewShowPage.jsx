@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Box } from '@mui/material';
 import Comment from '../components/common/Comment';
 import ReviewDetail from '../components/review/ReviewDetail';
 import BASE_URL from '../config';
 import PageNotFound from '../components/common/Error/PageNotFound';
+import AlbumDetailInformationSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
+import AlbumReviewSummarySkeleton from '../components/common/skeletons/AlbumReviewSummarySkeleton';
 
 function ReviewShowPage() {
   const { id } = useParams();
@@ -55,7 +58,12 @@ function ReviewShowPage() {
       <Comment comments={data?.comments} reviewId={id} user={user?.user} />
     </div>
   ) : (
-    <p>skeleton</p>
+    <Box>
+      <Box mb={4}>
+        <AlbumDetailInformationSkeleton />
+      </Box>
+      <AlbumReviewSummarySkeleton />
+    </Box>
   );
 }
 

@@ -4,6 +4,8 @@ import { AlbumData } from '../../../types/albumData';
 import CustomStar from '../../review/CustomStar';
 
 function AlbumDetailInformation({ data }: { data: AlbumData }) {
+  const { albumData } = data;
+
   return (
     <Box
       sx={{
@@ -21,24 +23,25 @@ function AlbumDetailInformation({ data }: { data: AlbumData }) {
           component="img"
           width="60px"
           height="60px"
-          src={data?.albumData.images[1].url}
+          src={albumData.images[1].url}
           sx={{ borderRadius: '6.6px', marginRight: '20px' }}
         />
+
         <Box sx={{ textAlign: 'left' }}>
-          <Typography fontWeight="bold">{data?.albumData.name}</Typography>
-          <Box sx={{ display: 'flex' }}>
-            {data?.albumData.artists.map((artist, index) => (
+          <Typography fontWeight="bold">{albumData.name}</Typography>
+
+          <Box sx={{ display: 'flex', mt: 0.5 }}>
+            {albumData.artists.map((artist, index) => (
               <Typography key={index} color="grey.main">
-                {artist.name}{' '}
-                {data?.albumData.artists.length > 1 && index < data!.albumData!.artists!.length - 1 && '· '}
+                {artist.name} {albumData.artists.length > 1 && index < albumData.artists.length - 1 && '· '}
               </Typography>
             ))}
           </Box>
-          {!Number.isNaN(Number(data?.albumRatingAverage)) && (
+          {!Number.isNaN(Number(data.albumRatingAverage)) && (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CustomStar value={Number(data?.albumRatingAverage)} edit={false} />
+              <CustomStar value={Number(data.albumRatingAverage)} edit={false} />
               <Typography component="div" fontSize={typography.size.md} fontWeight="medium" lineHeight={1}>
-                {data?.albumRatingAverage}
+                {data.albumRatingAverage}
               </Typography>
             </Box>
           )}

@@ -6,6 +6,7 @@ import BASE_URL from '../../config';
 import { AlbumData } from '../../types/albumData';
 import AlbumCover from '../album/AlbumCover';
 import AlbumReviewSummary from './AlbumReviewSummary';
+import ReviewMainSkeleton from '../common/skeletons/mainPage/ReviewMainSkeleton';
 
 function ReviewMain() {
   const [data, setData] = useState<AlbumData | null>(null);
@@ -24,7 +25,7 @@ function ReviewMain() {
     fetchData();
   }, []);
 
-  return (
+  return data ? (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography sx={{ ml: '4px' }} variant="h1">
@@ -40,9 +41,10 @@ function ReviewMain() {
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gridTemplateColumns: { sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
           gap: 2,
           mt: 2,
+          width: { xs: '100%' },
         }}
       >
         {Array.isArray(data?.reviews) ? (
@@ -70,6 +72,8 @@ function ReviewMain() {
         )}
       </Box>
     </>
+  ) : (
+    <ReviewMainSkeleton />
   );
 }
 
