@@ -62,7 +62,6 @@ function ReviewDetailLeft({ data }) {
           </Typography>
 
           <Typography
-            color="grey.dark"
             fontSize="fontSizeSm"
             fontWeight="fontWeightLight"
             lineHeight="lineHeightSm"

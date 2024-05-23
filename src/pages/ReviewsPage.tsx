@@ -9,6 +9,7 @@ import BASE_URL from '../config';
 import { Review } from '../types/review';
 import { typography } from '../constants/themeValue';
 import CustomStar from '../components/review/CustomStar';
+import ReviewsPageSkeleton from '../components/common/skeletons/reviewsPage/ReviewsPageSkeleton';
 
 interface InitialData {
   totalPage: number;
@@ -154,9 +155,7 @@ function ReviewsPage() {
                   <Box display="grid">
                     <Box display="flex">
                       <Typography
-                        color="white.main"
-                        fontWeight="fontWeightLight"
-                        fontSize="fontSizeMd"
+                        variant="body1"
                         sx={{
                           alignContent: 'center',
                           ml: 1,
@@ -172,7 +171,6 @@ function ReviewsPage() {
                       </Typography>
 
                       <Typography
-                        color="grey.dark"
                         fontSize="fontSizeSm"
                         fontWeight="fontWeightLight"
                         lineHeight="lineHeightSm"
@@ -251,7 +249,7 @@ function ReviewsPage() {
             </Card>
           ))
         ) : (
-          <Typography>Nothing to display</Typography>
+          <ReviewsPageSkeleton />
         )}
         {isLoading && (
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

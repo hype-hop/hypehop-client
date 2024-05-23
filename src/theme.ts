@@ -49,7 +49,7 @@ const theme: Theme = createTheme({
       textAlign: 'left',
     },
     timeSincePost: {
-      color: 'rgb(86,87,87)',
+      color: 'rgb(168, 168, 168)',
       fontSize: typography.size.lg,
       fontWeight: typography.weight.light,
       lineHeight: typography.lineHeight.sm,

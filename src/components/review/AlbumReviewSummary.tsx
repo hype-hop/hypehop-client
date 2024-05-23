@@ -64,7 +64,6 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
                 </Typography>
 
                 <Typography
-                  color="grey.dark"
                   fontSize="fontSizeSm"
                   fontWeight="fontWeightLight"
                   lineHeight="lineHeightSm"

@@ -8,6 +8,7 @@ import FloatingActionButton from '../components/common/FloatingActionButton';
 import { useAuth } from '../AuthenticationContext';
 import EditProfile from '../components/common/EditProfile';
 import AlbumSearch from '../components/album/AlbumSearch';
+import Banner from '../components/common/Banner/Banner';
 
 function MainPage() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function MainPage() {
             {/* <Box sx={{ width: { xs: '350px', sm: '100%', md: '100%', lg: '100%' } }}> */}
             <Box sx={{ mt: '40px' }}>
               <ReviewMain />
+              <Banner />
               <AlbumChart />
             </Box>
             <Box sx={{ mt: '40px' }}>
