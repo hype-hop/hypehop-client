@@ -14,6 +14,7 @@ import EditPage from './pages/EditPage';
 import MainPage from './pages/MainPage';
 import MyInformationPage from './pages/MyInformationPage';
 import RootLayout from './components/common/RootLayout';
+import Footer from './components/common/Footer';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/user/:userId" element={<UserPage />} />
           </Routes>
         </RootLayout>
+        <Footer />
       </div>
     </BrowserRouter>
   );
