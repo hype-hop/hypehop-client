@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+
 import { useParams } from 'react-router-dom';
 import { Box, Button, Skeleton, Typography } from '@mui/material';
+
 import BASE_URL from '../config';
 
 import AlbumDetailInformation from '../components/album/AlbumDetail/AlbumDetailInformation';
