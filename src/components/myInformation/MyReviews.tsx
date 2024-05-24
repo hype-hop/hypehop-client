@@ -96,7 +96,7 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
           </StyledMenu>
 
           <AlbumCover
-            albumId={review.albumId}
+            reviewId={review._id}
             url={review.thumbnail}
             albumTitle={review.albumName}
             artists={review.artists}

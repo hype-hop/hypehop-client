@@ -1,5 +1,5 @@
 export interface AlbumCoverProps {
-  albumId: string;
+  reviewId: string;
   url: string;
   albumTitle?: string;
   artists?: string[];
