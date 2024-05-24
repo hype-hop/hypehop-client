@@ -27,6 +27,7 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumS
       }
 
       const res = await postSearchAlbum(debouncedValue!);
+
       if (res.success) setSearchResult(res.data);
     })();
   }, [debouncedValue, setSearchResult]);

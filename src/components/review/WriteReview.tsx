@@ -2,7 +2,7 @@
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Input, Button, Typography, Box, Select, MenuItem } from '@mui/material';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
 import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
 import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
 import BASE_URL from '../../config';
@@ -23,7 +23,7 @@ import CustomStar from './CustomStar';
 function WriteReview({ userData }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
+  const albumIdParam = useParams();
   const [reviewContent, setReviewContent] = useState('');
   const [trackRating, setTrackRating] = useState<number[]>([]);
   const [searchResult, setSearchResult] = useState<AlbumSearchResult[] | null>(null);
@@ -42,7 +42,15 @@ function WriteReview({ userData }) {
         setSelectedAlbum({ ...result.albumData, rating: INITIAL_RATING_VALUE });
       })();
     }
-  }, [searchParams]);
+    if (Object.keys(albumIdParam).length !== 0) {
+      (async () => {
+        const response = await fetch(`${BASE_URL}/album/api/${albumIdParam.id}`);
+        const result = await response.json();
+        setData(result);
+        setSelectedAlbum({ ...result.albumData, rating: INITIAL_RATING_VALUE });
+      })();
+    }
+  }, [searchParams, albumIdParam]);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Box, Button, Skeleton, Typography } from '@mui/material';
 
 import BASE_URL from '../config';
@@ -13,19 +13,21 @@ import { Review } from '../types/review';
 import AlbumDetailInformationSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
 import AlbumDetailTracksSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailTracksSkeleton';
 
-function NoAlbumView() {
+function NoAlbumView({ albumId }) {
   return (
     <Box>
       <Typography mb={2}>앨범 리뷰가 없습니다. 첫 리뷰를 작성해주세요!</Typography>
-      <Button
-        sx={{
-          background: 'rgb(152, 72, 255)',
-          borderRadius: '4px',
-          height: '32px',
-        }}
-      >
-        작성하러 가기
-      </Button>
+      <Link to={`/album/write/${albumId}`}>
+        <Button
+          sx={{
+            background: 'rgb(152, 72, 255)',
+            borderRadius: '4px',
+            height: '32px',
+          }}
+        >
+          작성하러 가기
+        </Button>
+      </Link>
     </Box>
   );
 }
@@ -116,7 +118,7 @@ function AlbumShowPage() {
                 </Box>
               ))
             ) : (
-              <NoAlbumView />
+              <NoAlbumView albumId={id} />
             ))}
         </Box>
       </Box>
