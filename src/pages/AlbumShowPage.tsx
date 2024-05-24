@@ -6,12 +6,14 @@ import { Box, Button, Skeleton, Typography } from '@mui/material';
 import BASE_URL from '../config';
 
 import AlbumDetailInformation from '../components/album/AlbumDetail/AlbumDetailInformation';
-import AlbumDetailTracks from '../components/album/AlbumDetail/AlbumDetailTracks';
+// import AlbumDetailTracks from '../components/album/AlbumDetail/AlbumDetailTracks';
+
 import AlbumReviewSummary from '../components/review/AlbumReviewSummary';
 import { AlbumData } from '../types/albumData';
 import { Review } from '../types/review';
 import AlbumDetailInformationSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
 import AlbumDetailTracksSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailTracksSkeleton';
+import AlbumDetailTracksToggle from '../components/album/AlbumDetail/AlbumDetailTracksToggle';
 
 function NoAlbumView({ albumId }) {
   return (
@@ -81,7 +83,9 @@ function AlbumShowPage() {
         </Typography>
         {data ? <AlbumDetailInformation data={data} /> : <AlbumDetailInformationSkeleton />}
       </Box>
-      {data ? <AlbumDetailTracks data={data} /> : <AlbumDetailTracksSkeleton />}
+
+      {/*  {data ? <AlbumDetailTracks data={data} /> : <AlbumDetailTracksSkeleton />} */}
+      {data ? <AlbumDetailTracksToggle data={data} /> : <AlbumDetailTracksSkeleton />}
 
       <Box>
         <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
