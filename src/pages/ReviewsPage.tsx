@@ -165,9 +165,10 @@ function ReviewsPage() {
                           whiteSpace: 'nowrap',
                         }}
                       >
-                        <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        {/* <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                           {review.user.name || review.user.displayName}
-                        </Link>
+                      </Link> */}
+                        <Typography>{review.user.name || review.user.displayName}</Typography>
                       </Typography>
 
                       <Typography
