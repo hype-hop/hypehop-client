@@ -37,9 +37,21 @@ function NoAlbumView({ albumId }) {
 function AlbumShowPage() {
   const { id } = useParams();
   const [data, setData] = useState<AlbumData | undefined>();
+  const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  // const [reviews, setReviews] = useState<Review | []>();
 
-  const parsedReviews = (reviews: Review[]) => {
-    return reviews.splice(0, 4);
+  const fetchData = async (page: number) => {
+    try {
+      const response = await fetch(`${BASE_URL}/album/api/${id}/scroll?page=${page}`);
+      const result = await response.json();
+      setReviews((prevReviews) => [...(prevReviews || []), ...result.reviews]);
+      return result;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
   };
 
   useEffect(() => {
@@ -47,16 +59,32 @@ function AlbumShowPage() {
       try {
         const album = await (await fetch(`${BASE_URL}/album/api/${id}`)).json();
 
-        if (album.reviews.length > 4) {
-          album.reviews = parsedReviews(album.reviews);
-        }
-
         setData(album);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     })();
   }, [id]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        // const album = await (await fetch(`${BASE_URL}/album/api/${id}/scroll?page=${1}`)).json();
+        const album = await fetchData(1);
+
+        setReviews(album.reviews);
+        setTotalPage(album.totalPage);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const loadMore = () => {
+    setPage((prevPage) => Math.min(prevPage + 1, totalPage));
+    fetchData(page + 1);
+  };
 
   /** 아티스트의 다른 앨범 가져오기 */
 
@@ -91,9 +119,16 @@ function AlbumShowPage() {
         <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
           앨범 리뷰
         </Typography>
-
-        <Box sx={{ display: 'flex', columnGap: 2, overflowX: { xs: 'auto' }, maxWidth: { xs: '100%' } }}>
-          {!data &&
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { sm: 'repeat(3,1fr)', md: 'repeat(3,1fr)', lg: 'repeat(4, 1fr)' },
+            gap: 2,
+            overflowX: { xs: 'auto' },
+            maxWidth: { xs: '100%' },
+          }}
+        >
+          {!reviews &&
             Array.from({ length: 3 }).map(() => (
               <Skeleton
                 variant="rounded"
@@ -105,9 +140,9 @@ function AlbumShowPage() {
                 }}
               />
             ))}
-          {data &&
-            (data!.reviews!.length! > 0 ? (
-              data?.reviews?.map((review) => (
+          {reviews &&
+            (reviews?.length > 0 ? (
+              reviews?.map((review) => (
                 <Box
                   key={`album-review-${review._id}`}
                   sx={{
@@ -124,6 +159,11 @@ function AlbumShowPage() {
             ) : (
               <NoAlbumView albumId={id} />
             ))}
+        </Box>
+        <Box sx={{ mt: '20px', textAlign: 'center' }}>
+          <Button onClick={loadMore} variant="outlined" disabled={page >= totalPage}>
+            더보기
+          </Button>
         </Box>
       </Box>
     </Box>
