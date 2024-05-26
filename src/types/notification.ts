@@ -18,4 +18,5 @@ export interface Notification {
   review_id: ReviewInfo;
   text: string;
   timestamp: Date;
+  isRead: boolean;
 }

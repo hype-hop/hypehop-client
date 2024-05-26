@@ -4,18 +4,17 @@ import { AppBar, Box, Toolbar, IconButton, Typography, Button, Avatar, Modal } f
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
-
 import { useEffect, useState } from 'react';
 import { StyledMenu, StyledMenuItem } from './StyledMenu';
-
 import { ReactComponent as LogoMainIcon } from '../../assets/icons/logo-main.svg';
 import { ReactComponent as LogoSubIcon } from '../../assets/icons/logo-hover.svg';
 import { ReactComponent as CancleIcon } from '../../assets/icons/cancle.svg';
-
+import { ReactComponent as RedDot } from '../../assets/icons/redDot.svg';
 import { useAuth } from '../../AuthenticationContext';
 import { typography } from '../../constants/themeValue';
 import BASE_URL from '../../config';
 import fetchNotification from '../../api/notification';
+import readNotification from '../../api/readNotification';
 import { Notification } from '../../types/notification';
 import TimeSincePost from '../album/TimeSincePost';
 
@@ -80,6 +79,7 @@ export default function MenuAppBar() {
   const [anchorProfile, setAnchorProfile] = useState(null);
   const [anchorNoti, setAnchorNoti] = useState(null);
   const [logoHover, setLogoHover] = useState(false);
+  const [hasUnreadNoti, setHasUnreadNoti] = useState(false);
 
   const handleHoverLogoOver = () => {
     setLogoHover(true);
@@ -98,9 +98,22 @@ export default function MenuAppBar() {
         console.log(error);
       }
     };
-
     getNotifications();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const unreadNotifications = notifications?.some((noti) => {
+      return !noti.isRead;
+    });
+    setHasUnreadNoti(unreadNotifications);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [notifications]);
+
+  const readNoti = () => {
+    readNotification();
+  };
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -112,6 +125,11 @@ export default function MenuAppBar() {
 
   const handleMenuNoti = (event) => {
     setAnchorNoti(event.currentTarget);
+    if (hasUnreadNoti) {
+      readNoti();
+    }
+
+    setHasUnreadNoti(false);
   };
 
   const handleCloseProfile = () => {
@@ -156,7 +174,17 @@ export default function MenuAppBar() {
                 onClick={handleMenuNoti}
                 color="primary"
               >
+                {hasUnreadNoti && (
+                  <Box sx={{ position: 'absolute', right: '13px', bottom: '20px' }}>
+                    <RedDot />
+                  </Box>
+                )}
+
                 <NotificationsIcon sx={{ height: 25, width: 25 }} />
+
+                {/* <Box sx={{ position: 'absolute', right: '13px', bottom: '20px' }}>
+                  <RedDot />
+          </Box> */}
               </IconButton>
 
               <IconButton
