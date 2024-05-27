@@ -9,9 +9,7 @@ import BASE_URL from '../../config';
 import { typography } from '../../constants/themeValue';
 import CustomStar from '../review/CustomStar';
 
-function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: number) {
-  // const theme = useTheme();
-
+function AlbumList({ data, startIndex, endIndex }: { data: AlbumCharts | null; startIndex: number; endIndex: number }) {
   return (
     <Box
       sx={{
@@ -40,9 +38,6 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                 boxShadow: 'none',
               }}
             >
-              <CardContent sx={{ marginLeft: '12px' }}>
-                <Typography>{index + startIndex + 1}</Typography>
-              </CardContent>
               <CardMedia
                 component="img"
                 width="60px"
@@ -53,10 +48,14 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                   maxWidth: '60px',
                   minWidth: '60px',
                   borderRadius: '6.6px',
-                  margin: '0px 20px',
                 }}
               />
-              <CardContent sx={{ marginTop: '8px' }}>
+              <CardContent sx={{ marginLeft: '16px' }}>
+                <Typography fontSize={typography.size.lg} fontWeight="medium">
+                  {index + startIndex + 1}
+                </Typography>
+              </CardContent>
+              <CardContent sx={{ marginTop: '8px', maxWidth: '63vw' }}>
                 {item.artists ? (
                   <Typography
                     align="left"
@@ -66,6 +65,7 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                       whiteSpace: 'nowrap',
                       textOverflow: 'ellipsis',
                       overflow: 'hidden',
+                      wordBreak: 'break-all',
                     }}
                   >
                     {item.albumName}
@@ -78,6 +78,8 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                     sx={{
                       whiteSpace: 'nowrap',
                       textOverflow: 'ellipsis',
+                      overflow: 'hidden',
+                      wordBreak: 'break-all',
                     }}
                   >
                     {item.albumTitle.split('-', 2)[1]}
@@ -88,7 +90,7 @@ function AlbumList(data: AlbumCharts | null, startIndex: number, endIndex: numbe
                     align="left"
                     fontSize={typography.size.md}
                     fontWeight={typography.weight.regular}
-                    sx={{ mt: '4px 0px', color: 'rgb(168, 168, 168)' }}
+                    sx={{ margin: '4px 0px', color: 'rgb(168, 168, 168)' }}
                   >
                     {item.artists}
                   </Typography>
@@ -139,9 +141,7 @@ function AlbumChart() {
   return (
     <Box sx={{ marginTop: '40px' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography sx={{ ml: '20px' }} variant="h1">
-          인기 앨범 차트
-        </Typography>
+        <Typography variant="h1">인기 앨범 차트</Typography>
         {/* <Box sx={{ display: 'flex' }}>
           <Button
             variant="outlined"
@@ -174,10 +174,11 @@ function AlbumChart() {
         sx={{
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)' },
+          columnGap: '24px',
         }}
       >
-        {AlbumList(data, 0, 4)}
-        {AlbumList(data, 4, 8)}
+        <AlbumList data={data} startIndex={0} endIndex={4} />
+        <AlbumList data={data} startIndex={4} endIndex={8} />
       </Box>
     </Box>
   );
