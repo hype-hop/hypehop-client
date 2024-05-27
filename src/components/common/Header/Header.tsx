@@ -52,6 +52,7 @@ export default function MenuAppBar() {
       return !noti.isRead;
     });
     setHasUnreadNoti(unreadNotifications);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications]);
 
@@ -83,8 +84,6 @@ export default function MenuAppBar() {
   const handleCloseNoti = () => {
     setAnchorNoti(null);
   };
-
-  console.log(notifications);
 
   return (
     <Box>

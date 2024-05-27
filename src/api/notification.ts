@@ -1,5 +1,5 @@
 import BASE_URL from '../config';
-import ensureError from '../utils/error';
+// import ensureError from '../utils/error';
 
 async function fetchNotification() {
   try {
@@ -18,8 +18,9 @@ async function fetchNotification() {
     const data = await response.json();
     return data.notifications;
   } catch (error) {
-    const ensuredError = ensureError(error);
-    return { success: false, error: ensuredError };
+    // const ensuredError = ensureError(error);
+    // return { success: false, error: ensuredError };
+    return [];
   }
 }
 
