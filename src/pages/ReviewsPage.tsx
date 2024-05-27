@@ -130,7 +130,7 @@ function ReviewsPage() {
                 maxWidth: '100%',
               }}
             >
-              <Link to={`/album/review/${review._id}`}>
+              <Link target="_blank" to={`/album/review/${review._id}`}>
                 <CardMedia component="img" width="234px" height="234px" image={review.thumbnail} alt="album cover" />
               </Link>
 
