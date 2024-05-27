@@ -50,7 +50,7 @@ function MainPage() {
               <Banner />
               <AlbumChart />
             </Box>
-            <Box sx={{ mt: '40px' }}>
+            <Box sx={{ ml: '24px', mt: '40px' }}>
               <PopularReview />
             </Box>
           </Box>
