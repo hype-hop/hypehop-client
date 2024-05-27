@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { typography } from '../../constants/themeValue';
 import { AlbumCoverProps } from '../../types/albumCover';
 
-function AlbumCover({ albumId, url, albumTitle, artists }: AlbumCoverProps) {
+function AlbumCover({ reviewId, url, albumTitle, artists }: AlbumCoverProps) {
   // const router = useNavigate();
   return (
     <Box
@@ -16,7 +16,7 @@ function AlbumCover({ albumId, url, albumTitle, artists }: AlbumCoverProps) {
       }}
       // onClick={() => router(`/album/${albumId}`)}
     >
-      <Link style={{ textDecorationLine: 'none', color: 'inherit' }} to={`/album/${albumId}`}>
+      <Link style={{ textDecorationLine: 'none', color: 'inherit' }} to={`/album/review/${reviewId}`}>
         <Box
           sx={{
             position: 'absolute',

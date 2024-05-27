@@ -23,7 +23,7 @@ function MyReviews({ review }: { review: MyReview }) {
         }}
       >
         <Box>
-          <AlbumCover albumId={albumId} url={thumbnail} />
+          <AlbumCover reviewId={albumId} url={thumbnail} />
         </Box>
 
         <Card

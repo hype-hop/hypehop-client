@@ -57,7 +57,7 @@ function ReviewMain() {
               }}
             >
               <AlbumCover
-                albumId={review.albumId}
+                reviewId={review._id}
                 url={review.thumbnail}
                 albumTitle={review.albumTitle}
                 artists={review.artists}

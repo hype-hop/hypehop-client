@@ -29,6 +29,7 @@ function App() {
             {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
             <Route path="/myInformation" element={<MyInformationPage />} />
             <Route path="/album" element={<AlbumPage />} />
+            <Route path="/album/write/:id" element={<AlbumPage />} />
             <Route path="/album/:id" element={<AlbumShowPage />} />
             <Route path="/album/review" element={<ReviewsPage />} />
             <Route path="/album/review/:id" element={<ReviewShowPage />} />

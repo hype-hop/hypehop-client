@@ -58,9 +58,12 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
                     whiteSpace: 'nowrap',
                   }}
                 >
+                  {/*
                   <Link to={`/user/${user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                     {user.name || user.displayName}
                   </Link>
+                */}
+                  <Typography> {user.name || user.displayName}</Typography>
                 </Typography>
 
                 <Typography
