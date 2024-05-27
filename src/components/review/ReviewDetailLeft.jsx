@@ -113,7 +113,12 @@ function ReviewDetailLeft({ data }) {
           >
             {data?.review?.title}
           </Typography>
-          <Typography textAlign="left" fontSize="fontSizeMd" fontWeight="fontWeightLight">
+          <Typography
+            textAlign="left"
+            fontSize="14px"
+            fontWeight="400"
+            sx={{ letterSpacing: '0.04rem', lineHeight: '1rem' }}
+          >
             <div dangerouslySetInnerHTML={{ __html: data?.review?.body }} />
           </Typography>
         </Box>
