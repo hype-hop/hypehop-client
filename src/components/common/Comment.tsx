@@ -160,9 +160,9 @@ function Comment({ reviewId, user }: Props) {
               display: 'flex',
               flexDirection: 'column',
               mt: '22px',
-              whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              letterSpacing: '0.04rem',
             }}
           >
             <Box
@@ -225,7 +225,7 @@ function Comment({ reviewId, user }: Props) {
                   },
                 }}
               >
-                <Typography fontSize="fontSizeMd" fontWeight="fontWeightLight" textAlign="left">
+                <Typography fontSize="13px" fontWeight="400" textAlign="left" sx={{ lineHeight: '1.2rem' }}>
                   {comment.content}
                 </Typography>{' '}
                 {comment.user._id === user?._id && (
