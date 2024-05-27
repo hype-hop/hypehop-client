@@ -117,7 +117,7 @@ function ReviewDetailLeft({ data }) {
             textAlign="left"
             fontSize="14px"
             fontWeight="400"
-            sx={{ letterSpacing: '0.04rem', lineHeight: '1rem' }}
+            sx={{ letterSpacing: '0.04rem', lineHeight: '1.2rem' }}
           >
             <div dangerouslySetInnerHTML={{ __html: data?.review?.body }} />
           </Typography>
