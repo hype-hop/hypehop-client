@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Box, Button, Skeleton, Typography } from '@mui/material';
 
 import BASE_URL from '../config';
-
+import MetaTag from '../components/common/Header/MetaTag';
 import AlbumDetailInformation from '../components/album/AlbumDetail/AlbumDetailInformation';
 // import AlbumDetailTracks from '../components/album/AlbumDetail/AlbumDetailTracks';
 
@@ -85,6 +85,7 @@ function AlbumShowPage() {
     setPage((prevPage) => Math.min(prevPage + 1, totalPage));
     fetchData(page + 1);
   };
+  console.log(data);
 
   /** 아티스트의 다른 앨범 가져오기 */
 
@@ -105,6 +106,12 @@ function AlbumShowPage() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '40px' }}>
+      <MetaTag
+        title={data?.pageTitle}
+        description={data?.pageDescription}
+        url={`/album/${id}`}
+        imgSrc={data?.albumData.images[1].url}
+      />
       <Box>
         <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
           앨범 정보

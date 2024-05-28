@@ -13,7 +13,7 @@ function FavoriteListCheckModal({
   favoriteClickedUsers: FavoriteClickedUser[];
 }) {
   const handleClose = () => setOpen(false);
-  console.log(favoriteClickedUsers);
+
   return (
     <Modal open={open} onClose={handleClose}>
       <Box

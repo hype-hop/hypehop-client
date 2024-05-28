@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { ThemeProvider, CssBaseline } from '@mui/material';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './AuthenticationContext';
@@ -13,7 +15,9 @@ root.render(
     <AuthProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </ThemeProvider>
     </AuthProvider>
   </React.StrictMode>,

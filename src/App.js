@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
+import MetaTag from './components/common/Header/MetaTag';
 import Header from './components/common/Header/Header';
 import LoginPage from './pages/LoginPage';
 import JoinPage from './pages/JoinPage';
@@ -19,6 +19,7 @@ import Footer from './components/common/Footer';
 function App() {
   return (
     <BrowserRouter>
+      <MetaTag />
       <div className="App">
         <Header />
         <RootLayout>
