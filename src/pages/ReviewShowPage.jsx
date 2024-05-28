@@ -7,6 +7,7 @@ import BASE_URL from '../config';
 import PageNotFound from '../components/common/Error/PageNotFound';
 import AlbumDetailInformationSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
 import AlbumReviewSummarySkeleton from '../components/common/skeletons/AlbumReviewSummarySkeleton';
+import MetaTag from '../components/common/Header/MetaTag';
 
 function ReviewShowPage() {
   const { id } = useParams();
@@ -41,6 +42,7 @@ function ReviewShowPage() {
 
     fetchData();
   }, [id]);
+  console.log(data);
 
   if (notFound) {
     return <PageNotFound />;
@@ -48,6 +50,12 @@ function ReviewShowPage() {
 
   return data ? (
     <div>
+      <MetaTag
+        title={data?.pageTitle}
+        description={data?.pageDescription}
+        url={`/album/review/${id}`}
+        imgSrc={data?.review?.thumbnail}
+      />
       <ReviewDetail
         data={data}
         albumId={data?.review?.albumId}

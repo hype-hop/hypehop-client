@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Typography, Box, Stack, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import AlbumCard from '../album/AlbumCard';
@@ -56,9 +56,10 @@ function ReviewDetailLeft({ data }) {
               whiteSpace: 'nowrap',
             }}
           >
-            <Link to={`/user/${data?.review?.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            {/* <Link to={`/user/${data?.review?.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
               {data?.review?.user.name || data?.review?.user.displayName}
-            </Link>
+          </Link> */}
+            <Typography> {data?.review?.user.name || data?.review?.user.displayName}</Typography>
           </Typography>
 
           <Typography
