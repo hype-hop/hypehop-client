@@ -294,7 +294,7 @@ export default function MenuAppBar() {
             </div>
           ) : (
             <div>
-              <Link to="/login">
+              <Link to="/login" style={{ textDecoration: 'none' }}>
                 <Button
                   sx={{
                     background: 'rgb(152, 72, 255)',

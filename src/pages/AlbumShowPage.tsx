@@ -19,7 +19,7 @@ function NoAlbumView({ albumId }) {
   return (
     <Box>
       <Typography mb={2}>앨범 리뷰가 없습니다. 첫 리뷰를 작성해주세요!</Typography>
-      <Link to={`/album/write/${albumId}`}>
+      <Link to={`/album/write/${albumId}`} style={{ textDecoration: 'none' }}>
         <Button
           sx={{
             background: 'rgb(152, 72, 255)',

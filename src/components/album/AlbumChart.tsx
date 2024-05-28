@@ -8,6 +8,7 @@ import { AlbumCharts } from '../../types/albumChart';
 import BASE_URL from '../../config';
 import { typography } from '../../constants/themeValue';
 import CustomStar from '../review/CustomStar';
+import RoundedSkeleton from '../common/skeletons/RoundedSkeleton';
 
 function AlbumList({ data, startIndex, endIndex }: { data: AlbumCharts | null; startIndex: number; endIndex: number }) {
   return (
@@ -115,7 +116,7 @@ function AlbumList({ data, startIndex, endIndex }: { data: AlbumCharts | null; s
           </Link>
         ))
       ) : (
-        <Typography>List Empty</Typography>
+        <RoundedSkeleton />
       )}
     </Box>
   );
