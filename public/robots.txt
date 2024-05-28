@@ -1,3 +1,5 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /*?
+user-agent:bingbot
+crawl-delay:20
+sitemap: https://server.hypehop.co.kr/album/sitemap.xml
