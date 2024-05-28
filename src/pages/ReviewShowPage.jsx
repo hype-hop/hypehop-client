@@ -50,12 +50,7 @@ function ReviewShowPage() {
 
   return data ? (
     <div>
-      <MetaTag
-        title={data?.pageTitle}
-        description={data?.pageDescription}
-        url={`/album/review/${id}`}
-        imgSrc={data?.review?.thumbnail}
-      />
+      <MetaTag title={data?.pageTitle} description={data?.pageDescription} imgSrc={data?.review?.thumbnail} />
       <ReviewDetail
         data={data}
         albumId={data?.review?.albumId}

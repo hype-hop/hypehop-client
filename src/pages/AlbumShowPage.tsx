@@ -106,12 +106,7 @@ function AlbumShowPage() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '40px' }}>
-      <MetaTag
-        title={data?.pageTitle}
-        description={data?.pageDescription}
-        url={`/album/${id}`}
-        imgSrc={data?.albumData.images[1].url}
-      />
+      <MetaTag title={data?.pageTitle} description={data?.pageDescription} imgSrc={data?.albumData.images[1].url} />
       <Box>
         <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
           앨범 정보
