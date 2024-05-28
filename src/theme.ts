@@ -92,6 +92,9 @@ const theme: Theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 20,
+          '&:hover': {
+            backgroundColor: 'rgb(121, 53, 208)',
+          },
         },
       },
     },
