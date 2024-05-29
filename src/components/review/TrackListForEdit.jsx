@@ -54,7 +54,15 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
         <Typography sx={{ mt: '16px' }} fontSize="14px" fontWeight="500" ml="16px" textAlign="left">
           트랙리스트 닫기
         </Typography>
-        <Button sx={{ mt: '8px', mb: '8px' }}>
+        <Button
+          sx={{
+            mt: '8px',
+            mb: '8px',
+            '&:hover': {
+              backgroundColor: 'rgba(0, 0, 0, 0)',
+            },
+          }}
+        >
           <ArrowUp />
         </Button>
       </Box>

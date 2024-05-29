@@ -1,5 +1,7 @@
 import { Avatar, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import he from 'he';
 import TimeSincePost from '../album/TimeSincePost';
 import Favorite from '../common/Favorite';
 import { Review } from '../../types/review';
@@ -10,7 +12,8 @@ import CustomStar from './CustomStar';
 function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; isMyReview?: boolean }) {
   const router = useNavigate();
   const { _id, user, albumRating, title, createdAt, isFavorite, comments, body } = review;
-
+  const strippedText = body.replace(/<[^>]+>/g, ' ');
+  const plainText = he.decode(strippedText);
   return (
     <Card
       key={_id}
@@ -67,12 +70,11 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
                 </Typography>
 
                 <Typography
-                  fontSize="fontSizeSm"
-                  fontWeight="fontWeightLight"
                   lineHeight="lineHeightSm"
                   sx={{
                     textAlign: 'left',
                     alignContent: 'center',
+                    color: 'rgb(168, 168, 168)',
                   }}
                 >
                   <TimeSincePost createdAt={createdAt} />{' '}
@@ -117,7 +119,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
               textOverflow: 'ellipsis',
             }}
           >
-            {body.replace(/<[^>]+>/g, ' ')}
+            {plainText}
           </Typography>
         </Box>
       </CardContent>

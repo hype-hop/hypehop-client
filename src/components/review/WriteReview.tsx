@@ -294,7 +294,17 @@ function WriteReview({ userData }) {
                   >
                     트랙리스트 닫기
                   </Typography>
-                  <Button sx={{ mt: '8px', mb: '8px' }}>{isTrackListOpened ? <ArrowUp /> : <ArrowDown />}</Button>
+                  <Button
+                    sx={{
+                      mt: '8px',
+                      mb: '8px',
+                      '&:hover': {
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
+                      },
+                    }}
+                  >
+                    {isTrackListOpened ? <ArrowUp /> : <ArrowDown />}
+                  </Button>
                 </Box>
                 {renderTracks}
               </Box>
@@ -326,7 +336,13 @@ function WriteReview({ userData }) {
                 >
                   트랙리스트 펼치기
                 </Typography>
-                <Button>
+                <Button
+                  sx={{
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                    },
+                  }}
+                >
                   <ArrowDown />
                 </Button>
               </Box>

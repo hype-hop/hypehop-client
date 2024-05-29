@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Box, CardActions, Avatar, CircularProgress } from '@mui/material';
-
+// eslint-disable-next-line import/no-extraneous-dependencies
+import he from 'he';
 import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 import TimeSincePost from '../components/album/TimeSincePost';
 import Favorite from '../components/common/Favorite';
@@ -172,10 +173,8 @@ function ReviewsPage() {
                       </Typography>
 
                       <Typography
-                        fontSize="fontSizeSm"
-                        fontWeight="fontWeightLight"
-                        lineHeight="lineHeightSm"
                         sx={{
+                          color: 'rgb(168, 168, 168)',
                           ml: '4px',
                           textAlign: 'left',
                           alignContent: 'center',
@@ -222,7 +221,7 @@ function ReviewsPage() {
                         letterSpacing: '-4%',
                       }}
                     >
-                      {review.body.replace(/<[^>]+>/g, ' ')}
+                      {he.decode(review.body.replace(/<[^>]+>/g, ' '))}
                     </Typography>
                   </Box>
                 </Link>

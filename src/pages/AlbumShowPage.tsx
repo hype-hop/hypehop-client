@@ -163,7 +163,16 @@ function AlbumShowPage() {
             ))}
         </Box>
         <Box sx={{ mt: '20px', textAlign: 'center' }}>
-          <Button onClick={loadMore} variant="outlined" disabled={page >= totalPage}>
+          <Button
+            onClick={loadMore}
+            variant="outlined"
+            disabled={page >= totalPage}
+            sx={{
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0)',
+              },
+            }}
+          >
             더보기
           </Button>
         </Box>
