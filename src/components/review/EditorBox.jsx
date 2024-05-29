@@ -31,16 +31,50 @@ function EditorBox({ onContentChange, value }) {
     }
   }, [location.pathname, value, content]);
 
+  /*
   const parseHTMLToBlocks = (html) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
+
     const paragraphs = doc.querySelectorAll('p');
+    // const embeds = doc.querySelectorAll('iframe');
     const blocks = Array.from(paragraphs).map((p) => ({
       type: 'paragraph',
       data: {
         text: p.textContent,
       },
     }));
+
+    return blocks;
+  };
+  */
+  const parseHTMLToBlocks = (html) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    const blocks = Array.from(doc.body.childNodes)
+      .map((node) => {
+        if (node.nodeName.toLowerCase() === 'p') {
+          return {
+            type: 'paragraph',
+            data: {
+              text: node.textContent,
+            },
+          };
+        }
+        if (node.nodeName.toLowerCase() === 'iframe') {
+          return {
+            type: 'embed',
+            data: {
+              service: 'youtube',
+              embed: node.src,
+            },
+          };
+        }
+        return null; // Return null for unsupported node types
+      })
+      .filter((block) => block !== null); // Remove null entries
+    console.log(blocks);
     return blocks;
   };
 
@@ -136,8 +170,22 @@ function EditorBox({ onContentChange, value }) {
         },
         onChange: async () => {
           const data = await editorRef.current.save();
-          const reviewBody = data?.blocks.map((block) => `<p>${block.data.text}</p>`).join('');
+          // const reviewBody = data?.blocks.map((block) => `<p>${block.data.text}</p>`).join('');
+
+          const reviewBody = data?.blocks
+            .map((block) => {
+              if (block.type === 'paragraph') {
+                return `<p>${block.data.text}</p>`;
+              }
+              if (block.type === 'embed') {
+                return `<iframe src="${block.data.embed}" frameborder="0" allowfullscreen></iframe>`;
+              }
+              return ''; // Return an empty string for other types or handle them accordingly
+            })
+            .join('');
+
           onContentChange(reviewBody);
+          console.log(data);
         },
       });
       editorRef.current = editor;
