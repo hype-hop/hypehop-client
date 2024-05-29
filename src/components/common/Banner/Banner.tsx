@@ -23,7 +23,12 @@ function Banner() {
             <Typography fontSize="15px" fontWeight="600" color="black">
               HYPE_HOP
             </Typography>
-            <Typography sx={{ mt: '5px', mb: '5px' }} fontSize="40px" fontWeight="900" color="black">
+            <Typography
+              sx={{ mt: '5px', mb: '5px' }}
+              fontSize={{ xs: '30px', sm: '30px' }}
+              fontWeight="900"
+              color="black"
+            >
               RENEWAL OPEN
             </Typography>
             <Typography fontSize={{ xs: '11px', sm: '13px', md: '15px' }} fontWeight="600" color="black">

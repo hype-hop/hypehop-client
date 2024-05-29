@@ -31,7 +31,15 @@ function ReviewMain() {
         <Typography sx={{ ml: '4px' }} variant="h1">
           최근리뷰{' '}
         </Typography>
-        <Button variant="outlined" sx={{ mb: 0 }}>
+        <Button
+          variant="outlined"
+          sx={{
+            mb: 0,
+            '&:hover': {
+              backgroundColor: 'rgba(0, 0, 0, 0.0)',
+            },
+          }}
+        >
           <Link to="/album/review" style={{ textDecoration: 'none', color: 'inherit' }}>
             더보기
           </Link>

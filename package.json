@@ -24,6 +24,7 @@
     "@types/react-dom": "^18.2.22",
     "editorjs-text-alignment-blocktune": "^1.0.3",
     "editorjs-text-color-plugin": "^2.0.4",
+    "he": "^1.2.0",
     "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3",

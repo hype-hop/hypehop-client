@@ -63,13 +63,11 @@ function ReviewDetailLeft({ data }) {
           </Typography>
 
           <Typography
-            fontSize="fontSizeSm"
-            fontWeight="fontWeightLight"
-            lineHeight="lineHeightSm"
             sx={{
               ml: '4px',
               textAlign: 'left',
               alignContent: 'center',
+              color: 'rgb(168, 168, 168)',
             }}
           >
             <TimeSincePost createdAt={data?.review?.createdAt} />{' '}

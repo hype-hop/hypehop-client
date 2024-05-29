@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Button, Input, Avatar, Divider } from '@mui/material';
-import { Link } from 'react-router-dom';
+
 // import { useAuth } from '../AuthenticationContext';
 import BASE_URL from '../../config';
 import TimeSincePost from '../album/TimeSincePost';
@@ -188,19 +188,19 @@ function Comment({ reviewId, user }: Props) {
                   whiteSpace: 'nowrap',
                 }}
               >
-                <Link to={`/user/${comment.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                {/* <Link to={`/user/${comment.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   {comment.user.name || comment.user.displayName}
-                </Link>
+              </Link> */}
+                <Typography>{comment.user.name || comment.user.displayName}</Typography>
               </Typography>
 
               <Typography
-                fontSize="fontSizeSm"
-                fontWeight="fontWeightLight"
                 lineHeight="lineHeightSm"
                 sx={{
                   ml: '4px',
                   textAlign: 'left',
                   alignContent: 'center',
+                  color: 'rgb(168, 168, 168)',
                 }}
               >
                 <TimeSincePost createdAt={comment.createdAt} />{' '}
