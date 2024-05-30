@@ -24,20 +24,20 @@ function ResultBox({ children }: { children: ReactNode }) {
 }
 
 function Result({
-  data,
+  searchResult,
   setSelectedAlbum,
   setSearchResult,
   setKeyword,
 }: {
-  data: AlbumSearchResult[];
+  searchResult: AlbumSearchResult[];
   setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
   setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
   setKeyword: Dispatch<SetStateAction<string | null>>;
 }) {
-  if (data.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
+  if (searchResult.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
   return (
     <ResultBox>
-      {data.map((album) => (
+      {searchResult.map((album) => (
         <Box
           sx={{
             display: 'flex',

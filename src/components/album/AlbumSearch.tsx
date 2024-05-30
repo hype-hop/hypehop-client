@@ -53,7 +53,7 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumS
 
       {isSearchCompleted && (
         <Result
-          data={searchResult}
+          searchResult={searchResult}
           setSelectedAlbum={setSelectedAlbum}
           setSearchResult={setSearchResult}
           setKeyword={setKeyword}
