@@ -23,7 +23,7 @@ function ResultBox({ children }: { children: ReactNode }) {
   );
 }
 
-function Result({
+export default function ResultList({
   searchResult,
   setSelectedAlbum,
   setSearchResult,
@@ -76,5 +76,3 @@ function Result({
     </ResultBox>
   );
 }
-
-export default Result;

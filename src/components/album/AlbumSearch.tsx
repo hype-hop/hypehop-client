@@ -4,7 +4,7 @@ import { Box, Input, InputAdornment } from '@mui/material';
 import { AlbumSearchResult } from '../../types/albumSearch';
 import postSearchAlbum from '../../api/album';
 import useDebounce from '../../utils/useDebounce';
-import Result from './AlbumSearchResult';
+import ResultList from './AlbumSearchResultList';
 import { AlbumForReview } from '../../types/albumReview';
 
 interface AlbumSearchProps {
@@ -52,7 +52,7 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumS
       />
 
       {isSearchCompleted && (
-        <Result
+        <ResultList
           searchResult={searchResult}
           setSelectedAlbum={setSelectedAlbum}
           setSearchResult={setSearchResult}
