@@ -8,7 +8,7 @@ import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
 import BASE_URL from '../../config';
 import EditorBox from './EditorBox';
 import ensureError from '../../utils/error';
-import AlbumSearch from '../album/AlbumSearch';
+import AlbumSearch from '../album/AlbumSearch/AlbumSearch';
 import RatingAlbum from './RatingAlbum';
 import { AlbumData } from '../../types/albumData';
 import { AlbumSearchResult } from '../../types/albumSearch';
