@@ -430,7 +430,6 @@ function WriteReview({ userData }) {
               <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
                 <Button
                   variant="outlined"
-                  type="submit"
                   onClick={handleCancel}
                   sx={{
                     mr: '16px',
@@ -445,7 +444,6 @@ function WriteReview({ userData }) {
                   </Typography>
                 </Button>
                 <Button
-                  type="submit"
                   onClick={handleSubmit}
                   sx={{ width: '104px', height: '43px', bgcolor: 'rgb(152, 72, 255)', padding: '12px 24px 12px 24px' }}
                 >
