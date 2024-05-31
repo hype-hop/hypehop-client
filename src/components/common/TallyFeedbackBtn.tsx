@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 export default function TallyFeedbackBtn() {
   return (
@@ -6,16 +6,19 @@ export default function TallyFeedbackBtn() {
     <Button
       sx={{
         position: 'fixed',
-        left: '15%',
-        bottom: '10%',
+        // right: '10%',
+        right: { xs: '3vh', sm: '3vh', md: '15vh', lg: '15vh' },
+        bottom: '5vh',
+        // bottom: '1%',
         borderRadius: '100%',
         width: '60px',
         height: '60px',
         zIndex: 1,
-        background: 'rgb(152, 72, 255)',
+        // background: 'rgb(152, 72, 255)',
+        background: 'white',
         transition: 'all 200ms',
         ':hover': {
-          background: 'rgb(152, 72, 255)',
+          background: 'white',
           boxShadow: '0px 0px 20px 0px rgba(152, 72, 255, 0.8)',
           borderRadius: '165px',
           width: '84px',
@@ -26,7 +29,9 @@ export default function TallyFeedbackBtn() {
       data-tally-emoji-animation="wave"
       data-tally-auto-close="0"
     >
-      Click me
+      <Typography variant="h1" sx={{ color: 'black' }}>
+        👋
+      </Typography>
     </Button>
   );
 }

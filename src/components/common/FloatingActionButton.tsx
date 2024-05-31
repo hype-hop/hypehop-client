@@ -20,8 +20,10 @@ export default function FloatingActionButton() {
       <Button
         sx={{
           position: 'fixed',
-          right: '15%',
-          bottom: '10%',
+          // right: '15%',
+          // bottom: '10%',
+          right: { xs: '3vh', sm: '3vh', md: '15vh', lg: '15vh' },
+          bottom: '15vh',
           borderRadius: '100%',
           width: '60px',
           height: '60px',

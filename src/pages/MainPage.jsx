@@ -5,6 +5,7 @@ import AlbumChart from '../components/album/AlbumChart';
 import PopularReview from '../components/review/PopularReview';
 import ReviewMain from '../components/review/ReviewMain';
 import FloatingActionButton from '../components/common/FloatingActionButton';
+import TallyFeedbackBtn from '../components/common/TallyFeedbackBtn';
 import { useAuth } from '../AuthenticationContext';
 import EditProfile from '../components/common/EditProfile';
 import AlbumSearch from '../components/album/AlbumSearch';
@@ -56,6 +57,7 @@ function MainPage() {
         </>
       )}
       <FloatingActionButton />
+      <TallyFeedbackBtn />
     </>
   );
 }
