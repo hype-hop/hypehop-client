@@ -62,7 +62,7 @@ function LogInForm() {
         variant="h1"
         textAlign="center"
         sx={{
-          mt: '105px',
+          mt: { xs: '0px', lg: '105px' },
         }}
       >
         로그인
@@ -86,7 +86,7 @@ function LogInForm() {
               sx={{
                 borderRadius: '16px',
                 mb: '16px',
-                mt: '57px',
+                mt: '40px',
                 backgroundColor: 'background.default',
                 border: '1px solid rgb(52, 52, 52)',
               }}

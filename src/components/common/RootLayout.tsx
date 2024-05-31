@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           paddingRight: '16px',
         },
         '@media (min-width:0px)': { paddingLeft: '16px', paddingRight: '16px' },
-        pt: 8,
+        pt: 5,
       }}
     >
       {children}
