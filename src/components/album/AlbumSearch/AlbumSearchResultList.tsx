@@ -37,12 +37,13 @@ export default function ResultList({
   if (searchResult.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
   return (
     <ResultBox>
-      {searchResult.map((album) => (
+      {searchResult.map((album, index) => (
         <AlbumSearchResultItem
           album={album}
           setKeyword={setKeyword}
           setSelectedAlbum={setSelectedAlbum}
           setSearchResult={setSearchResult}
+          index={index}
         />
       ))}
     </ResultBox>

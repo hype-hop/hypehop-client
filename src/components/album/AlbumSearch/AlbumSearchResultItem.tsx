@@ -3,18 +3,22 @@ import { Dispatch, SetStateAction } from 'react';
 import { AlbumForReview } from '../../../types/albumReview';
 import { AlbumSearchResult } from '../../../types/albumSearch';
 import INITIAL_RATING_VALUE from '../../../constants/rating';
+import { IAlbumSearchContext, useAlbumSearchContext } from './AlbumSearchContext';
 
 export default function AlbumSearchResultItem({
   album,
   setSelectedAlbum,
   setSearchResult,
   setKeyword,
+  index,
 }: {
   album: AlbumSearchResult;
   setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
   setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
   setKeyword: Dispatch<SetStateAction<string | null>>;
+  index: number;
 }) {
+  const { pointedResultIndex, setPointedResultIndexDirectly } = useAlbumSearchContext() as IAlbumSearchContext;
   return (
     <Box
       sx={{
@@ -22,15 +26,16 @@ export default function AlbumSearchResultItem({
         cursor: 'pointer',
         padding: '8px',
         borderRadius: '8px',
-        '&:hover': {
-          background: 'rgb(46, 45, 45)',
-        },
+        backgroundColor: `${pointedResultIndex === index ? 'rgb(46, 45, 45)' : ''}`,
       }}
       onClick={() => {
         setSelectedAlbum({ ...album, rating: INITIAL_RATING_VALUE });
         setKeyword(null);
         setSearchResult(null);
+        setPointedResultIndexDirectly(0);
       }}
+      onMouseEnter={() => setPointedResultIndexDirectly(index)}
+      onMouseLeave={() => setPointedResultIndexDirectly(-1)}
     >
       <Box
         component="img"
