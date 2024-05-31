@@ -13,8 +13,6 @@ export default function Footer() {
         justifyContent: 'center',
         mt: '50px',
         mb: '50px',
-        position: 'sticky',
-        top: '100vh',
       }}
     >
       <LogoIcon width={143} height={20} />
