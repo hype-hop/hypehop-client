@@ -10,6 +10,7 @@ import AlbumCover from '../album/AlbumCover';
 import AlbumReviewSummary from '../review/AlbumReviewSummary';
 import { typography } from '../../constants/themeValue';
 import Warning from '../common/Modal/Warning';
+import { useAuth } from '../../AuthenticationContext';
 
 interface MyReviewsProps {
   reviews: MyReview[];
@@ -20,6 +21,7 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const [toEditReview, setToEditReview] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const user = useAuth();
 
   const deleteMyReview = async (id: string) => {
     try {
@@ -47,53 +49,56 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
             border: '1px solid rgb(52, 52, 52)',
             padding: '16px',
             borderRadius: '0px 16px 16px 16px',
-            width: '282px',
-            minWidth: '282px',
+            width: { xs: '100%', sm: '282px' },
+            minWidth: { xs: '100%', sm: '282px' },
           }}
         >
-          <Box
-            sx={{
-              position: 'absolute',
-              zIndex: 10,
-              width: '24px',
-              height: '24px',
-              borderRadius: '50%',
-              top: '27px',
-              right: '27px',
-              ':hover': { backgroundColor: 'rgb(126, 126, 126)' },
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            onClick={(e) => {
-              setToEditReview(review._id);
-              setOpenMenu(e.currentTarget);
-            }}
-          >
-            <Hamburger>열기</Hamburger>
-          </Box>
-
-          <StyledMenu width={100} anchorEl={openMenu} open={Boolean(openMenu)} onClose={() => setOpenMenu(null)}>
-            <Link sx={{ textDecoration: 'none' }} href={`/album/review/edit/${toEditReview}`}>
-              <StyledMenuItem sx={{ height: '30px', padding: '9.75px' }}>
-                <Edit />
-                <Typography fontSize={typography.size.md} ml={2}>
-                  수정
-                </Typography>
-              </StyledMenuItem>
-            </Link>
-            <StyledMenuItem
-              sx={{ height: '30px', padding: '9.75px' }}
-              onClick={() => {
-                setOpen(true);
-              }}
-            >
-              <Delete />
-              <Typography fontSize={typography.size.md} ml={2}>
-                삭제
-              </Typography>
-            </StyledMenuItem>
-          </StyledMenu>
+          {user[0]._id === review.user ? (
+            <>
+              <Box
+                sx={{
+                  position: 'absolute',
+                  zIndex: 10,
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  top: '27px',
+                  right: '27px',
+                  ':hover': { backgroundColor: 'rgb(126, 126, 126)' },
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                onClick={(e) => {
+                  setToEditReview(review._id);
+                  setOpenMenu(e.currentTarget);
+                }}
+              >
+                <Hamburger>열기</Hamburger>
+              </Box>
+              <StyledMenu width={100} anchorEl={openMenu} open={Boolean(openMenu)} onClose={() => setOpenMenu(null)}>
+                <Link sx={{ textDecoration: 'none' }} href={`/album/review/edit/${toEditReview}`}>
+                  <StyledMenuItem sx={{ height: '30px', padding: '9.75px' }}>
+                    <Edit />
+                    <Typography fontSize={typography.size.md} ml={2}>
+                      수정
+                    </Typography>
+                  </StyledMenuItem>
+                </Link>
+                <StyledMenuItem
+                  sx={{ height: '30px', padding: '9.75px' }}
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                >
+                  <Delete />
+                  <Typography fontSize={typography.size.md} ml={2}>
+                    삭제
+                  </Typography>
+                </StyledMenuItem>
+              </StyledMenu>
+            </>
+          ) : null}
 
           <AlbumCover
             reviewId={review._id}
