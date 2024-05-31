@@ -40,7 +40,6 @@ function AlbumShowPage() {
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
   const [reviews, setReviews] = useState<Review[]>([]);
-  // const [reviews, setReviews] = useState<Review | []>();
 
   const fetchData = async (page: number) => {
     try {
@@ -142,24 +141,22 @@ function AlbumShowPage() {
                 }}
               />
             ))}
-          {reviews &&
-            (reviews?.length > 0 ? (
-              reviews?.map((review) => (
-                <Box
-                  key={`album-review-${review._id}`}
-                  sx={{
-                    minWidth: '282px',
-                    maxWidth: '282px',
-                    border: '1px solid rgb(52, 52, 52)',
-                    borderRadius: '0px 16px 16px 16px',
-                    p: 2,
-                  }}
-                >
-                  <AlbumReviewSummary review={review} />
-                </Box>
-              ))
-            ) : (
-              <NoAlbumView albumId={id} />
+          {data && reviews && reviews.length === 0 && <NoAlbumView albumId={id} />}
+
+          {reviews?.length > 0 &&
+            reviews?.map((review) => (
+              <Box
+                key={`album-review-${review._id}`}
+                sx={{
+                  minWidth: '282px',
+                  maxWidth: '282px',
+                  border: '1px solid rgb(52, 52, 52)',
+                  borderRadius: '0px 16px 16px 16px',
+                  p: 2,
+                }}
+              >
+                <AlbumReviewSummary review={review} />
+              </Box>
             ))}
         </Box>
         <Box sx={{ mt: '20px', textAlign: 'center' }}>
