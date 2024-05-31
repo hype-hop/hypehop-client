@@ -38,8 +38,8 @@ function App() {
             <Route path="/user/:userId" element={<UserPage />} />
           </Routes>
         </RootLayout>
-        <Footer />
       </div>
+      <Footer />
     </BrowserRouter>
   );
 }
