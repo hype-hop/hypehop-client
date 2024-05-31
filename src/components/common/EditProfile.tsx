@@ -64,7 +64,7 @@ function EditProfile({ userId }) {
             sx={{
               borderRadius: '16px',
               mb: '16px',
-              mt: '57px',
+              mt: '40px',
               backgroundColor: 'background.default',
               border: '1px solid rgb(52, 52, 52)',
             }}
