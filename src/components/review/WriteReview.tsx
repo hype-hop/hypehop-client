@@ -8,7 +8,7 @@ import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
 import BASE_URL from '../../config';
 import EditorBox from './EditorBox';
 import ensureError from '../../utils/error';
-import AlbumSearch from '../album/AlbumSearch';
+import AlbumSearch from '../album/AlbumSearch/AlbumSearch';
 import RatingAlbum from './RatingAlbum';
 import { AlbumData } from '../../types/albumData';
 import { AlbumSearchResult } from '../../types/albumSearch';
@@ -430,7 +430,6 @@ function WriteReview({ userData }) {
               <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
                 <Button
                   variant="outlined"
-                  type="submit"
                   onClick={handleCancel}
                   sx={{
                     mr: '16px',
@@ -445,7 +444,6 @@ function WriteReview({ userData }) {
                   </Typography>
                 </Button>
                 <Button
-                  type="submit"
                   onClick={handleSubmit}
                   sx={{ width: '104px', height: '43px', bgcolor: 'rgb(152, 72, 255)', padding: '12px 24px 12px 24px' }}
                 >

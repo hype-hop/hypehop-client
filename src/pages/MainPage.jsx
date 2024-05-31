@@ -8,7 +8,7 @@ import FloatingActionButton from '../components/common/FloatingActionButton';
 import TallyFeedbackBtn from '../components/common/TallyFeedbackBtn';
 import { useAuth } from '../AuthenticationContext';
 import EditProfile from '../components/common/EditProfile';
-import AlbumSearch from '../components/album/AlbumSearch';
+import AlbumSearch from '../components/album/AlbumSearch/AlbumSearch';
 import Banner from '../components/common/Banner/Banner';
 
 function MainPage() {
