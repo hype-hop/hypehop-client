@@ -138,6 +138,7 @@ function ReviewsPage() {
       <Button
         sx={{
           mr: '16px',
+          mt: '16px',
           border: '1px solid rgb(152, 72, 255)',
           borderRadius: '16px',
           ':hover': { backgroundColor: 'rgb(152, 72, 255)' },
@@ -158,7 +159,7 @@ function ReviewsPage() {
         <Typography variant="h1">리뷰 더보기 </Typography>
       </Box>
 
-      <Box sx={{ mt: '16px' }}>{renderGenreButtons()}</Box>
+      <Box>{renderGenreButtons()}</Box>
       <Box />
 
       <Box
