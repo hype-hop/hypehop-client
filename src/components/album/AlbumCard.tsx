@@ -59,12 +59,12 @@ function AlbumCard({ data }) {
             }}
           >
             {data?.review?.artists ? (
-              <Typography fontSize="16px" fontWeight="700" align="left">
+              <Typography fontSize="12px" fontWeight="700" align="left">
                 {' '}
                 {data?.review?.albumName}
               </Typography>
             ) : (
-              <Typography fontSize="16px" fontWeight="700" align="left">
+              <Typography fontSize="12px" fontWeight="700" align="left">
                 {data.review?.albumTitle.split('-', 2)[1]}
               </Typography>
             )}

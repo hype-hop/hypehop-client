@@ -126,8 +126,8 @@ function ReviewsPage() {
     hiphop: '#힙합',
     rnb: '#알앤비',
     rock: '#록',
-    pop: '#팝',
     electronic: '#일렉트로닉',
+    pop: '#팝',
     jazz: '#재즈',
     etc: '#기타',
     // Add other genres
