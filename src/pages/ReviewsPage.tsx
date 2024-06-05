@@ -124,10 +124,10 @@ function ReviewsPage() {
   const genreMapping = {
     all: '전체',
     hiphop: '#힙합',
-    rock: '#록',
     rnb: '#알앤비',
-    electronic: '#일렉트로닉',
+    rock: '#록',
     pop: '#팝',
+    electronic: '#일렉트로닉',
     jazz: '#재즈',
     etc: '#기타',
     // Add other genres
@@ -157,6 +157,7 @@ function ReviewsPage() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h1">리뷰 더보기 </Typography>
       </Box>
+
       <Box sx={{ mt: '16px' }}>{renderGenreButtons()}</Box>
       <Box />
 
