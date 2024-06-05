@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /*?
 user-agent:bingbot
 crawl-delay:20
 sitemap: https://server.hypehop.co.kr/album/sitemap.xml

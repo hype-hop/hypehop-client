@@ -16,8 +16,6 @@ export interface CommentData {
 }
 
 export interface Review {
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-explicit-any
-  map(arg0: (review: any) => import('react/jsx-runtime').JSX.Element): import('react').ReactNode;
   length: number;
   _id: string;
   title: string;
@@ -31,6 +29,7 @@ export interface Review {
   albumTitle: string;
   albumRating: number;
   artists: string[];
+  artistGenre: string[];
 }
 
 export interface MyReview extends Review {

@@ -42,12 +42,30 @@ function ReviewShowPage() {
 
     fetchData();
   }, [id]);
-  console.log(data);
 
   if (notFound) {
     return <PageNotFound />;
   }
+  /*
+  const handleGenre = async (e) => {
+    try {
+      e.preventDefault();
+      const response = await fetch(`${BASE_URL}/album/genre/${id}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
+      if (!response.ok) {
+        throw new Error('Failed to add comment');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+*/
   return data ? (
     <div>
       <MetaTag title={data?.pageTitle} description={data?.pageDescription} imgSrc={data?.review?.thumbnail} />
