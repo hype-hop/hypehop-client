@@ -34,6 +34,7 @@ function ReviewsPage() {
   const [totalPage, setTotalPage] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [allDataLoaded, setAllDataLoaded] = useState<boolean>(false);
+  const [refreshCount, setRefreshCount] = useState(0);
 
   // eslint-disable-next-line no-unused-vars
   function debounce(this: unknown, func: (...args: unknown[]) => void, delay: number): (...args: unknown[]) => void {
@@ -75,7 +76,7 @@ function ReviewsPage() {
 
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [genre]);
+  }, [genre, refreshCount]);
 
   useEffect(() => {
     const loadMoreData = async () => {
@@ -119,6 +120,7 @@ function ReviewsPage() {
 
   const handleGenreClick = (genre) => {
     setGenre(genre !== 'all' ? genre : 'all');
+    setRefreshCount((count) => count + 1);
   };
 
   const genreMapping = {
