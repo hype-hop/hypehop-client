@@ -84,7 +84,6 @@ function AlbumShowPage() {
     setPage((prevPage) => Math.min(prevPage + 1, totalPage));
     fetchData(page + 1);
   };
-  console.log(data);
 
   /** 아티스트의 다른 앨범 가져오기 */
 
@@ -110,6 +109,9 @@ function AlbumShowPage() {
         <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
           앨범 정보
         </Typography>
+
+        {/*  {data?.spotify_artist_genre.map((genre) => <Typography>{genre}</Typography>)} */}
+
         {data ? <AlbumDetailInformation data={data} /> : <AlbumDetailInformationSkeleton />}
       </Box>
 

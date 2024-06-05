@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography, Box, CardActions, Avatar, CircularProgress } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  CardActions,
+  Avatar,
+  CircularProgress,
+} from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import he from 'he';
 import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
@@ -20,6 +30,7 @@ interface InitialData {
 function ReviewsPage() {
   const [data, setData] = useState<InitialData | null>(null);
   const [page, setPage] = useState<number>(1);
+  const [genre, setGenre] = useState('all');
   const [totalPage, setTotalPage] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [allDataLoaded, setAllDataLoaded] = useState<boolean>(false);
@@ -37,7 +48,12 @@ function ReviewsPage() {
 
   const fetchData = async (page: number): Promise<InitialData | null> => {
     try {
-      const response = await fetch(`${BASE_URL}/album/api/review/scroll?page=${page}`);
+      const url =
+        genre === 'all'
+          ? `${BASE_URL}/album/api/review/scroll?page=${page}`
+          : `${BASE_URL}/album/api/review/scroll?genre=${genre}&page=${page}`;
+
+      const response = await fetch(url);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -51,12 +67,15 @@ function ReviewsPage() {
       const initialData = await fetchData(1);
       if (initialData) {
         setData(initialData);
+        setPage(1);
         setTotalPage(initialData.totalPage);
+        setAllDataLoaded(false);
       }
     };
 
     loadData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [genre]);
 
   useEffect(() => {
     const loadMoreData = async () => {
@@ -94,14 +113,53 @@ function ReviewsPage() {
     return () => {
       window.removeEventListener('scroll', debouncedScrollHandler);
     };
-  }, [page, totalPage, isLoading, allDataLoaded]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, totalPage, isLoading, allDataLoaded, genre]);
+
+  const handleGenreClick = (genre) => {
+    setGenre(genre !== 'all' ? genre : 'all');
+  };
+
+  const genreMapping = {
+    all: '전체',
+    hiphop: '#힙합',
+    rnb: '#알앤비',
+    rock: '#록',
+    electronic: '#일렉트로닉',
+    pop: '#팝',
+    jazz: '#재즈',
+    etc: '#기타',
+    // Add other genres
+  };
+
+  const renderGenreButtons = () => {
+    return Object.keys(genreMapping).map((genreKey) => (
+      <Button
+        sx={{
+          mr: '16px',
+          mt: '16px',
+          border: '1px solid rgb(152, 72, 255)',
+          borderRadius: '16px',
+          ':hover': { backgroundColor: 'rgb(152, 72, 255)' },
+          backgroundColor: genre === genreKey ? 'rgb(152, 72, 255)' : 'transparent',
+        }}
+        key={genreKey}
+        onClick={() => handleGenreClick(genreKey)}
+        variant="outlined"
+      >
+        {genreMapping[genreKey]}
+      </Button>
+    ));
+  };
 
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h1">리뷰 </Typography>
+        <Typography variant="h1">리뷰 더보기 </Typography>
       </Box>
 
+      <Box>{renderGenreButtons()}</Box>
       <Box />
 
       <Box

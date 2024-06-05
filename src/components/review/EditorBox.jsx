@@ -74,7 +74,7 @@ function EditorBox({ onContentChange, value }) {
         return null; // Return null for unsupported node types
       })
       .filter((block) => block !== null); // Remove null entries
-    console.log(blocks);
+
     return blocks;
   };
 
@@ -185,7 +185,6 @@ function EditorBox({ onContentChange, value }) {
             .join('');
 
           onContentChange(reviewBody);
-          console.log(data);
         },
       });
       editorRef.current = editor;
