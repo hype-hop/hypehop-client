@@ -25,7 +25,7 @@ function NoAlbumView({ albumId }) {
       }}
     >
       <Typography mt={2} mb={2}>
-        작성하신 리뷰가 없습니다. 리뷰를 작성해주세요!
+        작성하신 리뷰가 없습니다. 리뷰를 작성해보세요!
         {/* 앨범 리뷰가 없습니다. 첫 리뷰를 작성해주세요! */}
       </Typography>
       <Link to={`/album/write/${albumId}`} style={{ textDecoration: 'none' }}>
