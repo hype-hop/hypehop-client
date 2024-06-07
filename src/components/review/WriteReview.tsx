@@ -19,6 +19,7 @@ import Duplicate from '../common/Modal/Duplicate';
 import { typography } from '../../constants/themeValue';
 import INITIAL_RATING_VALUE from '../../constants/rating';
 import CustomStar from './CustomStar';
+import PlayPreview from '../common/PlayPreview';
 
 function WriteReview({ userData }) {
   const navigate = useNavigate();
@@ -190,6 +191,9 @@ function WriteReview({ userData }) {
                 <Typography fontSize={typography.size.lg} fontWeight={typography.weight.medium}>
                   {index + 1}{' '}
                 </Typography>
+              </Box>
+              <Box>
+                <PlayPreview previewUrl={track.preview_url} />
               </Box>
               <Box>
                 <Typography sx={{}} fontSize={typography.size.lg} fontWeight={typography.weight.bold}>

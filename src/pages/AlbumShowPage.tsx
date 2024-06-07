@@ -50,7 +50,6 @@ function AlbumShowPage() {
   const [totalPage, setTotalPage] = useState<number>(1);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [user] = useAuth();
-  console.log(user);
 
   const fetchData = async (page: number) => {
     try {

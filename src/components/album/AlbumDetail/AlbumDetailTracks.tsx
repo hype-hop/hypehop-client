@@ -3,6 +3,7 @@ import CustomStar from '../../review/CustomStar';
 // import { AlbumDetailType } from '../../../types/albumDetail';
 import { typography } from '../../../constants/themeValue';
 import { AlbumData } from '../../../types/albumData';
+import PlayPreview from '../../common/PlayPreview';
 
 function AlbumDetailTracks({ data }: { data: AlbumData }) {
   // const [, setTrackRating] = useState<number[]>([]);
@@ -39,6 +40,11 @@ function AlbumDetailTracks({ data }: { data: AlbumData }) {
                       {index + 1}{' '}
                     </Typography>
                   </Box>
+
+                  <Box>
+                    <PlayPreview previewUrl={track.preview_url} />
+                  </Box>
+
                   <Box>
                     <Typography sx={{}} fontSize={typography.size.lg} fontWeight={typography.weight.bold}>
                       {track.name}

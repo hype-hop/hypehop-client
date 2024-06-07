@@ -3,11 +3,12 @@ import { Stack, Box, Typography, Button } from '@mui/material';
 import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
 import { typography } from '../../constants/themeValue';
 import CustomStar from './CustomStar';
+import PlayPreview from '../common/PlayPreview';
 
 function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandleOpen }) {
   const [trackRatingForEdit, setTrackRatingForEdit] = useState(null);
   const [, setTrackRating] = useState(null);
-
+  const [albumDataState, setAlbumDataState] = useState(null);
   // const [albumData] = useState(null);
 
   const id = data?.review.albumId;
@@ -26,9 +27,10 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
       setTrackRatingForEdit(data?.review.tracks);
       const trackRatingArray = Array(data?.review.tracks.length || 0).fill(null);
       setTrackRating(trackRatingArray);
+      setAlbumDataState(albumData.albumData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, data]);
+  }, [id, data, albumData]);
 
   albumData?.albumData?.tracks.items.forEach((track, index) => {
     const discNumber = track.disc_number || 1;
@@ -89,6 +91,12 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
                     <Typography fontSize={typography.size.lg} fontWeight={typography.weight.medium}>
                       {trackIndex + 1}
                     </Typography>
+                  </Box>
+
+                  <Box>
+                    <PlayPreview previewUrl={albumDataState?.tracks.items[trackIndex].preview_url} />
+
+                    {/* {albumDataState?.tracks.items.map((track) => <Typography> {track.preview_url} </Typography>)} */}
                   </Box>
 
                   <Box>
