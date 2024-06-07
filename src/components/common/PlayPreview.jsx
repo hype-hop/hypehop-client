@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import { useState, useEffect } from 'react';
@@ -53,9 +53,9 @@ function PlayPreview({ previewUrl }) {
   return (
     <Box>
       {previewUrl && (
-        <Button onClick={() => handlePlayPause(previewUrl)}>
+        <Box sx={{ ml: '10px', mt: '4px', mr: '6px' }} onClick={() => handlePlayPause(previewUrl)}>
           {isPlaying ? <PauseCircleIcon /> : <PlayCircleIcon />}
-        </Button>
+        </Box>
       )}
     </Box>
   );

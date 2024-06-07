@@ -87,7 +87,7 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
                 key={trackIndex}
               >
                 <Box display="flex" alignItems="center">
-                  <Box sx={{ mr: '16px' }}>
+                  <Box>
                     <Typography fontSize={typography.size.lg} fontWeight={typography.weight.medium}>
                       {trackIndex + 1}
                     </Typography>
