@@ -57,4 +57,7 @@ export interface FormData {
   artistGenre: string[];
   artists: [];
   albumName: string;
+  bestTrackId: string | null | undefined;
+  bestTrackName: string | null | undefined;
+  previewUrl: string | null | undefined;
 }

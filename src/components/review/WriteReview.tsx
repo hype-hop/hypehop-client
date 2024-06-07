@@ -20,6 +20,13 @@ import { typography } from '../../constants/themeValue';
 import INITIAL_RATING_VALUE from '../../constants/rating';
 import CustomStar from './CustomStar';
 import PlayPreview from '../common/PlayPreview';
+import ThumbsUp from './ThumbsUp';
+
+interface BestTrack {
+  id: string | null;
+  name: string | null;
+  preview_url: string | null;
+}
 
 function WriteReview({ userData }) {
   const navigate = useNavigate();
@@ -33,6 +40,8 @@ function WriteReview({ userData }) {
   const [open, setOpen] = useState(true);
   const [isTrackListOpened, SetsTrackListOpened] = useState(false);
   const [albumRatingState, setAlbumRatingState] = useState(0);
+  const [selectedThumb, setSelectedThumb] = useState(null);
+  const [bestTrack, setBestTrack] = useState<BestTrack | null>(null);
 
   useEffect(() => {
     if (searchParams.get('keyword')) {
@@ -90,10 +99,8 @@ function WriteReview({ userData }) {
   const [formData, setFormData] = useState<FormData>({
     title: '',
     status: 'public',
-
     body: '',
     albumTitle: data?.pageTitle,
-    // albumRating: selectedAlbum?.rating,
     albumRating: 0,
     artists: [],
     albumName: data?.albumData?.name,
@@ -103,6 +110,9 @@ function WriteReview({ userData }) {
     albumReleaseDate: data?.albumData?.release_date,
     trackTitle: [],
     artistGenre: [],
+    bestTrackId: '',
+    bestTrackName: '',
+    previewUrl: '',
   });
 
   useEffect(() => {
@@ -146,6 +156,9 @@ function WriteReview({ userData }) {
       trackRating,
       body: reviewContent,
       albumRating: albumRatingState,
+      bestTrackId: bestTrack?.id,
+      bestTrackName: bestTrack?.name,
+      previewUrl: bestTrack?.preview_url,
     };
 
     if (albumRatingState !== 0 && formData.title !== '') {
@@ -221,9 +234,18 @@ function WriteReview({ userData }) {
                     }}
                   />
                 </Stack>
+
                 <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center', width: '17px' }}>
                   {Number(trackRating[index]).toFixed(1)}
                 </Typography>
+
+                <ThumbsUp
+                  id={track.id}
+                  track={track}
+                  setBestTrack={setBestTrack}
+                  selectedThumb={selectedThumb}
+                  setSelectedThumb={setSelectedThumb}
+                />
               </Box>
             )}
           </Box>

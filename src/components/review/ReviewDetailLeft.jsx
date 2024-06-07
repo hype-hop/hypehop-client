@@ -112,6 +112,7 @@ function ReviewDetailLeft({ data }) {
           >
             {data?.review?.title}
           </Typography>
+
           <Typography
             textAlign="left"
             fontSize="14px"
