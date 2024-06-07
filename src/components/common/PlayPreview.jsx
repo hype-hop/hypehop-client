@@ -52,10 +52,12 @@ function PlayPreview({ previewUrl }) {
 
   return (
     <Box>
-      {previewUrl && (
+      {previewUrl ? (
         <Box sx={{ ml: '10px', mt: '4px', mr: '6px' }} onClick={() => handlePlayPause(previewUrl)}>
           {isPlaying ? <PauseCircleIcon /> : <PlayCircleIcon />}
         </Box>
+      ) : (
+        <Box sx={{ ml: '10px', mt: '4px', mr: '6px' }} />
       )}
     </Box>
   );
