@@ -35,7 +35,7 @@ function AlbumDetailTracks({ data }: { data: AlbumData }) {
                 key={index}
               >
                 <Box display="flex">
-                  <Box sx={{ alignContent: 'center' }}>
+                  <Box sx={{ alignContent: 'center', minWidth: '14px' }}>
                     <Typography fontSize={typography.size.lg} fontWeight={typography.weight.medium}>
                       {index + 1}{' '}
                     </Typography>
