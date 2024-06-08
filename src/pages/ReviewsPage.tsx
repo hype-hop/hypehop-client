@@ -1,16 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Box,
-  CardActions,
-  Avatar,
-  CircularProgress,
-} from '@mui/material';
+import { Button, Card, CardContent, Typography, Box, CardActions, Avatar, CircularProgress } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import he from 'he';
 import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
@@ -21,6 +11,7 @@ import { Review } from '../types/review';
 import { typography } from '../constants/themeValue';
 import CustomStar from '../components/review/CustomStar';
 import ReviewsPageSkeleton from '../components/common/skeletons/reviewsPage/ReviewsPageSkeleton';
+import AlbumCover from '../components/album/AlbumCover';
 
 interface InitialData {
   totalPage: number;
@@ -179,8 +170,6 @@ function ReviewsPage() {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-
-                height: '423px',
                 padding: '16px',
                 bgcolor: 'background.default',
                 border: '1px solid',
@@ -191,9 +180,13 @@ function ReviewsPage() {
                 maxWidth: '100%',
               }}
             >
-              <Link target="_blank" to={`/album/review/${review._id}`}>
-                <CardMedia component="img" width="234px" height="234px" image={review.thumbnail} alt="album cover" />
-              </Link>
+              <AlbumCover
+                reviewId={review._id}
+                url={review.thumbnail}
+                albumTitle={review.albumTitle}
+                artists={review.artists}
+                previewUrl={review?.previewUrl}
+              />
 
               <CardContent sx={{ padding: '0' }}>
                 <Box
