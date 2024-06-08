@@ -238,14 +238,15 @@ function WriteReview({ userData }) {
                 <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center', width: '17px' }}>
                   {Number(trackRating[index]).toFixed(1)}
                 </Typography>
-
-                <ThumbsUp
-                  id={track.id}
-                  track={track}
-                  setBestTrack={setBestTrack}
-                  selectedThumb={selectedThumb}
-                  setSelectedThumb={setSelectedThumb}
-                />
+                {track.preview_url && (
+                  <ThumbsUp
+                    id={track.id}
+                    track={track}
+                    setBestTrack={setBestTrack}
+                    selectedThumb={selectedThumb}
+                    setSelectedThumb={setSelectedThumb}
+                  />
+                )}
               </Box>
             )}
           </Box>

@@ -4,16 +4,25 @@ import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
 import { typography } from '../../constants/themeValue';
 import CustomStar from './CustomStar';
 import PlayPreview from '../common/PlayPreview';
+import ThumbsUp from './ThumbsUp';
 
-function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandleOpen }) {
+function TrackListForEdit({ data, onBestTrackUpdate, onUpdateTrackRatingForEdit, albumData, onHandleOpen }) {
   const [trackRatingForEdit, setTrackRatingForEdit] = useState(null);
   const [, setTrackRating] = useState(null);
   const [albumDataState, setAlbumDataState] = useState(null);
   // const [albumData] = useState(null);
+  const [selectedThumb, setSelectedThumb] = useState(null);
+  const [, setBestTrack] = useState([]);
 
   const id = data?.review.albumId;
   const tracksByDisc = {};
   const tracks = [];
+
+  const handleThumbsUpChange = (track) => {
+    setBestTrack(track);
+    setSelectedThumb(track.id);
+    onBestTrackUpdate(track); // Call the parent callback function
+  };
 
   const handleRatingChange = (newValue, albumIndex, trackIndex) => {
     const updatedState = [...trackRatingForEdit];
@@ -28,6 +37,7 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
       const trackRatingArray = Array(data?.review.tracks.length || 0).fill(null);
       setTrackRating(trackRatingArray);
       setAlbumDataState(albumData.albumData);
+      setSelectedThumb(data?.review.bestTrackId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, data, albumData]);
@@ -125,6 +135,16 @@ function TrackListForEdit({ data, onUpdateTrackRatingForEdit, albumData, onHandl
                   <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center', width: '17px' }}>
                     {Number(album.trackRating[trackIndex]).toFixed(1)}
                   </Typography>
+                  <Typography>{albumDataState?.tracks.items[trackIndex]._id}</Typography>
+                  {albumDataState?.tracks.items[trackIndex].preview_url && (
+                    <ThumbsUp
+                      id={albumDataState?.tracks.items[trackIndex].id}
+                      track={albumDataState?.tracks.items[trackIndex]}
+                      setBestTrack={handleThumbsUpChange}
+                      selectedThumb={selectedThumb}
+                      setSelectedThumb={setSelectedThumb}
+                    />
+                  )}
                 </Box>
               </Box>
             ))}

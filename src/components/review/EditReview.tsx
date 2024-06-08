@@ -8,12 +8,23 @@ import BASE_URL from '../../config';
 import TrackListForEdit from './TrackListForEdit';
 import CustomStarEdit from './CustomStarEdit';
 
+interface BestTrack {
+  id: string | null;
+  name: string | null;
+  preview_url: string | null;
+}
+
 function EditReview({ data, albumData }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [reviewContent, setReviewContent] = useState('');
   const [isTrackListOpened, SetTrackListOpened] = useState(false);
   const [parentTrackRatingForEdit, setParentTrackRatingForEdit] = useState(data?.review.tracks);
+  const [bestTrack, setBestTrack] = useState<BestTrack | null>(null);
+
+  const handleBestTrackUpdate = (track) => {
+    setBestTrack(track);
+  };
 
   const handleTrackRatingForEditUpdate = (updatedTrackRatingForEdit) => {
     setParentTrackRatingForEdit(updatedTrackRatingForEdit);
@@ -33,6 +44,9 @@ function EditReview({ data, albumData }) {
     status: 'public',
     albumRating: 0,
     body: '',
+    bestTrackId: '',
+    bestTrackName: '',
+    previewUrl: '',
   });
 
   useEffect(() => {
@@ -69,6 +83,9 @@ function EditReview({ data, albumData }) {
         ...formData,
         tracks: parentTrackRatingForEdit,
         body: reviewContent,
+        bestTrackId: bestTrack?.id,
+        bestTrackName: bestTrack?.name,
+        previewUrl: bestTrack?.preview_url,
       };
 
       fetch(`${BASE_URL}/album/api/review/${id}`, {
@@ -179,6 +196,7 @@ function EditReview({ data, albumData }) {
           onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
           albumData={albumData}
           onHandleOpen={handleOpen}
+          onBestTrackUpdate={handleBestTrackUpdate}
         />
       ) : (
         <Box
