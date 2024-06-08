@@ -3,4 +3,5 @@ export interface AlbumCoverProps {
   url: string;
   albumTitle?: string;
   artists?: string[];
+  previewUrl: string;
 }

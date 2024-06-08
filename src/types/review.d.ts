@@ -16,6 +16,7 @@ export interface CommentData {
 }
 
 export interface Review {
+  previewUrl: string;
   length: number;
   _id: string;
   title: string;

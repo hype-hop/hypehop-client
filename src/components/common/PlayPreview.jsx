@@ -13,7 +13,7 @@ const audioController = {
   },
 };
 
-function PlayPreview({ previewUrl }) {
+function PlayPreview({ previewUrl, size }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,10 @@ function PlayPreview({ previewUrl }) {
     };
   }, []);
 
-  const handlePlayPause = (url) => {
+  const handlePlayPause = (event, url) => {
+    event.stopPropagation();
+    event.preventDefault();
+
     if (!audioController.currentAudio || audioController.currentAudio.src !== url) {
       const newAudio = new Audio(url);
       newAudio.addEventListener('play', () => setIsPlaying(true));
@@ -53,8 +56,12 @@ function PlayPreview({ previewUrl }) {
   return (
     <Box>
       {previewUrl ? (
-        <Box sx={{ ml: '10px', mt: '4px', mr: '6px' }} onClick={() => handlePlayPause(previewUrl)}>
-          {isPlaying ? <PauseCircleIcon /> : <PlayCircleIcon />}
+        <Box sx={{ ml: '10px', mt: '4px', mr: '6px' }} onClick={(event) => handlePlayPause(event, previewUrl)}>
+          {isPlaying ? (
+            <PauseCircleIcon sx={size ? { fontSize: size } : {}} />
+          ) : (
+            <PlayCircleIcon sx={size ? { fontSize: size } : {}} />
+          )}
         </Box>
       ) : (
         <Box sx={{ ml: '10px', mt: '4px', mr: '6px' }} />

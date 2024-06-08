@@ -2,8 +2,9 @@ import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { typography } from '../../constants/themeValue';
 import { AlbumCoverProps } from '../../types/albumCover';
+import PlayPreview from '../common/PlayPreview';
 
-function AlbumCover({ reviewId, url, albumTitle, artists }: AlbumCoverProps) {
+function AlbumCover({ reviewId, url, albumTitle, artists, previewUrl }: AlbumCoverProps) {
   // const router = useNavigate();
   return (
     <Box
@@ -39,6 +40,13 @@ function AlbumCover({ reviewId, url, albumTitle, artists }: AlbumCoverProps) {
           src={url}
           alt={albumTitle}
         />
+
+        <Box sx={{ position: 'absolute', top: '10px', zIndex: 2 }}>
+          <PlayPreview previewUrl={previewUrl} size={30} />
+
+          <Typography component="div" fontSize={typography.size.lg} fontWeight="bold" align="left" />
+        </Box>
+
         <Box sx={{ position: 'absolute', bottom: '16px', left: '16px', zIndex: 2 }}>
           <Typography component="div" fontSize={typography.size.lg} fontWeight="bold" align="left">
             {albumTitle}
