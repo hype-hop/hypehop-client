@@ -20,13 +20,13 @@ interface MyReviewsProps {
 export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) {
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const [toEditReview, setToEditReview] = useState<string | null>(null);
-  const [open, setOpen] = useState(false);
+  const [openDeleteWarningModal, setOpenDeleteWarningModal] = useState(false);
   const user = useAuth();
 
   const deleteMyReview = async (id: string) => {
     try {
       setRefreshCount((count) => count + 1);
-      setOpen(false);
+      setOpenDeleteWarningModal(false);
       const response = await fetch(`${BASE_URL}/album/api/review/delete/${id}`, {
         method: 'DELETE',
         credentials: 'include',
@@ -88,7 +88,7 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
                 <StyledMenuItem
                   sx={{ height: '30px', padding: '9.75px' }}
                   onClick={() => {
-                    setOpen(true);
+                    setOpenDeleteWarningModal(true);
                   }}
                 >
                   <Delete />
@@ -109,7 +109,11 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
           <AlbumReviewSummary review={review} isMyReview />
         </Box>
       ))}
-      <Warning open={open} setOpen={setOpen} handleDelete={() => deleteMyReview(toEditReview!)} />
+      <Warning
+        open={openDeleteWarningModal}
+        setOpen={setOpenDeleteWarningModal}
+        handleDelete={() => deleteMyReview(toEditReview!)}
+      />
     </Box>
   );
 }
