@@ -1,16 +1,10 @@
-import { Box, Link, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { Box } from '@mui/material';
+import React from 'react';
 import { MyReview } from '../../types/review';
-import { ReactComponent as Hamburger } from '../../assets/icons/hamburger.svg';
-import { ReactComponent as Edit } from '../../assets/icons/edit-review.svg';
-import { ReactComponent as Delete } from '../../assets/icons/delete-review.svg';
-import { StyledMenu, StyledMenuItem } from '../common/StyledMenu';
-import BASE_URL from '../../config';
 import AlbumCover from '../album/AlbumCover';
 import AlbumReviewSummary from '../review/AlbumReviewSummary';
-import { typography } from '../../constants/themeValue';
-import Warning from '../common/Modal/Warning';
 import { useAuth } from '../../AuthenticationContext';
+import ProfileReviewEditHamburger from '../review/ProfileReviewEditHamburger';
 
 interface MyReviewsProps {
   reviews: MyReview[];
@@ -18,27 +12,7 @@ interface MyReviewsProps {
 }
 
 export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) {
-  const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
-  const [toEditReview, setToEditReview] = useState<string | null>(null);
-  const [openDeleteWarningModal, setOpenDeleteWarningModal] = useState(false);
   const user = useAuth();
-
-  const deleteMyReview = async (id: string) => {
-    try {
-      setRefreshCount((count) => count + 1);
-      setOpenDeleteWarningModal(false);
-      const response = await fetch(`${BASE_URL}/album/api/review/delete/${id}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete');
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 2 }} gap={3}>
@@ -54,50 +28,7 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
           }}
         >
           {user[0]._id === review.user ? (
-            <>
-              <Box
-                sx={{
-                  position: 'absolute',
-                  zIndex: 10,
-                  width: '24px',
-                  height: '24px',
-                  borderRadius: '50%',
-                  top: '27px',
-                  right: '27px',
-                  ':hover': { backgroundColor: 'rgb(126, 126, 126)' },
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                onClick={(e) => {
-                  setToEditReview(review._id);
-                  setOpenMenu(e.currentTarget);
-                }}
-              >
-                <Hamburger>열기</Hamburger>
-              </Box>
-              <StyledMenu width={100} anchorEl={openMenu} open={Boolean(openMenu)} onClose={() => setOpenMenu(null)}>
-                <Link sx={{ textDecoration: 'none' }} href={`/album/review/edit/${toEditReview}`}>
-                  <StyledMenuItem sx={{ height: '30px', padding: '9.75px' }}>
-                    <Edit />
-                    <Typography fontSize={typography.size.md} ml={2}>
-                      수정
-                    </Typography>
-                  </StyledMenuItem>
-                </Link>
-                <StyledMenuItem
-                  sx={{ height: '30px', padding: '9.75px' }}
-                  onClick={() => {
-                    setOpenDeleteWarningModal(true);
-                  }}
-                >
-                  <Delete />
-                  <Typography fontSize={typography.size.md} ml={2}>
-                    삭제
-                  </Typography>
-                </StyledMenuItem>
-              </StyledMenu>
-            </>
+            <ProfileReviewEditHamburger review={review} setRefreshCount={setRefreshCount} />
           ) : null}
 
           <AlbumCover
@@ -109,11 +40,6 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
           <AlbumReviewSummary review={review} isMyReview />
         </Box>
       ))}
-      <Warning
-        open={openDeleteWarningModal}
-        setOpen={setOpenDeleteWarningModal}
-        handleDelete={() => deleteMyReview(toEditReview!)}
-      />
     </Box>
   );
 }
