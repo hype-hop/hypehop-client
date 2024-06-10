@@ -1,17 +1,18 @@
+import { Dispatch, SetStateAction } from 'react';
 import { Box } from '@mui/material';
-import React from 'react';
-import { MyReview } from '../../types/review';
-import AlbumCover from '../album/AlbumCover';
-import AlbumReviewSummary from '../review/AlbumReviewSummary';
 import { useAuth } from '../../AuthenticationContext';
-import ProfileReviewEditHamburger from '../review/ProfileReviewEditHamburger';
+import { MyReview, Review } from '../../types/review';
+import ProfileReviewEditHamburger from './ProfileReviewEditHamburger';
+import AlbumCover from '../album/AlbumCover';
+import AlbumReviewSummary from './AlbumReviewSummary';
 
-interface MyReviewsProps {
-  reviews: MyReview[];
-  setRefreshCount: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) {
+export default function Reviews({
+  reviews,
+  setRefreshCount,
+}: {
+  reviews: MyReview[] | Review[];
+  setRefreshCount: Dispatch<SetStateAction<number>>;
+}) {
   const user = useAuth();
 
   return (
