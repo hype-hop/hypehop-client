@@ -11,7 +11,7 @@ export default function Reviews({
   setRefreshCount,
 }: {
   reviews: MyReview[] | Review[];
-  setRefreshCount: Dispatch<SetStateAction<number>>;
+  setRefreshCount?: Dispatch<SetStateAction<number>>;
 }) {
   const user = useAuth();
 
@@ -29,7 +29,7 @@ export default function Reviews({
           }}
         >
           {user[0]._id === review.user ? (
-            <ProfileReviewEditHamburger review={review} setRefreshCount={setRefreshCount} />
+            <ProfileReviewEditHamburger review={review} setRefreshCount={setRefreshCount!} />
           ) : null}
 
           <AlbumCover
