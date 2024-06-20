@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { Avatar, Box, Tab, Tabs, Typography, Button } from '@mui/material';
+import { Box, Tab, Tabs, Typography, Button } from '@mui/material';
 import { useAuth } from '../AuthenticationContext';
 import { MyInformation } from '../types/myInformation';
 import getMyInformation from '../api/myInformation';
@@ -9,6 +9,7 @@ import ChangeName from '../components/common/Modal/ChangeName';
 import TabPanel from '../components/common/Tabs/TabPanel';
 import useTabs from '../hooks/useTab';
 import MyReviews from '../components/myInformation/MyReviews';
+import MyInformProfile from '../components/common/MyInformProfile';
 import MyInformationPageSkeleton from '../components/common/skeletons/myInformationPage/MyInformationPageSkeleton';
 
 function NoAlbumReview() {
@@ -55,7 +56,7 @@ function MyPage() {
     <>
       {open && <ChangeName open={open} setOpen={setOpen} userId={user?._id} />}
       <Box sx={{ display: 'flex', columnGap: '24px', mb: '40px' }}>
-        <Avatar src={user?.image} sx={{ width: '100px', height: '100px' }} />
+        <MyInformProfile image={user?.image} />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
           <Typography variant="h1"> {user?.name} </Typography>
           <Button
