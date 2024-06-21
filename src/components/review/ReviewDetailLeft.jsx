@@ -4,14 +4,13 @@ import { Typography, Box, Stack, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import AlbumCard from '../album/AlbumCard';
 import TimeSincePost from '../album/TimeSincePost';
-import PlayPreview from '../common/PlayPreview';
+
 import Favorite from '../common/Favorite';
 import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
 import { typography } from '../../constants/themeValue';
 
 function ReviewDetailLeft({ data }) {
   const { id } = useParams();
-  const { bestTrackName, previewUrl } = data.review;
 
   return (
     <Box sx={{ mb: '18px' }}>
@@ -143,27 +142,6 @@ function ReviewDetailLeft({ data }) {
           </Box>
         </Box>
       </Box>
-
-      {previewUrl && (
-        <>
-          <Box sx={{ mt: '40px' }}>
-            <Typography variant="h1">추천트랙</Typography>
-          </Box>
-          <Box
-            sx={{ mt: '14px', mb: '14px', border: '1px solid rgb(86, 87, 87)', borderRadius: '16px', padding: '16px' }}
-            className="preview"
-          >
-            <Box display="flex" sx={{ alignItems: 'center' }}>
-              <Box sx={{ height: '40px', width: '0', alignContent: 'center', display: 'flex' }}>
-                <img src={data?.review.thumbnail} alt={bestTrackName} />
-              </Box>
-
-              <PlayPreview previewUrl={previewUrl} />
-              <Typography sx={{ ml: '14px' }}>{bestTrackName}</Typography>
-            </Box>
-          </Box>
-        </>
-      )}
     </Box>
   );
 }
