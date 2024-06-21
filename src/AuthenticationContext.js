@@ -8,7 +8,7 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
   const memoizedUser = useMemo(() => [user, setUser], [user]);
 
   useEffect(() => {

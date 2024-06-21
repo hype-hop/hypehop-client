@@ -1,34 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Avatar, Box, Tab, Tabs, Typography, Button } from '@mui/material';
 import { useAuth } from '../AuthenticationContext';
-import { MyInformation } from '../types/myInformation';
+import { MyInformation } from '../types/user';
 import getMyInformation from '../api/myInformation';
 import ChangeName from '../components/common/Modal/ChangeName';
 import TabPanel from '../components/common/Tabs/TabPanel';
 import useTabs from '../hooks/useTab';
-import MyReviews from '../components/myInformation/MyReviews';
 import MyInformationPageSkeleton from '../components/common/skeletons/myInformationPage/MyInformationPageSkeleton';
-
-function NoAlbumReview() {
-  return (
-    <Box mt={2}>
-      <Typography mb={2}>작성한 리뷰가 없습니다. 첫 리뷰를 작성해보세요!</Typography>
-      <Link to="/album" style={{ textDecoration: 'none' }}>
-        <Button
-          sx={{
-            background: 'rgb(152, 72, 255)',
-            borderRadius: '4px',
-            height: '32px',
-          }}
-        >
-          작성하러 가기
-        </Button>
-      </Link>
-    </Box>
-  );
-}
+import NoAlbumReview from '../components/review/NoAlbumReview';
+import Reviews from '../components/review/Reviews';
 
 function MyPage() {
   const [data, setData] = useState<MyInformation | null>(null);
@@ -75,13 +57,13 @@ function MyPage() {
 
       <TabPanel value={currentTab} index={0}>
         {data?.reviews.length > 0 ? (
-          <MyReviews reviews={data?.reviews} setRefreshCount={setRefreshCount} />
+          <Reviews reviews={data?.reviews} setRefreshCount={setRefreshCount} />
         ) : (
           <NoAlbumReview />
         )}
       </TabPanel>
       <TabPanel value={currentTab} index={1}>
-        {data?.favReviews && <MyReviews reviews={data?.favReviews} setRefreshCount={setRefreshCount} />}
+        {data?.favReviews && <Reviews reviews={data?.favReviews} setRefreshCount={setRefreshCount} />}
       </TabPanel>
     </>
   ) : (

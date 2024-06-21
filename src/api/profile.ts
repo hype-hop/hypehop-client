@@ -1,11 +1,11 @@
 import BASE_URL from '../config';
 import { Result } from '../types/commonApi';
-import { MyInformation } from '../types/user';
+import { Profile } from '../types/user';
 import ensureError from '../utils/error';
 
-async function getMyInformation(): Promise<Result<MyInformation>> {
+async function getProfile(id: string): Promise<Result<Profile>> {
   try {
-    const response = await fetch(`${BASE_URL}/api/dashboard`, {
+    const response = await fetch(`${BASE_URL}/api/user/${id}`, {
       method: 'GET',
       credentials: 'include',
     });
@@ -16,4 +16,4 @@ async function getMyInformation(): Promise<Result<MyInformation>> {
   }
 }
 
-export default getMyInformation;
+export default getProfile;

@@ -2,14 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardContent, Typography, Box, CardActions, Avatar, CircularProgress } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import he from 'he';
-import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
-import TimeSincePost from '../components/album/TimeSincePost';
-import Favorite from '../components/common/Favorite';
 import BASE_URL from '../config';
 import { Review } from '../types/review';
-import { typography } from '../constants/themeValue';
-import CustomStar from '../components/review/CustomStar';
 import ReviewsPageSkeleton from '../components/common/skeletons/reviewsPage/ReviewsPageSkeleton';
 import AlbumCover from '../components/album/AlbumCover';
 
@@ -165,15 +159,12 @@ function ReviewsPage() {
       >
         {Array.isArray(data?.reviews) ? (
           data?.reviews.map((review) => (
-            <Card
-              key={review._id}
+            <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 padding: '16px',
-                bgcolor: 'background.default',
-                border: '1px solid',
-                borderColor: 'rgb(52,52,52)',
+                border: '1px solid rgb(52, 52, 52)',
                 borderRadius: '0px 16px 16px 16px',
                 width: '100%',
                 margin: '0 auto',
