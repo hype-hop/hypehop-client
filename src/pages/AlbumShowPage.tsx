@@ -14,11 +14,20 @@ import { Review } from '../types/review';
 import AlbumDetailInformationSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
 import AlbumDetailTracksSkeleton from '../components/common/skeletons/albumShowPage/AlbumDetailTracksSkeleton';
 import AlbumDetailTracksToggle from '../components/album/AlbumDetail/AlbumDetailTracksToggle';
+import { useAuth } from '../AuthenticationContext.js';
 
 function NoAlbumView({ albumId }) {
   return (
-    <Box>
-      <Typography mb={2}>앨범 리뷰가 없습니다. 첫 리뷰를 작성해주세요!</Typography>
+    <Box
+      sx={{
+        minWidth: '282px',
+        maxWidth: '282px',
+      }}
+    >
+      <Typography mt={2} mb={2}>
+        작성하신 리뷰가 없습니다. 리뷰를 작성해보세요!
+        {/* 앨범 리뷰가 없습니다. 첫 리뷰를 작성해주세요! */}
+      </Typography>
       <Link to={`/album/write/${albumId}`} style={{ textDecoration: 'none' }}>
         <Button
           sx={{
@@ -40,6 +49,7 @@ function AlbumShowPage() {
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [user] = useAuth();
 
   const fetchData = async (page: number) => {
     try {
@@ -84,6 +94,10 @@ function AlbumShowPage() {
     setPage((prevPage) => Math.min(prevPage + 1, totalPage));
     fetchData(page + 1);
   };
+
+  const userId = user?._id;
+
+  const hasUserReviewed = reviews?.some((review) => review?.user?._id === userId);
 
   /** 아티스트의 다른 앨범 가져오기 */
 
@@ -143,7 +157,8 @@ function AlbumShowPage() {
                 }}
               />
             ))}
-          {data && reviews && reviews.length === 0 && <NoAlbumView albumId={id} />}
+          {/* {data && reviews && reviews.length === 0 && <NoAlbumView albumId={id} />} */}
+          {data && reviews && (reviews.length === 0 || !user || !hasUserReviewed) && <NoAlbumView albumId={id} />}
 
           {reviews?.length > 0 &&
             reviews?.map((review) => (

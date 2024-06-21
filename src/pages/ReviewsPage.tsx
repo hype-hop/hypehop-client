@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography, Box, CircularProgress } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Button, Card, CardContent, Typography, Box, CardActions, Avatar, CircularProgress } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import BASE_URL from '../config';
 import { Review } from '../types/review';
 import ReviewsPageSkeleton from '../components/common/skeletons/reviewsPage/ReviewsPageSkeleton';
 import AlbumCover from '../components/album/AlbumCover';
-import AlbumReviewSummary from '../components/review/AlbumReviewSummary';
 
 interface InitialData {
   totalPage: number;
@@ -161,9 +161,14 @@ function ReviewsPage() {
           data?.reviews.map((review) => (
             <Box
               sx={{
+                display: 'flex',
+                flexDirection: 'column',
                 padding: '16px',
                 border: '1px solid rgb(52, 52, 52)',
                 borderRadius: '0px 16px 16px 16px',
+                width: '100%',
+                margin: '0 auto',
+                maxWidth: '100%',
               }}
             >
               <AlbumCover
@@ -171,11 +176,121 @@ function ReviewsPage() {
                 url={review.thumbnail}
                 albumTitle={review.albumTitle}
                 artists={review.artists}
+                previewUrl={review?.previewUrl}
               />
-              <Box width="200px" mt={2}>
-                <AlbumReviewSummary review={review} />
-              </Box>
-            </Box>
+
+              <CardContent sx={{ padding: '0' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    mt: '13px',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  <Box>
+                    <Avatar
+                      style={{ width: '28px', height: '28px', borderRadius: '50%' }}
+                      src={review?.user?.image}
+                      alt="user"
+                    />
+                  </Box>
+
+                  <Box display="grid">
+                    <Box display="flex">
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          alignContent: 'center',
+                          ml: 1,
+                          maxWidth: '100px',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {/* <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                          {review.user.name || review.user.displayName}
+                      </Link> */}
+                        <Typography>{review.user.name || review.user.displayName}</Typography>
+                      </Typography>
+
+                      <Typography
+                        sx={{
+                          color: 'rgb(168, 168, 168)',
+                          ml: '4px',
+                          textAlign: 'left',
+                          alignContent: 'center',
+                        }}
+                      >
+                        <TimeSincePost createdAt={review.createdAt} />{' '}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ ml: '4px' }}>
+                      <CustomStar edit={false} value={review.albumRating} />
+                    </Box>
+                  </Box>
+                </Box>
+
+                <Link to={`/album/review/${review._id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                  <Box sx={{ width: '234px', height: '74px' }}>
+                    <Typography
+                      color="white.main"
+                      fontWeight={typography.weight.bold}
+                      fontSize={typography.size.lg}
+                      component="div"
+                      sx={{
+                        textAlign: 'left',
+                        mt: '13px',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    >
+                      {review.title}
+                    </Typography>
+                    <Typography
+                      color="grey.light"
+                      fontSize={typography.size.md}
+                      fontWeight={typography.weight.regular}
+                      component="div"
+                      sx={{
+                        textAlign: 'left',
+                        mt: '6px',
+                        height: '45px',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        lineHeight: '15px',
+                        letterSpacing: '-4%',
+                      }}
+                    >
+                      {he.decode(review.body.replace(/<[^>]+>/g, ' '))}
+                    </Typography>
+                  </Box>
+                </Link>
+              </CardContent>
+              <CardActions disableSpacing sx={{ mt: 'auto' }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                  }}
+                >
+                  <Favorite reviewId={review?._id} favoriteClickedUsers={review?.isFavorite} />
+                  <Link
+                    to={`/album/review/${review._id}`}
+                    style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px', ml: '9px' }}>
+                      <CommentIcon />
+                      <Typography color="grey.main" fontSize={typography.size.sm}>
+                        댓글 {review.comments.length}개
+                      </Typography>
+                    </Box>
+                  </Link>
+                </Box>
+              </CardActions>
+            </Card>
           ))
         ) : (
           <ReviewsPageSkeleton />

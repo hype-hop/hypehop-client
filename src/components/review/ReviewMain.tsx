@@ -69,6 +69,7 @@ function ReviewMain() {
                 url={review.thumbnail}
                 albumTitle={review.albumTitle}
                 artists={review.artists}
+                previewUrl={review?.previewUrl}
               />
               <Box width="200px" mt={2}>
                 <AlbumReviewSummary review={review} />

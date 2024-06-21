@@ -4,7 +4,7 @@ import { Typography, Box, Stack, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import AlbumCard from '../album/AlbumCard';
 import TimeSincePost from '../album/TimeSincePost';
-// import Comment from './Comment';
+
 import Favorite from '../common/Favorite';
 import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
 import { typography } from '../../constants/themeValue';
@@ -112,6 +112,7 @@ function ReviewDetailLeft({ data }) {
           >
             {data?.review?.title}
           </Typography>
+
           <Typography
             textAlign="left"
             fontSize="14px"

@@ -16,6 +16,7 @@ export interface CommentData {
 }
 
 export interface Review {
+  previewUrl: string;
   length: number;
   _id: string;
   title: string;
@@ -57,4 +58,7 @@ export interface FormData {
   artistGenre: string[];
   artists: [];
   albumName: string;
+  bestTrackId: string | null | undefined;
+  bestTrackName: string | null | undefined;
+  previewUrl: string | null | undefined;
 }

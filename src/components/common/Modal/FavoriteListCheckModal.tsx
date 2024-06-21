@@ -53,12 +53,12 @@ function FavoriteListCheckModal({
             overflowY: 'scroll',
           }}
         >
-          {favoriteClickedUsers?.map(({ displayName, name, image }) => (
+          {favoriteClickedUsers?.map(({ name, image }) => (
             <ListItem key={name} sx={{ height: '76px', paddingX: '16px', alignItems: 'center', cursor: 'pointer' }}>
               <ListItemAvatar>
                 <Avatar sx={{ width: '35px', height: '35px' }} src={image} />
               </ListItemAvatar>
-              <Typography fontSize="20px">{displayName || name}</Typography>
+              <Typography fontSize="20px">{name}</Typography>
             </ListItem>
           ))}
         </List>
