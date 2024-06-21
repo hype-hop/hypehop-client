@@ -13,6 +13,7 @@ import UserPage from './pages/UserPage';
 import EditPage from './pages/EditPage';
 import MainPage from './pages/MainPage';
 import MyInformationPage from './pages/MyInformationPage';
+import ProfilePage from './pages/ProfilePage';
 import RootLayout from './components/common/RootLayout';
 import Footer from './components/common/Footer';
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/album/review/:id" element={<ReviewShowPage />} />
             <Route path="/album/review/edit/:id" element={<EditPage />} />
             <Route path="/user/:userId" element={<UserPage />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
           </Routes>
         </RootLayout>
       </div>

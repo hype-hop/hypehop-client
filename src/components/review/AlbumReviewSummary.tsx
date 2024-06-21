@@ -14,6 +14,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
   const { _id, user, albumRating, title, createdAt, isFavorite, comments, body } = review;
   const strippedText = body.replace(/<[^>]+>/g, ' ');
   const plainText = he.decode(strippedText);
+
   return (
     <Card
       key={_id}
@@ -39,7 +40,12 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
               columnGap: '7px',
             }}
           >
-            <Avatar style={{ width: 40, height: 40 }} src={user.image} alt="user" />
+            <Avatar
+              onClick={() => router(`/profile/${user._id}`)}
+              style={{ width: 40, height: 40, cursor: 'pointer' }}
+              src={user.image}
+              alt="user"
+            />
             <Box textAlign="left">
               <Box
                 sx={{
@@ -66,7 +72,9 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
                     {user.name || user.displayName}
                   </Link>
                 */}
-                  <Typography> {user.name || user.displayName}</Typography>
+                  <Typography style={{ cursor: 'pointer' }} onClick={() => router(`/profile/${user._id}`)}>
+                    {user.name || user.displayName}
+                  </Typography>
                 </Typography>
 
                 <Typography
