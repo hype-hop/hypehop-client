@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
-import { AppBar, Box, Toolbar, IconButton, Typography, Button, Avatar, Modal, Container } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Typography, Avatar, Modal, Container, Button } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -117,8 +117,32 @@ export default function MenuAppBar() {
                 {logoHover ? <LogoHoverIcon /> : <LogoMainIcon style={{ width: 125, height: 20 }} />}
               </IconButton>
             </Link>
+            {auth === null && (
+              <div>
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                  <Button
+                    sx={{
+                      background: 'rgb(152, 72, 255)',
+                      borderRadius: '4px',
+                      width: '69px',
+                      height: '32px',
+                    }}
+                  >
+                    <Typography
+                      fontSize={typography.size.lg}
+                      fontWeight="medium"
+                      sx={{
+                        color: 'white.main',
+                      }}
+                    >
+                      로그인
+                    </Typography>
+                  </Button>
+                </Link>
+              </div>
+            )}
 
-            {auth ? (
+            {auth && (
               <div>
                 <IconButton
                   aria-label="notifications"
@@ -299,29 +323,6 @@ export default function MenuAppBar() {
                     </StyledMenuItem>
                   </Link>
                 </StyledMenu>
-              </div>
-            ) : (
-              <div>
-                <Link to="/login" style={{ textDecoration: 'none' }}>
-                  <Button
-                    sx={{
-                      background: 'rgb(152, 72, 255)',
-                      borderRadius: '4px',
-                      width: '69px',
-                      height: '32px',
-                    }}
-                  >
-                    <Typography
-                      fontSize={typography.size.lg}
-                      fontWeight="medium"
-                      sx={{
-                        color: 'white.main',
-                      }}
-                    >
-                      로그인
-                    </Typography>
-                  </Button>
-                </Link>
               </div>
             )}
           </Toolbar>
