@@ -37,6 +37,7 @@ export default function Reviews({
             url={review.thumbnail}
             albumTitle={review.albumName}
             artists={review.artists}
+            previewUrl=""
           />
           <AlbumReviewSummary review={review} isMyReview />
         </Box>

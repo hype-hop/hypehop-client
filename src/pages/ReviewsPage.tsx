@@ -2,10 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardContent, Typography, Box, CardActions, Avatar, CircularProgress } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
+import he from 'he';
 import BASE_URL from '../config';
 import { Review } from '../types/review';
 import ReviewsPageSkeleton from '../components/common/skeletons/reviewsPage/ReviewsPageSkeleton';
 import AlbumCover from '../components/album/AlbumCover';
+import { typography } from '../constants/themeValue';
+import TimeSincePost from '../components/album/TimeSincePost';
+import Favorite from '../components/common/Favorite';
+import CustomStar from '../components/review/CustomStar';
+import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
 
 interface InitialData {
   totalPage: number;
@@ -159,7 +165,8 @@ function ReviewsPage() {
       >
         {Array.isArray(data?.reviews) ? (
           data?.reviews.map((review) => (
-            <Box
+            <Card
+              key={review._id}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -210,9 +217,6 @@ function ReviewsPage() {
                           whiteSpace: 'nowrap',
                         }}
                       >
-                        {/* <Link to={`/user/${review.user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                          {review.user.name || review.user.displayName}
-                      </Link> */}
                         <Typography>{review.user.name || review.user.displayName}</Typography>
                       </Typography>
 
@@ -276,7 +280,7 @@ function ReviewsPage() {
                     display: 'flex',
                   }}
                 >
-                  <Favorite reviewId={review?._id} favoriteClickedUsers={review?.isFavorite} />
+                  <Favorite reviewId={review._id} favoriteClickedUsers={review?.isFavorite} />
                   <Link
                     to={`/album/review/${review._id}`}
                     style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
