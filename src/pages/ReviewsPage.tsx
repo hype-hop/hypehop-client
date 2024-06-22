@@ -176,6 +176,7 @@ function ReviewsPage() {
                 width: '100%',
                 margin: '0 auto',
                 maxWidth: '100%',
+                bgcolor: 'rgb(14, 14, 14)',
               }}
             >
               <AlbumCover
