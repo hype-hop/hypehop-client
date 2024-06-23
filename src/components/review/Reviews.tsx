@@ -28,7 +28,7 @@ export default function Reviews({
             minWidth: { xs: '100%', sm: '282px' },
           }}
         >
-          {user[0]._id === review.user ? (
+          {user[0]?._id === review.user ? (
             <ProfileReviewEditHamburger review={review} setRefreshCount={setRefreshCount!} />
           ) : null}
 
