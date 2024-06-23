@@ -5,7 +5,7 @@ import ensureError from '../utils/error';
 
 async function getProfile(id: string): Promise<Result<Profile>> {
   try {
-    const response = await fetch(`${BASE_URL}/api/user/${id}`, {
+    const response = await fetch(`${BASE_URL}/api/userReviews/${id}`, {
       method: 'GET',
       credentials: 'include',
     });
