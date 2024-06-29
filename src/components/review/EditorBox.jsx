@@ -213,6 +213,7 @@ function EditorBox({ onContentChange, value }) {
 
         border: '1px solid',
         borderColor: 'rgb(52, 52, 52)',
+        overflowX: 'hidden',
       }}
     />
   );
