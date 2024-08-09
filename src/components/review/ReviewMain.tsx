@@ -59,6 +59,7 @@ function ReviewMain() {
           data?.reviews.map((review) => (
             <Box
               sx={{
+                display: 'grid',
                 padding: '16px',
                 border: '1px solid rgb(52, 52, 52)',
                 borderRadius: '0px 16px 16px 16px',
@@ -71,7 +72,7 @@ function ReviewMain() {
                 artists={review.artists}
                 previewUrl={review?.previewUrl}
               />
-              <Box mt={2}>
+              <Box sx={{ minWidth: '200px', maxWidth: '100%' }} mt={2}>
                 <AlbumReviewSummary review={review} />
               </Box>
             </Box>

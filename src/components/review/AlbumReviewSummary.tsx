@@ -21,7 +21,6 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        width: '100%',
         maxHeight: '181px',
         backgroundColor: 'transparent',
         border: 'none',
