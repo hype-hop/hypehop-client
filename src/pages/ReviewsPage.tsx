@@ -239,7 +239,7 @@ function ReviewsPage() {
                 </Box>
 
                 <Link to={`/album/review/${review._id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-                  <Box sx={{ width: '234px', height: '74px' }}>
+                  <Box sx={{ height: '74px' }}>
                     <Typography
                       color="white.main"
                       fontWeight={typography.weight.bold}

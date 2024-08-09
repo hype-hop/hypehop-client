@@ -71,7 +71,7 @@ function ReviewMain() {
                 artists={review.artists}
                 previewUrl={review?.previewUrl}
               />
-              <Box width="200px" mt={2}>
+              <Box mt={2}>
                 <AlbumReviewSummary review={review} />
               </Box>
             </Box>

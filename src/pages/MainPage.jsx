@@ -10,6 +10,7 @@ import { useAuth } from '../AuthenticationContext';
 import EditProfile from '../components/common/EditProfile';
 import AlbumSearch from '../components/album/AlbumSearch/AlbumSearch';
 import Banner from '../components/common/Banner/Banner';
+// import NewReleases from '../components/common/NewReleases';
 
 function MainPage() {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ function MainPage() {
               setSelectedAlbum={setSelectedAlbum}
             />
           </Box>
+
           <Box sx={{ display: { md: 'flex', lg: 'flex' } }}>
             <Box sx={{ mt: '40px' }}>
               <ReviewMain />
