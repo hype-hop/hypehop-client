@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, Card, CardContent, Typography, Box, CardActions, Avatar, CircularProgress } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import he from 'he';
@@ -26,6 +26,7 @@ function ReviewsPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [allDataLoaded, setAllDataLoaded] = useState<boolean>(false);
   const [refreshCount, setRefreshCount] = useState(0);
+  const router = useNavigate();
 
   // eslint-disable-next-line no-unused-vars
   function debounce(this: unknown, func: (...args: unknown[]) => void, delay: number): (...args: unknown[]) => void {
@@ -199,6 +200,7 @@ function ReviewsPage() {
                 >
                   <Box>
                     <Avatar
+                      onClick={() => router(`/profile/${review.user._id}`)}
                       style={{ width: '28px', height: '28px', borderRadius: '50%' }}
                       src={review?.user?.image}
                       alt="user"
@@ -218,7 +220,9 @@ function ReviewsPage() {
                           whiteSpace: 'nowrap',
                         }}
                       >
-                        <Typography>{review.user.name || review.user.displayName}</Typography>
+                        <Typography style={{ cursor: 'pointer' }} onClick={() => router(`/profile/${review.user._id}`)}>
+                          {review.user.name || review.user.displayName}
+                        </Typography>
                       </Typography>
 
                       <Typography

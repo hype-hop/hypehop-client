@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography, Box, Button, Input, Avatar, Divider } from '@mui/material';
 
 // import { useAuth } from '../AuthenticationContext';
+import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../../config';
 import TimeSincePost from '../album/TimeSincePost';
 import { StyledMenu, StyledMenuItem } from './StyledMenu';
@@ -21,11 +22,13 @@ interface Props {
 
 function Comment({ reviewId, user }: Props) {
   // const { user } = useAuth();
+  const router = useNavigate();
   const [content, setContent] = useState('');
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const [refreshCount, setRefreshCount] = useState(0);
   const [commentData, setCommentData] = useState<CommentData[]>([]);
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -47,6 +50,11 @@ function Comment({ reviewId, user }: Props) {
   const addComment = async (e) => {
     try {
       e.preventDefault();
+
+      if (!user) {
+        router('/login');
+      }
+
       const response = await fetch(`${BASE_URL}/api/comments/review/${reviewId}`, {
         method: 'POST',
         credentials: 'include',

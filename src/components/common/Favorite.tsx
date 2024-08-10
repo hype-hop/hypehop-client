@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthenticationContext.js';
 import BASE_URL from '../../config';
 import { ReactComponent as EmptyFavoriteIcon } from '../../assets/icons/empty-favorite.svg';
@@ -15,6 +16,7 @@ function Favorite({
   favoriteClickedUsers: FavoriteClickedUser[];
 }) {
   const [user] = useAuth();
+  const router = useNavigate();
   const [isMyFavorite, setIsMyFavorite] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -45,7 +47,7 @@ function Favorite({
   const addToFavorite = async (e) => {
     e.stopPropagation();
     if (!user) {
-      return;
+      router('/login');
     }
     setFavoriteCount((prev) => (isMyFavorite ? prev! - 1 : prev! + 1));
     setIsMyFavorite(!isMyFavorite);
