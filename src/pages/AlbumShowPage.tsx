@@ -141,7 +141,7 @@ function AlbumShowPage() {
             display: 'grid',
             gridTemplateColumns: { sm: 'repeat(3,1fr)', md: 'repeat(3,1fr)', lg: 'repeat(4, 1fr)' },
             gap: 2,
-            overflowX: { xs: 'auto' },
+            overflowX: { sm: 'auto', md: 'visible' },
             maxWidth: { xs: '100%' },
           }}
         >

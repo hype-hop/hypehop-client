@@ -472,7 +472,13 @@ function WriteReview({ userData }) {
                 </Button>
                 <Button
                   onClick={handleSubmit}
-                  sx={{ width: '104px', height: '43px', bgcolor: 'rgb(152, 72, 255)', padding: '12px 24px 12px 24px' }}
+                  sx={{
+                    width: '104px',
+                    height: '43px',
+                    bgcolor: 'rgb(152, 72, 255)',
+                    padding: '12px 24px 12px 24px',
+                    whiteSpace: 'nowrap',
+                  }}
                 >
                   <Typography fontSize="16px" fontWeight="500">
                     작성하기
