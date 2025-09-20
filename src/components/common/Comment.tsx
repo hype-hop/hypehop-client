@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Button, Input, Avatar, Divider } from '@mui/material';
 
-// import { useAuth } from '../AuthenticationContext';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import BASE_URL from '../../config';
 import TimeSincePost from '../album/TimeSincePost';
 import { StyledMenu, StyledMenuItem } from './StyledMenu';
-// import { CommentType } from '../../types/review';
 import { CommentData } from '../../types/review';
 import { User } from '../../types/user';
-import { ReactComponent as Delete } from '../../assets/icons/delete-review.svg';
+import Delete from '../../assets/icons/delete-review.svg';
 import { typography } from '../../constants/themeValue';
-import { ReactComponent as Hamburger } from '../../assets/icons/hamburger.svg';
+import Hamburger from '../../assets/icons/hamburger.svg';
 import Warning from './Modal/Warning';
 
 interface Props {
-  // comments: CommentType[];
   reviewId: string;
   user: User | null;
 }
 
 function Comment({ reviewId, user }: Props) {
   // const { user } = useAuth();
-  const router = useNavigate();
+  const router = useRouter();
   const [content, setContent] = useState('');
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const [refreshCount, setRefreshCount] = useState(0);
@@ -52,7 +49,7 @@ function Comment({ reviewId, user }: Props) {
       e.preventDefault();
 
       if (!user) {
-        router('/login');
+        router.push('/login');
       }
 
       const response = await fetch(`${BASE_URL}/api/comments/review/${reviewId}`, {
@@ -164,6 +161,7 @@ function Comment({ reviewId, user }: Props) {
       {commentData?.map((comment) => (
         <div>
           <Box
+            key={`comment-${comment._id}`}
             sx={{
               display: 'flex',
               flexDirection: 'column',

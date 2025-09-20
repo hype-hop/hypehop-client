@@ -1,14 +1,15 @@
 import { Box, Card, CardActions, CardContent, Rating, Typography } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Favorite from '../common/Favorite';
 import { MyReview } from '../../types/review';
 import AlbumCover from '../album/AlbumCover';
-import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
+import CommentIcon from '../../assets/icons/comment.svg';
 import { typography } from '../../constants/themeValue';
 import PRECISION from '../../constants/ratingPrecision';
 
 function MyReviews({ review }: { review: MyReview }) {
-  const router = useNavigate();
+  const router = useRouter();
   const { _id, albumId, thumbnail, albumName, albumRating, body, artists, title, comments } = review;
 
   return (
@@ -45,7 +46,7 @@ function MyReviews({ review }: { review: MyReview }) {
               {albumName}
             </Typography>
             {artists?.map((artist) => (
-              <Typography color="rgb(182,182,182)" textAlign="left">
+              <Typography key={`artist-name-${artist}`} color="rgb(182,182,182)" textAlign="left">
                 {artist}
               </Typography>
             ))}
@@ -72,7 +73,7 @@ function MyReviews({ review }: { review: MyReview }) {
               </Box>
             </Box>
 
-            <Box onClick={() => router(`/album/review/${_id}`)}>
+            <Box onClick={() => router.push(`/album/review/${_id}`)}>
               <Typography
                 color="white.main"
                 fontWeight="bold"
@@ -120,7 +121,7 @@ function MyReviews({ review }: { review: MyReview }) {
             >
               <Favorite reviewId={_id} favoriteClickedUsers={review?.isFavorite} />
               <Link
-                to={`/album/review/${_id}`}
+                href={`/album/review/${_id}`}
                 style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>

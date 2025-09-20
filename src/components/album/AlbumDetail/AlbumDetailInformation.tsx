@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Typography } from '@mui/material';
 import { typography } from '../../../constants/themeValue';
 import { AlbumData } from '../../../types/albumData';
@@ -32,7 +34,7 @@ function AlbumDetailInformation({ data }: { data: AlbumData }) {
 
           <Box sx={{ display: 'flex', mt: 0.5 }}>
             {albumData.artists.map((artist, index) => (
-              <Typography key={index} color="grey.main">
+              <Typography key={`artist-${artist}-${index}`} color="grey.main">
                 {artist.name} {albumData.artists.length > 1 && index < albumData.artists.length - 1 && '· '}
               </Typography>
             ))}

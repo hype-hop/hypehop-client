@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ReactComponent as LogoMainIcon } from '../../../assets/icons/logo-main.svg';
-import { ReactComponent as LogoSubIcon } from '../../../assets/icons/logo-hover.svg';
+import LogoMainIcon from '../../../assets/icons/logo-main.svg';
+import LogoSubIcon from '../../../assets/icons/logo-hover.svg';
 
 export default function LogoHoverIcon() {
   const [count, setCount] = useState(false);

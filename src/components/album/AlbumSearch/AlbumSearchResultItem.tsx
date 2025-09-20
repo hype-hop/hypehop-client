@@ -48,7 +48,7 @@ export default function AlbumSearchResultItem({
         <Typography fontWeight="fontWeightBold">{album.name}</Typography>
         <Box sx={{ display: 'flex' }}>
           {album.artists.map((artist, index) => (
-            <Typography color="grey.main">
+            <Typography key={`artist-${artist.id}`} color="grey.main">
               {artist.name} {album.artists.length > 1 && index < album.artists.length - 1 && '· '}
             </Typography>
           ))}

@@ -1,9 +1,9 @@
 import { Box, Link, Typography } from '@mui/material';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { StyledMenu, StyledMenuItem } from '../common/StyledMenu';
-import { ReactComponent as Hamburger } from '../../assets/icons/hamburger.svg';
-import { ReactComponent as Edit } from '../../assets/icons/edit-review.svg';
-import { ReactComponent as Delete } from '../../assets/icons/delete-review.svg';
+import Hamburger from '../../assets/icons/hamburger.svg';
+import Edit from '../../assets/icons/edit-review.svg';
+import Delete from '../../assets/icons/delete-review.svg';
 import { typography } from '../../constants/themeValue';
 import { MyReview, Review } from '../../types/review';
 import Warning from '../common/Modal/Warning';

@@ -1,6 +1,6 @@
 import { Box, Modal, Typography, Button, Input } from '@mui/material';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { ReactComponent as Close } from '../../../assets/icons/modal-close.svg';
+import Close from '../../../assets/icons/modal-close.svg';
 import { typography } from '../../../constants/themeValue';
 import BASE_URL from '../../../config';
 

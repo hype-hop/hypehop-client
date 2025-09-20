@@ -1,15 +1,13 @@
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
-import { Link } from 'react-router-dom';
-import banner from '../../../assets/banner/banner.jpg';
-import bannerBg from '../../../assets/banner/bannerBg.jpg';
-import bannerBtn from '../../../assets/banner/bannerBtn.png';
+import Link from 'next/link';
+import Image from 'next/image';
 
 function Banner() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Link to="/album" style={{ textDecoration: 'none' }}>
+    <Link href="/album" style={{ textDecoration: 'none' }}>
       {isMobile ? (
         <Box
           sx={{
@@ -18,7 +16,9 @@ function Banner() {
             position: 'relative',
           }}
         >
-          <img src={bannerBg} alt="Banner" style={{ width: '100%', height: '260px', objectFit: 'cover' }} />
+          <Box sx={{ position: 'relative', width: '100%', height: '260px' }}>
+            <Image src="/banner/bannerBg.jpg" alt="Banner" fill />
+          </Box>
           <Box sx={{ position: 'absolute', top: '40px', left: '60%', transform: 'translateX(-50%)', width: '100%' }}>
             <Typography fontSize="15px" fontWeight="600" color="black">
               HYPE_HOP
@@ -36,17 +36,22 @@ function Banner() {
             </Typography>
           </Box>
           <Box sx={{ position: 'absolute', width: '100%', bottom: '45px', left: '60%', transform: 'translateX(-50%)' }}>
-            <img src={bannerBtn} alt="Banner Button" style={{ width: '228px', height: '43px' }} />
+            <Box sx={{ position: 'relative', width: '120px', height: '40px', margin: '0 auto' }}>
+              <Image fill src="/banner/bannerBtn.png" alt="Banner Button" objectFit="contain" />
+            </Box>
           </Box>
         </Box>
       ) : (
         <Box
           sx={{
+            position: 'relative',
+            width: '100%',
+            height: '260px',
             mt: '40px',
             overflow: 'hidden',
           }}
         >
-          <img src={banner} alt="Banner" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+          <Image fill src="/banner/banner.jpg" alt="Banner" objectFit="contain" />
         </Box>
       )}
     </Link>

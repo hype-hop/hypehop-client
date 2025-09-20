@@ -1,12 +1,13 @@
-// import Rating from '@mui/material/Rating';
+'use client';
+
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Input, Button, Typography, Box, Select, MenuItem } from '@mui/material';
-import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
-import { ReactComponent as ArrowUp } from '../../assets/icons/arrowUp.svg';
-import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
+import ArrowUp from '../../assets/icons/arrowUp.svg';
+import ArrowDown from '../../assets/icons/arrowDown.svg';
 import BASE_URL from '../../config';
-import EditorBox from './EditorBox';
 import ensureError from '../../utils/error';
 import AlbumSearch from '../album/AlbumSearch/AlbumSearch';
 import RatingAlbum from './RatingAlbum';
@@ -19,8 +20,9 @@ import Duplicate from '../common/Modal/Duplicate';
 import { typography } from '../../constants/themeValue';
 import INITIAL_RATING_VALUE from '../../constants/rating';
 import CustomStar from './CustomStar';
-import PlayPreview from '../common/PlayPreview';
 import ThumbsUp from './ThumbsUp';
+
+const EditorBox = dynamic(() => import('./EditorBox.tsx').then((module) => module.default), { ssr: false });
 
 interface BestTrack {
   id: string | null;
@@ -29,8 +31,8 @@ interface BestTrack {
 }
 
 function WriteReview({ userData }) {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const albumIdParam = useParams();
   const [reviewContent, setReviewContent] = useState('');
   const [trackRating, setTrackRating] = useState<number[]>([]);
@@ -87,27 +89,29 @@ function WriteReview({ userData }) {
 
   const tracks: string[] = [];
 
-  data?.albumData?.tracks.items.forEach((track, index) => {
-    const discNumber = track.disc_number || 1;
-    if (!tracksByDisc[discNumber]) {
-      tracksByDisc[discNumber] = [];
-    }
-    tracksByDisc[discNumber].push(track);
-    tracks.push(`disc${discNumber - 1}-${index + 1}.${track.name}`);
-  });
+  if (data?.albumData?.tracks?.items) {
+    data.albumData.tracks.items.forEach((track, index) => {
+      const discNumber = track.disc_number || 1;
+      if (!tracksByDisc[discNumber]) {
+        tracksByDisc[discNumber] = [];
+      }
+      tracksByDisc[discNumber].push(track);
+      tracks.push(`disc${discNumber - 1}-${index + 1}.${track.name}`);
+    });
+  }
 
   const [formData, setFormData] = useState<FormData>({
     title: '',
     status: 'public',
     body: '',
-    albumTitle: data?.pageTitle,
+    albumTitle: '',
     albumRating: 0,
     artists: [],
-    albumName: data?.albumData?.name,
-    albumId: data?.albumData?.id,
-    thumbnail: data?.albumData?.images[1].url,
-    user: userData?._id,
-    albumReleaseDate: data?.albumData?.release_date,
+    albumName: '',
+    albumId: null,
+    thumbnail: '',
+    user: null,
+    albumReleaseDate: null,
     trackTitle: [],
     artistGenre: [],
     bestTrackId: '',
@@ -172,7 +176,7 @@ function WriteReview({ userData }) {
       })
         .then((response) => response.json())
         .then(() => {
-          navigate(`/`);
+          router.push(`/`);
         })
         .catch((error) => {
           const ensuredError = ensureError(error);
@@ -204,9 +208,6 @@ function WriteReview({ userData }) {
                 <Typography fontSize={typography.size.lg} fontWeight={typography.weight.medium}>
                   {index + 1}{' '}
                 </Typography>
-              </Box>
-              <Box>
-                <PlayPreview previewUrl={track.preview_url} />
               </Box>
               <Box>
                 <Typography sx={{}} fontSize={typography.size.lg} fontWeight={typography.weight.bold}>
@@ -451,7 +452,7 @@ function WriteReview({ userData }) {
                 </div>
               </div>
               <div>
-                <EditorBox onContentChange={handleContentChange} /* value={reviewContent}  */ />
+                <EditorBox onContentChange={handleContentChange} value={reviewContent} />
               </div>
 
               <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>

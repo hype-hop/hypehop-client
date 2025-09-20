@@ -1,30 +1,24 @@
+'use client';
+
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
-import { Button, Box, Input, Typography, MenuItem, Select } from '@mui/material';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ReactComponent as ArrowDown } from '../../assets/icons/arrowDown.svg';
-import EditorBox from './EditorBox';
+import { Button, Box, Input, Typography, MenuItem, Select, Rating } from '@mui/material';
+import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import ArrowDown from '../../assets/icons/arrowDown.svg';
+
 import BASE_URL from '../../config';
 import TrackListForEdit from './TrackListForEdit';
-import CustomStarEdit from './CustomStarEdit';
 
-interface BestTrack {
-  id: string | null;
-  name: string | null;
-  preview_url: string | null;
-}
+const EditorBox = dynamic(() => import('./EditorBox.tsx').then((module) => module.default), { ssr: false });
 
 function EditReview({ data, albumData }) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { id } = useParams();
   const [reviewContent, setReviewContent] = useState('');
   const [isTrackListOpened, SetTrackListOpened] = useState(false);
   const [parentTrackRatingForEdit, setParentTrackRatingForEdit] = useState(data?.review.tracks);
-  const [bestTrack, setBestTrack] = useState<BestTrack | null>(null);
-
-  const handleBestTrackUpdate = (track) => {
-    setBestTrack(track);
-  };
 
   const handleTrackRatingForEditUpdate = (updatedTrackRatingForEdit) => {
     setParentTrackRatingForEdit(updatedTrackRatingForEdit);
@@ -83,9 +77,6 @@ function EditReview({ data, albumData }) {
         ...formData,
         tracks: parentTrackRatingForEdit,
         body: reviewContent,
-        bestTrackId: bestTrack?.id,
-        bestTrackName: bestTrack?.name,
-        previewUrl: bestTrack?.preview_url,
       };
 
       fetch(`${BASE_URL}/album/api/review/${id}`, {
@@ -98,7 +89,7 @@ function EditReview({ data, albumData }) {
       })
         .then((response) => response.json())
         .then(() => {
-          navigate(`/album/review/${id}`);
+          router.push(`/album/review/${id}`);
         })
         .catch((error) => {
           console.error(error);
@@ -167,7 +158,8 @@ function EditReview({ data, albumData }) {
               }}
             >
               {formData.albumRating && (
-                <CustomStarEdit name="albumRating" value={formData.albumRating} onChange={handleFormData} />
+                // <CustomStarEdit name="albumRating" value={formData.albumRating} onChange={handleFormData} />
+                <Rating name="albumRating" value={formData.albumRating} precision={0.1} readOnly />
               )}
 
               <Typography
@@ -196,7 +188,6 @@ function EditReview({ data, albumData }) {
           onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
           albumData={albumData}
           onHandleOpen={handleOpen}
-          onBestTrackUpdate={handleBestTrackUpdate}
         />
       ) : (
         <Box
@@ -307,7 +298,7 @@ function EditReview({ data, albumData }) {
       </div>
 
       <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
-        <Link to="/myInformation">
+        <Link href="/my-information">
           <Button
             variant="outlined"
             type="submit"

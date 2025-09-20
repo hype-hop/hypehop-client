@@ -35,7 +35,7 @@ function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
           </Typography>
           <Box sx={{ display: 'flex' }}>
             {artists.map(({ name }, index) => (
-              <Typography color="grey.main">
+              <Typography key={`rating-album-artist-${name}`} color="grey.main">
                 {name} {artists.length > 1 && index < artists.length - 1 && '· '}
               </Typography>
             ))}

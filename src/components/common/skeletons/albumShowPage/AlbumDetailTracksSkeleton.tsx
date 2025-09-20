@@ -1,3 +1,5 @@
+'use client';
+
 import { Box } from '@mui/material';
 import RoundedSkeleton from '../RoundedSkeleton';
 
@@ -11,7 +13,7 @@ export default function AlbumDetailTracksSkeleton() {
               display: 'flex',
               justifyContent: 'space-between',
             }}
-            key={index}
+            key={`track-skeleton-${index}`}
           >
             <Box display="flex" width="100%">
               <RoundedSkeleton width="50%" />

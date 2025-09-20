@@ -1,6 +1,6 @@
 import { Avatar, Box, Modal, Typography, List, ListItem, ListItemAvatar } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
-import { ReactComponent as Close } from '../../../assets/icons/modal-close.svg';
+import Close from '../../../assets/icons/modal-close.svg';
 import { FavoriteClickedUser } from '../../../types/favorite';
 
 function FavoriteListCheckModal({

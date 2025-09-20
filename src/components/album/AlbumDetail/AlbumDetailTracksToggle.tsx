@@ -1,10 +1,12 @@
+'use client';
+
 import { useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import AlbumDetailTracks from './AlbumDetailTracks';
 
 import { typography } from '../../../constants/themeValue';
-import { ReactComponent as ArrowUp } from '../../../assets/icons/arrowUp.svg';
-import { ReactComponent as ArrowDown } from '../../../assets/icons/arrowDown.svg';
+import ArrowUp from '../../../assets/icons/arrowUp.svg';
+import ArrowDown from '../../../assets/icons/arrowDown.svg';
 
 function AlbumDetailTracksToggle({ data }) {
   const [isTrackListOpened, setIsTrackListOpened] = useState(false);

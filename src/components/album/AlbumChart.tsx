@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
 import { Box, Typography, Card, CardMedia, CardContent } from '@mui/material';
 // import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { AlbumCharts } from '../../types/albumChart';
 import BASE_URL from '../../config';
 import { typography } from '../../constants/themeValue';
@@ -21,7 +21,7 @@ function AlbumList({ data, startIndex, endIndex }: { data: AlbumCharts | null; s
     >
       {Array.isArray(data?.top5Albums) ? (
         data?.top5Albums.slice(startIndex, endIndex).map((item, index) => (
-          <Link to={`/album/${item.albumId}`} key={item.albumId} style={{ textDecorationLine: 'none' }}>
+          <Link key={`album-${item.albumId}`} href={`/album/${item.albumId}`} style={{ textDecorationLine: 'none' }}>
             <Card
               sx={{
                 bgcolor: 'background.default',

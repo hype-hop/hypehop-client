@@ -1,7 +1,7 @@
 import { Box, Modal, Typography, Button } from '@mui/material';
 import { Dispatch, SetStateAction } from 'react';
-import { ReactComponent as Close } from '../../../assets/icons/modal-close.svg';
-import { ReactComponent as WarningImg } from '../../../assets/icons/warning.svg';
+import Close from '../../../assets/icons/modal-close.svg';
+import WarningImg from '../../../assets/icons/warning.svg';
 
 function Warning({
   open,

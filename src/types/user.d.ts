@@ -1,4 +1,4 @@
-import { MyReview, Review } from './review';
+import { CommentData, MyReview, Review } from './review';
 
 export interface User {
   _id: string;
@@ -13,7 +13,7 @@ export interface User {
 }
 
 export interface MyInformation {
-  comments: [];
+  comments: CommentData[];
   favReviews: MyReview[];
   favStories: [];
   pageDescription: string;

@@ -1,16 +1,19 @@
+'use client';
+
 import { Avatar, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import he from 'he';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import TimeSincePost from '../album/TimeSincePost';
 import Favorite from '../common/Favorite';
 import { Review } from '../../types/review';
 import { typography } from '../../constants/themeValue';
-import { ReactComponent as CommentIcon } from '../../assets/icons/comment.svg';
+import CommentIcon from '../../assets/icons/comment.svg';
 import CustomStar from './CustomStar';
 
 function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; isMyReview?: boolean }) {
-  const router = useNavigate();
+  const router = useRouter();
   const { _id, user, albumRating, title, createdAt, isFavorite, comments, body } = review;
   const strippedText = body.replace(/<[^>]+>/g, ' ');
   const plainText = he.decode(strippedText);
@@ -40,7 +43,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
             }}
           >
             <Avatar
-              onClick={() => router(`/profile/${user._id}`)}
+              onClick={() => router.push(`/profile/${user._id}`)}
               style={{ width: 40, height: 40, cursor: 'pointer' }}
               src={user.image}
               alt="user"
@@ -66,12 +69,11 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  {/*
-                  <Link to={`/user/${user._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    {user.name || user.displayName}
-                  </Link>
-                */}
-                  <Typography style={{ cursor: 'pointer' }} onClick={() => router(`/profile/${user._id}`)}>
+                  <Typography
+                    component="span"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => router.push(`/profile/${user._id}`)}
+                  >
                     {user.name || user.displayName}
                   </Typography>
                 </Typography>
@@ -93,7 +95,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
           </Box>
         )}
 
-        <Box onClick={() => router(`/album/review/${_id}`)}>
+        <Box onClick={() => router.push(`/album/review/${_id}`)}>
           <Typography
             color="white.main"
             fontWeight="bold"
@@ -141,7 +143,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
         >
           <Favorite reviewId={_id} favoriteClickedUsers={isFavorite} />
           <Link
-            to={`/album/review/${_id}`}
+            href={`/album/review/${_id}`}
             style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>

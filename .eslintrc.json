@@ -29,7 +29,8 @@
         "react/no-unescaped-entities":"off",
         "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "react/require-default-props": "off",
-        "react/jsx-props-no-spreading":"off"
+        "react/jsx-props-no-spreading":"off",
+        "import/no-absolute-paths": "off"
     },
     "settings": {
       "import/resolver": {

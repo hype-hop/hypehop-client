@@ -1,60 +1,40 @@
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+'use client';
+
 import { Box, Typography, Input, Button, Divider } from '@mui/material';
 import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '../../AuthenticationContext';
 import BASE_URL from '../../config';
 
-import { ReactComponent as GoogleIcon } from '../../assets/icons/googleIcon.svg';
+import GoogleIcon from '../../assets/icons/googleIcon.svg';
 
 function LogInForm() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { pathname } = location;
-  const isError = pathname.includes('error');
-  const [user] = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const isError = searchParams.get('error');
+  const { user } = useAuth();
   const [isTyping, setIsTyping] = useState(false);
   const [refUrl, setRefUrl] = useState('/');
-  const searchParams = new URLSearchParams(location.search);
   const failedEmail = searchParams.get('email');
   useEffect(() => {
-    if (pathname.includes('album')) {
+    if (user) {
+      router.push('/my-information');
+    }
+    if (searchParams.get('album')) {
       setRefUrl('/album');
     }
-  }, [pathname]);
+  }, [searchParams, user, router]);
 
-  if (user) {
-    navigate('/myInformation');
-  }
-  /*
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-
-    try {
-      const response = await fetch(`${BASE_URL}/api/login`, {
-        method: 'POST',
-        credentials: 'include', // 서버에서 ensureauth?
-        body: formData,
-      });
-
-      if (response.ok) {
-        navigate('/dashboard');
-      } else {
-        throw new Error('Login failed');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-*/
   const handleChange = () => {
     setIsTyping(true);
   };
 
-  if (isError && isTyping) {
-    navigate('/login');
-  }
+  useEffect(() => {
+    if (isError && isTyping) {
+      router.push('/login');
+    }
+  }, [isError, isTyping, router]);
 
   return (
     <>
@@ -156,7 +136,7 @@ function LogInForm() {
         }}
       >
         <Typography sx={{ mr: '5px' }}>계정이 없으신가요?</Typography>
-        <Link to="/join" style={{ color: 'inherit', textDecoration: 'none' }}>
+        <Link href="/join" style={{ color: 'inherit', textDecoration: 'none' }}>
           <Typography sx={{ color: 'rgb(152, 72, 255)' }}>회원가입</Typography>{' '}
         </Link>
       </Box>
@@ -174,7 +154,7 @@ function LogInForm() {
             OR
           </Divider>
 
-          <Link to={`${BASE_URL}/auth/google`} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link href={`${BASE_URL}/auth/google`} style={{ textDecoration: 'none', color: 'inherit' }}>
             <Button
               fullWidth
               sx={{

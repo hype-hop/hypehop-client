@@ -1,9 +1,9 @@
 import { Box, Link, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { MyReview } from '../../types/review';
-import { ReactComponent as Hamburger } from '../../assets/icons/hamburger.svg';
-import { ReactComponent as Edit } from '../../assets/icons/edit-review.svg';
-import { ReactComponent as Delete } from '../../assets/icons/delete-review.svg';
+import Hamburger from '../../assets/icons/hamburger.svg';
+import Edit from '../../assets/icons/edit-review.svg';
+import Delete from '../../assets/icons/delete-review.svg';
 import { StyledMenu, StyledMenuItem } from '../common/StyledMenu';
 import BASE_URL from '../../config';
 import AlbumCover from '../album/AlbumCover';
@@ -44,6 +44,7 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
     <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 2 }} gap={3}>
       {reviews?.map((review) => (
         <Box
+          key={`my-review-${review._id}`}
           sx={{
             position: 'relative',
             border: '1px solid rgb(52, 52, 52)',
@@ -74,6 +75,7 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
                   setOpenMenu(e.currentTarget);
                 }}
               >
+                fff
                 <Hamburger>열기</Hamburger>
               </Box>
               <StyledMenu width={100} anchorEl={openMenu} open={Boolean(openMenu)} onClose={() => setOpenMenu(null)}>

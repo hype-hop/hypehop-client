@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 import { AppBar, Box, Toolbar, IconButton, Typography, Avatar, Modal, Container, Button } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { StyledMenu, StyledMenuItem } from '../StyledMenu';
-import { ReactComponent as LogoMainIcon } from '../../../assets/icons/logo-main.svg';
-import { ReactComponent as CancleIcon } from '../../../assets/icons/cancle.svg';
+import LogoMainIcon from '../../../assets/icons/logo-main.svg';
+import CancleIcon from '../../../assets/icons/cancle.svg';
 import { useAuth } from '../../../AuthenticationContext';
 import { typography } from '../../../constants/themeValue';
 import BASE_URL from '../../../config';
@@ -16,11 +16,11 @@ import { Notification } from '../../../types/notification';
 import NotificationContents from './NotificationContents';
 import LogoHoverIcon from './LogoHoverIcon';
 import readNotification from '../../../api/readNotification';
-import { ReactComponent as RedDot } from '../../../assets/icons/redDot.svg';
+import RedDot from '../../../assets/icons/redDot.svg';
 
 export default function MenuAppBar() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [auth, setAuth] = useAuth();
+  const { user, setUser } = useAuth();
   const [anchorProfile, setAnchorProfile] = useState(null);
   const [anchorNoti, setAnchorNoti] = useState(null);
   const [logoHover, setLogoHover] = useState(false);
@@ -61,7 +61,7 @@ export default function MenuAppBar() {
   };
 
   const handleChange = (event) => {
-    setAuth(event.target.checked);
+    setUser(event.target.checked);
   };
 
   const handleMenuProfile = (event) => {
@@ -106,7 +106,7 @@ export default function MenuAppBar() {
           }}
         >
           <Toolbar sx={{ justifyContent: 'space-between', paddingX: { xs: 0 } }}>
-            <Link to="/">
+            <Link href="/">
               <IconButton
                 onClick={handleHoverLogoOut}
                 onMouseOver={handleHoverLogoOver}
@@ -117,9 +117,9 @@ export default function MenuAppBar() {
                 {logoHover ? <LogoHoverIcon /> : <LogoMainIcon style={{ width: 125, height: 20 }} />}
               </IconButton>
             </Link>
-            {auth === null && (
+            {user === null && (
               <div>
-                <Link to="/login" style={{ textDecoration: 'none' }}>
+                <Link href="/login" style={{ textDecoration: 'none' }}>
                   <Button
                     sx={{
                       background: 'rgb(152, 72, 255)',
@@ -142,7 +142,7 @@ export default function MenuAppBar() {
               </div>
             )}
 
-            {auth && (
+            {user && (
               <div>
                 <IconButton
                   aria-label="notifications"
@@ -173,7 +173,7 @@ export default function MenuAppBar() {
                       height: '30px',
                       borderRadius: '50%',
                     }}
-                    src={auth.image}
+                    src={user.image}
                     alt="user"
                   />
                 </IconButton>
@@ -213,7 +213,7 @@ export default function MenuAppBar() {
                           notifications?.map((noti) => (
                             <Link
                               key={noti?.review_id?._id}
-                              to={`/album/review/${noti?.review_id?._id}`}
+                              href={`/album/review/${noti?.review_id?._id}`}
                               style={{ textDecoration: 'none', color: 'inherit' }}
                             >
                               <StyledMenuItem onClick={handleCloseNoti}>
@@ -223,7 +223,7 @@ export default function MenuAppBar() {
                           ))
                         )}
                         <Link
-                          to="/myInformation"
+                          href="/my-information"
                           onClick={handleCloseNoti}
                           style={{
                             textDecoration: 'none',
@@ -264,7 +264,8 @@ export default function MenuAppBar() {
                     ) : (
                       notifications?.map((noti) => (
                         <Link
-                          to={`/album/review/${noti?.review_id?._id}`}
+                          key={noti?.review_id?._id}
+                          href={`/album/review/${noti?.review_id?._id}`}
                           style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                           <StyledMenuItem onClick={handleCloseNoti}>
@@ -274,7 +275,7 @@ export default function MenuAppBar() {
                       ))
                     )}
                     <Link
-                      to="/myInformation"
+                      href="/my-information"
                       onClick={handleCloseNoti}
                       style={{
                         textDecoration: 'none',
@@ -305,7 +306,7 @@ export default function MenuAppBar() {
                   onClose={handleCloseProfile}
                   width={200}
                 >
-                  <Link to="/myInformation" style={{ textDecorationLine: 'none' }}>
+                  <Link href="/my-information" style={{ textDecorationLine: 'none' }}>
                     <StyledMenuItem onClick={handleCloseProfile}>
                       <PersonIcon sx={{ marginRight: '16px', color: 'white.main' }} />
                       <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>
@@ -314,7 +315,7 @@ export default function MenuAppBar() {
                     </StyledMenuItem>
                   </Link>
 
-                  <Link to={`${BASE_URL}/api/logout`} style={{ textDecorationLine: 'none' }}>
+                  <Link href={`${BASE_URL}/api/logout`} style={{ textDecorationLine: 'none' }}>
                     <StyledMenuItem onClick={handleChange}>
                       <LogoutIcon sx={{ marginRight: '16px', color: 'white.main' }} />
                       <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>

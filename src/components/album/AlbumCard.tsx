@@ -1,12 +1,10 @@
 import React from 'react';
 import { Card, Box, Typography, CardMedia, Stack } from '@mui/material';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import CustomStar from '../review/CustomStar';
-import PlayPreview from '../common/PlayPreview';
 
 function AlbumCard({ data }) {
   const formattedDate = data?.review?.albumReleaseDate.split('T')[0];
-  const { previewUrl } = data.review;
 
   return (
     <Card
@@ -21,6 +19,7 @@ function AlbumCard({ data }) {
           md: '100%',
           lg: '846px',
         },
+        maxWidth: '300px',
         height: '90px',
         paddingLeft: '22px',
         paddingTop: '15px',
@@ -41,7 +40,7 @@ function AlbumCard({ data }) {
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Link to={`/album/${data?.review?.albumId}`} style={{ justifyContent: 'center', alignContent: 'center' }}>
+          <Link href={`/album/${data?.review?.albumId}`} style={{ justifyContent: 'center', alignContent: 'center' }}>
             <CardMedia
               component="img"
               image={data?.review?.thumbnail}
@@ -103,9 +102,6 @@ function AlbumCard({ data }) {
               </Typography>
             </Stack>
           </Box>
-        </Box>
-        <Box sx={{ mr: '15px' }}>
-          <PlayPreview previewUrl={previewUrl} />
         </Box>
       </Box>
     </Card>

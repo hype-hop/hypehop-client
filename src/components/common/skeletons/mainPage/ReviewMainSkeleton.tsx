@@ -19,8 +19,8 @@ export default function ReviewMainSkeleton() {
           height: { xs: '100%' },
         }}
       >
-        {Array.from({ length: 5 }).map(() => (
-          <Box>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <Box key={`review-skeleton-${index}`}>
             <Box mb={2}>
               <AlbumCoverSkeleton />
             </Box>

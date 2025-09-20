@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { List, ListItem, Typography } from '@mui/material';
+import Link from 'next/link';
 import BASE_URL from '../../config';
 import { ReviewsRank } from '../../types/review';
 
@@ -54,7 +54,7 @@ function PopularReview() {
               {index + 1}.
             </Typography>
 
-            <Link to={`/album/review/${_id}`} style={{ textAlign: 'left', color: 'white', textDecoration: 'none' }}>
+            <Link href={`/album/review/${_id}`} style={{ textAlign: 'left', color: 'white', textDecoration: 'none' }}>
               <Typography
                 lineHeight="1"
                 component="div"

@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Box, Button } from '@mui/material';
-import { ReactComponent as NotFound } from '../../../assets/icons/notFound.svg';
+import { useRouter } from 'next/navigation';
+import NotFound from '../../../assets/icons/notFound.svg';
 import { typography } from '../../../constants/themeValue';
 
 function PageNotFound() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const handleNavigate = () => {
-    navigate('/');
+    router.push('/');
   };
   return (
     <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>

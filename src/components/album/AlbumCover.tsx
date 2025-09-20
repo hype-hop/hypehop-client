@@ -1,11 +1,11 @@
 import { Box, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import Image from 'next/image';
 import { typography } from '../../constants/themeValue';
 import { AlbumCoverProps } from '../../types/albumCover';
 import PlayPreview from '../common/PlayPreview';
 
 function AlbumCover({ reviewId, url, albumTitle, artists, previewUrl }: AlbumCoverProps) {
-  // const router = useNavigate();
   return (
     <Box
       sx={{
@@ -17,7 +17,7 @@ function AlbumCover({ reviewId, url, albumTitle, artists, previewUrl }: AlbumCov
       }}
       // onClick={() => router(`/album/${albumId}`)}
     >
-      <Link style={{ textDecorationLine: 'none', color: 'inherit' }} to={`/album/review/${reviewId}`}>
+      <Link style={{ textDecorationLine: 'none', color: 'inherit' }} href={`/album/review/${reviewId}`}>
         <Box
           sx={{
             position: 'absolute',
@@ -29,17 +29,9 @@ function AlbumCover({ reviewId, url, albumTitle, artists, previewUrl }: AlbumCov
             background: 'linear-gradient(180.00deg, rgba(25, 25, 25, 0) 49.967%,rgba(25, 25, 25, 0.7) 100%)',
           }}
         />
-        <img
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            top: 0,
-            left: 0,
-          }}
-          src={url}
-          alt={albumTitle}
-        />
+        <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
+          <Image fill objectFit="contain" alt={albumTitle || 'album title'} src={url} />
+        </Box>
 
         <Box sx={{ position: 'absolute', top: '10px', zIndex: 2 }}>
           <Typography component="div" fontSize={typography.size.lg} fontWeight="bold" align="left" />
@@ -53,7 +45,7 @@ function AlbumCover({ reviewId, url, albumTitle, artists, previewUrl }: AlbumCov
               </Typography>
               <Box sx={{ display: 'flex' }}>
                 {artists?.map((artist, index) => (
-                  <Typography>
+                  <Typography key={`artist-${artist}-${index}`}>
                     {artist} {artists.length > 1 && index < artists.length - 1 && '· '}
                   </Typography>
                 ))}

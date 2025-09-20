@@ -27,7 +27,7 @@ function NewReleases() {
   return (
     <Box>
       {newReleasesKR.map((release) => (
-        <Box>{release.name}</Box>
+        <Box key={release.id}>{release.name}</Box>
       ))}
     </Box>
   );

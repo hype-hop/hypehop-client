@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Typography, Box } from '@mui/material';
 
+import Link from 'next/link';
 import BASE_URL from '../../config';
 import { AlbumData } from '../../types/albumData';
 import AlbumCover from '../album/AlbumCover';
@@ -40,7 +40,7 @@ function ReviewMain() {
             },
           }}
         >
-          <Link to="/album/review" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link href="/album/review" style={{ textDecoration: 'none', color: 'inherit' }}>
             더보기
           </Link>
         </Button>
@@ -58,6 +58,7 @@ function ReviewMain() {
         {Array.isArray(data?.reviews) ? (
           data?.reviews.map((review) => (
             <Box
+              key={`review-${review._id}`}
               sx={{
                 display: 'grid',
                 padding: '16px',

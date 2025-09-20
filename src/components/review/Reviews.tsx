@@ -13,12 +13,13 @@ export default function Reviews({
   reviews: MyReview[] | Review[];
   setRefreshCount?: Dispatch<SetStateAction<number>>;
 }) {
-  const user = useAuth();
+  const { user } = useAuth();
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 2 }} gap={3}>
       {reviews?.map((review) => (
         <Box
+          key={`my-review-${review._id}`}
           sx={{
             position: 'relative',
             border: '1px solid rgb(52, 52, 52)',
@@ -28,7 +29,7 @@ export default function Reviews({
             minWidth: { xs: '100%', sm: '282px' },
           }}
         >
-          {user[0]?._id === review.user ? (
+          {user?._id === review.user ? (
             <ProfileReviewEditHamburger review={review} setRefreshCount={setRefreshCount!} />
           ) : null}
 

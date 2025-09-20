@@ -2,8 +2,8 @@ import { Box } from '@mui/material';
 // import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 // import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import { useState, useEffect } from 'react';
-import { ReactComponent as Play } from '../../assets/icons/playButton.svg';
-import { ReactComponent as Pause } from '../../assets/icons/pauseButton.svg';
+import Play from '../../assets/icons/playButton.svg';
+import Pause from '../../assets/icons/pauseButton.svg';
 
 const audioController = {
   currentAudio: null,

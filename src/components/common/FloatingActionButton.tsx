@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
+import Link from 'next/link';
 import { typography } from '../../constants/themeValue';
-import { ReactComponent as PlusIcon } from '../../assets/icons/plus.svg';
+import PlusIcon from '../../assets/icons/plus.svg';
 
 export default function FloatingActionButton() {
   const [isHover, setIsHover] = useState(false);
@@ -16,7 +16,7 @@ export default function FloatingActionButton() {
   };
 
   return (
-    <Link to="/album">
+    <Link href="/album">
       <Button
         sx={{
           position: 'fixed',

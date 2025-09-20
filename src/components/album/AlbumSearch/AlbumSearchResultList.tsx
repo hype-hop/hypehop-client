@@ -39,6 +39,7 @@ export default function ResultList({
     <ResultBox>
       {searchResult.map((album, index) => (
         <AlbumSearchResultItem
+          key={`album-${album.id}`}
           album={album}
           setKeyword={setKeyword}
           setSelectedAlbum={setSelectedAlbum}

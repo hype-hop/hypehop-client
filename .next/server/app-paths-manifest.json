@@ -1,0 +1,6 @@
+{
+  "/album/review/[id]/page": "app/album/review/[id]/page.js",
+  "/page": "app/page.js",
+  "/my-information/page": "app/my-information/page.js",
+  "/album/page": "app/album/page.js"
+}

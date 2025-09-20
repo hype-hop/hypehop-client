@@ -1,7 +1,7 @@
 import { Box, Typography, IconButton } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { ReactComponent as LogoIcon } from '../../assets/icons/logo-main.svg';
-import { ReactComponent as InstagramIcon } from '../../assets/icons/instagram.svg';
+import Link from 'next/link';
+import LogoIcon from '../../assets/icons/logo-main.svg';
+import InstagramIcon from '../../assets/icons/instagram.svg';
 
 export default function Footer() {
   return (
@@ -18,7 +18,7 @@ export default function Footer() {
       }}
     >
       <LogoIcon width={143} height={20} />
-      <Link to="mailto:hypehopcom@gmail.com" style={{ textDecoration: 'none' }}>
+      <Link href="mailto:hypehopcom@gmail.com" style={{ textDecoration: 'none' }}>
         <Typography
           sx={{
             color: 'rgb(174, 174, 174)',

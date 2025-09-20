@@ -1,16 +1,10 @@
 import { FavoriteClickedUser } from './favorite';
 import { User } from './user';
 
-export interface CommentType {
-  _id: string;
-  content: string;
-  createdAt: string;
-  user: User;
-}
-
 export interface CommentData {
   _id: string;
   content: string;
+  review: string;
   createdAt: string;
   user: User;
 }
@@ -31,6 +25,16 @@ export interface Review {
   albumRating: number;
   artists: string[];
   artistGenre: string[];
+}
+
+export interface ReviewAPIResponse {
+  id: string;
+  review: Review;
+  comments: CommentData[];
+  pageTitle: string;
+  pageDescription: string;
+  pageKeywords: string;
+  albumRatingAverage: number;
 }
 
 export interface MyReview extends Review {

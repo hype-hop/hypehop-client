@@ -3,7 +3,6 @@ import CustomStar from '../../review/CustomStar';
 // import { AlbumDetailType } from '../../../types/albumDetail';
 import { typography } from '../../../constants/themeValue';
 import { AlbumData } from '../../../types/albumData';
-import PlayPreview from '../../common/PlayPreview';
 
 function AlbumDetailTracks({ data }: { data: AlbumData }) {
   // const [, setTrackRating] = useState<number[]>([]);
@@ -21,7 +20,10 @@ function AlbumDetailTracks({ data }: { data: AlbumData }) {
   return (
     <>
       {Object.keys(tracksByDisc).map((discNumber) => (
-        <Box key={discNumber} sx={{ padding: '16px 16px 16px 16px', bgcolor: 'rgb(27, 27, 27)', borderRadius: '16px' }}>
+        <Box
+          key={`detail-track-${discNumber}`}
+          sx={{ padding: '16px 16px 16px 16px', bgcolor: 'rgb(27, 27, 27)', borderRadius: '16px' }}
+        >
           <Typography variant="h1">Disc {discNumber}</Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             {tracksByDisc[discNumber].map((track, index) => (
@@ -32,17 +34,13 @@ function AlbumDetailTracks({ data }: { data: AlbumData }) {
                   borderBottom: '1px solid rgb(52, 52, 52)',
                   padding: '16px 0px 16px 0px',
                 }}
-                key={index}
+                key={`track-${track.id}`}
               >
                 <Box display="flex">
                   <Box sx={{ alignContent: 'center', minWidth: '14px' }}>
                     <Typography fontSize={typography.size.lg} fontWeight={typography.weight.medium}>
                       {index + 1}{' '}
                     </Typography>
-                  </Box>
-
-                  <Box>
-                    <PlayPreview previewUrl={track.preview_url} />
                   </Box>
 
                   <Box>

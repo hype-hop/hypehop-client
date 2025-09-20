@@ -5,8 +5,9 @@ import AlbumReviewSummarySkeleton from '../AlbumReviewSummarySkeleton';
 export default function MyReviewsSkeleton() {
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 2 }} gap={3}>
-      {Array.from({ length: 5 }).map(() => (
+      {Array.from({ length: 5 }).map((_, index) => (
         <Box
+          key={`my-review-skeleton-${index}`}
           sx={{
             border: '1px solid rgb(52, 52, 52)',
             padding: '16px',

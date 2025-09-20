@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../AuthenticationContext.js';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '../../AuthenticationContext';
 import BASE_URL from '../../config';
-import { ReactComponent as EmptyFavoriteIcon } from '../../assets/icons/empty-favorite.svg';
+import EmptyFavoriteIcon from '../../assets/icons/empty-favorite.svg';
 import FavoriteListCheckModal from './Modal/FavoriteListCheckModal';
 import { FavoriteClickedUser } from '../../types/favorite';
 import { palette, typography } from '../../constants/themeValue';
@@ -15,8 +15,8 @@ function Favorite({
   reviewId: string;
   favoriteClickedUsers: FavoriteClickedUser[];
 }) {
-  const [user] = useAuth();
-  const router = useNavigate();
+  const { user } = useAuth();
+  const router = useRouter();
   const [isMyFavorite, setIsMyFavorite] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -40,14 +40,14 @@ function Favorite({
   };
 
   useEffect(() => {
-    setIsMyFavorite(user?.favoritesReview && Object.keys(user?.favoritesReview).includes(reviewId));
+    setIsMyFavorite((user && user.favoritesReview && Object.keys(user.favoritesReview).includes(reviewId))!);
     setFavoriteCount(favoriteClickedUsers?.length);
   }, [reviewId, user, favoriteClickedUsers]);
 
   const addToFavorite = async (e) => {
     e.stopPropagation();
     if (!user) {
-      router('/login');
+      router.push('/login');
     }
     setFavoriteCount((prev) => (isMyFavorite ? prev! - 1 : prev! + 1));
     setIsMyFavorite(!isMyFavorite);
