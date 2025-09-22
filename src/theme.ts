@@ -87,6 +87,9 @@ const theme: Theme = createTheme({
           lineHeight: 1,
         },
       },
+      defaultProps: {
+        component: 'span',
+      },
     },
     MuiButton: {
       styleOverrides: {

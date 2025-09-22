@@ -69,11 +69,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  <Typography
-                    component="span"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => router.push(`/profile/${user._id}`)}
-                  >
+                  <Typography style={{ cursor: 'pointer' }} onClick={() => router.push(`/profile/${user._id}`)}>
                     {user.name || user.displayName}
                   </Typography>
                 </Typography>
