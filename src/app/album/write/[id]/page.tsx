@@ -2,9 +2,9 @@
 
 import { Box } from '@mui/material';
 import { Suspense, useEffect, useState } from 'react';
-import { useAuth } from '../../AuthenticationContext';
-import LogInForm from '../../components/sign/LogInForm';
-import WriteReview from '../../components/review/WriteReview';
+import { useAuth } from '../../../../AuthenticationContext';
+import LogInForm from '../../../../components/sign/LogInForm';
+import WriteReview from '../../../../components/review/WriteReview';
 
 function AlbumPage() {
   const { user } = useAuth()!;
