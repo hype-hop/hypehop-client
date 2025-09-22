@@ -159,7 +159,7 @@ function Comment({ reviewId, user }: Props) {
       />
 
       {commentData?.map((comment) => (
-        <div>
+        <div key={comment._id}>
           <Box
             key={`comment-${comment._id}`}
             sx={{

@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST="{\"components/review/WriteReview.tsx -> ./EditorBox.tsx\":{\"id\":\"components/review/WriteReview.tsx -> ./EditorBox.tsx\",\"files\":[\"static/chunks/_app-pages-browser_src_components_review_EditorBox_tsx.js\"]}}"
