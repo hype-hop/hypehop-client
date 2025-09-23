@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Avatar, Box, Tab, Tabs, Typography, Button } from '@mui/material';
-import { useRouter } from 'next/navigation';
+
 import { useAuth } from '../../AuthenticationContext';
 import { MyInformation } from '../../types/user';
 import getMyInformation from '../../api/myInformation';
@@ -16,7 +16,7 @@ import Reviews from '../../components/review/Reviews';
 
 function MyPage() {
   const [data, setData] = useState<MyInformation | null>(null);
-  const router = useRouter();
+
   const { user } = useAuth();
   const { currentTab, handleChangeCurrentTab, tabProps } = useTabs('my-information-tab');
   const [open, setOpen] = useState(false);
@@ -30,12 +30,6 @@ function MyPage() {
       }
     })();
   }, [refreshCount]);
-
-  useEffect(() => {
-    if (!user) {
-      router.push(`/login`);
-    }
-  }, [user, router]);
 
   return data ? (
     <>
@@ -60,7 +54,7 @@ function MyPage() {
       </Tabs>
 
       <TabPanel value={currentTab} index={0}>
-        {data?.reviews.length > 0 ? (
+        {data?.reviews?.length > 0 ? (
           <Reviews reviews={data?.reviews} setRefreshCount={setRefreshCount} />
         ) : (
           <NoAlbumReview />

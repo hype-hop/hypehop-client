@@ -1,33 +1,15 @@
-'use client';
-
 import { Box } from '@mui/material';
-import { Suspense, useEffect, useState } from 'react';
-import { useAuth } from '../../../../AuthenticationContext';
-import LogInForm from '../../../../components/sign/LogInForm';
+import { Suspense } from 'react';
+
 import WriteReview from '../../../../components/review/WriteReview';
+import checkUserFromServerComponent from '../../../user/checkUserFromServerComponent';
 
-function AlbumPage() {
-  const { user } = useAuth()!;
-  const [isUser, setIsUser] = useState(false);
-
-  useEffect(() => {
-    setIsUser(user !== null);
-  }, [user]);
-
-  if (!isUser) {
-    return (
-      <Box className="Album">
-        <Suspense>
-          <LogInForm />
-        </Suspense>
-      </Box>
-    );
-  }
-
+async function AlbumPage() {
+  await checkUserFromServerComponent();
   return (
     <Box className="Album">
       <Suspense>
-        <WriteReview userData={user} />
+        <WriteReview />
       </Suspense>
     </Box>
   );
