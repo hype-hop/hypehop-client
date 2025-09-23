@@ -21,6 +21,7 @@ import { typography } from '../../constants/themeValue';
 import INITIAL_RATING_VALUE from '../../constants/rating';
 import CustomStar from './CustomStar';
 import ThumbsUp from './ThumbsUp';
+import { useAuth } from '../../AuthenticationContext';
 
 const EditorBox = dynamic(() => import('./EditorBox.tsx').then((module) => module.default), { ssr: false });
 
@@ -30,7 +31,8 @@ interface BestTrack {
   preview_url: string | null;
 }
 
-function WriteReview({ userData }) {
+function WriteReview() {
+  const { user } = useAuth()!;
   const router = useRouter();
   const searchParams = useSearchParams();
   const albumIdParam = useParams();
@@ -129,7 +131,7 @@ function WriteReview({ userData }) {
         albumTitle: data?.pageTitle,
         thumbnail: data.albumData?.images[1]?.url,
         albumReleaseDate: data.albumData?.release_date,
-        user: userData?._id,
+        user: user && user._id,
         trackTitle: tracks,
         artistGenre: data?.spotify_artist_genre,
         artists: data.albumData?.artists.map((artist) => artist.name),
@@ -273,7 +275,7 @@ function WriteReview({ userData }) {
           setSelectedAlbum={setSelectedAlbum}
         />
 
-        {selectedAlbum && !data?.reviewUser?.includes(userData._id) && (
+        {selectedAlbum && !data?.reviewUser?.includes(user!._id) && (
           <>
             <Typography
               variant="h1"
@@ -485,7 +487,7 @@ function WriteReview({ userData }) {
         )}
       </form>
       {!selectedAlbum && <WriteReviewBefore />}
-      {selectedAlbum && data?.reviewUser?.includes(userData._id) && <Duplicate open={open} setOpen={setOpen} />}
+      {selectedAlbum && data?.reviewUser?.includes(user!._id) && <Duplicate open={open} setOpen={setOpen} />}
     </>
   );
 }
