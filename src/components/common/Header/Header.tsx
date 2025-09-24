@@ -114,7 +114,7 @@ export default function MenuAppBar() {
                 disableRipple
                 sx={{ padding: 0 }}
               >
-                {logoHover ? <LogoHoverIcon /> : <LogoMainIcon style={{ width: 125, height: 20 }} />}
+                {logoHover ? <LogoHoverIcon /> : <LogoMainIcon width={125} height={20} />}
               </IconButton>
             </Link>
             {user !== null && Object.keys(user).length === 0 && (

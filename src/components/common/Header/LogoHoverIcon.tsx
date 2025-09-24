@@ -15,19 +15,5 @@ export default function LogoHoverIcon() {
     };
   });
 
-  return count ? (
-    <LogoMainIcon
-      style={{
-        width: 125,
-        height: 20,
-      }}
-    />
-  ) : (
-    <LogoSubIcon
-      style={{
-        width: 125,
-        height: 20,
-      }}
-    />
-  );
+  return count ? <LogoMainIcon width={125} height={20} /> : <LogoSubIcon width={125} height={20} />;
 }
