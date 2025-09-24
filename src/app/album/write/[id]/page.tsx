@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import WriteReview from '../../../../components/review/WriteReview';
 import checkUserFromServerComponent from '../../../user/checkUserFromServerComponent';
 
-async function AlbumPage() {
+async function AlbumReviewWritePage() {
   await checkUserFromServerComponent();
   return (
     <Box className="Album">
@@ -15,4 +15,4 @@ async function AlbumPage() {
   );
 }
 
-export default AlbumPage;
+export default AlbumReviewWritePage;

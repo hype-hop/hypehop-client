@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import BASE_URL from './config';
+import getUser from './api/auth';
 
 export interface User {
   _id: string;
@@ -39,16 +39,9 @@ export function AuthProvider({ children }) {
   const memoizedUser = useMemo(() => ({ user, setUser }), [user]);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/api/user`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
+    getUser()
       .then((data) => {
-        setUser(data.user || null);
+        setUser(data || null);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);

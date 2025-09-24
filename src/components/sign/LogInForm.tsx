@@ -16,11 +16,8 @@ function LogInForm() {
   const { user } = useAuth();
   const [isTyping, setIsTyping] = useState(false);
   const [refUrl, setRefUrl] = useState('/');
-  const failedEmail = searchParams.get('email');
+  const failedEmail = searchParams.get('email') || '';
   useEffect(() => {
-    if (user) {
-      router.push('/my-information');
-    }
     if (searchParams.get('album')) {
       setRefUrl('/album');
     }

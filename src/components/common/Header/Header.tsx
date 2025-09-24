@@ -117,7 +117,7 @@ export default function MenuAppBar() {
                 {logoHover ? <LogoHoverIcon /> : <LogoMainIcon style={{ width: 125, height: 20 }} />}
               </IconButton>
             </Link>
-            {user === null && (
+            {user !== null && Object.keys(user).length === 0 && (
               <div>
                 <Link href="/login" style={{ textDecoration: 'none' }}>
                   <Button
@@ -142,7 +142,7 @@ export default function MenuAppBar() {
               </div>
             )}
 
-            {user && (
+            {user !== null && Object.keys(user).length > 0 && (
               <div>
                 <IconButton
                   aria-label="notifications"
