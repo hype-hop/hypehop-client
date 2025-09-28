@@ -1,19 +1,18 @@
-import ReactStars from 'react-rating-stars-component';
+import { Rating } from '@mui/material';
 import FullStar from '../../assets/icons/fullStar.svg';
-import HalfStar from '../../assets/icons/halfStar.svg';
 import EmptyStar from '../../assets/icons/emptyStar.svg';
 
 function CustomStars(props) {
   const mergedProps = {
     emptyIcon: <EmptyStar />,
-    halfIcon: <HalfStar />,
-    filledIcon: <FullStar />,
+    icon: <FullStar />,
     count: 5,
     isHalf: true,
+    precision: 0.5,
     ...props,
   };
 
-  return <ReactStars {...mergedProps} />;
+  return <Rating {...mergedProps} />;
 }
 
 export default CustomStars;

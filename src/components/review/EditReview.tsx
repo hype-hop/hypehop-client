@@ -158,7 +158,6 @@ function EditReview({ data, albumData }) {
               }}
             >
               {formData.albumRating && (
-                // <CustomStarEdit name="albumRating" value={formData.albumRating} onChange={handleFormData} />
                 <Rating name="albumRating" value={formData.albumRating} precision={0.1} readOnly />
               )}
 
