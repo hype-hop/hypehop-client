@@ -46,10 +46,9 @@ function RatingAlbum({ album, rating, setRating }: RatingAlbumProps) {
         <CustomStar
           name="albumRating"
           value={rating}
-          onChange={(value) => {
+          onChange={(_, value) => {
             setRating(value);
           }}
-          activeColor="#ffd700"
         />
 
         <Typography

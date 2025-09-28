@@ -230,7 +230,7 @@ function WriteReview() {
                   <CustomStar
                     name="trackRating"
                     value={trackRating[index]}
-                    onChange={(newValue) => {
+                    onChange={(_, newValue) => {
                       const updatedRating: number[] = [...trackRating];
                       updatedRating[index] = newValue!;
                       setTrackRating(updatedRating);

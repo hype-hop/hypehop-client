@@ -243,7 +243,7 @@ function ReviewsPage() {
                       </Typography>
                     </Box>
                     <Box sx={{ ml: '4px' }}>
-                      <CustomStar edit={false} value={review.albumRating} />
+                      <CustomStar readOnly value={review.albumRating} />
                     </Box>
                   </Box>
                 </Box>

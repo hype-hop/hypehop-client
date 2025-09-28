@@ -62,7 +62,7 @@ function AlbumDetailTracks({ data }: { data: AlbumData }) {
                     <CustomStar
                       name="trackRating"
                       value={Number(data?.storedAverageArr[Number(discNumber) - 1]?.values[index]) || 0}
-                      edit={false}
+                      readOnly
                     />
                   </Stack>
                   <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center' }}>

@@ -106,7 +106,7 @@ function AlbumList({ data, startIndex, endIndex }: { data: AlbumCharts | null; s
                   </Typography>
                 )}
                 <Box sx={{ display: 'flex' }}>
-                  <CustomStar name="half-rating-read" value={item.averageRating} edit={false} />
+                  <CustomStar name="half-rating-read" value={item.averageRating} readOnly />
                   <Typography sx={{ ml: '4px', mt: '4px' }} fontSize="fontSizeXs">
                     {item.averageRating.toFixed(1)}
                   </Typography>

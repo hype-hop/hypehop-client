@@ -96,7 +96,7 @@ function AlbumCard({ data }) {
               </Box>
             </Typography>
             <Stack direction="row" alignItems="center" spacing={1}>
-              <CustomStar name="albumRating" value={Number(data?.albumRatingAverage)} edit={false} />
+              <CustomStar name="albumRating" value={Number(data?.albumRatingAverage)} readOnly />
               <Typography fontSize="fontSizeSm" fontWeight="700" sx={{ alignContent: 'flex-end' }}>
                 {data?.albumRatingAverage}
               </Typography>

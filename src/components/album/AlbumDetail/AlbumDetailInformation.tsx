@@ -41,7 +41,7 @@ function AlbumDetailInformation({ data }: { data: AlbumData }) {
           </Box>
           {!Number.isNaN(Number(data.albumRatingAverage)) && (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CustomStar value={Number(data.albumRatingAverage)} edit={false} />
+              <CustomStar value={Number(data.albumRatingAverage)} readOnly />
               <Typography component="div" fontSize={typography.size.md} fontWeight="medium" lineHeight={1}>
                 {data.albumRatingAverage}
               </Typography>

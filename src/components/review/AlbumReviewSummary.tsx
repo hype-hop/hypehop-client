@@ -86,7 +86,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
                 </Typography>
               </Box>
 
-              <CustomStar edit={false} value={albumRating} activeColor="#ffd700" />
+              <CustomStar readOnly value={albumRating} />
             </Box>
           </Box>
         )}

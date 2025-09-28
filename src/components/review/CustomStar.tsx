@@ -7,7 +7,6 @@ function CustomStars(props) {
     emptyIcon: <EmptyStar />,
     icon: <FullStar />,
     count: 5,
-    isHalf: true,
     precision: 0.5,
     ...props,
   };
