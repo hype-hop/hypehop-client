@@ -61,7 +61,7 @@ function AlbumDetailTracks({ data }: { data: AlbumData }) {
                   <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
                     <CustomStar
                       name="trackRating"
-                      value={Number(data?.storedAverageArr[Number(discNumber) - 1]?.values[index])}
+                      value={Number(data?.storedAverageArr[Number(discNumber) - 1]?.values[index]) || 0}
                       edit={false}
                     />
                   </Stack>
