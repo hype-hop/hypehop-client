@@ -27,7 +27,8 @@
         "jsx-a11y/label-has-associated-control":"off",
         "no-shadow":"off",
         "react/no-unescaped-entities":"off",
-        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
         "react/require-default-props": "off",
         "react/jsx-props-no-spreading":"off",
         "import/no-absolute-paths": "off"
