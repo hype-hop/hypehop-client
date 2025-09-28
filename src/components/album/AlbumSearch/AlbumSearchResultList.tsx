@@ -29,15 +29,15 @@ export default function ResultList({
   setSearchResult,
   setKeyword,
 }: {
-  searchResult: AlbumSearchResult[];
+  searchResult: AlbumSearchResult[] | null;
   setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
   setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
   setKeyword: Dispatch<SetStateAction<string | null>>;
 }) {
-  if (searchResult.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
+  if (searchResult?.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
   return (
     <ResultBox>
-      {searchResult.map((album, index) => (
+      {searchResult?.map((album, index) => (
         <AlbumSearchResultItem
           key={`album-${album.id}`}
           album={album}
