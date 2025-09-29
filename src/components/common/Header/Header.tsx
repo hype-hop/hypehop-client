@@ -15,16 +15,15 @@ import fetchNotification from '../../../api/notification';
 import { Notification } from '../../../types/notification';
 import NotificationContents from './NotificationContents';
 import LogoHoverIcon from './LogoHoverIcon';
-import readNotification from '../../../api/readNotification';
 import RedDot from '../../../assets/icons/redDot.svg';
+import useNotification from '../../../hooks/useNotification';
 
 export default function MenuAppBar() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const { hasUnreadNoti, handleMenuNoti, anchorNoti, handleCloseNoti, setHasUnreadNoti } = useNotification();
   const { user, setUser } = useAuth();
   const [anchorProfile, setAnchorProfile] = useState(null);
-  const [anchorNoti, setAnchorNoti] = useState(null);
   const [logoHover, setLogoHover] = useState(false);
-  const [hasUnreadNoti, setHasUnreadNoti] = useState(false);
 
   const handleHoverLogoOver = () => {
     setLogoHover(true);
@@ -56,10 +55,6 @@ export default function MenuAppBar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications]);
 
-  const readNoti = () => {
-    readNotification();
-  };
-
   const handleChange = (event) => {
     setUser(event.target.checked);
   };
@@ -68,21 +63,8 @@ export default function MenuAppBar() {
     setAnchorProfile(event.currentTarget);
   };
 
-  const handleMenuNoti = (event) => {
-    setAnchorNoti(event.currentTarget);
-    if (hasUnreadNoti) {
-      readNoti();
-    }
-
-    setHasUnreadNoti(false);
-  };
-
   const handleCloseProfile = () => {
     setAnchorProfile(null);
-  };
-
-  const handleCloseNoti = () => {
-    setAnchorNoti(null);
   };
 
   return (
