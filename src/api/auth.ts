@@ -1,7 +1,7 @@
 import { User } from '../AuthenticationContext';
 import BASE_URL from '../config';
 
-const getUser = async (): Promise<User> => {
+const getUser = async (): Promise<{ user: User }> => {
   const result = await fetch(`${BASE_URL}/api/user`, {
     method: 'GET',
     credentials: 'include',

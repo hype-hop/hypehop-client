@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     getUser()
       .then((data) => {
-        setUser(data || null);
+        setUser(data.user || null);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);

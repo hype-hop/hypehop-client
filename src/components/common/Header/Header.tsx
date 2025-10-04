@@ -35,6 +35,10 @@ export default function MenuAppBar() {
   };
 
   useEffect(() => {
+    if (user) console.log('user', Object.keys(user));
+  }, [user]);
+
+  useEffect(() => {
     const getNotifications = async () => {
       try {
         const fetchedNotifications = await fetchNotification();
@@ -100,9 +104,9 @@ export default function MenuAppBar() {
                 {logoHover ? <LogoHoverIcon /> : <LogoMainIcon width={125} height={20} />}
               </IconButton>
             </Link>
-            {user !== null && Object.keys(user).length === 0 && <LoginButton />}
+            {!user && <LoginButton />}
 
-            {user !== null && Object.keys(user).length > 0 && (
+            {user && (
               <div>
                 <IconButton
                   aria-label="notifications"
