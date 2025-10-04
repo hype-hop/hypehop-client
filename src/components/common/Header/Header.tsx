@@ -17,6 +17,7 @@ import NotificationContents from './NotificationContents';
 import LogoHoverIcon from './LogoHoverIcon';
 import RedDot from '../../../assets/icons/redDot.svg';
 import useNotification from '../../../hooks/useNotification';
+import LoginButton from '../Buttons/LoginButton';
 
 export default function MenuAppBar() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -99,30 +100,7 @@ export default function MenuAppBar() {
                 {logoHover ? <LogoHoverIcon /> : <LogoMainIcon width={125} height={20} />}
               </IconButton>
             </Link>
-            {user !== null && Object.keys(user).length === 0 && (
-              <div>
-                <Link href="/login" style={{ textDecoration: 'none' }}>
-                  <Button
-                    sx={{
-                      background: 'rgb(152, 72, 255)',
-                      borderRadius: '4px',
-                      width: '69px',
-                      height: '32px',
-                    }}
-                  >
-                    <Typography
-                      fontSize={typography.size.lg}
-                      fontWeight="medium"
-                      sx={{
-                        color: 'white.main',
-                      }}
-                    >
-                      로그인
-                    </Typography>
-                  </Button>
-                </Link>
-              </div>
-            )}
+            {user !== null && Object.keys(user).length === 0 && <LoginButton />}
 
             {user !== null && Object.keys(user).length > 0 && (
               <div>
