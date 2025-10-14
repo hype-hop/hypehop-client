@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { Box, Input, InputAdornment } from '@mui/material';
+import { Box, IconButton, Input, InputAdornment } from '@mui/material';
 import postSearchAlbum from '../../../api/album';
 import useDebounce from '../../../utils/useDebounce';
 import ResultList from './AlbumSearchResultList';
 import { useAlbumSearchContext } from './AlbumSearchContext';
 import { AlbumSearchProps } from './AlbumSearch';
+import CancleIcon from '../../../assets/icons/cancle.svg';
 import useAlbumSearchInputState, { searchClickState } from '../../../hooks/useAlbumSearchInputState';
 
 export default function AlbumSearchInput({ searchResult, setSearchResult, setSelectedAlbum }: AlbumSearchProps) {
@@ -52,7 +53,7 @@ export default function AlbumSearchInput({ searchResult, setSearchResult, setSel
 
       if (res.success) setSearchResult(res.data);
     })();
-  }, [debouncedValue, setSearchResult]);
+  }, [debouncedValue, setSearchResult, setIsClickedOutside]);
 
   const isResultList =
     (isSearchCompleted && isClickedOutside === searchClickState.SEARCHING) ||
@@ -70,12 +71,26 @@ export default function AlbumSearchInput({ searchResult, setSearchResult, setSel
         }
         type="text"
         placeholder="앨범 찾기..."
+        value={keyword ?? ''}
         onChange={(e) => {
           setKeyword(e.target.value);
         }}
         autoComplete="off"
         required
         sx={isSearchCompleted ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}}
+        endAdornment={
+          isResultList ? (
+            <IconButton
+              color="primary"
+              onClick={() => {
+                setKeyword(null);
+                setSearchResult(null);
+              }}
+            >
+              <CancleIcon />
+            </IconButton>
+          ) : undefined
+        }
       />
 
       {isResultList && (
