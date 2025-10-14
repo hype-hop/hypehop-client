@@ -1,4 +1,5 @@
-import { useSearchParams } from 'next/navigation';
+'use client';
+
 import { useEffect, useState } from 'react';
 import { Avatar, Box, Tab, Tabs, Typography } from '@mui/material';
 import useTabs from '../../hooks/useTab';
@@ -9,10 +10,7 @@ import MyInformationPageSkeleton from '../common/skeletons/myInformationPage/MyI
 import NoAlbumReview from '../review/NoAlbumReview';
 import { Profile as IProfile } from '../../types/user';
 
-export default function Profile() {
-  const searchParams = useSearchParams();
-  const userId = searchParams.get('userId')?.toString();
-
+export default function Profile({ userId }: { userId?: string }) {
   const [profile, setProfile] = useState<IProfile | null>(null);
   const { currentTab, handleChangeCurrentTab, tabProps } = useTabs('profile-tab');
 
@@ -20,6 +18,7 @@ export default function Profile() {
 
   useEffect(() => {
     (async () => {
+      if (userId === undefined) return;
       const res = await getProfile(userId!);
 
       if (res.success) {
