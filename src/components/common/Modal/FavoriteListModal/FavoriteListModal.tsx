@@ -2,6 +2,7 @@ import { Avatar, Box, Modal, Typography, List, ListItem, ListItemAvatar, IconBut
 import { Dispatch, SetStateAction } from 'react';
 // import Close from '../../../../assets/icons/modal-close.svg';
 import Close from '@mui/icons-material/Close';
+import Link from 'next/link';
 import { FavoriteClickedUser } from '../../../../types/favorite';
 
 function FavoriteListModal({
@@ -58,13 +59,15 @@ function FavoriteListModal({
             overflowY: 'scroll',
           }}
         >
-          {favoriteClickedUsers.map(({ name, image }) => (
-            <ListItem key={name} sx={{ height: '64px', paddingX: '16px', alignItems: 'center', cursor: 'pointer' }}>
-              <ListItemAvatar>
-                <Avatar sx={{ width: '30px', height: '30px' }} src={image} />
-              </ListItemAvatar>
-              <Typography fontSize="18px">{name}</Typography>
-            </ListItem>
+          {favoriteClickedUsers.map(({ _id, name, image }) => (
+            <Link key={_id} href={`/profile/${_id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <ListItem sx={{ height: '64px', paddingX: '16px', alignItems: 'center', cursor: 'pointer' }}>
+                <ListItemAvatar>
+                  <Avatar sx={{ width: '30px', height: '30px' }} src={image} />
+                </ListItemAvatar>
+                <Typography fontSize="18px">{name}</Typography>
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Box>
