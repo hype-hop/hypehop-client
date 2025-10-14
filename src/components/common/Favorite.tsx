@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../AuthenticationContext';
 import BASE_URL from '../../config';
 import EmptyFavoriteIcon from '../../assets/icons/empty-favorite.svg';
-import FavoriteListCheckModal from './Modal/FavoriteListCheckModal';
+import FavoriteListModal from './Modal/FavoriteListModal/FavoriteListModal';
 import { FavoriteClickedUser } from '../../types/favorite';
 import { palette, typography } from '../../constants/themeValue';
 
@@ -72,8 +72,7 @@ function Favorite({
     }
   };
 
-  const openFavoriteListCheckModal = () => {
-    if (favoriteCount === 0) return;
+  const openFavoriteListModal = () => {
     setOpen(true);
   };
 
@@ -90,7 +89,7 @@ function Favorite({
       <Typography
         component="div"
         color={textHoverColor}
-        onClick={openFavoriteListCheckModal}
+        onClick={openFavoriteListModal}
         fontSize={typography.size.md}
         fontWeight={typography.weight.regular}
         onMouseEnter={handleTextMouseEnter}
@@ -100,7 +99,7 @@ function Favorite({
         좋아요 {favoriteCount}개
       </Typography>
 
-      <FavoriteListCheckModal open={open} setOpen={setOpen} favoriteClickedUsers={favoriteClickedUsers} />
+      <FavoriteListModal open={open} setOpen={setOpen} favoriteClickedUsers={favoriteClickedUsers} />
     </Box>
   );
 }
