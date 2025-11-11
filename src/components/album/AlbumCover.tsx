@@ -30,7 +30,7 @@ function AlbumCover({ reviewId, url, albumTitle, artists, previewUrl }: AlbumCov
           }}
         />
         <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
-          <Image fill objectFit="contain" alt={albumTitle || 'album title'} src={url} />
+          <Image fill alt={albumTitle || 'album title'} src={url} sizes="100%" priority />
         </Box>
 
         <Box sx={{ position: 'absolute', top: '10px', zIndex: 2 }}>
