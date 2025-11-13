@@ -31,7 +31,8 @@
         "@typescript-eslint/no-unused-vars": "warn",
         "react/require-default-props": "off",
         "react/jsx-props-no-spreading":"off",
-        "import/no-absolute-paths": "off"
+        "import/no-absolute-paths": "off",
+        "react-hooks/exhaustive-deps": "off"
     },
     "settings": {
       "import/resolver": {
