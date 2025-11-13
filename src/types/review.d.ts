@@ -27,6 +27,11 @@ export interface Review {
   artistGenre: string[];
 }
 
+interface PaginatedReviews {
+  totalPage: number;
+  reviews: Review[];
+}
+
 export interface ReviewAPIResponse {
   id: string;
   review: Review;
