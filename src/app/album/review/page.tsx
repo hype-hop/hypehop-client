@@ -22,6 +22,10 @@ function ReviewsPage() {
   const { genre, genreButtons } = useGenre();
   const { isLoading, paginatedReviews } = usePaginatedReviews(genre);
 
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual';
+  }, []);
+
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

@@ -32,7 +32,8 @@
         "react/require-default-props": "off",
         "react/jsx-props-no-spreading":"off",
         "import/no-absolute-paths": "off",
-        "react-hooks/exhaustive-deps": "off"
+        "react-hooks/exhaustive-deps": "off",
+        "no-await-in-loop":"off"
     },
     "settings": {
       "import/resolver": {
