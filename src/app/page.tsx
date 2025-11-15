@@ -46,15 +46,10 @@ function MainPage() {
           />
         </Box>
 
-        <Box sx={{ display: { md: 'flex', lg: 'flex' } }}>
-          <Box sx={{ mt: '40px' }}>
-            <ReviewMain />
-            <Banner />
-            <AlbumChart />
-          </Box>
-          <Box sx={{ ml: { sm: '0px', md: '24px', lg: '24px' }, mt: '40px' }}>
-            <PopularReview />
-          </Box>
+        <Box sx={{ mt: '40px' }}>
+          <ReviewMain />
+          <Banner />
+          <AlbumChart />
         </Box>
       </>
 
