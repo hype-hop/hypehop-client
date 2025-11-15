@@ -46,7 +46,7 @@ function ReviewsPage() {
         {Array.isArray(paginatedReviews?.reviews) ? (
           paginatedReviews.reviews.map((review) => (
             <Card
-              key={review._id}
+              key={`${review._id}-${Math.random()}`}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
