@@ -1,42 +1,46 @@
-import { useCallback, useEffect, useState } from 'react';
+'use client';
+
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { PaginatedReviews } from '../../../types/review';
 import fetchPaginatedReviews from '../../../api/reviews';
 import debounce from '../../../utils/debounce';
 
 const usePaginatedReviews = (genre: string) => {
   const [paginatedReviews, setPaginatedReviews] = useState<PaginatedReviews>({ totalPage: 0, reviews: [] });
-  const [page, setPage] = useState<number>(1);
-  const [totalPage, setTotalPage] = useState<number>(0);
+  const page = useRef(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const stopLoadMore = isLoading || page === totalPage;
+  const stopLoadMore = isLoading || page.current === paginatedReviews.totalPage;
 
-  const loadInitalPaginatedReviews = useCallback(async () => {
-    const paginatedReviews = await fetchPaginatedReviews(page, genre);
-    if (paginatedReviews) {
-      setPaginatedReviews({ totalPage: paginatedReviews?.totalPage, reviews: paginatedReviews?.reviews });
-      setTotalPage(paginatedReviews.totalPage);
-    }
-  }, [page, genre]);
+  const loadPaginatedReviews = useCallback(
+    async (isInitial: boolean = false) => {
+      const paginatedReviews = await fetchPaginatedReviews(page.current, genre);
 
-  const loadPaginatedReviews = useCallback(async () => {
-    const paginatedReviews = await fetchPaginatedReviews(page, genre);
+      if (!paginatedReviews || paginatedReviews.reviews.length === 0) {
+        return;
+      }
 
-    if (!paginatedReviews || paginatedReviews.reviews.length === 0) {
-      return;
-    }
+      const newPaginatedReviews = (prev: PaginatedReviews) =>
+        isInitial
+          ? { totalPage: paginatedReviews.totalPage, reviews: paginatedReviews.reviews }
+          : {
+              ...prev,
+              reviews: [...prev.reviews, ...paginatedReviews.reviews],
+            };
+      setPaginatedReviews((prevData) => newPaginatedReviews(prevData));
 
-    setPaginatedReviews((prevData) => ({
-      ...prevData!,
-      reviews: [...prevData!.reviews, ...paginatedReviews.reviews],
-    }));
-
-    setPage((prevPage) => Math.min(prevPage + 1, paginatedReviews.totalPage));
-  }, [page, genre]);
+      page.current = Math.min(page.current + 1, paginatedReviews.totalPage);
+    },
+    [page, genre],
+  );
 
   useEffect(() => {
-    loadInitalPaginatedReviews();
+    loadPaginatedReviews(true);
   }, [genre]);
+
+  useEffect(() => {
+    console.log(page.current);
+  }, [page.current]);
 
   const handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
