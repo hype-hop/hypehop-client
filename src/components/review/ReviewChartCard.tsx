@@ -4,7 +4,12 @@ import CustomStars from './CustomStar';
 import { ReviewsRank } from '../../types/review';
 
 export default function ReviewChartCard({ review, index }: { review: ReviewsRank; index: number }) {
-  const item = review;
+  const { title, user, albumRating, thumbnail } = review;
+
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) return text;
+    return `${text.slice(0, maxLength)}...`;
+  };
 
   return (
     <Card
@@ -28,7 +33,7 @@ export default function ReviewChartCard({ review, index }: { review: ReviewsRank
         component="img"
         width="60px"
         height="60px"
-        image={item.thumbnail}
+        image={thumbnail}
         alt="album cover"
         sx={{
           maxWidth: '60px',
@@ -58,7 +63,7 @@ export default function ReviewChartCard({ review, index }: { review: ReviewsRank
           sx={{ margin: '4px 0px', color: 'rgb(168, 168, 168)' }}
           component="div"
         >
-          {item.artists || item.albumTitle.split('-', 2)[0]}
+          {user.displayName}
         </Typography>
         <Typography
           align="left"
@@ -72,13 +77,13 @@ export default function ReviewChartCard({ review, index }: { review: ReviewsRank
           }}
           component="div"
         >
-          {item.artists ? item.albumTitle : item.albumTitle.split('-', 2)[1]}
+          {truncateText(title, 22)}
         </Typography>
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <CustomStars name="half-rating-read" value={item.albumRating} readOnly />
+          <CustomStars name="half-rating-read" value={albumRating} readOnly />
           <Typography sx={{ ml: '4px', mt: '4px' }} fontSize="fontSizeXs">
-            {item.albumRating.toFixed(1)}
+            {albumRating.toFixed(1)}
           </Typography>
         </Box>
       </CardContent>
