@@ -1,3 +1,4 @@
+import { ReviewTracks } from './albumChart';
 import { FavoriteClickedUser } from './favorite';
 import { User } from './user';
 
@@ -25,6 +26,7 @@ export interface Review {
   albumRating: number;
   artists: string[];
   artistGenre: string[];
+  tracks: ReviewTracks[];
 }
 
 interface PaginatedReviews {
