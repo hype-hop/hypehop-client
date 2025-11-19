@@ -35,9 +35,9 @@ function MainPage() {
           />
         </Box>
 
-        <Box sx={{ mt: '40px' }}>
+        <Box sx={{ mt: '40px', display: 'flex', flexDirection: 'column', gap: '80px' }}>
           <ReviewMain />
-          <Banner />
+          {/* <Banner /> */}
           <ReviewChart />
         </Box>
       </>
