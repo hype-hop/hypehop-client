@@ -11,6 +11,7 @@ import Banner from '../components/common/Banner/Banner';
 import { AlbumForReview } from '../types/albumReview';
 import { AlbumSearchResult } from '../types/albumSearch';
 import ReviewChart from '../components/review/ReviewChart';
+import ReviewLanding from '../components/review/ReviewLanding';
 
 function MainPage() {
   const router = useRouter();
@@ -27,13 +28,13 @@ function MainPage() {
   return (
     <>
       <>
-        <Box>
-          <AlbumSearch
-            searchResult={searchResult}
-            setSearchResult={setSearchResult}
-            setSelectedAlbum={setSelectedAlbum}
-          />
-        </Box>
+        <AlbumSearch
+          searchResult={searchResult}
+          setSearchResult={setSearchResult}
+          setSelectedAlbum={setSelectedAlbum}
+        />
+
+        <ReviewLanding />
 
         <Box sx={{ mt: '40px', display: 'flex', flexDirection: 'column', gap: '80px' }}>
           <ReviewMain />

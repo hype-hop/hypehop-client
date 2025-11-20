@@ -26,7 +26,7 @@ function ReviewMain() {
   }, []);
 
   return data ? (
-    <>
+    <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography sx={{ ml: '4px' }} variant="h1">
           최근리뷰{' '}
@@ -82,7 +82,7 @@ function ReviewMain() {
           <>no</>
         )}
       </Box>
-    </>
+    </Box>
   ) : (
     <ReviewMainSkeleton />
   );
