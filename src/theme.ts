@@ -118,8 +118,6 @@ const theme: Theme = createTheme({
     MuiInput: {
       styleOverrides: {
         root: {
-          border: '1px solid',
-          borderColor: 'rgb(52, 52, 52)',
           borderRadius: '16px',
           outline: 'none',
           background: 'rgb(22, 22, 22)',
