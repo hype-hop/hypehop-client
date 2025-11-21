@@ -6,31 +6,27 @@ import { Button, Box, Input, Typography, MenuItem, Select, Rating } from '@mui/m
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import ArrowDown from '../../assets/icons/arrowDown.svg';
 
 import BASE_URL from '../../config';
-import TrackListForEdit from './TrackListForEdit';
+import { ReviewEdit } from '../../types/review';
+import { AlbumData } from '../../types/albumData';
+import TrackEdit from '../track/TrackEdit';
 
 const EditorBox = dynamic(() => import('./EditorBox.tsx').then((module) => module.default), { ssr: false });
 
-function EditReview({ data, albumData }) {
+function EditReview({ reviewData, albumData }: { reviewData: ReviewEdit; albumData: AlbumData }) {
   const router = useRouter();
   const { id } = useParams();
   const [reviewContent, setReviewContent] = useState('');
-  const [isTrackListOpened, SetTrackListOpened] = useState(false);
-  const [parentTrackRatingForEdit, setParentTrackRatingForEdit] = useState(data?.review.tracks);
+  const [trackRatingForEdit, setTrackRatingForEdit] = useState(reviewData?.review.tracks);
 
   const handleTrackRatingForEditUpdate = (updatedTrackRatingForEdit) => {
-    setParentTrackRatingForEdit(updatedTrackRatingForEdit);
+    setTrackRatingForEdit(updatedTrackRatingForEdit);
   };
   // const [trackRating, setTrackRating] = useState<(number | null)[]>([]);
 
   const handleContentChange = (newContent) => {
     setReviewContent(newContent);
-  };
-
-  const handleOpen = () => {
-    SetTrackListOpened(!isTrackListOpened);
   };
 
   const [formData, setFormData] = useState({
@@ -45,26 +41,26 @@ function EditReview({ data, albumData }) {
 
   useEffect(() => {
     let reviewBodyData;
-    if (data) {
-      if (data.review.body === '') {
+    if (reviewData) {
+      if (reviewData.review.body === '') {
         reviewBodyData = ' ';
       } else {
-        reviewBodyData = data?.review.body;
+        reviewBodyData = reviewData?.review.body;
       }
-      // setReviewContent(data?.review.body);
+      // setReviewContent(reviewData?.review.body);
       setReviewContent(reviewBodyData);
       setFormData({
         ...formData,
-        title: data?.review.title,
-        status: data?.review.status,
-        albumRating: data?.review?.albumRating,
-        // body: data?.review.body,
+        title: reviewData?.review.title,
+        status: reviewData?.review.status || 'prviate',
+        albumRating: reviewData?.review?.albumRating,
+        // body: reviewData?.review.body,
         body: reviewBodyData,
       });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [reviewData]);
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -75,7 +71,7 @@ function EditReview({ data, albumData }) {
     if (formData.albumRating !== 0 && formData.title !== '') {
       const combinedData = {
         ...formData,
-        tracks: parentTrackRatingForEdit,
+        tracks: trackRatingForEdit,
         body: reviewContent,
       };
 
@@ -121,15 +117,15 @@ function EditReview({ data, albumData }) {
               component="img"
               width="60px"
               height="60px"
-              src={data?.review.thumbnail}
+              src={reviewData?.review.thumbnail}
               sx={{ borderRadius: '6.6px', marginRight: '20px' }}
             />
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
               <Typography textAlign="left">
-                {data?.review?.artists ? (
-                  <Typography align="left"> {data?.review?.albumName}</Typography>
+                {reviewData?.review?.artists ? (
+                  <Typography align="left"> {reviewData?.review?.albumName}</Typography>
                 ) : (
-                  <Typography align="left">{data?.review?.albumTitle.split('-', 2)[1]}</Typography>
+                  <Typography align="left">{reviewData?.review?.albumTitle.split('-', 2)[1]}</Typography>
                 )}
               </Typography>
               <Typography
@@ -138,11 +134,11 @@ function EditReview({ data, albumData }) {
                 fontWeight="fontWeightLight"
                 sx={{ whiteSpace: 'nowrap', alignContent: 'center', color: 'grey.main' }}
               >
-                {data?.review?.artists ? (
-                  <Typography align="left"> {data?.review?.artists}</Typography>
+                {reviewData?.review?.artists ? (
+                  <Typography align="left"> {reviewData?.review?.artists}</Typography>
                 ) : (
                   <Typography align="left" fontSize="fontSizeMd">
-                    {data?.review?.albumTitle.split('-', 2)[0]}
+                    {reviewData?.review?.albumTitle.split('-', 2)[0]}
                   </Typography>
                 )}
               </Typography>
@@ -181,44 +177,12 @@ function EditReview({ data, albumData }) {
       >
         <Typography variant="h1">트랙별 평점</Typography>
       </Box>
-      {isTrackListOpened ? (
-        <TrackListForEdit
-          data={data}
-          onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
-          albumData={albumData}
-          onHandleOpen={handleOpen}
-        />
-      ) : (
-        <Box
-          onClick={handleOpen}
-          sx={{
-            mt: '16px',
-            background: 'rgb(22, 22, 22)',
-            borderRadius: '16px',
-            border: '1px solid rgb(52, 52, 52)',
-            mb: '62px',
-            height: '46px',
-            alignContent: 'center',
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Typography sx={{ mt: '16px' }} fontSize="14px" fontWeight="500" ml="16px" textAlign="left">
-            트랙리스트 펼치기
-          </Typography>
-          <Button
-            sx={{
-              mt: '8px',
-              mb: '8px',
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0)',
-              },
-            }}
-          >
-            <ArrowDown />
-          </Button>
-        </Box>
-      )}
+
+      <TrackEdit
+        reviewData={reviewData}
+        albumData={albumData}
+        onUpdateTrackRatingForEdit={handleTrackRatingForEditUpdate}
+      />
 
       <div className="row">
         <Box
@@ -320,7 +284,6 @@ function EditReview({ data, albumData }) {
           sx={{ width: '104px', height: '43px', bgcolor: 'rgb(152, 72, 255)', padding: '12px 24px 12px 24px' }}
         >
           <Typography fontSize="16px" fontWeight="500">
-            {' '}
             작성하기
           </Typography>
         </Button>

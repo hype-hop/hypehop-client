@@ -27,6 +27,8 @@ export interface Review {
   artists: string[];
   artistGenre: string[];
   tracks?: ReviewTracks[];
+  status?: string;
+  albumName?: string;
 }
 
 interface PaginatedReviews {
@@ -34,7 +36,7 @@ interface PaginatedReviews {
   reviews: Review[];
 }
 
-export interface ReviewAPIResponse {
+export interface ReviewEdit {
   id: string;
   review: Review;
   comments: CommentData[];

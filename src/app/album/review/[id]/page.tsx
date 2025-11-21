@@ -10,7 +10,7 @@ import BASE_URL from '../../../../config';
 import PageNotFound from '../../../../components/common/Error/PageNotFound';
 import AlbumDetailInformationSkeleton from '../../../../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
 import AlbumReviewSummarySkeleton from '../../../../components/common/skeletons/AlbumReviewSummarySkeleton';
-import { ReviewAPIResponse } from '../../../../types/review';
+import { ReviewEdit } from '../../../../types/review';
 
 // type Props = {
 //   params: Promise<{ id: string }>;
@@ -18,7 +18,7 @@ import { ReviewAPIResponse } from '../../../../types/review';
 
 // export async function generateMetadata({ params }: Props) {
 //   const { id } = await params;
-//   const data = (await fetch(`${BASE_URL}/album/api/review/${id}`)).json() as Partial<ReviewAPIResponse>;
+//   const data = (await fetch(`${BASE_URL}/album/api/review/${id}`)).json() as Partial<ReviewEdit>;
 //   return {
 //     title: data.pageTitle,
 //     description: data.pageDescription,
@@ -28,7 +28,7 @@ import { ReviewAPIResponse } from '../../../../types/review';
 
 function ReviewShowPage() {
   const { id } = useParams();
-  const [data, setData] = useState<ReviewAPIResponse | null>(null);
+  const [data, setData] = useState<ReviewEdit | null>(null);
   const [user, setUser] = useState(null);
   const [notFound, setNotFound] = useState(false);
 
