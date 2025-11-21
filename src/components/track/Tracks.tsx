@@ -2,29 +2,11 @@ import { Box, Stack, Typography } from '@mui/material';
 import { AlbumData, Track } from '../../types/albumData';
 import { typography } from '../../constants/themeValue';
 import CustomStars from '../review/CustomStar';
+import { setTracksByDisc } from './TrackWrite';
 
-export const setTracksByDisc = (albumTracks: Track[], tracksByDisc: { [key: number]: Track[] }) => {
-  albumTracks.reduce((acc, track) => {
-    const discNumber = track.disc_number || 1;
-    acc[discNumber] = acc[discNumber] || [];
-    acc[discNumber].push(track);
-    return acc;
-  }, tracksByDisc);
-};
-
-function TrackWrite({
-  album,
-  trackRating,
-  setTrackRating,
-}: {
-  album: AlbumData | null;
-  trackRating: number[];
-  setTrackRating: (rating: number[]) => void;
-}) {
-  const tracksByDisc: { [key: number]: Track[] } = {};
+function Tracks({ album, albumName }: { album: AlbumData | null; albumName: string }) {
   const albumTracks = album?.albumData?.tracks?.items || [];
-  const albumName = album?.albumData?.name || '';
-
+  const tracksByDisc = {};
   setTracksByDisc(albumTracks, tracksByDisc);
 
   return (
@@ -68,25 +50,20 @@ function TrackWrite({
                       </Typography>
                     </Box>
                   </Box>
-                  {trackRating && (
-                    <Box display="flex" sx={{ minWidth: 'fit-content' }}>
-                      <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
-                        <CustomStars
-                          name="trackRating"
-                          value={trackRating[index]}
-                          onChange={(_, newValue) => {
-                            const updatedRating: number[] = [...trackRating];
-                            updatedRating[index] = newValue!;
-                            setTrackRating(updatedRating);
-                          }}
-                        />
-                      </Stack>
-
-                      <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center', width: '17px' }}>
-                        {Number(trackRating[index]).toFixed(1)}
-                      </Typography>
-                    </Box>
-                  )}
+                  <Box display="flex" sx={{ minWidth: 'fit-content' }}>
+                    <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
+                      <CustomStars
+                        name="trackRating"
+                        value={Number(album?.storedAverageArr[Number(discNumber) - 1]?.values[index]) || 0}
+                        readOnly
+                      />
+                    </Stack>
+                    <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center' }}>
+                      {album?.storedAverageArr[Number(discNumber) - 1]?.values[index] === 'NaN'
+                        ? '--'
+                        : album?.storedAverageArr[Number(discNumber) - 1]?.values[index]}
+                    </Typography>
+                  </Box>
                 </Box>
               ))}
             </Box>
@@ -97,4 +74,4 @@ function TrackWrite({
   );
 }
 
-export default TrackWrite;
+export default Tracks;

@@ -11,9 +11,8 @@ import { Review } from '../../../types/review';
 import BASE_URL from '../../../config';
 import AlbumDetailInformation from '../../../components/album/AlbumDetail/AlbumDetailInformation';
 import AlbumDetailInformationSkeleton from '../../../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
-import AlbumDetailTracksToggle from '../../../components/album/AlbumDetail/AlbumDetailTracksToggle';
-import AlbumDetailTracksSkeleton from '../../../components/common/skeletons/albumShowPage/AlbumDetailTracksSkeleton';
 import AlbumReviewSummary from '../../../components/review/AlbumReviewSummary';
+import Tracks from '../../../components/track/Tracks';
 
 function NoAlbumView({ albumId }) {
   return (
@@ -25,7 +24,6 @@ function NoAlbumView({ albumId }) {
     >
       <Typography mt={2} mb={2}>
         작성하신 리뷰가 없습니다. 리뷰를 작성해보세요!
-        {/* 앨범 리뷰가 없습니다. 첫 리뷰를 작성해주세요! */}
       </Typography>
       <Link href={`/album/write/${albumId}`} style={{ textDecoration: 'none' }}>
         <Button
@@ -106,7 +104,7 @@ function AlbumShowPage() {
         </Typography>
         {data ? <AlbumDetailInformation data={data} /> : <AlbumDetailInformationSkeleton />}
       </Box>
-      {data ? <AlbumDetailTracksToggle data={data} /> : <AlbumDetailTracksSkeleton />}
+      <Tracks album={data!} albumName={data?.albumData?.name || ''} />
 
       <Box>
         <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
