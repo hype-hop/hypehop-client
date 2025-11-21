@@ -26,7 +26,7 @@ export interface Review {
   albumRating: number;
   artists: string[];
   artistGenre: string[];
-  tracks: ReviewTracks[];
+  tracks?: ReviewTracks[];
 }
 
 interface PaginatedReviews {
@@ -67,7 +67,7 @@ export interface FormData {
   albumReleaseDate: string | null;
   trackTitle: string[];
   artistGenre: string[];
-  artists: [];
+  artists: string[];
   albumName: string;
   bestTrackId: string | null | undefined;
   bestTrackName: string | null | undefined;
