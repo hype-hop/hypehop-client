@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react';
 import { Input, Button, Typography, Box, Select, MenuItem } from '@mui/material';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import ArrowUp from '../../assets/icons/arrowUp.svg';
-import ArrowDown from '../../assets/icons/arrowDown.svg';
 import BASE_URL from '../../config';
 import ensureError from '../../utils/error';
 import AlbumSearch from '../album/AlbumSearch/AlbumSearch';
@@ -22,6 +20,7 @@ import INITIAL_RATING_VALUE from '../../constants/rating';
 import CustomStar from './CustomStar';
 import ThumbsUp from './ThumbsUp';
 import { useAuth } from '../../AuthenticationContext';
+import TrackWrite from '../track/TrackWrite';
 
 const EditorBox = dynamic(() => import('./EditorBox.tsx').then((module) => module.default), { ssr: false });
 
@@ -306,77 +305,7 @@ function WriteReview() {
             >
               트랙별 평점
             </Typography>
-
-            {isTrackListOpened ? (
-              <Box
-                sx={{
-                  mt: '16px',
-                  bgcolor: 'rgb(22, 22, 22)',
-                  border: '1px solid rgb(52, 52, 52)',
-                  borderRadius: '16px',
-                }}
-              >
-                <Box onClick={handleOpen} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Typography
-                    fontSize={typography.size.lg}
-                    fontWeight={typography.weight.medium}
-                    sx={{ mt: '16px', mb: '16px', ml: '16px' }}
-                  >
-                    트랙리스트 닫기
-                  </Typography>
-                  <Button
-                    sx={{
-                      mt: '8px',
-                      mb: '8px',
-                      '&:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0)',
-                      },
-                    }}
-                  >
-                    {isTrackListOpened ? <ArrowUp /> : <ArrowDown />}
-                  </Button>
-                </Box>
-                {renderTracks}
-              </Box>
-            ) : (
-              <Box
-                onClick={handleOpen}
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  mt: '16px',
-                  background: 'rgb(22, 22, 22)',
-                  borderRadius: '16px',
-                  border: '1px solid rgb(52, 52, 52)',
-                  mb: '62px',
-                  height: '46px',
-                  alignContent: 'center',
-                }}
-              >
-                <Typography
-                  fontSize={typography.size.lg}
-                  fontWeight={typography.weight.medium}
-                  textAlign="left"
-                  sx={{
-                    alignContent: 'center',
-                    ml: '16px',
-                    mt: '16px',
-                    mb: '16px',
-                  }}
-                >
-                  트랙리스트 펼치기
-                </Typography>
-                <Button
-                  sx={{
-                    '&:hover': {
-                      backgroundColor: 'rgba(0, 0, 0, 0)',
-                    },
-                  }}
-                >
-                  <ArrowDown />
-                </Button>
-              </Box>
-            )}
+            <TrackWrite album={data} trackRating={trackRating} setTrackRating={setTrackRating} />
 
             <div className="row">
               <Box
