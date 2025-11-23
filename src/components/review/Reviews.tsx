@@ -16,7 +16,7 @@ export default function Reviews({
   const { user } = useAuth();
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 2 }} gap={3}>
+    <Box sx={{ display: 'grid', gridTemplateColumns: { sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' } }} gap={2} mt={2}>
       {reviews?.map((review) => (
         <Box
           key={`my-review-${review._id}`}
