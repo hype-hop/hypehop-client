@@ -39,10 +39,9 @@ function ReviewMain() {
               backgroundColor: 'rgba(0, 0, 0, 0.0)',
             },
           }}
+          href="/album/review"
         >
-          <Link href="/album/review" style={{ textDecoration: 'none', color: 'inherit' }}>
-            더보기
-          </Link>
+          더보기
         </Button>
       </Box>
 
