@@ -29,7 +29,7 @@ function ReviewMain() {
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography sx={{ ml: '4px' }} variant="h1">
-          최근리뷰{' '}
+          최근 리뷰
         </Typography>
         <Button
           variant="outlined"

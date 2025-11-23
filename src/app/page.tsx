@@ -1,6 +1,6 @@
 'use client';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ReviewMain from '../components/review/ReviewMain';
@@ -38,8 +38,10 @@ function MainPage() {
 
         <Box sx={{ mt: '40px', display: 'flex', flexDirection: 'column', gap: '80px' }}>
           <ReviewMain />
-          {/* <Banner /> */}
-          <ReviewChart />
+          <Box>
+            <Typography variant="h1">인기 리뷰</Typography>
+            <ReviewChart />
+          </Box>
         </Box>
       </>
 
