@@ -10,7 +10,7 @@ function ReviewLanding() {
         gap: '20px',
       }}
     >
-      <Box sx={{ padding: '0px 0px 0px 80px' }}>
+      <Box sx={{ paddingLeft: { xs: '14px', md: '80px' } }}>
         <Typography color="grey.main" fontSize="50px" textAlign="left">
           지금 까지
         </Typography>
