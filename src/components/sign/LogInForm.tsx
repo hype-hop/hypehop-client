@@ -54,7 +54,10 @@ function LogInForm() {
         <Box className="flex-column">
           <Input type="refUrl" name="refUrl" sx={{ display: 'none' }} value={refUrl} />
           <label className="labels" htmlFor="email" />
-          <Box className="inputForm">
+          <Box className="inputForm" mt="40px">
+            <Typography component="div" color="grey.main" mb={1}>
+              이메일
+            </Typography>
             <Input
               onChange={handleChange}
               required
@@ -68,9 +71,6 @@ function LogInForm() {
               sx={{
                 borderRadius: '16px',
                 mb: '16px',
-                mt: '40px',
-                backgroundColor: 'background.default',
-                border: '1px solid rgb(52, 52, 52)',
               }}
             />
           </Box>
@@ -79,6 +79,9 @@ function LogInForm() {
         <Box className="flex-column">
           <label className="labels" htmlFor="password" />
           <Box className="inputForm">
+            <Typography component="div" color="grey.main" mb={1}>
+              비밀번호
+            </Typography>
             <Input
               onChange={handleChange}
               required
@@ -88,11 +91,6 @@ function LogInForm() {
               name="password"
               className="form-control"
               placeholder="비밀번호를 입력해주세요."
-              sx={{
-                borderRadius: '16px',
-                backgroundColor: 'background.default',
-                border: '1px solid rgb(52, 52, 52)',
-              }}
             />
           </Box>
         </Box>
