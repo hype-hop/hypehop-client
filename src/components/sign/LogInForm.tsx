@@ -34,7 +34,12 @@ function LogInForm() {
   }, [isError, isTyping, router]);
 
   return (
-    <>
+    <Box
+      sx={{
+        maxWidth: '588px',
+        margin: '0 auto',
+      }}
+    >
       <Typography
         variant="h1"
         textAlign="center"
@@ -175,7 +180,7 @@ function LogInForm() {
           </Link>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }
 
