@@ -99,7 +99,7 @@ function Favorite({
         좋아요 {favoriteCount}개
       </Typography>
 
-      <FavoriteListModal open={open} setOpen={setOpen} favoriteClickedUsers={favoriteClickedUsers} />
+      {open && <FavoriteListModal open={open} setOpen={setOpen} reviewId={reviewId} />}
     </Box>
   );
 }

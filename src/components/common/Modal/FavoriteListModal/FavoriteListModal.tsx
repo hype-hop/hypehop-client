@@ -1,21 +1,32 @@
 import { Avatar, Box, Modal, Typography, List, ListItem, ListItemAvatar, IconButton } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 // import Close from '../../../../assets/icons/modal-close.svg';
 import Close from '@mui/icons-material/Close';
 import Link from 'next/link';
+import Error from 'next/error';
+import fetchReviewFavoriteUsers from '../../../../api/favorite';
 import { FavoriteClickedUser } from '../../../../types/favorite';
 
 function FavoriteListModal({
   open,
   setOpen,
-  favoriteClickedUsers,
+  reviewId,
 }: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  favoriteClickedUsers: FavoriteClickedUser[];
+  reviewId: string;
 }) {
   const handleClose = () => setOpen(false);
-  const isFavoriteClickedUsers = favoriteClickedUsers.length > 0;
+  const [favoriteUsers, setFavoriteUsers] = useState<FavoriteClickedUser[]>([]);
+  const isFavoriteClickedUsers = favoriteUsers.length > 0;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const users = await fetchReviewFavoriteUsers(reviewId);
+      if (users) setFavoriteUsers(users);
+    };
+    fetchData();
+  }, [reviewId]);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -59,7 +70,7 @@ function FavoriteListModal({
             overflowY: 'scroll',
           }}
         >
-          {favoriteClickedUsers.map(({ _id, name, image }) => (
+          {favoriteUsers.map(({ _id, name, image }) => (
             <Link key={_id} href={`/profile/${_id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
               <ListItem sx={{ height: '64px', paddingX: '16px', alignItems: 'center', cursor: 'pointer' }}>
                 <ListItemAvatar>
