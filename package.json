@@ -21,6 +21,7 @@
     "@mui/material": "^7.3.2",
     "@sotaproject/strikethrough": "^1.0.1",
     "@svgr/webpack": "^8.1.0",
+    "@tanstack/react-query": "^5.90.10",
     "@types/react": "^18.2.70",
     "@types/react-dom": "^18.2.22",
     "editorjs-text-alignment-blocktune": "^1.0.3",
