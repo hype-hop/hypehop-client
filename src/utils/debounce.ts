@@ -1,11 +1,13 @@
-// eslint-disable-next-line no-unused-vars
-function debounce(this: unknown, func: (...args: unknown[]) => void, delay: number): (...args: unknown[]) => void {
-  // eslint-disable-next-line no-undef
-  let timer: NodeJS.Timeout;
-  // eslint-disable-next-line func-names
-  return function (this: unknown, ...args: unknown[]) {
-    clearTimeout(timer);
-    timer = setTimeout(() => func.apply(this, args), delay);
+function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+  return function (...args: Parameters<T>) {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func(...args);
+    }, wait);
   };
 }
 export default debounce;
