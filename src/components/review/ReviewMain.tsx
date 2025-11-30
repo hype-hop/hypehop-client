@@ -61,8 +61,8 @@ function ReviewMain() {
               sx={{
                 display: 'grid',
                 padding: '16px',
-                border: '1px solid rgb(52, 52, 52)',
-                borderRadius: '0px 16px 16px 16px',
+                backgroundColor: 'grey.darkest',
+                borderRadius: '12px',
               }}
             >
               <AlbumCover

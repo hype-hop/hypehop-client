@@ -7,6 +7,9 @@ declare module '@mui/material' {
     dark: string;
     main: string;
     light: string;
+    darker: string;
+    darker1: string;
+    darkest: string;
   }
 
   interface PaletteOptions {
@@ -75,6 +78,9 @@ const theme: Theme = createTheme({
       main: 'rgb(168,168,168)',
       light: 'rgb(215,215,215)',
       dark: 'rgb(86,87,87)',
+      darker: 'rgb(46,45,45)',
+      darker1: 'rgb(30,30,30)',
+      darkest: 'rgb(20, 20, 20)',
     },
     star: {
       main: 'rgb(255, 196, 3)',

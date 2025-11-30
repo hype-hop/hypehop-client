@@ -17,7 +17,10 @@ function AlbumCover({ reviewId, url, albumTitle, artists, previewUrl }: AlbumCov
       }}
       // onClick={() => router(`/album/${albumId}`)}
     >
-      <Link style={{ textDecorationLine: 'none', color: 'inherit' }} href={`/album/review/${reviewId}`}>
+      <Link
+        style={{ textDecorationLine: 'none', color: 'inherit', borderRadius: '12px' }}
+        href={`/album/review/${reviewId}`}
+      >
         <Box
           sx={{
             position: 'absolute',
@@ -30,7 +33,14 @@ function AlbumCover({ reviewId, url, albumTitle, artists, previewUrl }: AlbumCov
           }}
         />
         <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
-          <Image fill alt={albumTitle || 'album title'} src={url} sizes="100%" priority />
+          <Image
+            fill
+            alt={albumTitle || 'album title'}
+            src={url}
+            sizes="100%"
+            priority
+            style={{ borderRadius: '12px' }}
+          />
         </Box>
 
         <Box sx={{ position: 'absolute', top: '10px', zIndex: 2 }}>
