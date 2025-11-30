@@ -12,6 +12,7 @@ function StyledMenu({ width, ...props }: { width: number } & MenuProps) {
         vertical: 'top',
         horizontal: 'right',
       }}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...p}
     />
   ))(({ theme }) => ({
@@ -20,13 +21,14 @@ function StyledMenu({ width, ...props }: { width: number } & MenuProps) {
       minWidth: width,
       maxWidth: width,
       boxShadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.4)',
-      backgroundColor: theme.palette.grey.darker1,
+      backgroundColor: theme.palette.grey.darker,
     },
     '& .MuiMenu-list': {
       padding: 8,
     },
   }));
 
+  // eslint-disable-next-line react/jsx-props-no-spreading
   return <TempMenu {...props} />;
 }
 
@@ -34,20 +36,14 @@ const StyledMenuItem = styled((props: MenuItemProps) => (
   <MenuItem
     sx={{
       height: 'auto',
-      backgroundColor: 'background.default',
+      backgroundColor: theme.palette.grey.darker,
       borderRadius: '8px',
       ':hover': { backgroundColor: 'rgb(46, 45, 45)' },
     }}
     style={{ whiteSpace: 'normal' }}
+    // eslint-disable-next-line react/jsx-props-no-spreading
     {...props}
   />
-))(({ theme }) => ({
-  '&.MuiMenuItem-root': {
-    backgroundColor: theme.palette.grey.darker1,
-    ':hover': {
-      backgroundColor: theme.palette.grey.darker,
-    },
-  },
-}));
+))();
 
 export { StyledMenu, StyledMenuItem };
