@@ -274,7 +274,7 @@ export default function MenuAppBar() {
                     <StyledMenuItem onClick={handleCloseProfile}>
                       <PersonIcon sx={{ marginRight: '16px', color: 'white.main' }} />
                       <Typography fontSize={typography.size.md} sx={{ color: 'white.main' }}>
-                        마이프로필
+                        마이 프로필
                       </Typography>
                     </StyledMenuItem>
                   </Link>
