@@ -48,13 +48,12 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
               src={user.image}
               alt="user"
             />
-            <Box textAlign="left">
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }} textAlign="left">
               <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'flex-start',
-                  marginLeft: '3px',
                   columnGap: '8px',
                 }}
               >
