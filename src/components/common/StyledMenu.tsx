@@ -16,14 +16,14 @@ function StyledMenu({ width, ...props }: { width: number } & MenuProps) {
     />
   ))(({ theme }) => ({
     '& .MuiMenu-paper': {
-      borderRadius: 16,
+      borderRadius: 8,
       minWidth: width,
       maxWidth: width,
       boxShadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.4)',
       backgroundColor: theme.palette.grey.darker1,
     },
     '& .MuiMenu-list': {
-      padding: 8,
+      padding: 10,
     },
   }));
 
@@ -35,7 +35,8 @@ const StyledMenuItem = styled((props: MenuItemProps) => (
     sx={{
       height: 'auto',
       backgroundColor: 'background.default',
-      borderRadius: '8px',
+      borderRadius: '3px',
+      padding: '8px',
       ':hover': { backgroundColor: 'rgb(46, 45, 45)' },
     }}
     style={{ whiteSpace: 'normal' }}

@@ -180,7 +180,7 @@ export default function Notifications() {
           </Box>
         )}
 
-        <NotificationsIcon sx={{ height: 25, width: 25 }} />
+        <NotificationsIcon sx={{ height: 25, width: 25, color: '#7E7E7E' }} />
       </IconButton>
       {isMobile ? (
         <MobileNotificationModal
