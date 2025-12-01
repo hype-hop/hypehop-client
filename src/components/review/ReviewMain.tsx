@@ -28,9 +28,7 @@ function ReviewMain() {
   return data ? (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography sx={{ ml: '4px', fontSize: '21px' }} variant="h1">
-          최근 리뷰
-        </Typography>
+        <Typography variant="h1">최근 리뷰</Typography>
         <Button
           variant="outlined"
           sx={{

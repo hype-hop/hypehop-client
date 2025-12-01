@@ -47,10 +47,13 @@ const theme: Theme = createTheme({
       color: 'rgb(255, 255, 255)',
       fontFamily: 'Pretendard',
       fontWeight: typography.weight.bold,
-      fontSize: '21px',
-      lineHeight: -1,
+      lineHeight: 1,
       letterSpacing: 0,
       textAlign: 'left',
+      fontSize: 21,
+      '&.MuiTypography-h1': {
+        fontSize: '21px',
+      },
     },
     timeSincePost: {
       color: 'rgb(168, 168, 168)',
@@ -93,6 +96,7 @@ const theme: Theme = createTheme({
       styleOverrides: {
         root: {
           lineHeight: 1,
+          fontSize: typography.size.lg,
         },
       },
       defaultProps: {
@@ -212,4 +216,4 @@ const theme: Theme = createTheme({
   },
 });
 
-export default responsiveFontSizes(theme);
+export default theme;
