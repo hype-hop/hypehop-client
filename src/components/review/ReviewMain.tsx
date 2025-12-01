@@ -28,16 +28,19 @@ function ReviewMain() {
   return data ? (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography sx={{ ml: '4px' }} variant="h1">
+        <Typography sx={{ ml: '4px', fontSize: '21px' }} variant="h1">
           최근 리뷰
         </Typography>
         <Button
           variant="outlined"
           sx={{
+            fontSize: '12px',
             mb: 0,
+            border: '0px',
             '&:hover': {
               backgroundColor: 'rgba(0, 0, 0, 0.0)',
             },
+            color: 'grey.lessLight',
           }}
           href="/album/review"
         >
