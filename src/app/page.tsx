@@ -12,6 +12,7 @@ import { AlbumForReview } from '../types/albumReview';
 import { AlbumSearchResult } from '../types/albumSearch';
 import ReviewChart from '../components/review/ReviewChart';
 import ReviewLanding from '../components/review/ReviewLanding';
+import Footer from '../components/common/Footer';
 
 function MainPage() {
   const router = useRouter();
@@ -27,26 +28,18 @@ function MainPage() {
 
   return (
     <>
-      <>
-        <AlbumSearch
-          searchResult={searchResult}
-          setSearchResult={setSearchResult}
-          setSelectedAlbum={setSelectedAlbum}
-        />
+      <AlbumSearch searchResult={searchResult} setSearchResult={setSearchResult} setSelectedAlbum={setSelectedAlbum} />
 
-        <ReviewLanding />
+      <ReviewLanding />
 
-        <Box sx={{ mt: '40px', display: 'flex', flexDirection: 'column', gap: '80px' }}>
-          <ReviewMain />
-          <Box>
-            <Typography variant="h1">인기 리뷰</Typography>
-            <ReviewChart />
-          </Box>
+      <Box sx={{ mt: '40px', display: 'flex', flexDirection: 'column', gap: '80px' }}>
+        <ReviewMain />
+        <Box>
+          <Typography variant="h1">인기 리뷰</Typography>
+          <ReviewChart />
         </Box>
-      </>
-
-      <FloatingActionButton />
-      <TallyFeedbackBtn />
+      </Box>
+      <Footer />
     </>
   );
 }
