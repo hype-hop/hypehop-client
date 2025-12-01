@@ -8,10 +8,18 @@ function CustomStars(props) {
     icon: <FullStar />,
     count: 5,
     precision: 0.5,
+
     ...props,
   };
 
-  return <Rating {...mergedProps} />;
+  return (
+    <Rating
+      sx={{
+        gap: 0.2,
+      }}
+      {...mergedProps}
+    />
+  );
 }
 
 export default CustomStars;
