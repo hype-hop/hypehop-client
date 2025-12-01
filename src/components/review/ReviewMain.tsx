@@ -7,6 +7,7 @@ import { AlbumData } from '../../types/albumData';
 import AlbumCover from '../album/AlbumCover';
 import AlbumReviewSummary from './AlbumReviewSummary';
 import ReviewMainSkeleton from '../common/skeletons/mainPage/ReviewMainSkeleton';
+import MoreButton from '../common/Buttons/MoreButton';
 
 function ReviewMain() {
   const [data, setData] = useState<AlbumData | null>(null);
@@ -29,21 +30,7 @@ function ReviewMain() {
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h1">최근 리뷰</Typography>
-        <Button
-          variant="outlined"
-          sx={{
-            fontSize: '12px',
-            mb: 0,
-            border: '0px',
-            '&:hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.0)',
-            },
-            color: 'grey.lessLight',
-          }}
-          href="/album/review"
-        >
-          더보기
-        </Button>
+        <MoreButton href="/album/review" />
       </Box>
 
       <Box

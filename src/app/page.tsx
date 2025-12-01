@@ -13,6 +13,7 @@ import { AlbumSearchResult } from '../types/albumSearch';
 import ReviewChart from '../components/review/ReviewChart';
 import ReviewLanding from '../components/review/ReviewLanding';
 import Footer from '../components/common/Footer';
+import MoreButton from '../components/common/Buttons/MoreButton';
 
 function MainPage() {
   const router = useRouter();
@@ -35,7 +36,10 @@ function MainPage() {
       <Box sx={{ mt: '40px', display: 'flex', flexDirection: 'column', gap: '80px' }}>
         <ReviewMain />
         <Box>
-          <Typography variant="h1">인기 리뷰</Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="h1">인기 리뷰</Typography>
+            <MoreButton href="/album/review" />
+          </Box>
           <ReviewChart />
         </Box>
       </Box>
