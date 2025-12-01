@@ -29,7 +29,7 @@ function ReviewLanding() {
       </Box>
 
       <Box width="100%" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Button sx={{ height: '36px', fontSize: '18px', fontWeight: 'bold' }} variant="contained" color="primary">
+        <Button sx={{ height: '36px', fontSize: '14px', fontWeight: 'bold' }} variant="contained" color="primary">
           작성하기 →
         </Button>
 
