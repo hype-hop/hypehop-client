@@ -7,6 +7,7 @@ declare module '@mui/material' {
     dark: string;
     main: string;
     light: string;
+    lessLight: string;
     darker: string;
     darker1: string;
     darkest: string;
@@ -37,7 +38,7 @@ declare module '@mui/material/Typography' {
 const theme: Theme = createTheme({
   typography: {
     fontFamily: 'Pretendard',
-    fontSize: 11,
+    fontSize: 14,
     fontWeightLight: typography.weight.light,
     fontWeightRegular: typography.weight.regular,
     fontWeightMedium: typography.weight.medium,
@@ -46,7 +47,7 @@ const theme: Theme = createTheme({
       color: 'rgb(255, 255, 255)',
       fontFamily: 'Pretendard',
       fontWeight: typography.weight.bold,
-      fontSize: '30px',
+      fontSize: '21px',
       lineHeight: -1,
       letterSpacing: 0,
       textAlign: 'left',
@@ -77,6 +78,7 @@ const theme: Theme = createTheme({
     grey: {
       main: 'rgb(168,168,168)',
       light: 'rgb(215,215,215)',
+      lessLight: 'rgb(126,126,126)',
       dark: 'rgb(86,87,87)',
       darker: 'rgb(46,45,45)',
       darker1: 'rgb(30,30,30)',
@@ -104,6 +106,7 @@ const theme: Theme = createTheme({
           '&:hover': {
             backgroundColor: 'rgb(121, 53, 208)',
           },
+          fontSize: typography.size.lg,
         },
       },
     },
@@ -136,7 +139,7 @@ const theme: Theme = createTheme({
           '&::after': {
             content: 'none',
           },
-          fontSize: '14px',
+          fontSize: typography.size.lg,
         },
         input: { padding: '0px', lineHeight: '1', '&::placeholder': { color: 'white' } },
       },
