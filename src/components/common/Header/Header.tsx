@@ -19,8 +19,139 @@ import RedDot from '../../../assets/icons/redDot.svg';
 import useNotification from '../../../hooks/useNotification';
 import LoginButton from '../Buttons/LoginButton';
 
+const DUMMY_NOTIFICATIONS: Notification[] = [
+  {
+    sender_id: {
+      sender_id: 'user1',
+      name: 'HipHop Critic',
+      displayName: 'HipHopCritic',
+    },
+    recipient_id: 'current_user_id',
+    type: 'comment',
+    review_id: {
+      title: 'DAMN. - 켄드릭 라마의 걸작에 대한 심층 분석',
+      _id: '507f1f77bcf86cd799439011',
+    },
+    text: '회원님의 리뷰에 댓글을 달았습니다.',
+    timestamp: new Date('2024-12-01T10:30:00.000Z'),
+    isRead: false,
+  },
+  {
+    sender_id: {
+      sender_id: 'user2',
+      name: 'Jazz Enthusiast',
+      displayName: 'JazzHop',
+    },
+    recipient_id: 'current_user_id',
+    type: 'like',
+    review_id: {
+      title: 'To Pimp a Butterfly: 현대 힙합의 새로운 지평',
+      _id: '507f1f77bcf86cd799439012',
+    },
+    text: '회원님의 리뷰를 좋아합니다.',
+    timestamp: new Date('2024-12-01T09:15:00.000Z'),
+    isRead: false,
+  },
+  {
+    sender_id: {
+      sender_id: 'user3',
+      name: 'Story Master',
+      displayName: 'StoryTeller',
+    },
+    recipient_id: 'current_user_id',
+    type: 'comment',
+    review_id: {
+      title: 'Good Kid, M.A.A.D City - 스토리텔링의 완성',
+      _id: '507f1f77bcf86cd799439013',
+    },
+    text: '회원님의 리뷰에 댓글을 달았습니다.',
+    timestamp: new Date('2024-11-30T16:45:00.000Z'),
+    isRead: true,
+  },
+  {
+    sender_id: {
+      sender_id: 'user4',
+      name: 'West Coast Legend',
+      displayName: 'WestCoast',
+    },
+    recipient_id: 'current_user_id',
+    type: 'like',
+    review_id: {
+      title: 'The Chronic - 닥터 드레의 전설적인 앨범',
+      _id: '507f1f77bcf86cd799439014',
+    },
+    text: '회원님의 리뷰를 좋아합니다.',
+    timestamp: new Date('2024-11-30T14:20:00.000Z'),
+    isRead: true,
+  },
+  {
+    sender_id: {
+      sender_id: 'user5',
+      name: 'East Coast Soul',
+      displayName: 'EastCoast',
+    },
+    recipient_id: 'current_user_id',
+    type: 'follow',
+    review_id: {
+      title: 'Illmatic - 나스의 불멸의 걸작',
+      _id: '507f1f77bcf86cd799439015',
+    },
+    text: '회원님을 팔로우했습니다.',
+    timestamp: new Date('2024-11-30T11:30:00.000Z'),
+    isRead: true,
+  },
+  {
+    sender_id: {
+      sender_id: 'user6',
+      name: 'Wu Tang Master',
+      displayName: 'WuTangFan',
+    },
+    recipient_id: 'current_user_id',
+    type: 'comment',
+    review_id: {
+      title: 'Enter the Wu-Tang - 무당클랜의 혁명',
+      _id: '507f1f77bcf86cd799439016',
+    },
+    text: '회원님의 리뷰에 댓글을 달았습니다.',
+    timestamp: new Date('2024-11-29T18:20:00.000Z'),
+    isRead: true,
+  },
+  {
+    sender_id: {
+      sender_id: 'user7',
+      name: 'Alternative Vision',
+      displayName: 'JazzRap',
+    },
+    recipient_id: 'current_user_id',
+    type: 'like',
+    review_id: {
+      title: 'The Low End Theory - 트라이브의 완벽한 균형',
+      _id: '507f1f77bcf86cd799439017',
+    },
+    text: '회원님의 리뷰를 좋아합니다.',
+    timestamp: new Date('2024-11-29T15:45:00.000Z'),
+    isRead: true,
+  },
+  {
+    sender_id: {
+      sender_id: 'user8',
+      name: 'Brooklyn Voice',
+      displayName: 'BiggieFan',
+    },
+    recipient_id: 'current_user_id',
+    type: 'mention',
+    review_id: {
+      title: 'Ready to Die - 비기의 데뷔작 분석',
+      _id: '507f1f77bcf86cd799439018',
+    },
+    text: '리뷰에서 회원님을 언급했습니다.',
+    timestamp: new Date('2024-11-29T13:10:00.000Z'),
+    isRead: true,
+  },
+];
+
 export default function MenuAppBar() {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>(DUMMY_NOTIFICATIONS);
   const { hasUnreadNoti, handleMenuNoti, anchorNoti, handleCloseNoti, setHasUnreadNoti } = useNotification();
   const { user, setUser } = useAuth();
   const [anchorProfile, setAnchorProfile] = useState(null);
@@ -42,7 +173,7 @@ export default function MenuAppBar() {
     const getNotifications = async () => {
       try {
         const fetchedNotifications = await fetchNotification();
-        setNotifications(fetchedNotifications);
+        setNotifications(DUMMY_NOTIFICATIONS);
       } catch (error) {
         console.log(error);
       }
@@ -186,29 +317,6 @@ export default function MenuAppBar() {
                             </Link>
                           ))
                         )}
-                        <Link
-                          href="/my-information"
-                          onClick={handleCloseNoti}
-                          style={{
-                            textDecoration: 'none',
-                            color: 'inherit',
-                            display: 'block',
-                            marginTop: '16px',
-                            textAlign: 'center',
-                          }}
-                        >
-                          <Typography
-                            fontSize={typography.size.sm}
-                            sx={{
-                              color: 'rgb(174, 174, 174)',
-                              ':hover': {
-                                textDecorationLine: 'underline',
-                              },
-                            }}
-                          >
-                            최근 14일 동안 받은 알림을 <br /> 모두 확인했습니다.
-                          </Typography>
-                        </Link>
                       </Box>
                     </Box>
                   </Modal>
@@ -238,28 +346,6 @@ export default function MenuAppBar() {
                         </Link>
                       ))
                     )}
-                    <Link
-                      href="/my-information"
-                      onClick={handleCloseNoti}
-                      style={{
-                        textDecoration: 'none',
-                        color: 'inherit',
-                      }}
-                    >
-                      <Typography
-                        fontSize={typography.size.sm}
-                        sx={{
-                          color: 'rgb(174, 174, 174)',
-                          textAlign: 'center',
-                          margin: '16px 0 16px 0',
-                          ':hover': {
-                            textDecorationLine: 'underline',
-                          },
-                        }}
-                      >
-                        최근 14일 동안 받은 알림을 <br /> 모두 확인했습니다.
-                      </Typography>
-                    </Link>
                   </StyledMenu>
                 )}
 
