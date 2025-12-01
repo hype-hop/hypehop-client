@@ -10,7 +10,7 @@ function LoginButton() {
           background: 'rgb(152, 72, 255)',
           borderRadius: '4px',
           width: '69px',
-          height: '32px',
+          height: '30px',
         }}
       >
         <Typography
