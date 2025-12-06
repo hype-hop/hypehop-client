@@ -41,7 +41,7 @@ export default function ReviewChartCard({ review, index }: { review: ReviewsRank
           borderRadius: '6.6px',
         }}
       />
-      <CardContent sx={{ marginLeft: '16px' }}>
+      <CardContent sx={{ marginLeft: '4px', paddingLeft: '12px' }}>
         <Typography fontSize={typography.size.lg} fontWeight="medium">
           {index + 1}
         </Typography>
@@ -52,18 +52,18 @@ export default function ReviewChartCard({ review, index }: { review: ReviewsRank
           maxWidth: '63vw',
           display: 'flex',
           flexDirection: 'column',
-          paddingTop: '0px',
           rowGap: '2px',
+          paddingLeft: '4px',
         }}
       >
         <Typography
           align="left"
           fontSize={typography.size.md}
           fontWeight={typography.weight.regular}
-          sx={{ margin: '4px 0px', color: 'rgb(168, 168, 168)' }}
+          sx={{ marginBottom: '4px', color: 'rgb(168, 168, 168)' }}
           component="div"
         >
-          {user.displayName}
+          {user.name}
         </Typography>
         <Typography
           align="left"

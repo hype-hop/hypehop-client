@@ -1,77 +1,32 @@
-import { useState, useEffect } from 'react';
-import { List, ListItem, Typography } from '@mui/material';
-import Link from 'next/link';
-import BASE_URL from '../../config';
-import { ReviewsRank } from '../../types/review';
+'use client';
 
-function PopularReview() {
-  const [data, setData] = useState<ReviewsRank[] | null>(null);
+import { Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import ReviewChartCard from './PopularReviewCard';
+import { ReviewsRank } from '../../types/review';
+import { fetchPopularReviews } from '../../api/reviews';
+
+function ReviewChart() {
+  const [reviews, setReviews] = useState<ReviewsRank[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}/album/api/review/`);
-        const result = await response.json();
-        setData(result.reviewsRank);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
+    (async () => {
+      const fetchedReviews = await fetchPopularReviews();
+      setReviews(fetchedReviews || []);
+    })();
   }, []);
 
-  if (data?.length === 0) {
-    return <>인기 리뷰가 없습니다.</>;
-  }
-
   return (
-    <>
-      <Typography variant="h1" sx={{ mb: '16px', ml: '4px' }}>
-        인기리뷰🔥
-      </Typography>
-      <List
-        sx={{
-          border: '1px solid rgb(52,52,52)',
-          borderRadius: '0px 16px 16px 16px',
-          padding: '16px',
-          maxWidth: '287px',
-          minWidth: { xs: '100%', sm: '100%', md: '280px', lg: '280px' },
-          minHeight: '330px',
-        }}
-      >
-        {data?.map(({ _id, title, favoriteCount }, index) => (
-          <ListItem
-            sx={{
-              display: 'flex',
-              columnGap: '4px',
-              marginBottom: index < data.length - 1 ? '16px' : '0px',
-              alignItems: 'flex-start',
-            }}
-            key={_id}
-          >
-            <Typography lineHeight="1" component="div" fontSize="fontSizeMd" fontWeight="600">
-              {index + 1}.
-            </Typography>
-
-            <Link href={`/album/review/${_id}`} style={{ textAlign: 'left', color: 'white', textDecoration: 'none' }}>
-              <Typography
-                lineHeight="1"
-                component="div"
-                fontSize="fontSizeMd"
-                sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '200px' }}
-              >
-                {title}
-              </Typography>
-            </Link>
-            <Typography lineHeight="1" component="div" fontSize="fontSizeMd" color="grey.main">
-              ({favoriteCount < 100 ? favoriteCount : '100 +'})
-            </Typography>
-          </ListItem>
-        ))}
-      </List>
-    </>
+    <Grid container spacing={2}>
+      {reviews?.slice(0, 8).map((review, index) => {
+        return (
+          <Grid key={review._id} size={{ xs: 12, sm: 6, md: 6 }}>
+            <ReviewChartCard review={review} index={index} />
+          </Grid>
+        );
+      })}
+    </Grid>
   );
 }
 
-export default PopularReview;
+export default ReviewChart;

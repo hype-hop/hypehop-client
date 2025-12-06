@@ -4,13 +4,10 @@ import { Box, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ReviewMain from '../components/review/ReviewMain';
-import FloatingActionButton from '../components/common/FloatingActionButton';
-import TallyFeedbackBtn from '../components/common/TallyFeedbackBtn';
 import AlbumSearch from '../components/album/AlbumSearch/AlbumSearch';
-import Banner from '../components/common/Banner/Banner';
 import { AlbumForReview } from '../types/albumReview';
 import { AlbumSearchResult } from '../types/albumSearch';
-import ReviewChart from '../components/review/ReviewChart';
+import PopularReview from '../components/review/PopularReview';
 import ReviewLanding from '../components/review/ReviewLanding';
 import Footer from '../components/common/Footer';
 import MoreButton from '../components/common/Buttons/MoreButton';
@@ -60,7 +57,7 @@ function MainPage() {
             <Typography variant="h1">인기 리뷰</Typography>
             <MoreButton href="/album/review" />
           </Box>
-          <ReviewChart />
+          <PopularReview />
         </Box>
         <Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
