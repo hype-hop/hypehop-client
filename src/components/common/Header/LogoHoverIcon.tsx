@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import LogoMainIcon from '../../../assets/icons/logo-main.svg';
 import LogoSubIcon from '../../../assets/icons/logo-hover.svg';

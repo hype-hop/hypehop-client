@@ -1,3 +1,5 @@
+'use client';
+
 import { AppBar, Box, Container } from '@mui/material';
 import { useAuth } from '../../../AuthenticationContext';
 import LoginButton from '../Buttons/LoginButton';

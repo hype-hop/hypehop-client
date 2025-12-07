@@ -1,4 +1,3 @@
-import { headers } from 'next/headers';
 import BASE_URL from '../config';
 import { FavoriteClickedUser } from '../types/favorite';
 

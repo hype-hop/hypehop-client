@@ -5,7 +5,7 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": false,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "moduleResolution": "nodenext",
     "lib": [
       "dom",
@@ -27,13 +27,13 @@
     ]
   },
   "include": [
-    
     "src/",
     ".next/types/**/*.ts",
-    "svgr.d.ts"
+    "svgr.d.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
   ],
-  "baseUrl": ".",   
+  "baseUrl": "."
 }
