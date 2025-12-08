@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 
 import React from 'react';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+
 import MainLayoutWrapper from '../components/MainLayoutWrapper';
 import CommonRootLayout from '../components/common/RootLayout';
 
@@ -21,9 +23,11 @@ export default function RootLayout({
       <meta property="og:description" content="" />
       <meta property="og:image" content="image" />
       <body className="antialiased">
-        <MainLayoutWrapper>
-          <CommonRootLayout>{children}</CommonRootLayout>
-        </MainLayoutWrapper>
+        <AppRouterCacheProvider>
+          <MainLayoutWrapper>
+            <CommonRootLayout>{children}</CommonRootLayout>
+          </MainLayoutWrapper>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
