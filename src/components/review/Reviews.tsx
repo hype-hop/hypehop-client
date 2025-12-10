@@ -5,6 +5,7 @@ import { MyReview, Review } from '../../types/review';
 import ProfileReviewEditHamburger from './ProfileReviewEditHamburger';
 import AlbumCover from '../album/AlbumCover';
 import AlbumReviewSummary from './AlbumReviewSummary';
+import AlbumCard from '../album/AlbumCard';
 
 export default function Reviews({
   reviews,
@@ -13,36 +14,9 @@ export default function Reviews({
   reviews: MyReview[] | Review[];
   setRefreshCount?: Dispatch<SetStateAction<number>>;
 }) {
-  const { user } = useAuth();
-
   return (
     <Box sx={{ display: 'grid', gridTemplateColumns: { sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' } }} gap={2} mt={2}>
-      {reviews?.map((review) => (
-        <Box
-          key={`my-review-${review._id}`}
-          sx={{
-            position: 'relative',
-            border: '1px solid rgb(52, 52, 52)',
-            padding: '16px',
-            borderRadius: '0px 16px 16px 16px',
-            width: { xs: '100%', sm: '282px' },
-            minWidth: { xs: '100%', sm: '282px' },
-          }}
-        >
-          {user?._id === review.user ? (
-            <ProfileReviewEditHamburger review={review} setRefreshCount={setRefreshCount!} />
-          ) : null}
-
-          <AlbumCover
-            reviewId={review._id}
-            url={review.thumbnail}
-            albumTitle={review.albumName}
-            artists={review.artists}
-            previewUrl=""
-          />
-          <AlbumReviewSummary review={review} isMyReview />
-        </Box>
-      ))}
+      {reviews?.map((review) => <AlbumCard review={review} key={review._id} />)}
     </Box>
   );
 }
