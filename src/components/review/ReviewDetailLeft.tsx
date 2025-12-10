@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Box, Stack, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { useParams } from 'next/navigation';
-import AlbumCard from '../album/AlbumCard';
+import AlbumSummary from '../album/AlbumSummary';
 import TimeSincePost from '../album/TimeSincePost';
 
 import Favorite from '../common/Favorite';
@@ -18,7 +18,7 @@ function ReviewDetailLeft({ data }) {
         <Typography variant="h1">앨범 정보</Typography>
       </Stack>
 
-      <AlbumCard data={data} />
+      <AlbumSummary data={data} />
       <Box
         sx={{
           mt: '16px',

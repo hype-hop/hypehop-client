@@ -3,7 +3,7 @@ import { Card, Box, Typography, CardMedia, Stack } from '@mui/material';
 import Link from 'next/link';
 import CustomStar from '../review/CustomStar';
 
-function AlbumCard({ data }) {
+function AlbumSummary({ data }) {
   const formattedDate = data?.review?.albumReleaseDate.split('T')[0];
 
   return (
@@ -108,4 +108,4 @@ function AlbumCard({ data }) {
   );
 }
 
-export default AlbumCard;
+export default AlbumSummary;
