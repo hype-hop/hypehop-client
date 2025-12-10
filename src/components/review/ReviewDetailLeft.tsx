@@ -75,7 +75,7 @@ function ReviewDetailLeft({ data }) {
           <Box
             sx={{
               display: 'flex',
-              alignContent: 'center',
+              alignItems: 'center',
               justifyContent: 'center',
               ml: 'auto',
               width: '46px',
@@ -84,23 +84,21 @@ function ReviewDetailLeft({ data }) {
               borderRadius: '67px',
             }}
           >
-            <StarIcon fontSize="small" sx={{ color: 'star.main', mt: '1px' }} />
+            <StarIcon fontSize="small" sx={{ color: 'star.main', width: '13px' }} />
             <Typography
               sx={{
-                width: '15.33px',
                 alignContent: 'center',
-                mt: '4px',
                 fontSize: '11px',
                 fontWeight: '400',
+                mt: '2px',
               }}
             >
-              {' '}
               {/* eslint-disable-next-line no-unsafe-optional-chaining */}
               {data?.review?.albumRating % 1 === 0 ? `${data?.review?.albumRating}.0` : data?.review?.albumRating}
             </Typography>
           </Box>
         </Box>
-        <Box width="100%">
+        <Box width="100%" mt="16px">
           <Typography
             sx={{
               mt: '16px',
