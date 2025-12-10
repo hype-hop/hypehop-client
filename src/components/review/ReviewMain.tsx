@@ -8,6 +8,7 @@ import AlbumCover from '../album/AlbumCover';
 import AlbumReviewSummary from './AlbumReviewSummary';
 import ReviewMainSkeleton from '../common/skeletons/mainPage/ReviewMainSkeleton';
 import MoreButton from '../common/Buttons/MoreButton';
+import AlbumCard from '../album/AlbumCard';
 
 function ReviewMain() {
   const [data, setData] = useState<AlbumData | null>(null);
@@ -42,29 +43,8 @@ function ReviewMain() {
           width: { xs: '100%' },
         }}
       >
-        {Array.isArray(data?.reviews) ? (
-          data?.reviews.map((review) => (
-            <Box
-              key={`review-${review._id}`}
-              sx={{
-                display: 'grid',
-                padding: '16px',
-                backgroundColor: 'grey.darkest',
-                borderRadius: '12px',
-              }}
-            >
-              <AlbumCover
-                reviewId={review._id}
-                url={review.thumbnail}
-                albumTitle={review.albumTitle}
-                artists={review.artists}
-                previewUrl={review?.previewUrl}
-              />
-              <Box sx={{ minWidth: '200px', maxWidth: '100%' }} mt={2}>
-                <AlbumReviewSummary review={review} />
-              </Box>
-            </Box>
-          ))
+        {Array.isArray(data.reviews) ? (
+          data.reviews.map((review) => <AlbumCard review={review} key={review._id} />)
         ) : (
           <>no</>
         )}
