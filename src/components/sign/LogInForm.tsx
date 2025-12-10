@@ -1,37 +1,39 @@
 'use client';
 
 import { Box, Typography, Input, Button, Divider } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useActionState } from 'react';
 import Link from 'next/link';
-import { useAuth } from '../../AuthenticationContext';
+import { redirect, useSearchParams } from 'next/navigation';
 import BASE_URL from '../../config';
-
 import GoogleIcon from '../../assets/icons/googleIcon.svg';
 
+async function loginAction(prevState: { message: string }, formData: FormData, callBackUrl: string) {
+  try {
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    const result = await fetch(`${BASE_URL}/api/login`, {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!result.ok) {
+      return { message: 'API 호출 실패' };
+    }
+
+    redirect(callBackUrl || '/');
+    return { message: '성공' };
+  } catch (error) {
+    return { message: '이메일 혹은 비밀번호가 잘못되었습니다.' };
+  }
+}
+
 function LogInForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const isError = searchParams.get('error');
-  const { user } = useAuth();
-  const [isTyping, setIsTyping] = useState(false);
-  const [refUrl, setRefUrl] = useState('/');
-  const failedEmail = searchParams.get('email') || '';
-  useEffect(() => {
-    if (searchParams.get('album')) {
-      setRefUrl('/album');
-    }
-  }, [searchParams, user, router]);
-
-  const handleChange = () => {
-    setIsTyping(true);
-  };
-
-  useEffect(() => {
-    if (isError && isTyping) {
-      router.push('/login');
-    }
-  }, [isError, isTyping, router]);
+  const param = useSearchParams();
+  const callBackUrl = param.get('callbackUrl') || '';
+  const [state, formAction] = useActionState((state, formData) => loginAction(state, formData, callBackUrl), {
+    message: '',
+  });
 
   return (
     <Box
@@ -49,23 +51,19 @@ function LogInForm() {
       >
         로그인
       </Typography>
-      <form className="form" action={`${BASE_URL}/api/login`} method="POST">
-        {/*    <form className="form" onSubmit={handleSubmit}>  */}
+      <form className="form" action={formAction}>
         <Box className="flex-column">
-          <Input type="refUrl" name="refUrl" sx={{ display: 'none' }} value={refUrl} />
           <label className="labels" htmlFor="email" />
           <Box className="inputForm" mt="40px">
             <Typography component="div" color="grey.main" mb={1}>
               이메일
             </Typography>
             <Input
-              onChange={handleChange}
               required
               fullWidth
               type="email"
               id="email"
               name="email"
-              value={failedEmail}
               className="form-control"
               placeholder="이메일을 입력해주세요."
               sx={{
@@ -83,7 +81,6 @@ function LogInForm() {
               비밀번호
             </Typography>
             <Input
-              onChange={handleChange}
               required
               fullWidth
               type="password"
@@ -94,26 +91,22 @@ function LogInForm() {
             />
           </Box>
         </Box>
-        {isError && !isTyping ? (
-          <Box>
-            <Typography
-              textAlign="left"
-              fontSize="fontSizeMd"
-              fontWeight="fontWeightRegular"
-              sx={{
-                mt: '10px',
-                ml: '8px',
-                color: 'rgb(131, 36, 254)',
-              }}
-            >
-              *등록되지 않은 아이디이거나 비밀번호를 잘못 입력하셨습니다.
-            </Typography>
-          </Box>
-        ) : (
-          <Box>
-            <Typography />
-          </Box>
-        )}
+
+        <Box>
+          <Typography
+            textAlign="left"
+            fontSize="fontSizeMd"
+            fontWeight="fontWeightRegular"
+            sx={{
+              mt: '10px',
+              ml: '8px',
+              color: 'rgb(131, 36, 254)',
+            }}
+          >
+            {state.message}
+          </Typography>
+        </Box>
+
         <Button
           fullWidth
           type="submit"
