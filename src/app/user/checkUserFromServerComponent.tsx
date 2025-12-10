@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { User } from '../../AuthenticationContext';
 import BASE_URL from '../../config';
 
-const checkUserFromServerComponent = async (): Promise<User> => {
+const checkUserFromServerComponent = async (callBackUrl: string | null): Promise<User> => {
   const headersList = await headers();
   const cookie = headersList.get('cookie') || '';
   const result = await fetch(`${BASE_URL}/api/user`, {
@@ -17,7 +17,7 @@ const checkUserFromServerComponent = async (): Promise<User> => {
   const userData = await result.json();
 
   if (Object.keys(userData).length === 0) {
-    redirect('/login');
+    redirect(`/login${callBackUrl ? `?callbackUrl=${encodeURI(callBackUrl)}` : ''}`);
   }
   return userData; // Updated to return userData instead of result.json()
 };
