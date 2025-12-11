@@ -3,7 +3,7 @@ import { RefObject, useEffect, useState } from 'react';
 
 const INITIAL_POSITION = { x: 450, y: 120 };
 
-function UnlikeButton({ parentRef }: { parentRef: RefObject<HTMLDivElement> }) {
+function UnlikeButton({ parentRef }: { parentRef: RefObject<HTMLDivElement | null> }) {
   const [position, setPosition] = useState(INITIAL_POSITION);
   const [positionRange, setPositionRange] = useState({ x: 0, y: 0 });
 
@@ -12,7 +12,7 @@ function UnlikeButton({ parentRef }: { parentRef: RefObject<HTMLDivElement> }) {
       const positionRange = { x: parentRef.current.offsetWidth, y: parentRef.current.offsetHeight };
       setPositionRange(positionRange);
     }
-  }, [parentRef, parentRef.current]);
+  }, [parentRef]);
 
   const setPositionRandomlyInRange = () => {
     setPosition({

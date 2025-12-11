@@ -13,7 +13,7 @@ function ReviewDetailLeft({ data }) {
   const { id } = useParams();
 
   return (
-    <Box sx={{ mb: '18px' }}>
+    <Box sx={{ mb: '18px', width: { xs: '100%', md: '80%' } }}>
       <Stack sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h1">앨범 정보</Typography>
       </Stack>

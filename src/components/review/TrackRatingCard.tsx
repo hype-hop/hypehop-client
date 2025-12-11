@@ -6,13 +6,12 @@ import { typography } from '../../constants/themeValue';
 function TrackRatingCard({ data }) {
   return (
     <Box>
-      <Typography variant="h1" sx={{ mt: { xs: '40px', sm: '40px' }, ml: { lg: '67px' }, mb: '16px' }}>
+      <Typography variant="h1" sx={{ mt: { xs: '40px', sm: '40px' }, mb: '16px' }}>
         트랙별 평점
       </Typography>
       <Card
         variant="outlined"
         sx={{
-          ml: { lg: '67px' },
           mb: { xs: '40px', sm: '40px', md: '40px', lg: '0px' },
           width: { xs: '100%', sm: '100%', md: '287px', lg: '287px' },
           height: '336px',

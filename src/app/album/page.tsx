@@ -5,7 +5,7 @@ import WriteReview from '../../components/review/WriteReview';
 import checkUserFromServerComponent from '../user/checkUserFromServerComponent';
 
 async function AlbumReviewPage() {
-  await checkUserFromServerComponent();
+  await checkUserFromServerComponent(null);
   return (
     <Box className="Album">
       <Suspense>

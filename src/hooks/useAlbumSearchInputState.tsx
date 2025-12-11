@@ -11,8 +11,8 @@ const useAlbumSearchInputState = ({
   albumSearchBoxRef,
   albumSearchInputRef,
 }: {
-  albumSearchBoxRef: RefObject<HTMLDivElement>;
-  albumSearchInputRef: RefObject<HTMLInputElement>;
+  albumSearchBoxRef: RefObject<HTMLDivElement | null>;
+  albumSearchInputRef: RefObject<HTMLInputElement | null>;
 }) => {
   const [isClickedOutside, setIsClickedOutside] = useState<(typeof searchClickState)[keyof typeof searchClickState]>(
     searchClickState.INITIAL,
@@ -23,7 +23,7 @@ const useAlbumSearchInputState = ({
   });
 
   useEffect(() => {
-    albumSearchInputRef.current?.addEventListener('click', () => {
+    albumSearchInputRef?.current?.addEventListener('click', () => {
       setIsClickedOutside(searchClickState.FOCUSED);
     });
   }, [albumSearchInputRef]);

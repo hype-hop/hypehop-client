@@ -4,7 +4,7 @@ import ReviewDetailLeft from './ReviewDetailLeft';
 
 function ReviewDetail({ data }) {
   return (
-    <Box display="flex" flexDirection={{ xs: 'column', sm: 'column', md: 'row' }}>
+    <Box display="flex" flexDirection={{ xs: 'column', sm: 'column', md: 'row' }} gap={3}>
       <ReviewDetailLeft data={data} />
 
       <Box
