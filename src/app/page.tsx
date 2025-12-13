@@ -53,14 +53,14 @@ function MainPage() {
       <Box sx={{ mt: '40px', display: 'flex', flexDirection: 'column', gap: '80px' }}>
         <ReviewMain />
         <Box>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2.5 }}>
             <Typography variant="h1">인기 리뷰</Typography>
             <MoreButton href="/album/review" />
           </Box>
           <PopularReview />
         </Box>
         <Box>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2.5 }}>
             <Typography variant="h1">매거진</Typography>
             <MoreButton href="/magazines" />
           </Box>

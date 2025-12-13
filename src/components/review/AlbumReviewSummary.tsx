@@ -96,7 +96,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
             fontWeight="bold"
             fontSize="16px"
             component="div"
-            mt="12px"
+            mt="14px"
             sx={{
               textAlign: 'left',
               whiteSpace: 'nowrap',
@@ -111,7 +111,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
             fontSize={typography.size.md}
             fontWeight="regular"
             component="div"
-            mt="8px"
+            mt="6px"
             sx={{
               display: '-webkit-box',
               textAlign: 'left',
@@ -127,7 +127,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
           </Typography>
         </Box>
       </CardContent>
-      <CardActions disableSpacing sx={{ width: '100%', mt: '13px', padding: 0 }}>
+      <CardActions disableSpacing sx={{ width: '100%', mt: '6px', padding: 0 }}>
         <Box
           sx={{
             display: 'flex',

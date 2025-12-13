@@ -12,6 +12,7 @@ function AlbumCard({ review }: { review: Review }) {
         padding: '16px',
         backgroundColor: 'grey.darkest',
         borderRadius: '12px',
+        rowGap: '10px',
       }}
     >
       <AlbumCover
@@ -21,7 +22,7 @@ function AlbumCard({ review }: { review: Review }) {
         artists={review.artists}
         previewUrl={review?.previewUrl}
       />
-      <Box sx={{ minWidth: '200px', maxWidth: '100%' }} mt={2}>
+      <Box sx={{ minWidth: '200px', maxWidth: '100%' }}>
         <AlbumReviewSummary review={review} />
       </Box>
     </Box>

@@ -25,7 +25,6 @@ export default function ReviewChartCard({ review, index }: { review: ReviewsRank
         flex: 'none',
         order: '0',
         flexGrow: '0',
-        margin: '16px 0px',
         boxShadow: 'none',
       }}
     >

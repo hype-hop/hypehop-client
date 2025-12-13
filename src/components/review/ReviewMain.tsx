@@ -29,7 +29,7 @@ function ReviewMain() {
 
   return data ? (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2.5 }}>
         <Typography variant="h1">최근 리뷰</Typography>
         <MoreButton href="/album/review" />
       </Box>
@@ -39,7 +39,6 @@ function ReviewMain() {
           display: 'grid',
           gridTemplateColumns: { sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
           gap: 2,
-          mt: 2,
           width: { xs: '100%' },
         }}
       >
