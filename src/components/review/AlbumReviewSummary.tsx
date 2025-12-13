@@ -136,12 +136,17 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
             columnGap: '8px',
           }}
         >
-          <Favorite reviewId={_id} favoriteClickedUsers={isFavorite} />
+          <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
+            <Favorite reviewId={_id} favoriteClickedUsers={isFavorite} />
+            <Typography sx={{ color: 'rgb(168,168,168)' }} component="span">
+              ,
+            </Typography>
+          </Box>
           <Link
             href={`/album/review/${_id}`}
             style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '3px' }}>
               <CommentIcon />
               <Typography sx={{ color: 'rgb(168,168,168)', fontSize: '12px' }}>댓글 {comments.length}개</Typography>
             </Box>

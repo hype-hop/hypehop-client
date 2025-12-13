@@ -77,7 +77,7 @@ function Favorite({
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '3px' }}>
       <EmptyFavoriteIcon
         onClick={addToFavorite}
         fill={isMyFavorite ? palette.favorite : iconHoverColor}
