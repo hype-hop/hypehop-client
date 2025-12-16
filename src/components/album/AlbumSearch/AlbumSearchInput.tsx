@@ -5,24 +5,27 @@ import postSearchAlbum from '../../../api/album';
 import useDebounce from '../../../utils/useDebounce';
 import ResultList from './AlbumSearchResultList';
 import { useAlbumSearchContext } from './AlbumSearchContext';
-import { AlbumSearchProps } from './AlbumSearch';
+import { AlbumSearchInputProps, AlbumSearchProps } from './AlbumSearch';
 import CancleIcon from '../../../assets/icons/cancle.svg';
 import useAlbumSearchInputState, { searchClickState } from '../../../hooks/useAlbumSearchInputState';
 
-export default function AlbumSearchInput({ searchResult, setSearchResult, setSelectedAlbum }: AlbumSearchProps) {
-  const [keyword, setKeyword] = useState<string | null>(null);
-
-  const albumSearchBoxRef = useRef<HTMLDivElement>(null);
-  const albumSearchInputRef = useRef<HTMLInputElement>(null);
+export default function AlbumSearchInput({
+  searchResult,
+  setSearchResult,
+  setSelectedAlbum,
+  albumSearchBoxRef,
+  albumSearchInputRef,
+  isClickedOutside,
+  setIsClickedOutside,
+  keyword,
+  setKeyword,
+  debouncedValue,
+  isSearchCompleted,
+}: AlbumSearchInputProps) {
   const { pointedResultIndex, increasePointedResultIndex, decreasePointedResultIndex, setPointedResultIndexDirectly } =
     useAlbumSearchContext();
-  const { isClickedOutside, setIsClickedOutside } = useAlbumSearchInputState({
-    albumSearchBoxRef,
-    albumSearchInputRef,
-  });
-  const { debouncedValue } = useDebounce(keyword!, 200);
-  const isSearchCompleted = debouncedValue && searchResult;
-  const setSelectedAlbumWithKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
+
+  const setSelectedAlbumWithKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!searchResult) {
       return;
     }
@@ -60,47 +63,37 @@ export default function AlbumSearchInput({ searchResult, setSearchResult, setSel
     (searchResult && isClickedOutside === searchClickState.FOCUSED);
 
   return (
-    <Box ref={albumSearchBoxRef} onKeyDown={setSelectedAlbumWithKey}>
-      <Input
-        ref={albumSearchInputRef}
-        fullWidth
-        startAdornment={
-          <InputAdornment position="start">
-            <SearchIcon sx={{ color: 'rgb(110, 110, 110)' }} />
-          </InputAdornment>
-        }
-        type="text"
-        placeholder="앨범 찾기..."
-        value={keyword ?? ''}
-        onChange={(e) => {
-          setKeyword(e.target.value);
-        }}
-        autoComplete="off"
-        required
-        sx={isSearchCompleted ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}}
-        endAdornment={
-          isResultList ? (
-            <IconButton
-              color="primary"
-              onClick={() => {
-                setKeyword(null);
-                setSearchResult(null);
-              }}
-            >
-              <CancleIcon />
-            </IconButton>
-          ) : undefined
-        }
-      />
-
-      {isResultList && (
-        <ResultList
-          searchResult={searchResult}
-          setSelectedAlbum={setSelectedAlbum}
-          setSearchResult={setSearchResult}
-          setKeyword={setKeyword}
-        />
-      )}
-    </Box>
+    <Input
+      ref={albumSearchInputRef}
+      fullWidth
+      startAdornment={
+        <InputAdornment position="start">
+          <SearchIcon sx={{ color: 'rgb(110, 110, 110)' }} />
+        </InputAdornment>
+      }
+      type="text"
+      placeholder="앨범 찾기..."
+      value={keyword ?? ''}
+      onChange={(e) => {
+        setKeyword(e.target.value);
+      }}
+      autoComplete="off"
+      required
+      sx={isSearchCompleted ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}}
+      endAdornment={
+        isResultList ? (
+          <IconButton
+            color="primary"
+            onClick={() => {
+              setKeyword(null);
+              setSearchResult(null);
+            }}
+          >
+            <CancleIcon />
+          </IconButton>
+        ) : undefined
+      }
+      onKeyDown={setSelectedAlbumWithKey}
+    />
   );
 }
