@@ -1,19 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { Box, IconButton, Input, InputAdornment } from '@mui/material';
+import { IconButton, Input, InputAdornment } from '@mui/material';
 import postSearchAlbum from '../../../api/album';
-import useDebounce from '../../../utils/useDebounce';
-import ResultList from './AlbumSearchResultList';
 import { useAlbumSearchContext } from './AlbumSearchContext';
-import { AlbumSearchInputProps, AlbumSearchProps } from './AlbumSearch';
+import { AlbumSearchInputProps } from './AlbumSearch';
 import CancleIcon from '../../../assets/icons/cancle.svg';
-import useAlbumSearchInputState, { searchClickState } from '../../../hooks/useAlbumSearchInputState';
+import { searchClickState } from '../../../hooks/useAlbumSearchInputState';
 
 export default function AlbumSearchInput({
   searchResult,
   setSearchResult,
   setSelectedAlbum,
-  albumSearchBoxRef,
   albumSearchInputRef,
   isClickedOutside,
   setIsClickedOutside,
@@ -21,11 +18,12 @@ export default function AlbumSearchInput({
   setKeyword,
   debouncedValue,
   isSearchCompleted,
+  isSearchResultList,
 }: AlbumSearchInputProps) {
   const { pointedResultIndex, increasePointedResultIndex, decreasePointedResultIndex, setPointedResultIndexDirectly } =
     useAlbumSearchContext();
 
-  const setSelectedAlbumWithKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const setSelectedAlbumWithKey = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (!searchResult) {
       return;
     }
@@ -93,7 +91,10 @@ export default function AlbumSearchInput({
           </IconButton>
         ) : undefined
       }
-      onKeyDown={setSelectedAlbumWithKey}
+      onKeyDown={(e) => {
+        if (isSearchResultList) return;
+        setSelectedAlbumWithKey(e);
+      }}
     />
   );
 }

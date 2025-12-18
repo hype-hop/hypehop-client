@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import { AlbumSearchResult } from '../../../types/albumSearch';
 import { AlbumForReview } from '../../../types/albumReview';
@@ -12,6 +12,7 @@ export interface AlbumSearchProps {
   searchResult: AlbumSearchResult[] | null;
   setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
   setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
+  isSearchResultList?: boolean;
 }
 
 export interface AlbumSearchInputProps extends AlbumSearchProps {
@@ -25,7 +26,7 @@ export interface AlbumSearchInputProps extends AlbumSearchProps {
   isSearchCompleted: boolean;
 }
 
-function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumSearchProps) {
+function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum, isSearchResultList = true }: AlbumSearchProps) {
   const [keyword, setKeyword] = useState<string | null>(null);
   const albumSearchBoxRef = useRef<HTMLDivElement>(null);
   const albumSearchInputRef = useRef<HTMLInputElement>(null);
@@ -56,8 +57,9 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum }: AlbumS
           setIsClickedOutside={setIsClickedOutside}
           debouncedValue={debouncedValue}
           isSearchCompleted={isSearchCompleted}
+          isSearchResultList={isSearchResultList}
         />
-        {isResultList && (
+        {isResultList && isSearchResultList && (
           <ResultList
             searchResult={searchResult}
             setSelectedAlbum={setSelectedAlbum}
