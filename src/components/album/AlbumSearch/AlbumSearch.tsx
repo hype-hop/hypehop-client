@@ -1,32 +1,13 @@
-import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Box } from '@mui/material';
-import { AlbumSearchResult } from '../../../types/albumSearch';
-import { AlbumForReview } from '../../../types/albumReview';
 import AlbumSearchContextProvider from './AlbumSearchContext';
 import AlbumSearchInput from './AlbumSearchInput';
 import useAlbumSearchInputState, { searchClickState } from '../../../hooks/useAlbumSearchInputState';
 import useDebounce from '../../../utils/useDebounce';
 import ResultList from './AlbumSearchResultList';
+import { AlbumSearchProps } from './types';
 
-export interface AlbumSearchProps {
-  searchResult: AlbumSearchResult[] | null;
-  setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
-  setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
-  isSearchResultList?: boolean;
-}
-
-export interface AlbumSearchInputProps extends AlbumSearchProps {
-  albumSearchBoxRef: React.RefObject<HTMLDivElement | null>;
-  albumSearchInputRef: React.RefObject<HTMLInputElement | null>;
-  isClickedOutside: string;
-  setIsClickedOutside: Dispatch<SetStateAction<string>>;
-  keyword: string | null;
-  setKeyword: Dispatch<SetStateAction<string | null>>;
-  debouncedValue: string | null;
-  isSearchCompleted: boolean;
-}
-
-function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum, isSearchResultList = true }: AlbumSearchProps) {
+function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum, variant = 'album' }: AlbumSearchProps) {
   const [keyword, setKeyword] = useState<string | null>(null);
   const albumSearchBoxRef = useRef<HTMLDivElement>(null);
   const albumSearchInputRef = useRef<HTMLInputElement>(null);
@@ -38,7 +19,7 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum, isSearch
     albumSearchInputRef,
   });
 
-  const isResultList =
+  const isResult =
     (isSearchCompleted && isClickedOutside === searchClickState.SEARCHING) ||
     (searchResult && isClickedOutside === searchClickState.FOCUSED);
 
@@ -57,9 +38,9 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum, isSearch
           setIsClickedOutside={setIsClickedOutside}
           debouncedValue={debouncedValue}
           isSearchCompleted={isSearchCompleted}
-          isSearchResultList={isSearchResultList}
+          variant={variant}
         />
-        {isResultList && isSearchResultList && (
+        {variant === 'album' && isResult && (
           <ResultList
             searchResult={searchResult}
             setSelectedAlbum={setSelectedAlbum}

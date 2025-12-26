@@ -3,22 +3,23 @@ import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, Input, InputAdornment } from '@mui/material';
 import postSearchAlbum from '../../../api/album';
 import { useAlbumSearchContext } from './AlbumSearchContext';
-import { AlbumSearchInputProps } from './AlbumSearch';
 import CancleIcon from '../../../assets/icons/cancle.svg';
 import { searchClickState } from '../../../hooks/useAlbumSearchInputState';
+import { AlbumSearchInputProps } from './types';
 
 export default function AlbumSearchInput({
   searchResult,
   setSearchResult,
   setSelectedAlbum,
   albumSearchInputRef,
+  albumSearchBoxRef,
   isClickedOutside,
   setIsClickedOutside,
   keyword,
   setKeyword,
   debouncedValue,
   isSearchCompleted,
-  isSearchResultList,
+  variant,
 }: AlbumSearchInputProps) {
   const { pointedResultIndex, increasePointedResultIndex, decreasePointedResultIndex, setPointedResultIndexDirectly } =
     useAlbumSearchContext();
@@ -27,23 +28,36 @@ export default function AlbumSearchInput({
     if (!searchResult) {
       return;
     }
-    if (e.key === 'ArrowDown' && pointedResultIndex < searchResult.length - 1) {
-      increasePointedResultIndex();
-      return;
+
+    if (variant === 'album') {
+      if (e.key === 'ArrowDown' && pointedResultIndex < searchResult.length - 1) {
+        increasePointedResultIndex();
+        return;
+      }
+      if (e.key === 'ArrowUp' && pointedResultIndex > 0) {
+        decreasePointedResultIndex();
+      }
+      if (e.key === 'Enter') {
+        setSelectedAlbum(searchResult[pointedResultIndex]);
+        setKeyword(null);
+        setSearchResult(null);
+        setPointedResultIndexDirectly(0);
+      }
     }
-    if (e.key === 'ArrowUp' && pointedResultIndex > 0) {
-      decreasePointedResultIndex();
-    }
+
     if (e.key === 'Enter') {
-      setSelectedAlbum(searchResult[pointedResultIndex]);
-      setKeyword(null);
-      setSearchResult(null);
-      setPointedResultIndexDirectly(0);
+      (async () => {
+        const res = await postSearchAlbum(debouncedValue!);
+
+        if (res.success) setSearchResult(res.data);
+      })();
     }
   };
 
   useEffect(() => {
     setIsClickedOutside(searchClickState.SEARCHING);
+    if (variant === 'topster') return;
+
     (async () => {
       if (debouncedValue === '' || debouncedValue === null) {
         setSearchResult(null);
@@ -56,7 +70,7 @@ export default function AlbumSearchInput({
     })();
   }, [debouncedValue, setSearchResult, setIsClickedOutside]);
 
-  const isResultList =
+  const isResult =
     (isSearchCompleted && isClickedOutside === searchClickState.SEARCHING) ||
     (searchResult && isClickedOutside === searchClickState.FOCUSED);
 
@@ -77,9 +91,9 @@ export default function AlbumSearchInput({
       }}
       autoComplete="off"
       required
-      sx={isSearchCompleted ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}}
+      sx={variant === 'album' && isResult ? { borderBottomRightRadius: 0, borderBottomLeftRadius: 0 } : {}}
       endAdornment={
-        isResultList ? (
+        isResult ? (
           <IconButton
             color="primary"
             onClick={() => {
@@ -91,10 +105,7 @@ export default function AlbumSearchInput({
           </IconButton>
         ) : undefined
       }
-      onKeyDown={(e) => {
-        if (isSearchResultList) return;
-        setSelectedAlbumWithKey(e);
-      }}
+      onKeyDown={setSelectedAlbumWithKey}
     />
   );
 }
