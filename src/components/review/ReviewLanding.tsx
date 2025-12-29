@@ -28,7 +28,7 @@ function ReviewLanding() {
         </Box>
       </Box>
 
-      <Box width="100%" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Box width="100%" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', columnGap: '8px' }}>
         <Button
           sx={{ height: '36px', fontSize: '14px', fontWeight: 'bold' }}
           variant="contained"
