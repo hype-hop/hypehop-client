@@ -1,9 +1,7 @@
 import { Box, Typography } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
-import { AlbumForReview } from '../../../types/albumReview';
-import { AlbumSearchResult } from '../../../types/albumSearch';
 import INITIAL_RATING_VALUE from '../../../constants/rating';
 import { IAlbumSearchContext, useAlbumSearchContext } from './AlbumSearchContext';
+import type { AlbumSearchResultItemProps } from './types';
 
 export default function AlbumSearchResultItem({
   album,
@@ -11,13 +9,7 @@ export default function AlbumSearchResultItem({
   setSearchResult,
   setKeyword,
   index,
-}: {
-  album: AlbumSearchResult;
-  setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
-  setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
-  setKeyword: Dispatch<SetStateAction<string | null>>;
-  index: number;
-}) {
+}: AlbumSearchResultItemProps) {
   const { pointedResultIndex, setPointedResultIndexDirectly } = useAlbumSearchContext() as IAlbumSearchContext;
   return (
     <Box

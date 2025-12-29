@@ -1,8 +1,7 @@
 import { Box } from '@mui/material';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { AlbumSearchResult } from '../../../types/albumSearch';
-import { AlbumForReview } from '../../../types/albumReview';
+import { ReactNode } from 'react';
 import AlbumSearchResultItem from './AlbumSearchResultItem';
+import { AlbumSearchResultListProps } from './types';
 
 function ResultBox({ children }: { children: ReactNode }) {
   return (
@@ -28,12 +27,7 @@ export default function ResultList({
   setSelectedAlbum,
   setSearchResult,
   setKeyword,
-}: {
-  searchResult: AlbumSearchResult[] | null;
-  setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
-  setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
-  setKeyword: Dispatch<SetStateAction<string | null>>;
-}) {
+}: AlbumSearchResultListProps) {
   if (searchResult?.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
   return (
     <ResultBox>
@@ -41,7 +35,7 @@ export default function ResultList({
         <AlbumSearchResultItem
           key={`album-${album.id}`}
           album={album}
-          setKeyword={setKeyword}
+          setKeyword={setKeyword!}
           setSelectedAlbum={setSelectedAlbum}
           setSearchResult={setSearchResult}
           index={index}
