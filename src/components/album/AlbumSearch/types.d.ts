@@ -32,5 +32,5 @@ export interface AlbumSearchResultListProps {
   searchResult: AlbumSearchResult[] | null;
   setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
   setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
-  setKeyword: Dispatch<SetStateAction<string | null>>;
+  setKeyword?: Dispatch<SetStateAction<string | null>>;
 }

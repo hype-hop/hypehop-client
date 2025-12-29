@@ -35,7 +35,7 @@ export default function ResultList({
         <AlbumSearchResultItem
           key={`album-${album.id}`}
           album={album}
-          setKeyword={setKeyword}
+          setKeyword={setKeyword!}
           setSelectedAlbum={setSelectedAlbum}
           setSearchResult={setSearchResult}
           index={index}
