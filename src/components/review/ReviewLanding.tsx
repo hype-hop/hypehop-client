@@ -11,8 +11,8 @@ function ReviewLanding() {
         display: 'flex',
         position: 'relative',
         flexDirection: 'column',
-        margin: '80px 0px',
-        gap: '20px',
+        margin: { xs: '100px 0px', md: '220px 0px 120px 0px' },
+        gap: '140px',
       }}
       ref={reviewLandingBox}
     >

@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { RefObject, useEffect, useState } from 'react';
 
-const INITIAL_POSITION = { x: 440, y: 120 };
+const INITIAL_POSITION = { x: 440, y: 240 };
 
 function UnlikeButton({ parentRef }: { parentRef: RefObject<HTMLDivElement | null> }) {
   const [position, setPosition] = useState(INITIAL_POSITION);
