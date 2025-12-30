@@ -125,6 +125,7 @@ function LogInForm() {
         sx={{
           display: 'flex',
           justifyContent: 'center',
+          alignItems: 'center',
           mt: '16px',
         }}
       >
