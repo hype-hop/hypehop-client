@@ -22,7 +22,7 @@ function ReviewDetailLeft({ data }) {
       <Box
         sx={{
           mt: '16px',
-          background: 'rgb(27, 27, 27)',
+          bgcolor: 'grey.darkest',
           borderRadius: '16px',
           pl: '16px',
           pr: '16px',

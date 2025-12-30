@@ -13,21 +13,12 @@ function AlbumSummary({ data }) {
         mt: '16px',
         display: 'flex',
         flexDirection: 'column',
-        width: {
-          xs: '100%',
-          sm: '100%',
-          md: '100%',
-          lg: '846px',
-        },
-        maxWidth: '300px',
+        width: 'fit-content',
         height: '90px',
-        paddingLeft: '22px',
-        paddingTop: '15px',
-        paddingBottom: '15px',
-        bgcolor: 'background.default',
-        border: '1px solid',
-        borderColor: 'rgb(52,52,52)',
-        borderRadius: '0px 16px 16px 16px',
+        padding: '15px',
+
+        borderRadius: '12px',
+        bgcolor: 'grey.darkest',
       }}
     >
       <Box

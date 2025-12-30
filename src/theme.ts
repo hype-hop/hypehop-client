@@ -85,7 +85,7 @@ const theme: Theme = createTheme({
       dark: 'rgb(86,87,87)',
       darker: 'rgb(46,45,45)',
       darker1: 'rgb(30,30,30)',
-      darkest: 'rgb(20, 20, 20)',
+      darkest: 'rgb(18, 18, 18)',
     },
     star: {
       main: 'rgb(255, 196, 3)',
