@@ -7,7 +7,10 @@ function ResultBox({ children }: { children: ReactNode }) {
   return (
     <Box
       sx={{
+        position: 'absolute',
         display: 'flex',
+        width: '100%',
+        zIndex: 1,
         flexDirection: 'column',
         rowGap: '20px',
         backgroundColor: 'rgb(22, 22, 22)',
@@ -15,6 +18,8 @@ function ResultBox({ children }: { children: ReactNode }) {
         borderRadius: '16px',
         borderTopRightRadius: 0,
         borderTopLeftRadius: 0,
+        maxHeight: '480px',
+        overflowY: 'auto',
       }}
     >
       {children}
