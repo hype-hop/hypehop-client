@@ -46,7 +46,12 @@ function MainPage() {
 
   return (
     <>
-      <AlbumSearch searchResult={searchResult} setSearchResult={setSearchResult} setSelectedAlbum={setSelectedAlbum} />
+      <AlbumSearch
+        searchResult={searchResult}
+        setSearchResult={setSearchResult}
+        setSelectedAlbum={setSelectedAlbum}
+        variant="album"
+      />
 
       <ReviewLanding />
 
