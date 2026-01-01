@@ -1,5 +1,5 @@
 import BASE_URL from '../config';
-import { PaginatedReviews, ReviewsRank } from '../types/review';
+import { PaginatedReviews, ReviewsCount, ReviewsRank } from '../types/review';
 
 const fetchPaginatedReviews = async (page: number, genre: string = 'all'): Promise<PaginatedReviews | null> => {
   try {
@@ -21,6 +21,17 @@ export const fetchPopularReviews = async (
 
   try {
     const url = `${BASE_URL}/api/reviews/popular?${optionalQuery}`;
+    const result = (await fetch(url)).json();
+    return result;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return null;
+  }
+};
+
+export const fetchReviewsCount = async (): Promise<ReviewsCount | null> => {
+  try {
+    const url = `${BASE_URL}/api/reviews/count`;
     const result = (await fetch(url)).json();
     return result;
   } catch (error) {

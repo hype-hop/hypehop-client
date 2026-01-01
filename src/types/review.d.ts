@@ -75,3 +75,9 @@ export interface FormData {
   bestTrackName: string | null | undefined;
   previewUrl: string | null | undefined;
 }
+
+export interface ReviewsCount {
+  public: number;
+  private: number;
+  total: number;
+}

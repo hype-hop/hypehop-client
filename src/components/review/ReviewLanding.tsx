@@ -1,9 +1,18 @@
 import { Box, Button, Typography } from '@mui/material';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import UnlikeButton from '../UnlikeButton';
+import { fetchReviewsCount } from '../../api/reviews';
 
 function ReviewLanding() {
   const reviewLandingBox = useRef<HTMLDivElement>(null);
+  const [count, setCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const count = await fetchReviewsCount();
+      setCount(count?.total || null);
+    })();
+  }, []);
 
   return (
     <Box
@@ -20,8 +29,19 @@ function ReviewLanding() {
         <Typography color="grey.main" fontSize="50px" textAlign="left">
           지금 까지
         </Typography>
-        <Box>
-          <Typography fontSize="50px">1320개의 리뷰가</Typography>
+        <Box
+          sx={{
+            opacity: count ? 1 : 0,
+            animation: count ? 'fadeIn 1s ease-out forwards' : 'none',
+            '@keyframes fadeIn': {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+          }}
+        >
+          <Typography fontSize="50px" component="div">
+            {count}개의 리뷰가
+          </Typography>
           <Typography color="grey.main" fontSize="50px">
             모였어요.
           </Typography>
