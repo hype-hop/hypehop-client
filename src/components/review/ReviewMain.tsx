@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography, Box } from '@mui/material';
-
-import Link from 'next/link';
+import { Typography, Box } from '@mui/material';
 import BASE_URL from '../../config';
 import { AlbumData } from '../../types/albumData';
-import AlbumCover from '../album/AlbumCover';
-import AlbumReviewSummary from './AlbumReviewSummary';
 import ReviewMainSkeleton from '../common/skeletons/mainPage/ReviewMainSkeleton';
 import MoreButton from '../common/Buttons/MoreButton';
 import AlbumCard from '../album/AlbumCard';
@@ -36,7 +32,9 @@ function ReviewMain() {
 
       <Box
         sx={{
-          display: 'grid',
+          display: { md: 'grid', xs: 'flex' },
+          flexDirection: 'row',
+          overflow: { xs: 'auto', md: 'visible' },
           gridTemplateColumns: { sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
           gap: 2,
           width: { xs: '100%' },

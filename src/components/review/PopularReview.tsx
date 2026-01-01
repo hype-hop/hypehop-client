@@ -1,6 +1,6 @@
 'use client';
 
-import { Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ReviewChartCard from './PopularReviewCard';
@@ -18,17 +18,24 @@ function ReviewChart() {
   }, []);
 
   return (
-    <Grid container spacing={2}>
-      {reviews?.slice(0, 8).map((review, index) => {
-        return (
-          <Grid key={review._id} size={{ xs: 12, sm: 6, md: 6 }}>
-            <Link href={`/album/review/${review._id}`} style={{ textDecoration: 'none' }}>
-              <ReviewChartCard review={review} index={index} />
-            </Link>
-          </Grid>
-        );
-      })}
-    </Grid>
+    <Box
+      sx={{
+        display: { xs: 'flex', md: 'grid' },
+        flexWrap: { xs: 'nowrap', md: 'none' },
+        overflowX: { xs: 'auto', md: 'visible' },
+        justifyContent: 'flex-start',
+        grid: { md: 'auto / repeat(2, 1fr)' },
+        gap: 2,
+      }}
+    >
+      {reviews?.slice(0, 8).map((review, index) => (
+        <Box key={review._id}>
+          <Link href={`/album/review/${review._id}`} style={{ textDecoration: 'none' }}>
+            <ReviewChartCard review={review} index={index} />
+          </Link>
+        </Box>
+      ))}
+    </Box>
   );
 }
 
