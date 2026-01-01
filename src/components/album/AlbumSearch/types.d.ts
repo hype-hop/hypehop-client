@@ -6,7 +6,7 @@ export interface AlbumSearchProps {
   searchResult: AlbumSearchResult[] | null;
   setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
   setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
-  variant: 'album' | 'topster';
+  variant?: 'album' | 'topster';
 }
 
 export interface AlbumSearchInputProps extends AlbumSearchProps {
