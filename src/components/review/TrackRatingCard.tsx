@@ -22,7 +22,23 @@ function TrackRatingCard({ data }) {
           borderRadius: '12px',
         }}
       >
-        <Box sx={{ width: '100%', height: '336px', overflow: 'auto' }}>
+        <Box
+          sx={{
+            width: '100%',
+            height: '336px',
+            overflow: 'auto',
+            '&::-webkit-scrollbar': {
+              width: '6px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'transparent',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: 'rgb(86,87,87)',
+              borderRadius: '4px',
+            },
+          }}
+        >
           {tracks.map((disc, index) => (
             <List key={index} sx={{ bgcolor: 'inherit' }}>
               {isMultipleDisc && (
