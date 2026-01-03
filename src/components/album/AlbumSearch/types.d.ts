@@ -28,6 +28,10 @@ export interface AlbumSearchResultItemProps {
   index: number;
 }
 
+export interface TopsterSearchResultProps {
+  searchResult: AlbumSearchResult[] | null;
+}
+
 export interface AlbumSearchResultListProps {
   searchResult: AlbumSearchResult[] | null;
   setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
