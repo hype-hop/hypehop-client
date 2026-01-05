@@ -6,7 +6,7 @@ import type { AlbumSearchResultItemProps } from './types';
 export default function AlbumSearchResultItem({
   album,
   setSelectedAlbum,
-  setSearchResult,
+  setResult,
   setKeyword,
   index,
 }: AlbumSearchResultItemProps) {
@@ -23,7 +23,7 @@ export default function AlbumSearchResultItem({
       onClick={() => {
         setSelectedAlbum({ ...album, rating: INITIAL_RATING_VALUE });
         setKeyword(null);
-        setSearchResult(null);
+        setResult(null);
         setPointedResultIndexDirectly(0);
       }}
       onMouseEnter={() => setPointedResultIndexDirectly(index)}

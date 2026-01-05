@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import AlbumSearchContextProvider from './AlbumSearchContext';
 import AlbumSearchInput from './AlbumSearchInput';
@@ -6,13 +6,14 @@ import useAlbumSearchInputState, { searchClickState } from '../../../hooks/useAl
 import useDebounce from '../../../utils/useDebounce';
 import ResultList from './AlbumSearchResultList';
 import { AlbumSearchProps } from './types';
+import { AlbumForReview } from '../../../types/albumReview';
 
-function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum, variant = 'album' }: AlbumSearchProps) {
+function AlbumSearch({ result, setResult, setSelectedAlbum, variant = 'album' }: AlbumSearchProps) {
   const [keyword, setKeyword] = useState<string | null>(null);
   const albumSearchBoxRef = useRef<HTMLDivElement>(null);
   const albumSearchInputRef = useRef<HTMLInputElement>(null);
   const { debouncedValue } = useDebounce(keyword!, 200);
-  const isSearchCompleted = Boolean(debouncedValue && searchResult);
+  const isSearchCompleted = Boolean(debouncedValue && result);
 
   const { isClickedOutside, setIsClickedOutside } = useAlbumSearchInputState({
     albumSearchBoxRef,
@@ -21,14 +22,16 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum, variant 
 
   const isResult =
     (isSearchCompleted && isClickedOutside === searchClickState.SEARCHING) ||
-    (searchResult && isClickedOutside === searchClickState.FOCUSED);
+    (result && isClickedOutside === searchClickState.FOCUSED);
+
+  const isAlbumVariant = variant !== 'topster';
 
   return (
     <AlbumSearchContextProvider>
       <Box ref={albumSearchBoxRef} sx={{ position: 'relative' }}>
         <AlbumSearchInput
-          searchResult={searchResult}
-          setSearchResult={setSearchResult}
+          result={result}
+          setResult={setResult}
           setSelectedAlbum={setSelectedAlbum}
           albumSearchBoxRef={albumSearchBoxRef}
           albumSearchInputRef={albumSearchInputRef}
@@ -40,11 +43,11 @@ function AlbumSearch({ searchResult, setSearchResult, setSelectedAlbum, variant 
           isSearchCompleted={isSearchCompleted}
           variant={variant}
         />
-        {variant === 'album' && isResult && (
+        {isAlbumVariant && isResult && (
           <ResultList
-            searchResult={searchResult}
-            setSelectedAlbum={setSelectedAlbum}
-            setSearchResult={setSearchResult}
+            result={result}
+            setSelectedAlbum={setSelectedAlbum as Dispatch<SetStateAction<AlbumForReview | null>>}
+            setResult={setResult}
             setKeyword={setKeyword}
           />
         )}

@@ -37,7 +37,7 @@ function WriteReview() {
   const albumIdParam = useParams();
   const [reviewContent, setReviewContent] = useState('');
   const [trackRating, setTrackRating] = useState<number[]>([]);
-  const [searchResult, setSearchResult] = useState<AlbumSearchResult[] | null>(null);
+  const [result, setResult] = useState<AlbumSearchResult[] | null>(null);
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumForReview | null>(null);
   const [data, setData] = useState<AlbumData | null>(null);
   const [open, setOpen] = useState(true);
@@ -269,8 +269,8 @@ function WriteReview() {
           앨범 검색
         </Typography>
         <AlbumSearch
-          searchResult={searchResult}
-          setSearchResult={setSearchResult}
+          result={result}
+          setResult={setResult}
           setSelectedAlbum={setSelectedAlbum}
         />
 

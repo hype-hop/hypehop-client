@@ -28,21 +28,21 @@ function ResultBox({ children }: { children: ReactNode }) {
 }
 
 export default function ResultList({
-  searchResult,
+  result,
   setSelectedAlbum,
-  setSearchResult,
+  setResult,
   setKeyword,
 }: AlbumSearchResultListProps) {
-  if (searchResult?.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
+  if (result?.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
   return (
     <ResultBox>
-      {searchResult?.map((album, index) => (
+      {result?.map((album, index) => (
         <AlbumSearchResultItem
           key={`album-${album.id}`}
           album={album}
           setKeyword={setKeyword!}
           setSelectedAlbum={setSelectedAlbum}
-          setSearchResult={setSearchResult}
+          setResult={setResult}
           index={index}
         />
       ))}

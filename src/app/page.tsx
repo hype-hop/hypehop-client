@@ -35,7 +35,7 @@ const dummyMagazines: Magazine[] = [
 function MainPage() {
   const router = useRouter();
 
-  const [searchResult, setSearchResult] = useState<AlbumSearchResult[] | null>(null);
+  const [result, setResult] = useState<AlbumSearchResult[] | null>(null);
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumForReview | null>(null);
 
   useEffect(() => {
@@ -47,8 +47,8 @@ function MainPage() {
   return (
     <>
       <AlbumSearch
-        searchResult={searchResult}
-        setSearchResult={setSearchResult}
+        result={result}
+        setResult={setResult}
         setSelectedAlbum={setSelectedAlbum}
         variant="album"
       />

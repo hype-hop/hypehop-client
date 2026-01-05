@@ -2,14 +2,24 @@ import { Dispatch, RefObject, SetStateAction } from 'react';
 import { AlbumSearchResult } from '../../../types/albumSearch';
 import { AlbumForReview } from '../../../types/albumReview';
 
-export interface AlbumSearchProps {
-  searchResult: AlbumSearchResult[] | null;
-  setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
-  setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
-  variant?: 'album' | 'topster';
+interface AlbumSearchBaseProps {
+  result: AlbumSearchResult[] | null;
+  setResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
 }
 
-export interface AlbumSearchInputProps extends AlbumSearchProps {
+interface AlbumSearchPropsAlbum extends AlbumSearchBaseProps {
+  variant?: 'album';
+  setSelectedAlbum: Dispatch<SetStateAction<AlbumSearchResult | null>>;
+}
+
+interface AlbumSearchPropsTopster extends AlbumSearchBaseProps {
+  variant: 'topster';
+  setSelectedAlbum: Dispatch<SetStateAction<AlbumSearchResult | null>>;
+}
+
+export type AlbumSearchProps = AlbumSearchPropsAlbum | AlbumSearchPropsTopster;
+
+interface AlbumSearchInputPropsBase {
   albumSearchBoxRef: RefObject<HTMLDivElement | null>;
   albumSearchInputRef: RefObject<HTMLInputElement | null>;
   isClickedOutside: string;
@@ -20,21 +30,26 @@ export interface AlbumSearchInputProps extends AlbumSearchProps {
   isSearchCompleted: boolean;
 }
 
+export type AlbumSearchInputProps =
+  | (AlbumSearchPropsAlbum & AlbumSearchInputPropsBase)
+  | (AlbumSearchPropsTopster & AlbumSearchInputPropsBase);
+
 export interface AlbumSearchResultItemProps {
   album: AlbumSearchResult;
   setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
-  setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
+  setResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
   setKeyword: Dispatch<SetStateAction<string | null>>;
   index: number;
 }
 
 export interface TopsterSearchResultProps {
-  searchResult: AlbumSearchResult[] | null;
+  result: AlbumSearchResult[] | null;
+  setSelectedAlbum: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
 }
 
 export interface AlbumSearchResultListProps {
-  searchResult: AlbumSearchResult[] | null;
+  result: AlbumSearchResult[] | null;
   setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
-  setSearchResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
+  setResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
   setKeyword?: Dispatch<SetStateAction<string | null>>;
 }

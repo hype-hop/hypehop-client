@@ -3,15 +3,15 @@ import { AlbumSearchResult } from '../../types/albumSearch';
 
 interface TopsterGridProps {
   results: AlbumSearchResult[] | null;
-  row: number;
-  col: number;
+  row?: number;
+  col?: number;
 }
 
-function TopsterGrid({ results }: { results: AlbumSearchResult[] | null }) {
+function TopsterGrid({ results, row = 3, col = 3 }: TopsterGridProps) {
   return (
     <Grid container spacing={1}>
       {results?.map((album, _) => (
-        <Grid sx={{ aspectRatio: '1 / 1' }} size={{ xs: 3 }}>
+        <Grid sx={{ aspectRatio: '1 / 1' }} size={{ xs: row }}>
           <Box sx={{ aspectRatio: '1 / 1' }}>
             {album?.images[0].url !== '' ? (
               <img src={album?.images[0].url} alt={album.images[0].url} style={{ width: '100%' }} />
@@ -25,11 +25,20 @@ function TopsterGrid({ results }: { results: AlbumSearchResult[] | null }) {
   );
 }
 
-function Topsters() {
+function Topsters({ newSelectedAlbum }: { newSelectedAlbum: AlbumSearchResult | null }) {
   return (
-    <div>
-      <TopsterGrid results={[]} />
-    </div>
+    <Box
+      sx={{
+        borderRadius: '12px',
+        padding: '11px',
+        backgroundColor: 'grey.darker1',
+        maxWidth: { sm: '720px' },
+        minWidth: { md: '720px' },
+        aspectRatio: '1 / 1',
+      }}
+    >
+      <TopsterGrid results={newSelectedAlbum ? [newSelectedAlbum] : []} />
+    </Box>
   );
 }
 
