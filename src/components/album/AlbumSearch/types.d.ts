@@ -7,19 +7,26 @@ interface AlbumSearchBaseProps {
   setResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
 }
 
-interface AlbumSearchPropsAlbum extends AlbumSearchBaseProps {
+interface AlbumSearchDefaultProps extends AlbumSearchBaseProps {
   variant?: 'album';
-  setSelectedAlbum: Dispatch<SetStateAction<AlbumSearchResult | null>>;
+  setSelectedAlbum: Dispatch<SetStateAction<AlbumForReview | null>>;
 }
 
-interface AlbumSearchPropsTopster extends AlbumSearchBaseProps {
+interface AlbumSearchTopsterProps extends AlbumSearchBaseProps {
   variant: 'topster';
-  setSelectedAlbum: Dispatch<SetStateAction<AlbumSearchResult | null>>;
+  setSelectedAlbum?: Dispatch<SetStateAction<AlbumSearchResult | null>>;
 }
 
-export type AlbumSearchProps = AlbumSearchPropsAlbum | AlbumSearchPropsTopster;
+type AlbumSearchProps = AlbumSearchDefaultProps | AlbumSearchTopsterProps;
 
-interface AlbumSearchInputPropsBase {
+// interface AlbumSearchProps {
+//   variant?: 'album' | 'topster';
+//   result: AlbumSearchResult[] | null;
+//   setResult: Dispatch<SetStateAction<AlbumSearchResult[] | null>>;
+//   setSelectedAlbum?: Dispatch<SetStateAction<AlbumSearchResult | null>>;
+// }
+
+interface AlbumSearchInputProps extends AlbumSearchProps {
   albumSearchBoxRef: RefObject<HTMLDivElement | null>;
   albumSearchInputRef: RefObject<HTMLInputElement | null>;
   isClickedOutside: string;
@@ -29,10 +36,6 @@ interface AlbumSearchInputPropsBase {
   debouncedValue: string | null;
   isSearchCompleted: boolean;
 }
-
-export type AlbumSearchInputProps =
-  | (AlbumSearchPropsAlbum & AlbumSearchInputPropsBase)
-  | (AlbumSearchPropsTopster & AlbumSearchInputPropsBase);
 
 export interface AlbumSearchResultItemProps {
   album: AlbumSearchResult;
