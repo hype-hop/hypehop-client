@@ -1,8 +1,12 @@
 import Box from '@mui/system/Box';
 import Grid from '@mui/system/Grid';
-import { TopsterSearchResultProps } from '../album/AlbumSearch/types';
+import { AlbumSearchResult } from '../../types/albumSearch';
 
-function InitialTopterGrid() {
+interface TopsterSearchResultProps {
+  results: AlbumSearchResult[] | null;
+}
+
+function InitialTopsterGrid() {
   return (
     <Grid sx={{ cursor: 'pointer' }} width="100%" container spacing={1}>
       {Array.from({ length: 9 }).map((_, index) => (
@@ -16,25 +20,33 @@ function InitialTopterGrid() {
   );
 }
 
-function TopsterSearchResult({ result, setSelectedAlbum }: TopsterSearchResultProps) {
-  if (!result || result.length === 0) {
-    return <InitialTopterGrid />;
+function TopsterSearchResult({ results }: TopsterSearchResultProps) {
+  if (!results || results.length === 0) {
+    return <InitialTopsterGrid />;
   }
 
   return (
     <Grid sx={{ cursor: 'pointer' }} width="100%" container spacing={1}>
-      {result.map((album, index) => (
+      {results.map((album, index) => (
         <Grid
           key={album.id || index}
-          sx={{ minWidth: { sm: '116px' }, aspectRatio: '1 / 1' }}
+          sx={{
+            minWidth: { sm: '116px' },
+            aspectRatio: '1 / 1',
+            transition: 'opacity 0.15s ease',
+            '&:active': { opacity: 0.5 },
+          }}
           size={{ xs: 4 }}
           draggable
           onDragStart={(e) => {
             e.dataTransfer.setData('application/json', JSON.stringify(album));
             e.dataTransfer.effectAllowed = 'copy';
+            const target = e.currentTarget as HTMLElement;
+            target.style.opacity = '0.5';
           }}
-          onDragEnd={() => {
-            setSelectedAlbum((prev) => [...prev!, album]);
+          onDragEnd={(e) => {
+            const target = e.currentTarget as HTMLElement;
+            target.style.opacity = '1';
           }}
         >
           <Box sx={{ aspectRatio: '1 / 1', cursor: 'grab', '&:active': { cursor: 'grabbing' } }}>

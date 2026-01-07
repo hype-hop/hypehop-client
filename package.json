@@ -30,6 +30,7 @@
     "editorjs-text-alignment-blocktune": "^1.0.3",
     "editorjs-text-color-plugin": "^2.0.4",
     "he": "^1.2.0",
+    "html2canvas": "^1.4.1",
     "http-proxy-middleware": "^2.0.6",
     "next": "^16.0.7",
     "react": "^19.1.1",

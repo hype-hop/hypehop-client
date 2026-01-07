@@ -73,7 +73,7 @@ const theme: Theme = createTheme({
       primary: 'rgb(255,255,255)',
     },
     primary: {
-      main: 'rgb(255,255,255)',
+      main: 'rgb(121, 53, 208)',
     },
     white: {
       main: 'rgb(255,255,255)',

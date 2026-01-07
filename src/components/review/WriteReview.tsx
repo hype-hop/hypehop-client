@@ -37,7 +37,7 @@ function WriteReview() {
   const albumIdParam = useParams();
   const [reviewContent, setReviewContent] = useState('');
   const [trackRating, setTrackRating] = useState<number[]>([]);
-  const [result, setResult] = useState<AlbumSearchResult[] | null>(null);
+  const [results, setResults] = useState<AlbumSearchResult[] | null>(null);
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumForReview | null>(null);
   const [data, setData] = useState<AlbumData | null>(null);
   const [open, setOpen] = useState(true);
@@ -78,8 +78,6 @@ function WriteReview() {
     };
 
     fetchData();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAlbum]);
 
   const handleContentChange = (newContent) => {
@@ -268,11 +266,7 @@ function WriteReview() {
         >
           앨범 검색
         </Typography>
-        <AlbumSearch
-          result={result}
-          setResult={setResult}
-          setSelectedAlbum={setSelectedAlbum}
-        />
+        <AlbumSearch results={results} setResults={setResults} setSelectedAlbum={setSelectedAlbum} />
 
         {selectedAlbum && !data?.reviewUser?.includes(user!._id) && (
           <>

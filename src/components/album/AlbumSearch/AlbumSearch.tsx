@@ -8,12 +8,12 @@ import ResultList from './AlbumSearchResultList';
 import { AlbumSearchProps } from './types';
 import { AlbumForReview } from '../../../types/albumReview';
 
-function AlbumSearch({ result, setResult, setSelectedAlbum, variant = 'album' }: AlbumSearchProps) {
+function AlbumSearch({ results, setResults, setSelectedAlbum, variant = 'album' }: AlbumSearchProps) {
   const [keyword, setKeyword] = useState<string | null>(null);
   const albumSearchBoxRef = useRef<HTMLDivElement>(null);
   const albumSearchInputRef = useRef<HTMLInputElement>(null);
   const { debouncedValue } = useDebounce(keyword!, 200);
-  const isSearchCompleted = Boolean(debouncedValue && result);
+  const isSearchCompleted = Boolean(debouncedValue && results);
 
   const { isClickedOutside, setIsClickedOutside } = useAlbumSearchInputState({
     albumSearchBoxRef,
@@ -22,7 +22,7 @@ function AlbumSearch({ result, setResult, setSelectedAlbum, variant = 'album' }:
 
   const isResult =
     (isSearchCompleted && isClickedOutside === searchClickState.SEARCHING) ||
-    (result && isClickedOutside === searchClickState.FOCUSED);
+    (results && isClickedOutside === searchClickState.FOCUSED);
 
   const isAlbumVariant = variant !== 'topster';
 
@@ -30,8 +30,8 @@ function AlbumSearch({ result, setResult, setSelectedAlbum, variant = 'album' }:
     <AlbumSearchContextProvider>
       <Box ref={albumSearchBoxRef} sx={{ position: 'relative' }}>
         <AlbumSearchInput
-          result={result}
-          setResult={setResult}
+          results={results}
+          setResults={setResults}
           setSelectedAlbum={setSelectedAlbum}
           albumSearchBoxRef={albumSearchBoxRef}
           albumSearchInputRef={albumSearchInputRef}
@@ -45,9 +45,9 @@ function AlbumSearch({ result, setResult, setSelectedAlbum, variant = 'album' }:
         />
         {isAlbumVariant && isResult && (
           <ResultList
-            result={result}
+            result={results}
             setSelectedAlbum={setSelectedAlbum as Dispatch<SetStateAction<AlbumForReview | null>>}
-            setResult={setResult}
+            setResult={setResults}
             setKeyword={setKeyword}
           />
         )}

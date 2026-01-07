@@ -8,8 +8,8 @@ import { searchClickState } from '../../../hooks/useAlbumSearchInputState';
 import { AlbumSearchInputProps } from './types';
 
 export default function AlbumSearchInput({
-  result,
-  setResult,
+  results,
+  setResults,
   setSelectedAlbum,
   albumSearchInputRef,
   albumSearchBoxRef,
@@ -25,12 +25,12 @@ export default function AlbumSearchInput({
     useAlbumSearchContext();
 
   const setSelectedAlbumWithKey = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (!result) {
+    if (!results) {
       return;
     }
 
     if (variant === 'album') {
-      if (e.key === 'ArrowDown' && pointedResultIndex < result.length - 1) {
+      if (e.key === 'ArrowDown' && pointedResultIndex < results.length - 1) {
         increasePointedResultIndex();
         return;
       }
@@ -38,9 +38,9 @@ export default function AlbumSearchInput({
         decreasePointedResultIndex();
       }
       if (e.key === 'Enter') {
-        setSelectedAlbum(result[pointedResultIndex]);
+        setSelectedAlbum!(results[pointedResultIndex]);
         setKeyword(null);
-        setResult(null);
+        setResults(null);
         setPointedResultIndexDirectly(0);
       }
     }
@@ -48,8 +48,7 @@ export default function AlbumSearchInput({
     if (e.key === 'Enter') {
       (async () => {
         const res = await postSearchAlbum(debouncedValue!);
-
-        if (res.success) setResult(res.data);
+        if (res.success) setResults(res.data);
       })();
     }
   };
@@ -60,19 +59,19 @@ export default function AlbumSearchInput({
 
     (async () => {
       if (debouncedValue === '' || debouncedValue === null) {
-        setResult(null);
+        setResults(null);
         return;
       }
 
       const res = await postSearchAlbum(debouncedValue!);
 
-      if (res.success) setResult(res.data);
+      if (res.success) setResults(res.data);
     })();
-  }, [debouncedValue, setResult, setIsClickedOutside]);
+  }, [debouncedValue, setResults, setIsClickedOutside]);
 
   const isResult =
     (isSearchCompleted && isClickedOutside === searchClickState.SEARCHING) ||
-    (result && isClickedOutside === searchClickState.FOCUSED);
+    (results && isClickedOutside === searchClickState.FOCUSED);
 
   return (
     <Input
@@ -98,7 +97,7 @@ export default function AlbumSearchInput({
             color="primary"
             onClick={() => {
               setKeyword(null);
-              setResult(null);
+              setResults(null);
             }}
           >
             <CancleIcon />
