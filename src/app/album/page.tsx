@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { Suspense } from 'react';
 
-import WriteReview from '../../components/review/WriteReview';
+import WriteReview from '../../components/review/write/WriteReview';
 import checkUserFromServerComponent from '../user/checkUserFromServerComponent';
 
 async function AlbumReviewPage() {

@@ -1,28 +1,24 @@
 'use client';
 
-import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
 import { Input, Button, Typography, Box, Select, MenuItem } from '@mui/material';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import BASE_URL from '../../config';
-import ensureError from '../../utils/error';
-import AlbumSearch from '../album/AlbumSearch/AlbumSearch';
-import RatingAlbum from './RatingAlbum';
-import { AlbumData } from '../../types/albumData';
-import { AlbumSearchResult } from '../../types/albumSearch';
-import { AlbumForReview } from '../../types/albumReview';
-import { FormData } from '../../types/review';
-import WriteReviewBefore from './WriteReviewBefore';
-import Duplicate from '../common/Modal/Duplicate';
-import { typography } from '../../constants/themeValue';
-import INITIAL_RATING_VALUE from '../../constants/rating';
-import CustomStar from './CustomStar';
-import ThumbsUp from './ThumbsUp';
-import { useAuth } from '../../AuthenticationContext';
-import TrackWrite from '../track/TrackWrite';
+import BASE_URL from '../../../config';
+import ensureError from '../../../utils/error';
+import AlbumSearch from '../../album/AlbumSearch/AlbumSearch';
+import RatingAlbum from '../RatingAlbum';
+import { AlbumData } from '../../../types/albumData';
+import { AlbumSearchResult } from '../../../types/albumSearch';
+import { AlbumForReview } from '../../../types/albumReview';
+import { AlbumReviewWriteForm } from '../../../types/review';
+import WriteReviewPlaceholder from './WriteReviewPlaceholder';
+import Duplicate from '../../common/Modal/Duplicate';
+import INITIAL_RATING_VALUE from '../../../constants/rating';
+import { useAuth } from '../../../AuthenticationContext';
+import TrackWrite from '../../track/TrackWrite';
 
-const EditorBox = dynamic(() => import('./EditorBox.tsx').then((module) => module.default), { ssr: false });
+const EditorBox = dynamic(() => import('../EditorBox').then((module) => module.default), { ssr: false });
 
 interface BestTrack {
   id: string | null;
@@ -41,20 +37,10 @@ function WriteReview() {
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumForReview | null>(null);
   const [data, setData] = useState<AlbumData | null>(null);
   const [open, setOpen] = useState(true);
-  const [isTrackListOpened, SetsTrackListOpened] = useState(false);
   const [albumRatingState, setAlbumRatingState] = useState(0);
-  const [selectedThumb, setSelectedThumb] = useState(null);
   const [bestTrack, setBestTrack] = useState<BestTrack | null>(null);
 
   useEffect(() => {
-    if (searchParams.get('keyword')) {
-      (async () => {
-        const response = await fetch(`${BASE_URL}/album/api/${searchParams.get('keyword')}`);
-        const result = await response.json();
-        setData(result);
-        setSelectedAlbum({ ...result.albumData, rating: INITIAL_RATING_VALUE });
-      })();
-    }
     if (Object.keys(albumIdParam).length !== 0) {
       (async () => {
         const response = await fetch(`${BASE_URL}/album/api/${albumIdParam.id}`);
@@ -99,7 +85,7 @@ function WriteReview() {
     });
   }
 
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<AlbumReviewWriteForm>({
     title: '',
     status: 'public',
     body: '',
@@ -122,7 +108,6 @@ function WriteReview() {
     if (data) {
       setFormData({
         ...formData,
-        // albumRating: selectedAlbum?.rating,
         albumRating: albumRatingState,
         albumId: data.albumData?.id,
         albumTitle: data?.pageTitle,
@@ -137,16 +122,12 @@ function WriteReview() {
       const trackRatingArray = Array(data?.albumData?.tracks.items.length || 0).fill(null);
       setTrackRating(trackRatingArray);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleOpen = () => {
-    SetsTrackListOpened(!isTrackListOpened);
-  };
   const handleCancel = () => {
     setSelectedAlbum(null);
   };
@@ -188,94 +169,23 @@ function WriteReview() {
     }
   };
 
-  const renderTracks = Object.keys(tracksByDisc).map((discNumber) => (
-    <Box key={discNumber} sx={{ padding: '16px 16px 16px 16px' }}>
-      <Typography variant="h1">Disc {discNumber}</Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        {tracksByDisc[discNumber].map((track, index) => (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              borderBottom: '1px solid rgb(52, 52, 52)',
-              padding: '16px 0px 16px 0px',
-            }}
-            key={index}
-          >
-            <Box display="flex">
-              <Box sx={{ alignContent: 'center', minWidth: '14px' }}>
-                <Typography fontSize={typography.size.lg} fontWeight={typography.weight.medium}>
-                  {index + 1}{' '}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography sx={{}} fontSize={typography.size.lg} fontWeight={typography.weight.bold}>
-                  {track.name}
-                </Typography>
-                <Typography
-                  sx={{ color: 'rgb(168, 168, 168)', mt: '4px' }}
-                  fontSize={typography.size.md}
-                  fontWeight={typography.weight.regular}
-                >
-                  {track.artists[0].name} -{data?.albumData?.name}
-                </Typography>
-              </Box>
-            </Box>
-            {trackRating && (
-              <Box display="flex" sx={{ minWidth: 'fit-content' }}>
-                <Stack spacing={1} sx={{ mr: '3px', justifyContent: 'center' }}>
-                  <CustomStar
-                    name="trackRating"
-                    value={trackRating[index]}
-                    onChange={(_, newValue) => {
-                      const updatedRating: number[] = [...trackRating];
-                      updatedRating[index] = newValue!;
-                      setTrackRating(updatedRating);
-                    }}
-                  />
-                </Stack>
-
-                <Typography fontSize="12px" fontWeight="600" sx={{ alignContent: 'center', width: '17px' }}>
-                  {Number(trackRating[index]).toFixed(1)}
-                </Typography>
-                {track.preview_url && (
-                  <ThumbsUp
-                    id={track.id}
-                    track={track}
-                    setBestTrack={setBestTrack}
-                    selectedThumb={selectedThumb}
-                    setSelectedThumb={setSelectedThumb}
-                  />
-                )}
-              </Box>
-            )}
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  ));
-
   return (
     <>
-      <form>
-        <Typography
-          variant="h1"
-          sx={{
-            mb: '16px',
-          }}
-        >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '24px',
+        }}
+      >
+        <Typography component="div" variant="h1" mb={2.5}>
           앨범 검색
         </Typography>
         <AlbumSearch results={results} setResults={setResults} setSelectedAlbum={setSelectedAlbum} />
 
         {selectedAlbum && !data?.reviewUser?.includes(user!._id) && (
           <>
-            <Typography
-              variant="h1"
-              sx={{
-                mt: '40px',
-              }}
-            >
+            <Typography component="div" variant="h1" mb={2.5}>
               앨범 평점
             </Typography>
             <RatingAlbum
@@ -284,19 +194,8 @@ function WriteReview() {
               setRating={(rating: number) => {
                 setAlbumRatingState(rating);
               }}
-
-              /*
-              setRating={(rating: number) => {
-                setSelectedAlbum((prev) => ({ ...prev!, rating }));
-              }}
-              */
             />
-            <Typography
-              sx={{
-                mt: '40px',
-              }}
-              variant="h1"
-            >
+            <Typography component="div" variant="h1" mb={2.5}>
               트랙별 평점
             </Typography>
             <TrackWrite album={data} trackRating={trackRating} setTrackRating={setTrackRating} />
@@ -310,8 +209,7 @@ function WriteReview() {
                 }}
               >
                 <label htmlFor="status">
-                  {' '}
-                  <Typography sx={{ mb: '16px', mt: '40px' }} variant="h1">
+                  <Typography component="div" variant="h1" mb={2.5}>
                     공개여부
                   </Typography>
                 </label>
@@ -357,7 +255,7 @@ function WriteReview() {
             </div>
 
             <Box>
-              <Typography variant="h1" sx={{ mt: '40px' }}>
+              <Typography component="div" variant="h1" mb={2.5}>
                 리뷰작성하기
               </Typography>
               <div className="row">
@@ -408,8 +306,8 @@ function WriteReview() {
             </Box>
           </>
         )}
-      </form>
-      {!selectedAlbum && <WriteReviewBefore />}
+      </Box>
+      {!selectedAlbum && <WriteReviewPlaceholder />}
       {selectedAlbum && data?.reviewUser?.includes(user!._id) && <Duplicate open={open} setOpen={setOpen} />}
     </>
   );

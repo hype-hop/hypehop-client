@@ -16,7 +16,7 @@ const commonTypoStyles = {
   mt: '40px',
   opacity: '10%',
 };
-function WriteReviewBefore() {
+function WriteReviewPlaceholder() {
   return (
     <>
       <Typography
@@ -68,4 +68,4 @@ function WriteReviewBefore() {
   );
 }
 
-export default WriteReviewBefore;
+export default WriteReviewPlaceholder;
