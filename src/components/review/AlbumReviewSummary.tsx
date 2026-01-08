@@ -59,7 +59,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
               >
                 <Typography
                   variant="body1"
-                  color="primary"
+                  color="white.main"
                   sx={{
                     alignContent: 'center',
                     maxWidth: '100px',

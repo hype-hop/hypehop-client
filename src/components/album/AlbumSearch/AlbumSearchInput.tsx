@@ -94,7 +94,7 @@ export default function AlbumSearchInput({
       endAdornment={
         isResult ? (
           <IconButton
-            color="primary"
+            sx={{ color: 'white.main' }}
             onClick={() => {
               setKeyword(null);
               setResults(null);

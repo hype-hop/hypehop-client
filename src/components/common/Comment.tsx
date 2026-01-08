@@ -184,7 +184,7 @@ function Comment({ reviewId, user }: Props) {
 
               <Typography
                 variant="body1"
-                color="primary"
+                color="white.main"
                 sx={{
                   alignContent: 'center',
                   ml: 1,

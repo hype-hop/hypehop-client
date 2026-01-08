@@ -172,7 +172,7 @@ export default function Notifications() {
         aria-controls="menu-notifications"
         aria-haspopup="true"
         onClick={handleMenuNoti}
-        color="primary"
+        sx={{ color: 'white.main' }}
       >
         {hasUnreadNoti && (
           <Box sx={{ position: 'absolute', right: '13px', bottom: '20px' }}>

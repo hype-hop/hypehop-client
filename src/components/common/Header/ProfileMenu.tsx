@@ -30,7 +30,7 @@ export default function ProfileMenu() {
         aria-controls="menu-appbar"
         aria-haspopup="true"
         onClick={handleMenuProfile}
-        color="primary"
+        sx={{ color: 'white.main' }}
       >
         <Avatar
           style={{
