@@ -14,10 +14,7 @@ function AlbumDetailInformation({ data }: { data: AlbumData }) {
         display: 'flex',
         flexDirection: 'column',
         rowGap: '20px',
-        padding: '16px',
-        border: '1px solid rgb(52,52,52)',
         borderRadius: '16px',
-        borderTopLeftRadius: 0,
       }}
     >
       <Box sx={{ display: 'flex' }}>
