@@ -93,13 +93,13 @@ function AlbumShowPage() {
   };
 
   const userId = user?._id;
-
   const hasUserReviewed = reviews?.some((review) => review?.user?._id === userId);
+  const isNoAlbumView = !user || (data && reviews && (reviews.length === 0 || !hasUserReviewed));
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '40px' }}>
       <Box>
-        <Typography fontSize="24px" fontWeight="bold" mb="16px" align="left">
+        <Typography component="div" fontSize="24px" fontWeight="bold" mb={2.5} align="left">
           앨범 정보
         </Typography>
         {data ? <AlbumDetailInformation data={data} /> : <AlbumDetailInformationSkeleton />}
@@ -133,7 +133,7 @@ function AlbumShowPage() {
               />
             ))}
           {/* {data && reviews && reviews.length === 0 && <NoAlbumView albumId={id} />} */}
-          {data && reviews && (reviews.length === 0 || !user || !hasUserReviewed) && <NoAlbumView albumId={id} />}
+          {isNoAlbumView && <NoAlbumView albumId={id} />}
 
           {reviews?.length > 0 &&
             reviews?.map((review) => (
