@@ -13,12 +13,10 @@ import { AlbumSearchResult } from '../../../types/albumSearch';
 import { AlbumForReview } from '../../../types/albumReview';
 import { AlbumReviewWriteForm } from '../../../types/review';
 import WriteReviewPlaceholder from './WriteReviewPlaceholder';
-import Duplicate from '../../common/Modal/Duplicate';
-import INITIAL_RATING_VALUE from '../../../constants/rating';
 import { useAuth } from '../../../AuthenticationContext';
 import TrackWrite from '../../track/TrackWrite';
 
-const EditorBox = dynamic(() => import('../EditorBox').then((module) => module.default), { ssr: false });
+const EditorBox = dynamic(() => import('../EditorBox.tsx').then((module) => module.default), { ssr: false });
 
 interface BestTrack {
   id: string | null;
@@ -33,10 +31,9 @@ function WriteReview() {
   const albumIdParam = useParams();
   const [reviewContent, setReviewContent] = useState('');
   const [trackRating, setTrackRating] = useState<number[]>([]);
-  const [results, setResults] = useState<AlbumSearchResult[] | null>(null);
+  const [albumSearchResults, setAlbumSearchResults] = useState<AlbumSearchResult[] | null>(null);
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumForReview | null>(null);
-  const [data, setData] = useState<AlbumData | null>(null);
-  const [open, setOpen] = useState(true);
+  const [reviewTargetAlbum, setReviewTargetAlbum] = useState<AlbumData | null>(null);
   const [albumRatingState, setAlbumRatingState] = useState(0);
   const [bestTrack, setBestTrack] = useState<BestTrack | null>(null);
 
@@ -45,8 +42,7 @@ function WriteReview() {
       (async () => {
         const response = await fetch(`${BASE_URL}/album/api/${albumIdParam.id}`);
         const result = await response.json();
-        setData(result);
-        setSelectedAlbum({ ...result.albumData, rating: INITIAL_RATING_VALUE });
+        setReviewTargetAlbum(result);
       })();
     }
   }, [searchParams, albumIdParam]);
@@ -54,10 +50,11 @@ function WriteReview() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/album/api/${selectedAlbum?.id}`);
-        const result = await response.json();
-        setData(result);
-        setOpen(true);
+        if (selectedAlbum) {
+          const response = await fetch(`${BASE_URL}/album/api/${selectedAlbum.id}`);
+          const result = await response.json();
+          setReviewTargetAlbum(result);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -74,8 +71,8 @@ function WriteReview() {
 
   const tracks: string[] = [];
 
-  if (data?.albumData?.tracks?.items) {
-    data.albumData.tracks.items.forEach((track, index) => {
+  if (reviewTargetAlbum?.albumData?.tracks?.items) {
+    reviewTargetAlbum.albumData.tracks.items.forEach((track, index) => {
       const discNumber = track.disc_number || 1;
       if (!tracksByDisc[discNumber]) {
         tracksByDisc[discNumber] = [];
@@ -85,7 +82,7 @@ function WriteReview() {
     });
   }
 
-  const [formData, setFormData] = useState<AlbumReviewWriteForm>({
+  const [reviewWriteFormData, setReviewWriteFormData] = useState<AlbumReviewWriteForm>({
     title: '',
     status: 'public',
     body: '',
@@ -105,27 +102,27 @@ function WriteReview() {
   });
 
   useEffect(() => {
-    if (data) {
-      setFormData({
-        ...formData,
+    if (reviewTargetAlbum) {
+      setReviewWriteFormData({
+        ...reviewWriteFormData,
         albumRating: albumRatingState,
-        albumId: data.albumData?.id,
-        albumTitle: data?.pageTitle,
-        thumbnail: data.albumData?.images[1]?.url,
-        albumReleaseDate: data.albumData?.release_date,
+        albumId: reviewTargetAlbum.albumData?.id,
+        albumTitle: reviewTargetAlbum?.pageTitle,
+        thumbnail: reviewTargetAlbum.albumData?.images[1]?.url,
+        albumReleaseDate: reviewTargetAlbum.albumData?.release_date,
         user: user && user._id,
         trackTitle: tracks,
-        artistGenre: data?.spotify_artist_genre,
-        artists: data.albumData?.artists.map((artist) => artist.name),
-        albumName: data?.albumData?.name,
+        artistGenre: reviewTargetAlbum?.spotify_artist_genre,
+        artists: reviewTargetAlbum.albumData?.artists.map((artist) => artist.name),
+        albumName: reviewTargetAlbum?.albumData?.name,
       });
-      const trackRatingArray = Array(data?.albumData?.tracks.items.length || 0).fill(null);
+      const trackRatingArray = Array(reviewTargetAlbum?.albumData?.tracks.items.length || 0).fill(null);
       setTrackRating(trackRatingArray);
     }
-  }, [data]);
+  }, [reviewTargetAlbum]);
 
   const handleFormData = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setReviewWriteFormData({ ...reviewWriteFormData, [e.target.name]: e.target.value });
   };
 
   const handleCancel = () => {
@@ -136,7 +133,7 @@ function WriteReview() {
     event.preventDefault();
 
     const combinedData = {
-      ...formData,
+      ...reviewWriteFormData,
       trackRating,
       body: reviewContent,
       albumRating: albumRatingState,
@@ -145,7 +142,7 @@ function WriteReview() {
       previewUrl: bestTrack?.preview_url,
     };
 
-    if (albumRatingState !== 0 && formData.title !== '') {
+    if (albumRatingState !== 0 && reviewWriteFormData.title !== '') {
       fetch(`${BASE_URL}/album/api/review/create`, {
         method: 'POST',
         credentials: 'include',
@@ -164,152 +161,153 @@ function WriteReview() {
         });
     } else if (albumRatingState === 0) {
       alert('평점을 입력해주세요');
-    } else if (formData.title === '') {
+    } else if (reviewWriteFormData.title === '') {
       alert('앨범평을 입력해주세요');
     }
   };
 
   return (
-    <>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: '24px',
-        }}
-      >
-        <Typography component="div" variant="h1" mb={2.5}>
-          앨범 검색
-        </Typography>
-        <AlbumSearch results={results} setResults={setResults} setSelectedAlbum={setSelectedAlbum} />
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        rowGap: '24px',
+      }}
+    >
+      <Typography component="div" variant="h1" mb={2.5}>
+        앨범 검색
+      </Typography>
+      <AlbumSearch
+        results={albumSearchResults}
+        setResults={setAlbumSearchResults}
+        setSelectedAlbum={setSelectedAlbum}
+      />
+      {!reviewTargetAlbum && <WriteReviewPlaceholder />}
 
-        {selectedAlbum && !data?.reviewUser?.includes(user!._id) && (
-          <>
-            <Typography component="div" variant="h1" mb={2.5}>
-              앨범 평점
-            </Typography>
-            <RatingAlbum
-              album={selectedAlbum!}
-              rating={albumRatingState}
-              setRating={(rating: number) => {
-                setAlbumRatingState(rating);
+      {reviewTargetAlbum && !reviewTargetAlbum.reviewUser?.includes(user!._id) && (
+        <>
+          <Typography component="div" variant="h1" mb={2.5}>
+            앨범 평점
+          </Typography>
+          <RatingAlbum
+            album={reviewTargetAlbum.albumData!}
+            rating={albumRatingState}
+            setRating={(rating: number) => {
+              setAlbumRatingState(rating);
+            }}
+          />
+          <Typography component="div" variant="h1" mb={2.5}>
+            트랙별 평점
+          </Typography>
+          <TrackWrite album={reviewTargetAlbum} trackRating={trackRating} setTrackRating={setTrackRating} />
+
+          <div className="row">
+            <Box
+              className="input-field"
+              sx={{
+                mt: '16px',
+                mb: '40px',
               }}
-            />
-            <Typography component="div" variant="h1" mb={2.5}>
-              트랙별 평점
-            </Typography>
-            <TrackWrite album={data} trackRating={trackRating} setTrackRating={setTrackRating} />
+            >
+              <label htmlFor="status">
+                <Typography component="div" variant="h1" mb={2.5}>
+                  공개여부
+                </Typography>
+              </label>
 
-            <div className="row">
-              <Box
-                className="input-field"
-                sx={{
-                  mt: '16px',
-                  mb: '40px',
+              <Select
+                id="status"
+                name="status"
+                value={reviewWriteFormData.status}
+                onChange={handleFormData}
+                fullWidth
+                sx={{ pt: '7px' }}
+                inputProps={{
+                  sx: {
+                    '&:focus': {
+                      border: '1px solid',
+                      borderColor: 'rgb(52, 52, 52)',
+                    },
+                  },
+                }}
+                MenuProps={{
+                  sx: {
+                    '.MuiMenuItem-root': {
+                      background: 'rgb(22, 22, 22)',
+                      color: 'grey',
+                      height: '48px',
+                    },
+                    '&& .Mui-selected': {
+                      border: '1px solid',
+                      borderColor: 'rgb(52, 52, 52)',
+                      background: 'rgb(46, 45, 45)',
+                    },
+                  },
                 }}
               >
-                <label htmlFor="status">
-                  <Typography component="div" variant="h1" mb={2.5}>
-                    공개여부
-                  </Typography>
-                </label>
+                <MenuItem value="public" selected>
+                  <Typography textAlign="left">공개</Typography>
+                </MenuItem>
+                <MenuItem value="private">
+                  <Typography textAlign="left">비공개</Typography>
+                </MenuItem>
+              </Select>
+            </Box>
+          </div>
 
-                <Select
-                  id="status"
-                  name="status"
-                  value={formData.status}
-                  onChange={handleFormData}
+          <Box>
+            <Typography component="div" variant="h1" mb={2.5}>
+              리뷰작성하기
+            </Typography>
+            <div className="row">
+              <div className="input-field">
+                <Input
                   fullWidth
-                  sx={{ pt: '7px' }}
-                  inputProps={{
-                    sx: {
-                      '&:focus': {
-                        border: '1px solid',
-                        borderColor: 'rgb(52, 52, 52)',
-                      },
-                    },
-                  }}
-                  MenuProps={{
-                    sx: {
-                      '.MuiMenuItem-root': {
-                        background: 'rgb(22, 22, 22)',
-                        color: 'grey',
-                        height: '48px',
-                      },
-                      '&& .Mui-selected': {
-                        border: '1px solid',
-                        borderColor: 'rgb(52, 52, 52)',
-                        background: 'rgb(46, 45, 45)',
-                      },
-                    },
-                  }}
-                >
-                  <MenuItem value="public" selected>
-                    <Typography textAlign="left">공개</Typography>
-                  </MenuItem>
-                  <MenuItem value="private">
-                    <Typography textAlign="left">비공개</Typography>
-                  </MenuItem>
-                </Select>
-              </Box>
+                  type="text"
+                  id="title"
+                  name="title"
+                  onChange={handleFormData}
+                  value={reviewWriteFormData.title}
+                  placeholder="제목을 입력하세요"
+                  required
+                  sx={{ mt: '16px' }}
+                />
+                <label htmlFor="title" />
+              </div>
+            </div>
+            <div>
+              <EditorBox onContentChange={handleContentChange} value={reviewContent} />
             </div>
 
-            <Box>
-              <Typography component="div" variant="h1" mb={2.5}>
-                리뷰작성하기
-              </Typography>
-              <div className="row">
-                <div className="input-field">
-                  <Input
-                    fullWidth
-                    type="text"
-                    id="title"
-                    name="title"
-                    onChange={handleFormData}
-                    value={formData.title}
-                    placeholder="제목을 입력하세요"
-                    required
-                    sx={{ mt: '16px' }}
-                  />
-                  <label htmlFor="title" />
-                </div>
-              </div>
-              <div>
-                <EditorBox onContentChange={handleContentChange} value={reviewContent} />
-              </div>
+            <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
+              <Button
+                variant="outlined"
+                onClick={handleCancel}
+                sx={{
+                  mr: '16px',
+                  width: '104px',
+                  height: '43px',
 
-              <Box display="flex" justifyContent="end" sx={{ mt: '27px' }}>
-                <Button
-                  variant="outlined"
-                  onClick={handleCancel}
-                  sx={{
-                    mr: '16px',
-                    width: '104px',
-                    height: '43px',
-
-                    padding: '12px 24px 12px 24px',
-                  }}
-                >
-                  <Typography fontSize="16px" fontWeight="500">
-                    취소
-                  </Typography>
-                </Button>
-                <Button
-                  onClick={handleSubmit}
-                  sx={{ width: '104px', height: '43px', bgcolor: 'rgb(152, 72, 255)', padding: '12px 24px 12px 24px' }}
-                >
-                  <Typography fontSize="16px" fontWeight="500">
-                    작성하기
-                  </Typography>
-                </Button>
-              </Box>
+                  padding: '12px 24px 12px 24px',
+                }}
+              >
+                <Typography fontSize="16px" fontWeight="500">
+                  취소
+                </Typography>
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                sx={{ width: '104px', height: '43px', bgcolor: 'rgb(152, 72, 255)', padding: '12px 24px 12px 24px' }}
+              >
+                <Typography fontSize="16px" fontWeight="500">
+                  작성하기
+                </Typography>
+              </Button>
             </Box>
-          </>
-        )}
-      </Box>
-      {!selectedAlbum && <WriteReviewPlaceholder />}
-      {selectedAlbum && data?.reviewUser?.includes(user!._id) && <Duplicate open={open} setOpen={setOpen} />}
-    </>
+          </Box>
+        </>
+      )}
+    </Box>
   );
 }
 
