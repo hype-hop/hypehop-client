@@ -23,9 +23,7 @@ function MyReviews({ review }: { review: MyReview }) {
           columnGap: '24px',
         }}
       >
-        <Box>
-          <AlbumCover reviewId={albumId} url={thumbnail} previewUrl="" />
-        </Box>
+        <AlbumCover reviewId={albumId} url={thumbnail} previewUrl="" />
 
         <Card
           key={_id}

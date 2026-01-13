@@ -13,6 +13,7 @@ import useTabs from '../../hooks/useTab';
 import MyInformationPageSkeleton from '../../components/common/skeletons/myInformationPage/MyInformationPageSkeleton';
 import NoAlbumReview from '../../components/review/NoAlbumReview';
 import Reviews from '../../components/review/Reviews';
+import MyReviews from '../../components/myInformation/MyReviews';
 
 function MyPage() {
   const [data, setData] = useState<MyInformation | null>(null);
@@ -55,7 +56,7 @@ function MyPage() {
 
       <TabPanel value={currentTab} index={0}>
         {data?.reviews?.length > 0 ? (
-          <Reviews reviews={data?.reviews} setRefreshCount={setRefreshCount} />
+          <MyReviews reviews={data?.reviews} setRefreshCount={setRefreshCount} />
         ) : (
           <NoAlbumReview />
         )}
