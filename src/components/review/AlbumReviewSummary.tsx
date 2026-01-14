@@ -7,16 +7,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import TimeSincePost from '../album/TimeSincePost';
 import Favorite from '../common/Favorite';
-import { Review } from '../../types/review';
+import { MyReview, Review } from '../../types/review';
 import { typography } from '../../constants/themeValue';
 import CommentIcon from '../../assets/icons/comment.svg';
 import CustomStar from './CustomStar';
 
-function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; isMyReview?: boolean }) {
+function AlbumReviewSummary({ review, isMyReview = false }: { review: MyReview | Review; isMyReview?: boolean }) {
   const router = useRouter();
   const { _id, user, albumRating, title, createdAt, isFavorite, comments, body } = review;
   const strippedText = body.replace(/<[^>]+>/g, ' ');
   const plainText = he.decode(strippedText);
+
+  const reviewSummaryUser = typeof user === 'string' ? user : user._id;
 
   return (
     <Card
@@ -45,7 +47,7 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
             <Avatar
               onClick={() => router.push(`/profile/${user._id}`)}
               style={{ width: 40, height: 40, cursor: 'pointer' }}
-              src={user.image}
+              src={reviewSummaryUser.image}
               alt="user"
             />
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }} textAlign="left">

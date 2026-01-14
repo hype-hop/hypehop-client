@@ -21,7 +21,7 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const [toEditReview, setToEditReview] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
-  const user = useAuth();
+  const { user } = useAuth();
 
   const deleteMyReview = async (id: string) => {
     try {
@@ -54,7 +54,7 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
             minWidth: { xs: '100%', sm: '282px' },
           }}
         >
-          {user[0]._id === review.user ? (
+          {user?._id === review.user ? (
             <>
               <Box
                 sx={{
@@ -75,7 +75,6 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
                   setOpenMenu(e.currentTarget);
                 }}
               >
-                fff
                 <Hamburger>열기</Hamburger>
               </Box>
               <StyledMenu width={100} anchorEl={openMenu} open={Boolean(openMenu)} onClose={() => setOpenMenu(null)}>
@@ -101,7 +100,6 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
               </StyledMenu>
             </>
           ) : null}
-
           <AlbumCover
             reviewId={review._id}
             url={review.thumbnail}
