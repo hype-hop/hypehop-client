@@ -74,7 +74,11 @@ function FavoriteListModal({
             <Link key={_id} href={`/profile/${_id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
               <ListItem sx={{ height: '64px', paddingX: '16px', alignItems: 'center', cursor: 'pointer' }}>
                 <ListItemAvatar>
-                  <Avatar sx={{ width: '30px', height: '30px' }} src={image} />
+                  <Avatar
+                    sx={{ width: '30px', height: '30px' }}
+                    src={image}
+                    slotProps={{ img: { referrerPolicy: 'no-referrer' } }}
+                  />
                 </ListItemAvatar>
                 <Typography fontSize="18px">{name}</Typography>
               </ListItem>

@@ -40,6 +40,7 @@ export default function ProfileMenu() {
           }}
           src={user?.image}
           alt="user"
+          slotProps={{ img: { referrerPolicy: 'no-referrer' } }}
         />
       </IconButton>
       <StyledMenu

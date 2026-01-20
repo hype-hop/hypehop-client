@@ -43,6 +43,7 @@ function ReviewDetailLeft({ data }) {
             style={{ width: '28px', height: '28px', borderRadius: '50%' }}
             src={data?.review?.user.image}
             alt="user"
+            slotProps={{ img: { referrerPolicy: 'no-referrer' } }}
           />
           <Typography
             variant="body1"

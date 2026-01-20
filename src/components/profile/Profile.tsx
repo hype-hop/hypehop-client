@@ -30,7 +30,11 @@ export default function Profile({ userId }: { userId?: string }) {
   return profile ? (
     <>
       <Box sx={{ display: 'flex', columnGap: '24px', mb: '40px' }}>
-        <Avatar src={user?.image} sx={{ width: '100px', height: '100px' }} />
+        <Avatar
+          src={user?.image}
+          sx={{ width: '100px', height: '100px' }}
+          slotProps={{ img: { referrerPolicy: 'no-referrer' } }}
+        />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
           <Typography variant="h1"> {user?.name} </Typography>
         </Box>

@@ -36,7 +36,11 @@ function MyPage() {
     <>
       {open && user && <ChangeName open={open} setOpen={setOpen} userId={user._id} />}
       <Box sx={{ display: 'flex', columnGap: '24px', mb: '40px' }}>
-        <Avatar src={user?.image} sx={{ width: '100px', height: '100px' }} />
+        <Avatar
+          src={user?.image}
+          sx={{ width: '100px', height: '100px' }}
+          slotProps={{ img: { referrerPolicy: 'no-referrer' } }}
+        />
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
           <Typography variant="h1"> {user?.name} </Typography>
           <Button

@@ -105,7 +105,16 @@ function Comment({ reviewId, user }: Props) {
           textOverflow: 'ellipsis',
         }}
       >
-        <Avatar sx={{ width: '28px', height: '28px', borderRadius: '50%' }} src={user?.image} alt="user" />
+        <Avatar
+          sx={{
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+          }}
+          src={user?.image}
+          alt="user"
+          slotProps={{ img: { referrerPolicy: 'no-referrer' } }}
+        />
         <div className="commentForm" style={{ flex: 1 }}>
           <form id="commentForm">
             <Box
@@ -180,6 +189,7 @@ function Comment({ reviewId, user }: Props) {
                 style={{ width: '28px', height: '28px', borderRadius: '50%' }}
                 src={comment.user.image}
                 alt="user"
+                slotProps={{ img: { referrerPolicy: 'no-referrer' } }}
               />
 
               <Typography

@@ -1,22 +1,21 @@
 'use client';
 
-import { Avatar, Box, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Card, CardActions, CardContent } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import he from 'he';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import TimeSincePost from '../../album/TimeSincePost';
-import Favorite from '../../common/Favorite';
 import { Review } from '../../../types/review';
-import { typography } from '../../../constants/themeValue';
-import CommentIcon from '../../../assets/icons/comment.svg';
-import CustomStar from '../CustomStar';
+import ReviewAuthorInfo from './ReviewAuthorInfo';
+import ReviewContentPreview from './ReviewContentPreview';
+import ReviewActions from './ReviewActions';
+import { useAuth } from '../../../AuthenticationContext';
 
 function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; isMyReview?: boolean }) {
-  const router = useRouter();
-  const { _id, user, albumRating, title, createdAt, isFavorite, comments, body, thumbnail } = review;
+  const { user: me } = useAuth();
+  const { _id, user: reviewUser, albumRating, title, createdAt, isFavorite, comments, body, thumbnail } = review;
   const strippedText = body.replace(/<[^>]+>/g, ' ');
   const plainText = he.decode(strippedText);
+
+  const user = isMyReview ? me : reviewUser;
 
   return (
     <Card
@@ -32,122 +31,20 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; is
       }}
     >
       <CardContent sx={{ width: '100%', padding: 0 }}>
-        <Box
-          sx={{
-            display: 'flex',
-            whiteSpace: 'nowrap',
-            columnGap: '7px',
-          }}
-        >
-          <Avatar
-            onClick={() => router.push(`/profile/${user._id}`)}
-            style={{ width: 40, height: 40, cursor: 'pointer' }}
-            src={isMyReview ? thumbnail : user.image}
-            alt="user"
+        {user && (
+          <ReviewAuthorInfo
+            userId={user._id}
+            userName={user.name || user.displayName}
+            userImage={user.image}
+            createdAt={createdAt}
+            albumRating={albumRating}
           />
-          <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }} textAlign="left">
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                columnGap: '8px',
-              }}
-            >
-              <Typography
-                variant="body1"
-                color="white.main"
-                sx={{
-                  alignContent: 'center',
-                  maxWidth: '100px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                <Typography style={{ cursor: 'pointer' }} onClick={() => router.push(`/profile/${user._id}`)}>
-                  {user.name || user.displayName}
-                </Typography>
-              </Typography>
+        )}
 
-              <Typography
-                lineHeight="lineHeightSm"
-                sx={{
-                  textAlign: 'left',
-                  alignContent: 'center',
-                  color: 'rgb(168, 168, 168)',
-                }}
-              >
-                <TimeSincePost createdAt={createdAt} />{' '}
-              </Typography>
-            </Box>
-
-            <CustomStar readOnly value={albumRating} />
-          </Box>
-        </Box>
-
-        <Box onClick={() => router.push(`/album/review/${_id}`)}>
-          <Typography
-            color="white.main"
-            fontWeight="bold"
-            fontSize="16px"
-            component="div"
-            mt="14px"
-            sx={{
-              textAlign: 'left',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {title}
-          </Typography>
-          <Typography
-            color="grey.light"
-            fontSize={typography.size.md}
-            fontWeight="regular"
-            component="div"
-            mt="6px"
-            sx={{
-              display: '-webkit-box',
-              textAlign: 'left',
-              minHeight: '45px',
-              lineHeight: '15px',
-              overflow: 'hidden',
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: 'vertical',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {plainText}
-          </Typography>
-        </Box>
+        <ReviewContentPreview reviewId={_id} title={title} plainText={plainText} />
       </CardContent>
       <CardActions disableSpacing sx={{ width: '100%', mt: '6px', padding: 0 }}>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            columnGap: '8px',
-          }}
-        >
-          <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '1px' }}>
-            <Favorite reviewId={_id} favoriteClickedUsers={isFavorite} />
-            <Typography sx={{ color: 'rgb(168,168,168)' }} component="span">
-              ,
-            </Typography>
-          </Box>
-          <Link
-            href={`/album/review/${_id}`}
-            style={{ display: 'inline-flex', textDecoration: 'none', color: 'inherit' }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '3px' }}>
-              <CommentIcon />
-              <Typography sx={{ color: 'rgb(168,168,168)', fontSize: '12px' }}>댓글 {comments.length}개</Typography>
-            </Box>
-          </Link>
-        </Box>
+        <ReviewActions reviewId={_id} isFavorite={isFavorite} commentsCount={comments.length} />
       </CardActions>
     </Card>
   );
