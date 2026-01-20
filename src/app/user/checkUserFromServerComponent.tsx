@@ -6,6 +6,7 @@ import BASE_URL from '../../config';
 const checkUserFromServerComponent = async (callBackUrl: string | null): Promise<User> => {
   const headersList = await headers();
   const cookie = headersList.get('cookie') || '';
+
   const result = await fetch(`${BASE_URL}/api/user`, {
     method: 'GET',
     credentials: 'include',

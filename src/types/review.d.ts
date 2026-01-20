@@ -46,18 +46,11 @@ export interface ReviewEdit {
   albumRatingAverage: number;
 }
 
-export interface MyReview extends Review {
-  albumId: string;
-  albumName: string;
-  artists: string[];
-  status: string;
-}
-
 export interface ReviewsRank extends Review {
   favoriteCount: number;
 }
 
-export interface FormData {
+export interface AlbumReviewWriteForm {
   title: string;
   status: string;
   albumRating: number | null | undefined;

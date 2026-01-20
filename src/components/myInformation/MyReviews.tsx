@@ -1,11 +1,11 @@
 import { Box, Link, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { MyReview } from '../../types/review';
+import { Review } from '../../types/review';
 import Hamburger from '../../assets/icons/hamburger.svg';
 import Edit from '../../assets/icons/edit-review.svg';
 import Delete from '../../assets/icons/delete-review.svg';
 import { StyledMenu, StyledMenuItem } from '../common/StyledMenu';
-import BASE_URL from '../../config';
+import { deleteReview } from '../../api/reviews';
 import AlbumCover from '../album/AlbumCover';
 import AlbumReviewSummary from '../review/AlbumReviewSummary';
 import { typography } from '../../constants/themeValue';
@@ -13,7 +13,7 @@ import Warning from '../common/Modal/Warning';
 import { useAuth } from '../../AuthenticationContext';
 
 interface MyReviewsProps {
-  reviews: MyReview[];
+  reviews: Review[];
   setRefreshCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -24,19 +24,10 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
   const { user } = useAuth();
 
   const deleteMyReview = async (id: string) => {
-    try {
+    setOpen(false);
+    const success = await deleteReview(id);
+    if (success) {
       setRefreshCount((count) => count + 1);
-      setOpen(false);
-      const response = await fetch(`${BASE_URL}/album/api/review/delete/${id}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete');
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
     }
   };
 
@@ -54,7 +45,7 @@ export default function MyReviews({ reviews, setRefreshCount }: MyReviewsProps) 
             minWidth: { xs: '100%', sm: '282px' },
           }}
         >
-          {user?._id === review.user ? (
+          {user?._id === review.user._id ? (
             <>
               <Box
                 sx={{

@@ -40,4 +40,21 @@ export const fetchReviewsCount = async (): Promise<ReviewsCount | null> => {
   }
 };
 
+export const deleteReview = async (id: string): Promise<boolean> => {
+  try {
+    const response = await fetch(`${BASE_URL}/album/api/review/delete/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete');
+    }
+    return true;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return false;
+  }
+};
+
 export default fetchPaginatedReviews;

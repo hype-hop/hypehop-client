@@ -2,13 +2,13 @@ import { Box, Card, CardActions, CardContent, Rating, Typography } from '@mui/ma
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Favorite from '../common/Favorite';
-import { MyReview } from '../../types/review';
 import AlbumCover from '../album/AlbumCover';
 import CommentIcon from '../../assets/icons/comment.svg';
 import { typography } from '../../constants/themeValue';
 import PRECISION from '../../constants/ratingPrecision';
+import { Review } from '../../types/review';
 
-function MyReviews({ review }: { review: MyReview }) {
+function MyReviews({ review }: { review: Review }) {
   const router = useRouter();
   const { _id, albumId, thumbnail, albumName, albumRating, body, artists, title, comments } = review;
 

@@ -7,18 +7,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import TimeSincePost from '../album/TimeSincePost';
 import Favorite from '../common/Favorite';
-import { MyReview, Review } from '../../types/review';
+import { Review } from '../../types/review';
 import { typography } from '../../constants/themeValue';
 import CommentIcon from '../../assets/icons/comment.svg';
 import CustomStar from './CustomStar';
 
-function AlbumReviewSummary({ review, isMyReview = false }: { review: MyReview | Review; isMyReview?: boolean }) {
+function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; isMyReview?: boolean }) {
   const router = useRouter();
-  const { _id, user, albumRating, title, createdAt, isFavorite, comments, body } = review;
+  const { _id, user, albumRating, title, createdAt, isFavorite, comments, body, thumbnail } = review;
   const strippedText = body.replace(/<[^>]+>/g, ' ');
   const plainText = he.decode(strippedText);
-
-  const reviewSummaryUser = typeof user === 'string' ? user : user._id;
 
   return (
     <Card
@@ -33,64 +31,60 @@ function AlbumReviewSummary({ review, isMyReview = false }: { review: MyReview |
         boxShadow: 'none',
       }}
     >
-      {/* <Link to={`/album/review/${_id}`} /> */}
-
       <CardContent sx={{ width: '100%', padding: 0 }}>
-        {!isMyReview && (
-          <Box
-            sx={{
-              display: 'flex',
-              whiteSpace: 'nowrap',
-              columnGap: '7px',
-            }}
-          >
-            <Avatar
-              onClick={() => router.push(`/profile/${user._id}`)}
-              style={{ width: 40, height: 40, cursor: 'pointer' }}
-              src={reviewSummaryUser.image}
-              alt="user"
-            />
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }} textAlign="left">
-              <Box
+        <Box
+          sx={{
+            display: 'flex',
+            whiteSpace: 'nowrap',
+            columnGap: '7px',
+          }}
+        >
+          <Avatar
+            onClick={() => router.push(`/profile/${user._id}`)}
+            style={{ width: 40, height: 40, cursor: 'pointer' }}
+            src={isMyReview ? thumbnail : user.image}
+            alt="user"
+          />
+          <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }} textAlign="left">
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                columnGap: '8px',
+              }}
+            >
+              <Typography
+                variant="body1"
+                color="white.main"
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  columnGap: '8px',
+                  alignContent: 'center',
+                  maxWidth: '100px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
                 }}
               >
-                <Typography
-                  variant="body1"
-                  color="white.main"
-                  sx={{
-                    alignContent: 'center',
-                    maxWidth: '100px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  <Typography style={{ cursor: 'pointer' }} onClick={() => router.push(`/profile/${user._id}`)}>
-                    {user.name || user.displayName}
-                  </Typography>
+                <Typography style={{ cursor: 'pointer' }} onClick={() => router.push(`/profile/${user._id}`)}>
+                  {user.name || user.displayName}
                 </Typography>
+              </Typography>
 
-                <Typography
-                  lineHeight="lineHeightSm"
-                  sx={{
-                    textAlign: 'left',
-                    alignContent: 'center',
-                    color: 'rgb(168, 168, 168)',
-                  }}
-                >
-                  <TimeSincePost createdAt={createdAt} />{' '}
-                </Typography>
-              </Box>
-
-              <CustomStar readOnly value={albumRating} />
+              <Typography
+                lineHeight="lineHeightSm"
+                sx={{
+                  textAlign: 'left',
+                  alignContent: 'center',
+                  color: 'rgb(168, 168, 168)',
+                }}
+              >
+                <TimeSincePost createdAt={createdAt} />{' '}
+              </Typography>
             </Box>
+
+            <CustomStar readOnly value={albumRating} />
           </Box>
-        )}
+        </Box>
 
         <Box onClick={() => router.push(`/album/review/${_id}`)}>
           <Typography
