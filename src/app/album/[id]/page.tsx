@@ -11,7 +11,7 @@ import { Review } from '../../../types/review';
 import BASE_URL from '../../../config';
 import AlbumDetailInformation from '../../../components/album/AlbumDetail/AlbumDetailInformation';
 import AlbumDetailInformationSkeleton from '../../../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
-import AlbumReviewSummary from '../../../components/review/AlbumReviewSummary';
+import AlbumReviewSummary from '../../../components/review/albumReviewSummary/AlbumReviewSummary';
 import Tracks from '../../../components/track/Tracks';
 
 function NoAlbumView({ albumId }) {

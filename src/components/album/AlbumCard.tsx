@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { Review } from '../../types/review';
 import AlbumCover from './AlbumCover';
-import AlbumReviewSummary from '../review/AlbumReviewSummary';
+import AlbumReviewSummary from '../review/albumReviewSummary/AlbumReviewSummary';
 
 function AlbumCard({ review }: { review: Review }) {
   return (

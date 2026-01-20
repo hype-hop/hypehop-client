@@ -7,7 +7,7 @@ import Delete from '../../assets/icons/delete-review.svg';
 import { StyledMenu, StyledMenuItem } from '../common/StyledMenu';
 import { deleteReview } from '../../api/reviews';
 import AlbumCover from '../album/AlbumCover';
-import AlbumReviewSummary from '../review/AlbumReviewSummary';
+import AlbumReviewSummary from '../review/albumReviewSummary/AlbumReviewSummary';
 import { typography } from '../../constants/themeValue';
 import Warning from '../common/Modal/Warning';
 import { useAuth } from '../../AuthenticationContext';

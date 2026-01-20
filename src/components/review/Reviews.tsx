@@ -4,7 +4,7 @@ import { useAuth } from '../../AuthenticationContext';
 import { MyReview, Review } from '../../types/review';
 import ProfileReviewEditHamburger from './ProfileReviewEditHamburger';
 import AlbumCover from '../album/AlbumCover';
-import AlbumReviewSummary from './AlbumReviewSummary';
+import AlbumReviewSummary from './albumReviewSummary/AlbumReviewSummary';
 import AlbumCard from '../album/AlbumCard';
 
 export default function Reviews({

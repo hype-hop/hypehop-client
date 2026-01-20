@@ -5,12 +5,12 @@ import { Avatar, Box, Card, CardActions, CardContent, Typography } from '@mui/ma
 import he from 'he';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import TimeSincePost from '../album/TimeSincePost';
-import Favorite from '../common/Favorite';
-import { Review } from '../../types/review';
-import { typography } from '../../constants/themeValue';
-import CommentIcon from '../../assets/icons/comment.svg';
-import CustomStar from './CustomStar';
+import TimeSincePost from '../../album/TimeSincePost';
+import Favorite from '../../common/Favorite';
+import { Review } from '../../../types/review';
+import { typography } from '../../../constants/themeValue';
+import CommentIcon from '../../../assets/icons/comment.svg';
+import CustomStar from '../CustomStar';
 
 function AlbumReviewSummary({ review, isMyReview = false }: { review: Review; isMyReview?: boolean }) {
   const router = useRouter();
