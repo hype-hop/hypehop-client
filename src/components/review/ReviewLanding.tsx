@@ -26,11 +26,20 @@ function ReviewLanding() {
       ref={reviewLandingBox}
     >
       <Box sx={{ paddingLeft: { xs: '14px', md: '80px' } }}>
-        <Typography color="grey.main" fontSize="50px" textAlign="left">
-          지금 까지
+        <Typography
+          component="div"
+          color="grey.main"
+          fontSize="50px"
+          textAlign="left"
+          mb="11px"
+          fontWeight="fontWeightMedium"
+        >
+          지금까지
         </Typography>
         <Box
           sx={{
+            display: 'flex',
+            columnGap: '14px',
             opacity: count ? 1 : 0,
             animation: count ? 'fadeIn 1s ease-out forwards' : 'none',
             '@keyframes fadeIn': {
@@ -39,10 +48,10 @@ function ReviewLanding() {
             },
           }}
         >
-          <Typography fontSize="50px" component="div">
+          <Typography fontSize="50px" component="div" fontWeight="fontWeightMedium">
             {count}개의 리뷰가
           </Typography>
-          <Typography color="grey.main" fontSize="50px">
+          <Typography color="grey.main" fontSize="50px" component="div" fontWeight="fontWeightMedium">
             모였어요.
           </Typography>
         </Box>
