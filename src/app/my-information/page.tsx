@@ -21,7 +21,7 @@ function MyPage() {
   const { user } = useAuth();
   const { currentTab, handleChangeCurrentTab, tabProps } = useTabs('my-information-tab');
   const [open, setOpen] = useState(false);
-  const [refreshCount, setRefreshCount] = useState(0);
+
   useEffect(() => {
     (async () => {
       const res = await getMyInformation();
@@ -30,7 +30,15 @@ function MyPage() {
         setData(res.data);
       }
     })();
-  }, [refreshCount]);
+  }, []);
+
+  const handleDeleteReview = (deletedId: string) => {
+    setData((prev) => (prev ? { ...prev, reviews: prev.reviews.filter((r) => r._id !== deletedId) } : null));
+  };
+
+  const handleDeleteFavReview = (deletedId: string) => {
+    setData((prev) => (prev ? { ...prev, favReviews: prev.favReviews.filter((r) => r._id !== deletedId) } : null));
+  };
 
   return data ? (
     <>
@@ -60,13 +68,13 @@ function MyPage() {
 
       <TabPanel value={currentTab} index={0}>
         {data?.reviews?.length > 0 ? (
-          <MyReviews reviews={data?.reviews} setRefreshCount={setRefreshCount} />
+          <MyReviews reviews={data?.reviews} onDelete={handleDeleteReview} />
         ) : (
           <NoAlbumReview />
         )}
       </TabPanel>
       <TabPanel value={currentTab} index={1}>
-        {data?.favReviews && <Reviews reviews={data?.favReviews} setRefreshCount={setRefreshCount} />}
+        {data?.favReviews && <Reviews reviews={data?.favReviews} />}
       </TabPanel>
     </>
   ) : (

@@ -5,17 +5,27 @@ import Edit from '../../assets/icons/edit-review.svg';
 import Delete from '../../assets/icons/delete-review.svg';
 import { StyledMenu, StyledMenuItem } from '../common/StyledMenu';
 import { typography } from '../../constants/themeValue';
+import Warning from '../common/Modal/Warning';
+import { deleteReview } from '../../api/reviews';
 
 interface ReviewEditMenuProps {
   reviewId: string;
-  onDeleteClick: () => void;
+  onDelete: (deletedId: string) => void;
 }
 
-export default function ReviewEditMenu({ reviewId, onDeleteClick }: ReviewEditMenuProps) {
+export default function ReviewEditMenu({ reviewId, onDelete }: ReviewEditMenuProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+  const [warningOpen, setWarningOpen] = useState(false);
+
+  const handleDelete = async () => {
+    setWarningOpen(false);
+    onDelete(reviewId);
+    await deleteReview(reviewId);
+  };
 
   return (
     <>
+      <Warning open={warningOpen} setOpen={setWarningOpen} handleDelete={handleDelete} />
       <Box
         sx={{
           position: 'absolute',
@@ -25,10 +35,10 @@ export default function ReviewEditMenu({ reviewId, onDeleteClick }: ReviewEditMe
           borderRadius: '50%',
           top: '27px',
           right: '27px',
-          ':hover': { backgroundColor: 'rgb(126, 126, 126)' },
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          cursor: 'pointer',
         }}
         onClick={(e) => setAnchorEl(e.currentTarget)}
       >
@@ -47,7 +57,7 @@ export default function ReviewEditMenu({ reviewId, onDeleteClick }: ReviewEditMe
           sx={{ height: '30px', padding: '9.75px' }}
           onClick={() => {
             setAnchorEl(null);
-            onDeleteClick();
+            setWarningOpen(true);
           }}
         >
           <Delete />

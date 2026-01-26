@@ -2,8 +2,15 @@ import { Box } from '@mui/material';
 import { Review } from '../../types/review';
 import AlbumCover from './AlbumCover';
 import AlbumReviewSummary from '../review/albumReviewSummary/AlbumReviewSummary';
+import ReviewEditMenu from '../myInformation/ReviewEditMenu';
 
-function AlbumCard({ review }: { review: Review }) {
+interface AlbumCardProps {
+  review: Review;
+  isMyReview?: boolean;
+  onDelete?: (deletedId: string) => void;
+}
+
+function AlbumCard({ review, isMyReview = false, onDelete }: AlbumCardProps) {
   return (
     <Box
       key={`review-${review._id}`}
@@ -13,8 +20,10 @@ function AlbumCard({ review }: { review: Review }) {
         backgroundColor: 'grey.darkest',
         borderRadius: '12px',
         rowGap: '10px',
+        position: 'relative',
       }}
     >
+      {isMyReview && onDelete && <ReviewEditMenu reviewId={review._id} onDelete={onDelete} />}
       <AlbumCover
         reviewId={review._id}
         url={review.thumbnail}
@@ -22,8 +31,9 @@ function AlbumCard({ review }: { review: Review }) {
         artists={review.artists}
         previewUrl={review?.previewUrl}
       />
+
       <Box sx={{ minWidth: '200px', maxWidth: '100%' }}>
-        <AlbumReviewSummary review={review} />
+        <AlbumReviewSummary review={review} isMyReview={isMyReview} />
       </Box>
     </Box>
   );
