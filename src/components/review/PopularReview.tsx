@@ -20,11 +20,13 @@ function ReviewChart() {
   return (
     <Box
       sx={{
-        display: { xs: 'flex', md: 'grid' },
+        display: 'grid',
         flexWrap: { xs: 'nowrap', md: 'none' },
         overflowX: { xs: 'auto', md: 'visible' },
         justifyContent: 'flex-start',
-        grid: { md: 'auto / repeat(2, 1fr)' },
+        gridTemplateColumns: { md: 'repeat(2, 1fr)' },
+        gridTemplateRows: { md: 'repeat(4, auto)' },
+        gridAutoFlow: { md: 'column' },
         gap: 2,
       }}
     >
