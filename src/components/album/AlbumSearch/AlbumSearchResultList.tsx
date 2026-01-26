@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import { ReactNode } from 'react';
 import AlbumSearchResultItem from './AlbumSearchResultItem';
 import { AlbumSearchResultListProps } from './types';
+import scrollStyle from '../../../utils/scrollStyle';
 
 function ResultBox({ children }: { children: ReactNode }) {
   return (
@@ -20,6 +21,7 @@ function ResultBox({ children }: { children: ReactNode }) {
         borderTopLeftRadius: 0,
         maxHeight: '480px',
         overflowY: 'auto',
+        ...scrollStyle.web.default,
       }}
     >
       {children}
@@ -27,12 +29,7 @@ function ResultBox({ children }: { children: ReactNode }) {
   );
 }
 
-export default function ResultList({
-  result,
-  setSelectedAlbum,
-  setResult,
-  setKeyword,
-}: AlbumSearchResultListProps) {
+export default function ResultList({ result, setSelectedAlbum, setResult, setKeyword }: AlbumSearchResultListProps) {
   if (result?.length === 0) return <ResultBox>검색 결과가 없습니다.</ResultBox>;
   return (
     <ResultBox>
