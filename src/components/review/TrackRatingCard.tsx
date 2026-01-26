@@ -25,7 +25,7 @@ function TrackRatingCard({ data }) {
         <Box
           sx={{
             width: '100%',
-            height: '336px',
+            maxHeight: '336px',
             overflow: 'auto',
             '&::-webkit-scrollbar': {
               width: '6px',
@@ -46,53 +46,41 @@ function TrackRatingCard({ data }) {
                   Disc {index + 1}
                 </Typography>
               )}
-              <List component="nav" aria-label="tracks">
+              <List
+                component="nav"
+                aria-label="tracks"
+                sx={{ fontSize: '14px', display: 'flex', flexDirection: 'column', gap: '8px' }}
+              >
                 {disc.trackTitle.map((track, trackIndex) => (
                   <ListItem key={trackIndex} sx={{ paddingTop: '0px', paddingBottom: '0px' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                      <ListItemText
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        width: '100%',
+                        alignItems: 'center',
+                        gap: '8px',
+                      }}
+                    >
+                      <Box
                         sx={{
-                          fontSize: 'typography.size.lg',
                           fontWeight: 400,
-                          flex: '1',
-                          width: '150px',
+                          flex: 1,
+                          minWidth: 0,
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
-                          margin: '0px',
                         }}
-                        primary={track}
-                      />
-                      <ListItemText
-                        sx={{ fontSize: '14px', fontWeight: 400, color: 'white' }}
-                        secondary={
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              alignContent: 'center',
-                              justifyContent: 'center',
-                              ml: 'auto',
-                              width: '46px',
-                              height: '20px',
-                            }}
-                          >
-                            <StarIcon fontSize="small" sx={{ color: 'star.main', mt: '1px', mr: '2.46px' }} />
-                            <Typography
-                              sx={{
-                                width: '15.33px',
-                                alignContent: 'center',
-                                fontSize: '11px',
-                                fontWeight: '400',
-                              }}
-                            >
-                              {/* eslint-disable-next-line no-unsafe-optional-chaining */}
-                              {tracks[index].trackRating && tracks[index].trackRating[trackIndex]
-                                ? Number(tracks[index].trackRating[trackIndex]).toFixed(1)
-                                : ' --'}
-                            </Typography>
-                          </Box>
-                        }
-                      />
+                      >
+                        {track}
+                      </Box>
+                      <Box sx={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                        <StarIcon fontSize="small" sx={{ color: 'star.main', mr: '2.46px' }} />
+                        <Typography component="span" sx={{ color: 'text.primary', minWidth: '24px' }}>
+                          {tracks[index].trackRating && tracks[index].trackRating[trackIndex]
+                            ? Number(tracks[index].trackRating[trackIndex]).toFixed(1)
+                            : '--'}
+                        </Typography>
+                      </Box>
                     </Box>
                   </ListItem>
                 ))}
