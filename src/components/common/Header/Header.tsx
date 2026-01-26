@@ -1,6 +1,7 @@
 'use client';
 
-import { AppBar, Box, Container } from '@mui/material';
+import { AppBar, Box, Button, Container, Typography } from '@mui/material';
+
 import { useAuth } from '../../../AuthenticationContext';
 import LoginButton from '../Buttons/LoginButton';
 import AppLogo from '../AppLogo';
@@ -37,6 +38,9 @@ export default function MenuAppBar() {
         <AppLogo />
         {user ? (
           <Box>
+            <Button href="/topster">
+              <Typography sx={{ textDecoration: 'none' }}>탑스터</Typography>
+            </Button>
             <Notifications />
             <ProfileMenu />
           </Box>
