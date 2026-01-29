@@ -18,9 +18,11 @@ export interface User {
   favoritesReview: [];
 }
 
+type ConditionalUser = User | null | undefined;
+
 interface UserContextType {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: ConditionalUser;
+  setUser: React.Dispatch<React.SetStateAction<ConditionalUser>>;
 }
 
 const initialUserContext: UserContextType = {
@@ -35,7 +37,7 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<ConditionalUser>();
   const memoizedUser = useMemo(() => ({ user, setUser }), [user]);
 
   useEffect(() => {

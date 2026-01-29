@@ -36,17 +36,18 @@ export default function MenuAppBar() {
         }}
       >
         <AppLogo />
-        {user ? (
-          <Box>
-            <Button href="/topster">
-              <Typography sx={{ textDecoration: 'none' }}>탑스터</Typography>
-            </Button>
-            <Notifications />
-            <ProfileMenu />
-          </Box>
-        ) : (
-          <LoginButton />
-        )}
+        {user !== undefined &&
+          (user === null ? (
+            <LoginButton />
+          ) : (
+            <Box>
+              <Button href="/topster">
+                <Typography sx={{ textDecoration: 'none' }}>탑스터</Typography>
+              </Button>
+              <Notifications />
+              <ProfileMenu />
+            </Box>
+          ))}
       </Container>
     </AppBar>
   );
