@@ -102,7 +102,7 @@ function WriteReview() {
   });
 
   useEffect(() => {
-    if (reviewTargetAlbum) {
+    if (user && reviewTargetAlbum) {
       setReviewWriteFormData({
         ...reviewWriteFormData,
         albumRating: albumRatingState,
@@ -110,7 +110,7 @@ function WriteReview() {
         albumTitle: reviewTargetAlbum?.pageTitle,
         thumbnail: reviewTargetAlbum.albumData?.images[1]?.url,
         albumReleaseDate: reviewTargetAlbum.albumData?.release_date,
-        user: user && user._id,
+        user: user._id || '',
         trackTitle: tracks,
         artistGenre: reviewTargetAlbum?.spotify_artist_genre,
         artists: reviewTargetAlbum.albumData?.artists.map((artist) => artist.name),

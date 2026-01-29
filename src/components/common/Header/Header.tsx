@@ -8,7 +8,7 @@ import AppLogo from '../AppLogo';
 import ProfileMenu from './ProfileMenu';
 import Notifications from './Notification/Notifications';
 
-export default function MenuAppBar() {
+export default function Header() {
   const { user } = useAuth();
 
   return (
