@@ -7,6 +7,7 @@ import LoginButton from '../Buttons/LoginButton';
 import AppLogo from '../AppLogo';
 import ProfileMenu from './ProfileMenu';
 import Notifications from './Notification/Notifications';
+import HeaderSkeleton from '../skeletons/header/HeaderSkeleton';
 
 export default function Header() {
   const { user } = useAuth();
@@ -36,6 +37,7 @@ export default function Header() {
         }}
       >
         <AppLogo />
+        {user === undefined && <HeaderSkeleton />}
         {user !== undefined &&
           (user === null ? (
             <LoginButton />
