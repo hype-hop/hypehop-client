@@ -5,7 +5,7 @@ import Hamburger from '../../assets/icons/hamburger.svg';
 import Edit from '../../assets/icons/edit-review.svg';
 import Delete from '../../assets/icons/delete-review.svg';
 import { typography } from '../../constants/themeValue';
-import { MyReview, Review } from '../../types/review';
+import { Review } from '../../types/review';
 import Warning from '../common/Modal/Warning';
 import BASE_URL from '../../config';
 
@@ -13,7 +13,7 @@ export default function ProfileReviewEditHamburger({
   review,
   setRefreshCount,
 }: {
-  review: MyReview | Review;
+  review: Review;
   setRefreshCount: Dispatch<SetStateAction<number>>;
 }) {
   const [toEditReview, setToEditReview] = useState<string | null>(null);
