@@ -6,27 +6,7 @@ import Link from 'next/link';
 import { redirect, useSearchParams } from 'next/navigation';
 import BASE_URL from '../../config';
 import GoogleIcon from '../../assets/icons/googleIcon.svg';
-
-async function loginAction(prevState: { message: string }, formData: FormData, callBackUrl: string) {
-  try {
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-
-    const result = await fetch(`${BASE_URL}/api/login`, {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!result.ok) {
-      return { message: 'API 호출 실패' };
-    }
-
-    redirect(callBackUrl || '/');
-    return { message: '성공' };
-  } catch (error) {
-    return { message: '이메일 혹은 비밀번호가 잘못되었습니다.' };
-  }
-}
+import loginAction from './loginAction';
 
 function LogInForm() {
   const param = useSearchParams();
