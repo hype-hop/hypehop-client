@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 
 import { useParams } from 'next/navigation';
@@ -11,20 +11,6 @@ import PageNotFound from '../../../../components/common/Error/PageNotFound';
 import AlbumDetailInformationSkeleton from '../../../../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
 import AlbumReviewSummarySkeleton from '../../../../components/common/skeletons/AlbumReviewSummarySkeleton';
 import { ReviewEdit } from '../../../../types/review';
-
-// type Props = {
-//   params: Promise<{ id: string }>;
-// };
-
-// export async function generateMetadata({ params }: Props) {
-//   const { id } = await params;
-//   const data = (await fetch(`${BASE_URL}/album/api/review/${id}`)).json() as Partial<ReviewEdit>;
-//   return {
-//     title: data.pageTitle,
-//     description: data.pageDescription,
-//     imgSrc: data?.review?.thumbnail,
-//   };
-// }
 
 function ReviewShowPage() {
   const { id } = useParams();
