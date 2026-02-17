@@ -26,13 +26,18 @@ function LogInForm() {
     const password = formData.get('password') as string;
 
     try {
-      await fetch(`${BASE_URL}/api/login`, {
+      const result = await fetch(`${BASE_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, refUrl: callBackUrl }),
         credentials: 'include',
         redirect: 'manual',
       });
+
+      if (result.status === 401) {
+        setMessage('이메일 또는 비밀번호가 올바르지 않습니다.');
+        return;
+      }
 
       await refreshUser();
       router.push(callBackUrl);
@@ -123,7 +128,7 @@ function LogInForm() {
             borderRadius: '16px',
             background: 'rgb(152, 72, 255)',
             height: '60px',
-            mt: '31px',
+            mt: '16px',
           }}
         >
           <Typography>{pending ? '로그인 중...' : '로그인'}</Typography>
