@@ -23,11 +23,13 @@ type ConditionalUser = User | null | undefined;
 interface UserContextType {
   user: ConditionalUser;
   setUser: React.Dispatch<React.SetStateAction<ConditionalUser>>;
+  refreshUser: () => Promise<void>;
 }
 
 const initialUserContext: UserContextType = {
   user: null,
   setUser: () => {},
+  refreshUser: async () => {},
 };
 
 const AuthenticationContext = createContext<UserContextType>(initialUserContext);
@@ -38,17 +40,21 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState<ConditionalUser>();
-  const memoizedUser = useMemo(() => ({ user, setUser }), [user]);
+
+  const refreshUser = async () => {
+    try {
+      const data = await getUser();
+      setUser(data.user || null);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      setUser(null);
+    }
+  };
+
+  const memoizedUser = useMemo(() => ({ user, setUser, refreshUser }), [user]);
 
   useEffect(() => {
-    getUser()
-      .then((data) => {
-        setUser(data.user || null);
-      })
-      .catch((error) => {
-        console.error('Error fetching user data:', error);
-        setUser(null);
-      });
+    refreshUser();
   }, []);
 
   return <AuthenticationContext.Provider value={memoizedUser}>{children}</AuthenticationContext.Provider>;

@@ -1,19 +1,47 @@
 'use client';
 
 import { Box, Typography, Input, Button, Divider } from '@mui/material';
-import { useActionState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { redirect, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import BASE_URL from '../../config';
 import GoogleIcon from '../../assets/icons/googleIcon.svg';
-import loginAction from './loginAction';
+import { useAuth } from '../../AuthenticationContext';
 
 function LogInForm() {
+  const router = useRouter();
+  const { refreshUser } = useAuth();
   const param = useSearchParams();
-  const callBackUrl = param.get('callbackUrl') || '';
-  const [state, formAction] = useActionState((state, formData) => loginAction(state, formData, callBackUrl), {
-    message: '',
-  });
+  const callBackUrl = param.get('callbackUrl') || '/';
+  const [message, setMessage] = useState('');
+  const [pending, setPending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setPending(true);
+    setMessage('');
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    try {
+      await fetch(`${BASE_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, refUrl: callBackUrl }),
+        credentials: 'include',
+        redirect: 'manual',
+      });
+
+      await refreshUser();
+      router.push(callBackUrl);
+    } catch (error) {
+      setMessage('서버 오류가 발생했습니다.');
+    } finally {
+      setPending(false);
+    }
+  };
 
   return (
     <Box
@@ -31,7 +59,7 @@ function LogInForm() {
       >
         로그인
       </Typography>
-      <form className="form" action={formAction}>
+      <form className="form" onSubmit={handleSubmit}>
         <Box className="flex-column">
           <label className="labels" htmlFor="email" />
           <Box className="inputForm" mt="40px">
@@ -83,7 +111,7 @@ function LogInForm() {
               color: 'rgb(131, 36, 254)',
             }}
           >
-            {state.message}
+            {message}
           </Typography>
         </Box>
 
@@ -98,7 +126,7 @@ function LogInForm() {
             mt: '31px',
           }}
         >
-          <Typography>로그인</Typography>
+          <Typography>{pending ? '로그인 중...' : '로그인'}</Typography>
         </Button>
       </form>
       <Box
