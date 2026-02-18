@@ -158,7 +158,7 @@ function LogInForm() {
               }
             }
           >
-            OR
+            또는
           </Divider>
 
           <Link href={`${BASE_URL}/auth/google`} style={{ textDecoration: 'none', color: 'inherit' }}>
