@@ -55,19 +55,36 @@ function LogInForm() {
         margin: '0 auto',
       }}
     >
-      <Typography
-        variant="h1"
-        textAlign="center"
-        sx={{
-          mt: { xs: '0px', lg: '105px' },
-        }}
-      >
-        로그인
-      </Typography>
-      <form className="form" onSubmit={handleSubmit}>
-        <Box className="flex-column">
-          <label className="labels" htmlFor="email" />
-          <Box className="inputForm" mt="40px">
+      <form onSubmit={handleSubmit}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <Link href={`${BASE_URL}/auth/google`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Button
+              fullWidth
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                border: '1px solid rgb(52, 52, 52)',
+                borderRadius: '16px',
+                height: '50px',
+                padding: '0 16px',
+              }}
+            >
+              <Box sx={{ width: '16px', display: 'flex', justifyContent: 'center', mr: '4px' }}>
+                <GoogleIcon />
+              </Box>
+
+              <Typography fontSize="14px" fontWeight="500">
+                구글 계정으로 로그인하기
+              </Typography>
+            </Button>
+          </Link>
+          <Box className="youtube">
+            <Box>
+              <Divider variant="middle">또는</Divider>
+            </Box>
+          </Box>
+          <Box className="inputForm">
+            <label className="labels" htmlFor="email" />
             <Typography component="div" color="grey.main" mb={1}>
               이메일
             </Typography>
@@ -127,7 +144,6 @@ function LogInForm() {
           sx={{
             borderRadius: '16px',
             background: 'rgb(152, 72, 255)',
-            height: '60px',
             mt: '16px',
           }}
         >
@@ -146,44 +162,6 @@ function LogInForm() {
         <Link href="/join" style={{ color: 'inherit', textDecoration: 'none' }}>
           <Typography sx={{ color: 'rgb(152, 72, 255)' }}>회원가입</Typography>{' '}
         </Link>
-      </Box>
-
-      <Box className="youtube">
-        <Box sx={{ mt: '24px' }}>
-          <Divider
-            variant="middle"
-            sx={
-              {
-                /* background: 'rgb(86, 87, 87)' */
-              }
-            }
-          >
-            또는
-          </Divider>
-
-          <Link href={`${BASE_URL}/auth/google`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Button
-              fullWidth
-              sx={{
-                mt: '24px',
-                display: 'flex',
-                alignItems: 'center',
-                border: '1px solid rgb(52, 52, 52)',
-                borderRadius: '16px',
-                height: '50px',
-                padding: '0 16px',
-              }}
-            >
-              <Box sx={{ width: '16px', display: 'flex', justifyContent: 'center', mr: '4px' }}>
-                <GoogleIcon />
-              </Box>
-
-              <Typography fontSize="14px" fontWeight="500">
-                구글 계정으로 로그인하기
-              </Typography>
-            </Button>
-          </Link>
-        </Box>
       </Box>
     </Box>
   );
