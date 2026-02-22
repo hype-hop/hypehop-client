@@ -111,6 +111,7 @@ const theme: Theme = createTheme({
             backgroundColor: 'rgb(121, 53, 208)',
           },
           fontSize: typography.size.lg,
+          height: '36px',
         },
       },
     },
