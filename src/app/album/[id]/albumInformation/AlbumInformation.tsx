@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Skeleton, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { AlbumData } from '../../../../types/albumData';
@@ -22,7 +24,7 @@ export default function AlbumInformation({ id }: { id: string | string[] | undef
   }, [id]);
   return (
     <Box>
-      <Box>
+      <Box mb={4}>
         <Typography component="div" fontSize="24px" fontWeight="bold" mb={2.5} align="left">
           앨범 정보
         </Typography>
