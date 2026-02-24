@@ -1,3 +1,5 @@
+'use client';
+
 import { Container, Typography, Box, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import NotFound from '../../../assets/icons/notFound.svg';

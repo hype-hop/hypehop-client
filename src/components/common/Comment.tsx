@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Typography, Box, Button, Input, Avatar, Divider } from '@mui/material';
 
 import { useRouter } from 'next/navigation';
@@ -6,19 +8,14 @@ import BASE_URL from '../../config';
 import TimeSincePost from '../album/TimeSincePost';
 import { StyledMenu, StyledMenuItem } from './StyledMenu';
 import { CommentData } from '../../types/review';
-import { User } from '../../types/user';
 import Delete from '../../assets/icons/delete-review.svg';
 import { typography } from '../../constants/themeValue';
 import Hamburger from '../../assets/icons/hamburger.svg';
 import Warning from './Modal/Warning';
+import { useAuth } from '../../AuthenticationContext';
 
-interface Props {
-  reviewId: string;
-  user: User | null;
-}
-
-function Comment({ reviewId, user }: Props) {
-  // const { user } = useAuth();
+function Comment({ reviewId }: { reviewId: string }) {
+  const { user } = useAuth();
   const router = useRouter();
   const [content, setContent] = useState('');
   const [openMenu, setOpenMenu] = useState<(EventTarget & HTMLDivElement) | null>(null);

@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import { Typography, Box, Stack, Avatar } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { useParams } from 'next/navigation';

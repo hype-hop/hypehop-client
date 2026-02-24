@@ -1,60 +1,47 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 
-import { useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Comment from '../../../../components/common/Comment';
 import ReviewDetail from '../../../../components/review/ReviewDetail';
 import BASE_URL from '../../../../config';
-import PageNotFound from '../../../../components/common/Error/PageNotFound';
 import AlbumDetailInformationSkeleton from '../../../../components/common/skeletons/albumShowPage/AlbumDetailInformationSkeleton';
 import AlbumReviewSummarySkeleton from '../../../../components/common/skeletons/AlbumReviewSummarySkeleton';
-import { ReviewEdit } from '../../../../types/review';
 
-function ReviewShowPage() {
-  const { id } = useParams();
-  const [data, setData] = useState<ReviewEdit | null>(null);
-  const [user, setUser] = useState(null);
-  const [notFound, setNotFound] = useState(false);
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const { id } = await params;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (id === 'undefined') {
-          setNotFound(true);
-          return;
-        }
-        const response = await fetch(`${BASE_URL}/album/api/review/${id}`);
-        if (!response.ok) {
-          setNotFound(true);
-          return;
-        }
-        const result = await response.json();
-        setData(result);
-        const response2 = await fetch(`${BASE_URL}/api/user`, {
-          method: 'GET',
-          credentials: 'include',
-        });
-        const result2 = await response2.json();
-        setUser(result2);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [id]);
-
-  if (notFound) {
-    return <PageNotFound />;
+  if (id === 'undefined') {
+    notFound();
   }
+
+  const response = await fetch(`${BASE_URL}/album/api/review/${id}`);
+
+  const data = await response.json();
+
+  console.log('this is meta', data);
+
+  return {
+    title: `${data?.pageTitle} - HypeHop`,
+    description: `${data?.pageDescription}`,
+    imgSrc: data?.review?.thumbnail,
+  };
+}
+
+async function ReviewShowPage({ params }: { params: { id: string } }) {
+  const { id } = await params;
+
+  if (id === 'undefined') {
+    notFound();
+  }
+
+  const response = await fetch(`${BASE_URL}/album/api/review/${id}`);
+
+  const data = await response.json();
 
   return data ? (
     <div>
       <ReviewDetail data={data} />
-
-      <Comment reviewId={id!.toString()} user={user} />
+      <Comment reviewId={id!.toString()} />
     </div>
   ) : (
     <Box>
