@@ -45,7 +45,7 @@ export default function ReviewEditMenu({ reviewId, onDelete }: ReviewEditMenuPro
         <Hamburger>열기</Hamburger>
       </Box>
       <StyledMenu width={100} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
-        <Link sx={{ textDecoration: 'none' }} href={`/album/review/edit/${reviewId}`}>
+        <Link sx={{ textDecoration: 'none' }} href={`/album/review/edit/${reviewId}`} color="inherit">
           <StyledMenuItem sx={{ height: '30px', padding: '9.75px' }}>
             <Edit />
             <Typography fontSize={typography.size.md} ml={2}>

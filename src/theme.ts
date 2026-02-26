@@ -20,6 +20,16 @@ declare module '@mui/material' {
 }
 
 declare module '@mui/material/styles' {
+  interface Palette {
+    white: Palette['primary'];
+    star: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    white?: PaletteOptions['primary'];
+    star?: PaletteOptions['primary'];
+  }
+
   interface TypographyVariants {
     timeSincePost: CSSProperties;
   }
@@ -32,6 +42,12 @@ declare module '@mui/material/styles' {
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     timeSincePost: true;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    white: true;
   }
 }
 
@@ -73,10 +89,13 @@ const theme: Theme = createTheme({
       primary: 'rgb(255,255,255)',
     },
     primary: {
-      main: 'rgb(255,255,255)',
+      main: 'rgb(150,70,253)',
+      dark: 'rgb(121, 53, 208)',
+      contrastText: 'rgb(255, 255, 255)',
     },
     white: {
       main: 'rgb(255,255,255)',
+      contrastText: 'rgb(0, 0, 0)',
     },
     grey: {
       main: 'rgb(168,168,168)',
@@ -107,9 +126,6 @@ const theme: Theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 20,
-          '&:hover': {
-            backgroundColor: 'rgb(121, 53, 208)',
-          },
           fontSize: typography.size.lg,
           height: '36px',
         },

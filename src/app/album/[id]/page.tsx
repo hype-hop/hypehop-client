@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   const album = await (await fetch(`${BASE_URL}/album/api/${id}`)).json();
 
   return {
-    title: album?.pageTitle,
+    title: `${album?.pageTitle} - HypeHop`,
     description: album?.pageDescription,
     imgSrc: album?.albumData.images[1].url,
   };

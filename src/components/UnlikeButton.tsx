@@ -63,6 +63,7 @@ function UnlikeButton({ parentRef }: { parentRef: RefObject<HTMLDivElement | nul
         translate: `${position.x}px ${position.y}px`,
         transition: 'translate 1s',
         display: { xs: 'none', md: 'block' },
+        color: 'white.main',
       }}
     >
       싫어요 ㅜㅜ
