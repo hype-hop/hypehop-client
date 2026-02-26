@@ -4,7 +4,6 @@ function HeaderSkeleton() {
   return (
     <Box sx={{ display: 'flex', gap: 2 }}>
       <Skeleton variant="circular" width={32} height={32} />
-      <Skeleton variant="circular" width={32} height={32} />
     </Box>
   );
 }

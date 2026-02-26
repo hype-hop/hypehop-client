@@ -43,10 +43,10 @@ export default function Header() {
             <LoginButton />
           ) : (
             <Box>
-              <Button href="/topster">
-                <Typography sx={{ textDecoration: 'none' }}>탑스터</Typography>
+              <Button href="/topster" color="white" variant="text" sx={{ mr: 2, height: '30px' }}>
+                탑스터 만들기
               </Button>
-              <Notifications />
+              {/* <Notifications /> */}
               <ProfileMenu />
             </Box>
           ))}

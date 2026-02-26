@@ -68,12 +68,13 @@ function LogInForm() {
                 height: '50px',
                 padding: '0 16px',
               }}
+              color="inherit"
             >
               <Box sx={{ width: '16px', display: 'flex', justifyContent: 'center', mr: '4px' }}>
                 <GoogleIcon />
               </Box>
 
-              <Typography fontSize="14px" fontWeight="500">
+              <Typography fontSize="14px" fontWeight="500" color="white">
                 구글 계정으로 로그인하기
               </Typography>
             </Button>
@@ -143,9 +144,10 @@ function LogInForm() {
           className="button-submit"
           sx={{
             borderRadius: '16px',
-            background: 'rgb(152, 72, 255)',
             mt: '16px',
           }}
+          color="primary"
+          variant="contained"
         >
           <Typography>{pending ? '로그인 중...' : '로그인'}</Typography>
         </Button>

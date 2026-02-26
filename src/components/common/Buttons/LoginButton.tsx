@@ -7,21 +7,14 @@ function LoginButton() {
     <Link href="/login" style={{ textDecoration: 'none' }}>
       <Button
         sx={{
-          background: 'rgb(152, 72, 255)',
           borderRadius: '4px',
           width: '69px',
           height: '30px',
         }}
+        color="primary"
+        variant="contained"
       >
-        <Typography
-          fontSize={typography.size.lg}
-          fontWeight="medium"
-          sx={{
-            color: 'white.main',
-          }}
-        >
-          로그인
-        </Typography>
+        로그인
       </Button>
     </Link>
   );
