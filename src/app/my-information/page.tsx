@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Avatar, Box, Tab, Tabs, Typography, Button } from '@mui/material';
+import { Avatar, Box, Tab, Tabs, Typography, Button, IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { useAuth } from '../../AuthenticationContext';
 import { MyInformation } from '../../types/user';
@@ -49,16 +50,16 @@ function MyPage() {
           sx={{ width: '100px', height: '100px' }}
           slotProps={{ img: { referrerPolicy: 'no-referrer' } }}
         />
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '8px' }}>
           <Typography variant="h1"> {user?.name} </Typography>
-          <Button
+          <IconButton
             onClick={() => {
               setOpen(true);
             }}
-            sx={{ padding: '0px' }}
+            sx={{ padding: '0px', color: '#7E7E7E', width: 24, height: 24 }}
           >
-            <Typography textAlign="left">닉네임 변경</Typography>
-          </Button>
+            <EditIcon />
+          </IconButton>
         </Box>
       </Box>
       <Tabs value={currentTab} onChange={handleChangeCurrentTab} aria-label="my-information-tabs">
