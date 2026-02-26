@@ -19,7 +19,7 @@ import MyReviews from '../../components/myInformation/MyReviews';
 function MyPage() {
   const [data, setData] = useState<MyInformation | null>(null);
 
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const { currentTab, handleChangeCurrentTab, tabProps } = useTabs('my-information-tab');
   const [open, setOpen] = useState(false);
 
@@ -43,7 +43,7 @@ function MyPage() {
 
   return data ? (
     <>
-      {open && user && <ChangeName open={open} setOpen={setOpen} userId={user._id} />}
+      {open && user && <ChangeName open={open} setOpen={setOpen} userId={user._id} onSuccess={refreshUser} />}
       <Box sx={{ display: 'flex', columnGap: '24px', mb: '40px' }}>
         <Avatar
           src={user?.image}
