@@ -59,13 +59,6 @@ function MainPage() {
           </Box>
           <PopularReview />
         </Box>
-        <Box>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2.5 }}>
-            <Typography variant="h1">매거진</Typography>
-            <MoreButton href="/magazines" />
-          </Box>
-          <MagazinePreviewList magazinePreviews={dummyMagazines} />
-        </Box>
       </Box>
       <Footer />
     </>

@@ -143,7 +143,7 @@ function Comment({ reviewId }: { reviewId: string }) {
                   marginRight: '16px',
                 }}
               />
-              <Button variant="outlined" onClick={addComment} type="submit">
+              <Button color="white" variant="outlined" onClick={addComment} type="submit">
                 작성
               </Button>
             </Box>

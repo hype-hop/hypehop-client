@@ -46,6 +46,7 @@ function ReviewLanding() {
               '0%': { opacity: 0 },
               '100%': { opacity: 1 },
             },
+            flexDirection: { xs: 'column', md: 'row' },
           }}
         >
           <Typography fontSize="50px" component="div" fontWeight="fontWeightMedium">
